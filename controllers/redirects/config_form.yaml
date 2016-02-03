@@ -1,0 +1,27 @@
+# ===================================
+#  Form Behavior Config
+# ===================================
+
+# Record name
+name: Redirect
+
+# Model Form Field configuration
+form: $/adrenth/redirect/models/redirect/fields.yaml
+
+# Model Class name
+modelClass: Adrenth\Redirect\Models\Redirect
+
+# Default redirect location
+defaultRedirect: adrenth/redirect/redirects
+
+# Create page
+create:
+    title: Create Redirect
+    redirect: adrenth/redirect/redirects/update/:id
+    redirectClose: adrenth/redirect/redirects
+
+# Update page
+update:
+    title: Edit Redirect
+    redirect: adrenth/redirect/redirects
+    redirectClose: adrenth/redirect/redirects

@@ -1,0 +1,19 @@
+# ===================================
+#  List Column Definitions
+# ===================================
+
+columns:
+    from_url:
+        label: adrenth.redirect::lang.redirect.from_url
+        searchable: true
+    to_url:
+        label: adrenth.redirect::lang.redirect.to_url
+        searchable: true
+    status_code:
+        label: adrenth.redirect::lang.redirect.status_code
+    match_type:
+        label: adrenth.redirect::lang.redirect.match_type
+        type: partial
+        path: ~/plugins/adrenth/redirect/models/redirect/_match_type_column.htm
+    hits:
+        label: adrenth.redirect::lang.redirect.hits

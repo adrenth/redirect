@@ -1,0 +1,18 @@
+<?php
+
+switch ($value) {
+    case 'exact':
+        echo e(trans('adrenth.redirect::lang.redirect.exact'));
+        break;
+    case 'starts_with':
+        echo e(trans('adrenth.redirect::lang.redirect.starts_with'));
+        break;
+    case 'ends_with':
+        echo e(trans('adrenth.redirect::lang.redirect.ends_with'));
+        break;
+    case 'regex':
+        echo e(trans('adrenth.redirect::lang.redirect.regex'));
+        break;
+    default:
+        echo $value;
+}

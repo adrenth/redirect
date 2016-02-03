@@ -1,0 +1,8 @@
+<?php Block::put('breadcrumb') ?>
+<ul>
+    <li><a href="<?= Backend::url('system/settings') ?>">Settings</a></li>
+    <li><?= e(trans('adrenth.redirect::lang.navigation.menu_label')) ?></li>
+</ul>
+<?php Block::endPut() ?>
+
+<?= $this->listRender() ?>

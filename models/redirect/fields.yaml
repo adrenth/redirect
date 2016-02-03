@@ -1,0 +1,44 @@
+# ===================================
+#  Form Field Definitions
+# ===================================
+
+fields:
+    from_url:
+        label: adrenth.redirect::lang.redirect.from_url
+        type: text
+        span: left
+        comment: adrenth.redirect::lang.redirect.from_url_comment
+        required: true
+    to_url:
+        label: adrenth.redirect::lang.redirect.to_url
+        type: text
+        span: right
+        comment: adrenth.redirect::lang.redirect.to_url_comment
+        required: true
+    match_type:
+        label: adrenth.redirect::lang.redirect.match_type
+        type: dropdown
+        required: true
+        span: left
+        options:
+            exact: adrenth.redirect::lang.redirect.exact
+            starts_with: adrenth.redirect::lang.redirect.starts_with
+            ends_with: adrenth.redirect::lang.redirect.ends_with
+            regex: adrenth.redirect::lang.redirect.regex
+    status_code:
+        label: adrenth.redirect::lang.redirect.status_code
+        type: dropdown
+        required: true
+        span: right
+        options:
+            301: adrenth.redirect::lang.redirect.permanent
+            302: adrenth.redirect::lang.redirect.temporary
+    sort_order:
+        label: adrenth.redirect::lang.redirect.sort_order
+        comment: adrenth.redirect::lang.redirect.sort_order_comment
+        type: text
+        required: true
+    is_enabled:
+        label: adrenth.redirect::lang.redirect.enabled
+        comment: adrenth.redirect::lang.redirect.enabled_comment
+        type: switch
