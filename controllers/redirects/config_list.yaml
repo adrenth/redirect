@@ -9,7 +9,7 @@ list: $/adrenth/redirect/models/redirect/columns.yaml
 modelClass: Adrenth\Redirect\Models\Redirect
 
 # List Title
-title: Manage Redirects
+title: adrenth.redirect::lang.redirect.manage_redirects
 
 # Link URL for each record
 recordUrl: adrenth/redirect/redirects/update/:id

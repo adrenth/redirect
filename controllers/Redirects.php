@@ -18,7 +18,8 @@ class Redirects extends Controller
      */
     public $implement = [
         'Backend.Behaviors.FormController',
-        'Backend.Behaviors.ListController'
+        'Backend.Behaviors.ListController',
+        'Backend.Behaviors.ReorderController'
     ];
 
     /** @type string */
@@ -26,6 +27,9 @@ class Redirects extends Controller
 
     /** @type string */
     public $listConfig = 'config_list.yaml';
+
+    /** @type string */
+    public $reorderConfig = 'config_reorder.yaml';
 
     /**
      * {@inheritdoc}

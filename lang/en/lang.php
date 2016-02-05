@@ -33,5 +33,7 @@ return [
         'enabled' => 'Enabled',
         'enabled_comment' => 'Flick this switch to enable this redirect',
         'hits' => 'Hits',
+        'reorder_redirects' => 'Reorder',
+        'new_redirect' => 'New Redirect'
     ],
 ];

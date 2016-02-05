@@ -3,6 +3,7 @@
 namespace Adrenth\Redirect\Models;
 
 use Model;
+use October\Rain\Database\Traits\Sortable;
 use October\Rain\Database\Traits\Validation;
 
 /**
@@ -11,6 +12,7 @@ use October\Rain\Database\Traits\Validation;
 class Redirect extends Model
 {
     use Validation;
+    use Sortable;
 
     /**
      * {@inheritdoc}
