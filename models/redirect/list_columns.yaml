@@ -17,3 +17,9 @@ columns:
         path: ~/plugins/adrenth/redirect/models/redirect/_match_type_column.htm
     hits:
         label: adrenth.redirect::lang.redirect.hits
+    is_enabled:
+        label: adrenth.redirect::lang.redirect.enabled
+        type: switch
+    sort_order:
+        label: adrenth.redirect::lang.redirect.sort_order
+        type: text

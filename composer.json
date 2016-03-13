@@ -1,0 +1,14 @@
+{
+    "name": "adrenth/redirect",
+    "description": "A redirect plugin for OctoberCMS",
+    "type": "october-plugin",
+    "authors": [
+        {
+            "name": "Alwin Drenth",
+            "email": "adrenth@gmail.com"
+        }
+    ],
+    "require": {
+        "league/csv": "^8.0"
+    }
+}

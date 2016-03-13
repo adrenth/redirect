@@ -38,6 +38,7 @@ fields:
         comment: adrenth.redirect::lang.redirect.sort_order_comment
         type: text
         required: true
+        span: left
     is_enabled:
         label: adrenth.redirect::lang.redirect.enabled
         comment: adrenth.redirect::lang.redirect.enabled_comment

@@ -15,8 +15,7 @@ class CreateRedirectsTable extends Migration
 {
     public function up()
     {
-        Schema::create('adrenth_redirect_redirects', function (Blueprint $table)
-        {
+        Schema::create('adrenth_redirect_redirects', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->enum('match_type', ['exact', 'starts_with', 'ends_with', 'regex']);

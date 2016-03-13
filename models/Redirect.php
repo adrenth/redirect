@@ -14,6 +14,11 @@ class Redirect extends Model
     use Validation;
     use Sortable;
 
+    const TYPE_EXACT = 'exact';
+    const TYPE_STARTS_WITH = 'starts_with';
+    const TYPE_ENDS_WITH = 'ends_with';
+    const TYPE_REGEX = 'regex';
+
     /**
      * {@inheritdoc}
      */
@@ -35,8 +40,8 @@ class Redirect extends Model
      * @type array
      */
     public $rules = [
-        'to_url' => 'required',
-        'from_url' => 'required',
+        'from_url' => 'required|regex:/^\/[a-z0-9\/_\-]*$/i',
+        'to_url' => 'required|regex:/^\/[a-z0-9\/_\-]*$/i',
         'match_type' => 'required|in:exact,starts_with,ends_with,regex',
         'status_code' => 'required|in:301,302',
         'sort_order' => 'required|numeric'

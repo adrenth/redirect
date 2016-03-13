@@ -2,7 +2,10 @@
 
 namespace Adrenth\Redirect;
 
+use App;
+use Adrenth\Redirect\Classes\RedirectManager;
 use Backend;
+use Request;
 use System\Classes\PluginBase;
 
 /**
@@ -30,7 +33,19 @@ class Plugin extends PluginBase
      */
     public function boot()
     {
+        if (App::runningInBackend() || App::runningUnitTests()) {
+            return;
+        }
 
+        // Check for running in console or backend before route matching
+        $path = storage_path('app/redirects.csv');
+
+        $manager = new RedirectManager($path);
+        $rule = $manager->match(Request::getRequestUri());
+
+        if ($rule) {
+            $manager->redirectWithRule($rule);
+        }
     }
 
     /**

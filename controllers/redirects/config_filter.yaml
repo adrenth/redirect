@@ -1,0 +1,13 @@
+scopes:
+
+    is_enabled:
+        label: adrenth.redirect::lang.redirect.hide_disabled
+        type: checkbox
+        conditions: is_enabled <> '0'
+    status_code:
+        label: adrenth.redirect::lang.redirect.status_code
+        type: group
+        options:
+            301: 301
+            302: 302
+        conditions: status_code in (:filtered)

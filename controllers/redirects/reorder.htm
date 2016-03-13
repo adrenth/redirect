@@ -1,9 +1,9 @@
 <?php Block::put('breadcrumb') ?>
-<ul>
-    <li><a href="<?= Backend::url('system/settings') ?>">Settings</a></li>
-    <li><a href="<?= Backend::url('adrenth/redirect/redirects') ?>"><?= e(trans('adrenth.redirect::lang.navigation.menu_label')) ?></a></li>
-    <li><?= e(trans('adrenth.redirect::lang.redirect.reorder_redirects')) ?></li>
-</ul>
+    <ul>
+        <li><a href="<?= Backend::url('system/settings') ?>"><?= e(trans('system::lang.settings.menu_label')) ?></a></li>
+        <li><a href="<?= Backend::url('adrenth/redirect/redirects') ?>"><?= e(trans('adrenth.redirect::lang.navigation.menu_label')) ?></a></li>
+        <li><?= e(trans('adrenth.redirect::lang.redirect.reorder_redirects')) ?></li>
+    </ul>
 <?php Block::endPut() ?>
 
 <?= $this->reorderRender() ?>

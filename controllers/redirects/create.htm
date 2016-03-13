@@ -1,6 +1,7 @@
 <?php Block::put('breadcrumb') ?>
     <ul>
-        <li><a href="<?= Backend::url('adrenth/redirect/redirects') ?>">Redirects</a></li>
+        <li><a href="<?= Backend::url('system/settings') ?>"><?= e(trans('system::lang.settings.menu_label')) ?></a></li>
+        <li><a href="<?= Backend::url('adrenth/redirect/redirects') ?>"><?= e(trans('adrenth.redirect::lang.navigation.menu_label')) ?></a></li>
         <li><?= e($this->pageTitle) ?></li>
     </ul>
 <?php Block::endPut() ?>
@@ -19,7 +20,7 @@
                     type="submit"
                     data-request="onSave"
                     data-hotkey="ctrl+s, cmd+s"
-                    data-load-indicator="Creating Redirect..."
+                    data-load-indicator="<?= e(trans('backend::lang.form.saving')) ?>"
                     class="btn btn-primary">
                     Create
                 </button>
@@ -28,12 +29,12 @@
                     data-request="onSave"
                     data-request-data="close:1"
                     data-hotkey="ctrl+enter, cmd+enter"
-                    data-load-indicator="Creating Redirect..."
+                    data-load-indicator="<?= e(trans('backend::lang.form.saving')) ?>"
                     class="btn btn-default">
                     Create and Close
                 </button>
                 <span class="btn-text">
-                    or <a href="<?= Backend::url('adrenth/redirect/redirects') ?>">Cancel</a>
+                    or <a href="<?= Backend::url('adrenth/redirect/redirects') ?>"><?= e(trans('backend::lang.form.cancel')) ?></a>
                 </span>
             </div>
         </div>
@@ -43,6 +44,6 @@
 <?php else: ?>
 
     <p class="flash-message static error"><?= e($this->fatalError) ?></p>
-    <p><a href="<?= Backend::url('adrenth/redirect/redirects') ?>" class="btn btn-default">Return to redirects list</a></p>
+    <p><a href="<?= Backend::url('adrenth/redirect/redirects') ?>" class="btn btn-default"><?= e(trans('adrenth.redirect::lang.redirect.menu_label')) ?></a></p>
 
 <?php endif ?>

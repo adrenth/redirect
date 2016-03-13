@@ -3,7 +3,7 @@
 # ===================================
 
 # Model List Column configuration
-list: $/adrenth/redirect/models/redirect/columns.yaml
+list: $/adrenth/redirect/models/redirect/list_columns.yaml
 
 # Model Class name
 modelClass: Adrenth\Redirect\Models\Redirect
@@ -27,12 +27,12 @@ showSetup: true
 showSorting: true
 
 # Default sorting column
-# defaultSort:
-#     column: created_at
-#     direction: desc
+defaultSort:
+    column: sort_order
+    direction: asc
 
 # Display checkboxes next to each record
-# showCheckboxes: true
+showCheckboxes: true
 
 # Toolbar widget configuration
 toolbar:
@@ -42,3 +42,5 @@ toolbar:
     # Search widget configuration
     search:
         prompt: backend::lang.list.search_prompt
+
+filter: config_filter.yaml
