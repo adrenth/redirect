@@ -77,8 +77,6 @@ class RedirectManager
         switch ($rule->getMatchType()) {
             case Redirect::TYPE_EXACT:
                 return $url === $rule->getFromUrl();
-            case Redirect::TYPE_STARTS_WITH:
-            case Redirect::TYPE_ENDS_WITH:
             case Redirect::TYPE_REGEX:
                 // TODO implement
                 return false;

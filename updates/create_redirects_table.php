@@ -18,7 +18,7 @@ class CreateRedirectsTable extends Migration
         Schema::create('adrenth_redirect_redirects', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
-            $table->enum('match_type', ['exact', 'starts_with', 'ends_with', 'regex']);
+            $table->enum('match_type', ['exact', 'regex']);
             $table->string('from_url');
             $table->string('to_url');
             $table->char('status_code', 3);

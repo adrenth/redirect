@@ -15,8 +15,6 @@ class Redirect extends Model
     use Sortable;
 
     const TYPE_EXACT = 'exact';
-    const TYPE_STARTS_WITH = 'starts_with';
-    const TYPE_ENDS_WITH = 'ends_with';
     const TYPE_REGEX = 'regex';
 
     /**
