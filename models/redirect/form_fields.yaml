@@ -3,6 +3,22 @@
 # ===================================
 
 fields:
+    match_type:
+        label: adrenth.redirect::lang.redirect.match_type
+        type: dropdown
+        required: true
+        span: left
+        options:
+            exact: adrenth.redirect::lang.redirect.exact
+            placeholders: adrenth.redirect::lang.redirect.placeholders
+    status_code:
+        label: adrenth.redirect::lang.redirect.status_code
+        type: dropdown
+        required: true
+        span: right
+        options:
+            301: adrenth.redirect::lang.redirect.permanent
+            302: adrenth.redirect::lang.redirect.temporary
     from_url:
         label: adrenth.redirect::lang.redirect.from_url
         type: text
@@ -15,30 +31,36 @@ fields:
         span: right
         comment: adrenth.redirect::lang.redirect.to_url_comment
         required: true
-    match_type:
-        label: adrenth.redirect::lang.redirect.match_type
-        type: dropdown
-        required: true
-        span: left
-        options:
-            exact: adrenth.redirect::lang.redirect.exact
-            starts_with: adrenth.redirect::lang.redirect.starts_with
-            ends_with: adrenth.redirect::lang.redirect.ends_with
-            regex: adrenth.redirect::lang.redirect.regex
-    status_code:
-        label: adrenth.redirect::lang.redirect.status_code
-        type: dropdown
-        required: true
-        span: right
-        options:
-            301: adrenth.redirect::lang.redirect.permanent
-            302: adrenth.redirect::lang.redirect.temporary
-    sort_order:
-        label: adrenth.redirect::lang.redirect.sort_order
-        comment: adrenth.redirect::lang.redirect.sort_order_comment
-        type: text
-        required: true
-        span: left
+    requirements:
+        label: adrenth.redirect::lang.redirect.requirements
+        type: repeater
+        span: full
+        commentAbove: adrenth.redirect::lang.redirect.requirements_comment
+        trigger:
+            action: show
+            field: match_type
+            condition: value[placeholders]
+        form:
+            fields:
+                placeholder:
+                    label: adrenth.redirect::lang.redirect.placeholder
+                    comment: adrenth.redirect::lang.redirect.placeholder_comment
+                    type: text
+                    span: left
+                    required: true
+                requirement:
+                    label: adrenth.redirect::lang.redirect.requirement
+                    comment: adrenth.redirect::lang.redirect.requirement_comment
+                    type: text
+                    span: right
+                    required: true
+
+#    sort_order:
+#        label: adrenth.redirect::lang.redirect.sort_order
+#        comment: adrenth.redirect::lang.redirect.sort_order_comment
+#        type: text
+#        required: false
+#        span: left
     is_enabled:
         label: adrenth.redirect::lang.redirect.enabled
         comment: adrenth.redirect::lang.redirect.enabled_comment

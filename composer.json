@@ -9,6 +9,7 @@
         }
     ],
     "require": {
-        "league/csv": "^8.0"
+        "league/csv": "^8.0",
+        "symfony/routing": "^3.0"
     }
 }

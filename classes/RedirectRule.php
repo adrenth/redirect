@@ -24,6 +24,9 @@ class RedirectRule
     /** @type int */
     private $statusCode;
 
+    /** @type array */
+    private $requirements;
+
     /**
      * @param array $attributes
      */
@@ -35,6 +38,7 @@ class RedirectRule
         $this->fromUrl = $attributes[2];
         $this->toUrl = $attributes[3];
         $this->statusCode = $attributes[4];
+        $this->requirements = json_decode($attributes[5], true); // must be an array
     }
 
     /**
@@ -75,5 +79,13 @@ class RedirectRule
     public function getStatusCode()
     {
         return $this->statusCode;
+    }
+
+    /**
+     * @return array
+     */
+    public function getRequirements()
+    {
+        return $this->requirements;
     }
 }

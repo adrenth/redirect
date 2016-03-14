@@ -2,16 +2,15 @@
 
 namespace Adrenth\Redirect\Controllers;
 
-use DB;
 use Adrenth\Redirect\Models\Redirect;
-use BackendMenu;
 use Backend\Classes\Controller;
-use Exception;
+use BackendMenu;
+use DB;
+use Flash;
 use Illuminate\Database\Eloquent\Collection;
 use Lang;
 use League\Csv\Writer;
 use System\Classes\SettingsManager;
-use Flash;
 
 /**
  * Class Redirects
@@ -84,8 +83,7 @@ class Redirects extends Controller
             $redirect->flushCache();
 
             Flash::success('Successfully disabled the selected redirects.');
-        }
-        else {
+        }  else {
             Flash::error('There are no selected redirects to disable.');
         }
 
@@ -104,8 +102,7 @@ class Redirects extends Controller
             $redirect->flushCache();
 
             Flash::success('Successfully enabled the selected redirects.');
-        }
-        else {
+        } else {
             Flash::error('There are no selected redirects to enable.');
         }
 
@@ -118,14 +115,12 @@ class Redirects extends Controller
         $redirects = Redirect::query()
             ->where('is_enabled', '=', 1)
             ->orderBy('sort_order')
-            ->get(['id', 'match_type', 'from_url', 'to_url', 'status_code']);
+            ->get(['id', 'match_type', 'from_url', 'to_url', 'status_code', 'requirements']);
 
         $path = storage_path('app/redirects.csv');
 
         $writer = Writer::createFromPath($path, 'w+');
         $writer->insertAll($redirects->toArray());
-
-        // export to csv
 
         Flash::success(Lang::trans('adrenth.redirect::lang.redirect.publish_success', [
             'number' => $redirects->count()

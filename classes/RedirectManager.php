@@ -4,6 +4,12 @@ namespace Adrenth\Redirect\Classes;
 
 use Adrenth\Redirect\Models\Redirect;
 use League\Csv\Reader;
+use Symfony\Component\Routing\Exception\MethodNotAllowedException;
+use Symfony\Component\Routing\Exception\ResourceNotFoundException;
+use Symfony\Component\Routing\Matcher\UrlMatcher;
+use Symfony\Component\Routing\RequestContext;
+use Symfony\Component\Routing\Route;
+use Symfony\Component\Routing\RouteCollection;
 
 /**
  * Class RedirectManager
@@ -37,8 +43,8 @@ class RedirectManager
         $this->loadRedirectRules();
 
         foreach ($this->redirectRules as $rule) {
-            if ($this->matchesRule($rule, $url)) {
-                return $rule;
+            if ($matchedRule = $this->matchesRule($rule, $url)) {
+                return $matchedRule;
             }
         }
 
@@ -76,11 +82,45 @@ class RedirectManager
     {
         switch ($rule->getMatchType()) {
             case Redirect::TYPE_EXACT:
-                return $url === $rule->getFromUrl();
-            case Redirect::TYPE_REGEX:
-                // TODO implement
-                return false;
+                return $url === $rule->getFromUrl() ? $rule : false;
+            case Redirect::TYPE_PLACEHOLDERS:
+                $route = new Route($rule->getFromUrl());
+
+                foreach ($rule->getRequirements() as $requirement) {
+                    $route->setRequirement($requirement['placeholder'], $requirement['requirement']);
+                }
+
+                // TODO add requirements
+
+                $routeCollection = new RouteCollection();
+                $routeCollection->add($rule->getId(), $route);
+
+                try {
+                    $matcher = new UrlMatcher($routeCollection, new RequestContext('/'));
+                    $match = $matcher->match($url);
+
+                    $items = array_except($match, '_route');
+
+                    foreach ($items as $key => $value) {
+                        $items['{' . $key . '}'] = $value;
+                        unset($items[$key]);
+                    }
+
+                    $toUrl = str_replace(array_keys($items), array_values($items), $rule->getToUrl());
+                } catch (\Exception $e) {
+                    return false;
+                }
+
+                return new RedirectRule([
+                    $rule->getId(),
+                    $rule->getMatchType(),
+                    $rule->getFromUrl(),
+                    $toUrl,
+                    $rule->getStatusCode()
+                ]);
         }
+
+        return false;
     }
 
     /**

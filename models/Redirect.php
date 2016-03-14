@@ -15,7 +15,7 @@ class Redirect extends Model
     use Sortable;
 
     const TYPE_EXACT = 'exact';
-    const TYPE_REGEX = 'regex';
+    const TYPE_PLACEHOLDERS = 'placeholders';
 
     /**
      * {@inheritdoc}
@@ -38,11 +38,15 @@ class Redirect extends Model
      * @type array
      */
     public $rules = [
-        'from_url' => 'required|regex:/^\/[a-z0-9\/_\-]*$/i',
-        'to_url' => 'required|regex:/^\/[a-z0-9\/_\-]*$/i',
-        'match_type' => 'required|in:exact,starts_with,ends_with,regex',
+        'from_url' => 'required', //|regex:/^\/[a-z0-9\/_\-]*$/i',
+        'to_url' => 'required', //|regex:/^\/[a-z0-9\/_\-]*$/i',
+        'match_type' => 'required|in:exact,placeholders',
         'status_code' => 'required|in:301,302',
-        'sort_order' => 'required|numeric'
+        'sort_order' => 'numeric',
+    ];
+
+    public $jsonable = [
+        'requirements'
     ];
 
     /**
@@ -56,5 +60,6 @@ class Redirect extends Model
         'match_type' => 'adrenth.redirect::lang.redirect.match_type',
         'status_code' => 'adrenth.redirect::lang.redirect.status_code',
         'sort_order' => 'adrenth.redirect::lang.redirect.sort_order',
+        'requirements' => 'adrenth.redirect::lang.redirect.requirements',
     ];
 }
