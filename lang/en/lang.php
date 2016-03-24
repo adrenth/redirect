@@ -16,7 +16,7 @@ return [
         'menu_description' => 'Manage redirects',
     ],
     'redirect' => [
-        'from_url' => 'From URL',
+        'from_url' => 'Source URL',
         'from_url_comment' => 'Enter an URL to match. '
             . 'When match type is set to \'Placeholders\' you can use placeholders such as {category} or {id}.',
         'to_url' => 'Target URL',
