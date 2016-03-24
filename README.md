@@ -23,7 +23,6 @@ Example:
 
 ````
 Input URL:
-
 /blog.php?category=cat&id=145
 
 Source URL: 
@@ -33,7 +32,6 @@ Target URL:
 /blog/{category}/{id}
 
 Result URL:
-
 /blog/cat/145
 ````
 
