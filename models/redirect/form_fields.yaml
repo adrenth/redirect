@@ -25,17 +25,34 @@ fields:
         span: left
         comment: adrenth.redirect::lang.redirect.from_url_comment
         required: true
+
     to_url:
         label: adrenth.redirect::lang.redirect.to_url
         type: text
         span: right
         comment: adrenth.redirect::lang.redirect.to_url_comment
         required: true
-    requirements:
+
+    is_enabled:
+        label: adrenth.redirect::lang.redirect.enabled
+        comment: adrenth.redirect::lang.redirect.enabled_comment
+        span: right
+        type: switch
+
+    section:
+        type: section
         label: adrenth.redirect::lang.redirect.requirements
+        commentAbove: adrenth.redirect::lang.redirect.requirements_comment
+        trigger:
+            action: show
+            field: match_type
+            condition: value[placeholders]
+
+    requirements:
         type: repeater
         span: full
-        commentAbove: adrenth.redirect::lang.redirect.requirements_comment
+        prompt: adrenth.redirect::lang.redirect.requirements_prompt
+        commentAbove:
         trigger:
             action: show
             field: match_type
@@ -48,6 +65,7 @@ fields:
                     type: text
                     span: left
                     required: true
+
                 requirement:
                     label: adrenth.redirect::lang.redirect.requirement
                     comment: adrenth.redirect::lang.redirect.requirement_comment
@@ -55,13 +73,8 @@ fields:
                     span: right
                     required: true
 
-#    sort_order:
-#        label: adrenth.redirect::lang.redirect.sort_order
-#        comment: adrenth.redirect::lang.redirect.sort_order_comment
-#        type: text
-#        required: false
-#        span: left
-    is_enabled:
-        label: adrenth.redirect::lang.redirect.enabled
-        comment: adrenth.redirect::lang.redirect.enabled_comment
-        type: switch
+                replacement:
+                    label: adrenth.redirect::lang.redirect.replacement
+                    comment: adrenth.redirect::lang.redirect.replacement_comment
+                    span: left
+                    required: false

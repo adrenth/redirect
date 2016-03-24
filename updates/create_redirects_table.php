@@ -13,9 +13,11 @@ use October\Rain\Database\Updates\Migration;
  */
 class CreateRedirectsTable extends Migration
 {
+    const TABLE = 'adrenth_redirect_redirects';
+
     public function up()
     {
-        Schema::create('adrenth_redirect_redirects', function (Blueprint $table) {
+        Schema::create(self::TABLE, function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->enum('match_type', ['exact', 'placeholders']);
@@ -26,12 +28,13 @@ class CreateRedirectsTable extends Migration
             $table->integer('hits')->default(0)->unsigned();
             $table->integer('sort_order')->default(0)->unsigned()->index();
             $table->boolean('is_enabled')->default(false)->index();
+            $table->boolean('is_published')->default(false);
             $table->timestamps();
         });
     }
 
     public function down()
     {
-        Schema::dropIfExists('adrenth_redirect_redirects');
+        Schema::dropIfExists(self::TABLE);
     }
 }

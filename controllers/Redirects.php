@@ -71,44 +71,6 @@ class Redirects extends Controller
         return $this->listRefresh();
     }
 
-    /**
-     * Disable checked users.
-     */
-    public function index_onDisable()
-    {
-        if (($checkedIds = post('checked')) && is_array($checkedIds) && count($checkedIds)) {
-
-            $redirect = new Redirect;
-            DB::table($redirect->getTable())->whereIn('id', $checkedIds)->update(['is_enabled' => 0]);
-            $redirect->flushCache();
-
-            Flash::success('Successfully disabled the selected redirects.');
-        }  else {
-            Flash::error('There are no selected redirects to disable.');
-        }
-
-        return $this->listRefresh();
-    }
-
-    /**
-     * Enable checked users.
-     */
-    public function index_onEnable()
-    {
-        if (($checkedIds = post('checked')) && is_array($checkedIds) && count($checkedIds)) {
-
-            $redirect = new Redirect;
-            DB::table($redirect->getTable())->whereIn('id', $checkedIds)->update(['is_enabled' => 1]);
-            $redirect->flushCache();
-
-            Flash::success('Successfully enabled the selected redirects.');
-        } else {
-            Flash::error('There are no selected redirects to enable.');
-        }
-
-        return $this->listRefresh();
-    }
-
     public function index_onPublish()
     {
         /** @type Collection $redirects */
@@ -121,6 +83,10 @@ class Redirects extends Controller
 
         $writer = Writer::createFromPath($path, 'w+');
         $writer->insertAll($redirects->toArray());
+
+        DB::table((new Redirect())->table)
+            ->where('is_enabled', '=', 1)
+            ->update(['is_published' => 1]);
 
         Flash::success(Lang::trans('adrenth.redirect::lang.redirect.publish_success', [
             'number' => $redirects->count()

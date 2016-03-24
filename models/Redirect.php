@@ -38,8 +38,8 @@ class Redirect extends Model
      * @type array
      */
     public $rules = [
-        'from_url' => 'required', //|regex:/^\/[a-z0-9\/_\-]*$/i',
-        'to_url' => 'required', //|regex:/^\/[a-z0-9\/_\-]*$/i',
+        'from_url' => 'required',
+        'to_url' => 'required',
         'match_type' => 'required|in:exact,placeholders',
         'status_code' => 'required|in:301,302',
         'sort_order' => 'numeric',

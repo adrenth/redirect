@@ -90,8 +90,6 @@ class RedirectManager
                     $route->setRequirement($requirement['placeholder'], $requirement['requirement']);
                 }
 
-                // TODO add requirements
-
                 $routeCollection = new RouteCollection();
                 $routeCollection->add($rule->getId(), $route);
 
@@ -102,11 +100,17 @@ class RedirectManager
                     $items = array_except($match, '_route');
 
                     foreach ($items as $key => $value) {
-                        $items['{' . $key . '}'] = $value;
+                        $placeholder = '{' . $key . '}';
+                        $replacement = $this->findReplacementForPlaceholder($rule, $placeholder);
+                        $items[$placeholder] = $replacement === null ? $value : $replacement;
                         unset($items[$key]);
                     }
 
-                    $toUrl = str_replace(array_keys($items), array_values($items), $rule->getToUrl());
+                    $toUrl = str_replace(
+                        array_keys($items),
+                        array_values($items),
+                        $rule->getToUrl()
+                    );
                 } catch (\Exception $e) {
                     return false;
                 }
@@ -116,11 +120,30 @@ class RedirectManager
                     $rule->getMatchType(),
                     $rule->getFromUrl(),
                     $toUrl,
-                    $rule->getStatusCode()
+                    $rule->getStatusCode(),
+                    json_encode($rule->getRequirements())
                 ]);
         }
 
         return false;
+    }
+
+    /**
+     * Find replacement value for placeholder
+     *
+     * @param RedirectRule $rule
+     * @param string $placeholder
+     * @return string|null
+     */
+    private function findReplacementForPlaceholder(RedirectRule $rule, $placeholder)
+    {
+        foreach ($rule->getRequirements() as $requirement) {
+            if ($requirement['placeholder'] === $placeholder && !empty($requirement['replacement'])) {
+                return (string) $requirement['replacement'];
+            }
+        }
+
+        return null;
     }
 
     /**
@@ -136,8 +159,6 @@ class RedirectManager
 
         $rules = [];
         $reader = Reader::createFromPath($this->redirectRulesPath);
-
-        // TODO php5.5+ yield?
 
         foreach ($reader as $row) {
             $rules[] = new RedirectRule($row);
