@@ -47,6 +47,7 @@ return [
         'enabled_comment' => 'Flick this switch to enable this redirect',
         'publish' => 'Publish redirects',
         'publish_success' => ':number redirects are successfully published',
+        'publish_hint' => 'To activate your redirects make sure they are enabled and then hit \'Publish redirects\'.',
         'hits' => 'Hits',
         'reorder_redirects' => 'Reorder',
         'new_redirect' => 'New Redirect',
