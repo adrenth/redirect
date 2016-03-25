@@ -21,38 +21,36 @@ fields:
             302: adrenth.redirect::lang.redirect.temporary
     from_url:
         label: adrenth.redirect::lang.redirect.from_url
+        placeholder: adrenth.redirect::lang.redirect.from_url_placeholder
         type: text
         span: left
         comment: adrenth.redirect::lang.redirect.from_url_comment
         required: true
-
     to_url:
         label: adrenth.redirect::lang.redirect.to_url
+        placeholder: adrenth.redirect::lang.redirect.to_url_placeholder
         type: text
         span: right
         comment: adrenth.redirect::lang.redirect.to_url_comment
         required: true
-
     is_enabled:
         label: adrenth.redirect::lang.redirect.enabled
         comment: adrenth.redirect::lang.redirect.enabled_comment
         span: right
         type: switch
-
-    section:
+    section_requirements:
+        label: adrenth.redirect::lang.redirect.requirements_title
         type: section
-        label: adrenth.redirect::lang.redirect.requirements
         commentAbove: adrenth.redirect::lang.redirect.requirements_comment
         trigger:
             action: show
             field: match_type
             condition: value[placeholders]
-
     requirements:
+        tab: adrenth.redirect::lang.redirect.requirements
         type: repeater
         span: full
         prompt: adrenth.redirect::lang.redirect.requirements_prompt
-        commentAbove:
         trigger:
             action: show
             field: match_type
@@ -65,16 +63,22 @@ fields:
                     type: text
                     span: left
                     required: true
-
                 requirement:
                     label: adrenth.redirect::lang.redirect.requirement
                     comment: adrenth.redirect::lang.redirect.requirement_comment
                     type: text
                     span: right
                     required: true
-
                 replacement:
                     label: adrenth.redirect::lang.redirect.replacement
                     comment: adrenth.redirect::lang.redirect.replacement_comment
                     span: left
                     required: false
+    section_test:
+        label: adrenth.redirect::lang.redirect.test_title
+        type: section
+        commentAbove: adrenth.redirect::lang.redirect.test_comment
+    test:
+        tab: Test
+        type: partial
+        path: redirect_test

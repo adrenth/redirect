@@ -25,12 +25,7 @@ class Redirect extends Model
     /**
      * {@inheritdoc}
      */
-    protected $guarded = ['*'];
-
-    /**
-     * {@inheritdoc}
-     */
-    protected $fillable = [];
+    protected $guarded = [];
 
     /**
      * Validation rules

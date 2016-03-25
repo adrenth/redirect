@@ -23,14 +23,32 @@ class RedirectManager
     private $redirectRulesPath;
 
     /** @type RedirectRule[] */
-    protected $redirectRules;
+    private $redirectRules;
+
+    protected function __construct()
+    {
+    }
 
     /**
-     * @param string $redirectRulesPath
+     * @param $redirectRulesPath
+     * @return RedirectManager
      */
-    public function __construct($redirectRulesPath)
+    public static function createWithRulesPath($redirectRulesPath)
     {
-        $this->redirectRulesPath = $redirectRulesPath;
+        $instance = new self();
+        $instance->redirectRulesPath = $redirectRulesPath;
+        return $instance;
+    }
+
+    /**
+     * @param RedirectRule $rule
+     * @return RedirectManager
+     */
+    public static function createWithRule(RedirectRule $rule)
+    {
+        $instance = new self();
+        $instance->redirectRules[] = $rule;
+        return $instance;
     }
 
     /**

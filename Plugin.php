@@ -38,13 +38,13 @@ class Plugin extends PluginBase
         }
 
         // Check for running in console or backend before route matching
-        $path = storage_path('app/redirects.csv');
+        $rulesPath = storage_path('app/redirects.csv');
 
-        if (!file_exists($path) || !is_readable($path)) {
+        if (!file_exists($rulesPath) || !is_readable($rulesPath)) {
             return;
         }
-        
-        $manager = new RedirectManager($path);
+
+        $manager = RedirectManager::createWithRulesPath($rulesPath);
         $rule = $manager->match(Request::getRequestUri());
 
         if ($rule) {
@@ -78,7 +78,7 @@ class Plugin extends PluginBase
                 'url' => Backend::url('adrenth/redirect/redirects'),
                 'order' => 500,
                 'permissions' => [
-                    'adrenth.redirect.access_redirects'
+                    'adrenth.redirect.access_redirects',
                 ],
             ],
         ];
