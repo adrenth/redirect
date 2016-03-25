@@ -2,3 +2,4 @@
     - First version of Redirect
     - create_redirects_table.php
 1.0.2: Add extra checks for published redirect file
+1.0.3: Add several UI improvements and added a redirect tester!
