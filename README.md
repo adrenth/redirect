@@ -10,7 +10,7 @@ It is important for SEO create redirects of non-existent pages on your website. 
 
 This plugins ships with two types of redirects:
 
-* **Exact**; performs an exact match on the source URL
+* **Exact**; performs an exact match on the Source path
 * **Placeholders**; matches placeholders like {id} or {category} (like the defined routes in Symfony or Laravel framework)
 
 My plan is to add more redirection types in the future.
@@ -22,16 +22,16 @@ Every placeholder can be attached to a requirement. A requirement consists of a 
 Example:
 
 ````
-Input URL:
+Input path:
 /blog.php?category=cat&id=145
 
-Source URL: 
+Source path: 
 /blog.php?category={category}&id={id}
 
-Target URL:
+Target path:
 /blog/{category}/{id}
 
-Result URL:
+Result path:
 /blog/cat/145
 ````
 
@@ -47,13 +47,13 @@ Example:
 The requirement for `{category}` is `(dog|cat|mouse)`, with replacement value `animals`.
 
 ````
-Input URL:
+Input path:
 /blog.php?category=mouse&id=1337
 
-Source URL: 
+Source path: 
 /blog.php?category={category}&id={id}
 
-Target URL:
+Target path:
 /blog/{category}/{id}
 
 Result:
