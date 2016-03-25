@@ -2,6 +2,8 @@
 
 namespace Adrenth\Redirect\Controllers;
 
+use Adrenth\Redirect\Classes\RedirectManager;
+use Adrenth\Redirect\Classes\RedirectRule;
 use Adrenth\Redirect\Models\Redirect;
 use Backend\Classes\Controller;
 use BackendMenu;
@@ -10,6 +12,7 @@ use Flash;
 use Illuminate\Database\Eloquent\Collection;
 use Lang;
 use League\Csv\Writer;
+use Request;
 use System\Classes\SettingsManager;
 
 /**
@@ -48,12 +51,15 @@ class Redirects extends Controller
 
         BackendMenu::setContext('October.System', 'system', 'settings');
         SettingsManager::setContext('Adrenth.Redirect', 'redirects');
+
+        $this->vars['match'] = null;
     }
 
     /**
      * @return mixed
+     * @throws \Exception
      */
-    public function index_onDelete()
+    public function onDelete()
     {
         if (($checkedIds = post('checked'))
             && is_array($checkedIds)
@@ -71,7 +77,11 @@ class Redirects extends Controller
         return $this->listRefresh();
     }
 
-    public function index_onPublish()
+    /**
+     * @return void
+     * @throws \InvalidArgumentException
+     */
+    public function onPublish()
     {
         /** @type Collection $redirects */
         $redirects = Redirect::query()
@@ -91,5 +101,30 @@ class Redirects extends Controller
         Flash::success(Lang::trans('adrenth.redirect::lang.redirect.publish_success', [
             'number' => $redirects->count()
         ]));
+    }
+
+    /**
+     * Test Input Path
+     *
+     * @throws \ApplicationException
+     */
+    public function onTest()
+    {
+        $inputPath = Request::get('inputPath');
+        $redirect = new Redirect(Request::get('Redirect'));
+
+        try {
+            $rule = RedirectRule::createWithModel($redirect);
+            $manager = RedirectManager::createWithRule($rule);
+            $match = $manager->match($inputPath);
+        } catch (\Exception $e) {
+            throw new \ApplicationException($e->getMessage());
+        }
+
+        return [
+            '#testResult' => $this->makePartial('redirect_test_result', [
+                'match' => $match
+            ]),
+        ];
     }
 }

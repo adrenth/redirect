@@ -25,12 +25,7 @@ class Redirect extends Model
     /**
      * {@inheritdoc}
      */
-    protected $guarded = ['*'];
-
-    /**
-     * {@inheritdoc}
-     */
-    protected $fillable = [];
+    protected $guarded = [];
 
     /**
      * Validation rules
@@ -39,7 +34,7 @@ class Redirect extends Model
      */
     public $rules = [
         'from_url' => 'required',
-        'to_url' => 'required',
+        'to_url' => 'required|different:from_url',
         'match_type' => 'required|in:exact,placeholders',
         'status_code' => 'required|in:301,302',
         'sort_order' => 'numeric',

@@ -2,6 +2,8 @@
 
 namespace Adrenth\Redirect\Classes;
 
+use Adrenth\Redirect\Models\Redirect;
+
 /**
  * Class RedirectRule
  *
@@ -29,16 +31,43 @@ class RedirectRule
 
     /**
      * @param array $attributes
+     * @throws \InvalidArgumentException
      */
     public function __construct(array $attributes)
     {
-        // TODO Add checks
-        $this->id = $attributes[0];
-        $this->matchType = $attributes[1];
-        $this->fromUrl = $attributes[2];
-        $this->toUrl = $attributes[3];
-        $this->statusCode = $attributes[4];
-        $this->requirements = json_decode($attributes[5], true); // must be an array
+        if (count($attributes) !== 6
+            || array_sum(array_keys($attributes)) !== 15
+        ) {
+            throw new \InvalidArgumentException('Invalid attributes provided');
+        }
+
+        list(
+            $this->id,
+            $this->matchType,
+            $this->fromUrl,
+            $this->toUrl,
+            $this->statusCode,
+            $this->requirements
+        ) = $attributes;
+
+        $this->requirements = json_decode($this->requirements, true);
+    }
+
+    /**
+     * @param Redirect $model
+     * @return RedirectRule
+     * @throws \InvalidArgumentException
+     */
+    public static function createWithModel(Redirect $model)
+    {
+        return new self([
+            $model->getAttribute('id'),
+            $model->getAttribute('match_type'),
+            $model->getAttribute('from_url'),
+            $model->getAttribute('to_url'),
+            $model->getAttribute('status_code'),
+            json_encode($model->getAttribute('requirements')),
+        ]);
     }
 
     /**
