@@ -3,6 +3,7 @@
 namespace Adrenth\Redirect\Classes;
 
 use Adrenth\Redirect\Models\Redirect;
+use InvalidArgumentException;
 use League\Csv\Reader;
 use Symfony\Component\Routing\Exception\MethodNotAllowedException;
 use Symfony\Component\Routing\Exception\ResourceNotFoundException;
@@ -158,10 +159,15 @@ class RedirectManager
         }
 
         $rules = [];
-        $reader = Reader::createFromPath($this->redirectRulesPath);
 
-        foreach ($reader as $row) {
-            $rules[] = new RedirectRule($row);
+        try {
+            $reader = Reader::createFromPath($this->redirectRulesPath);
+
+            foreach ($reader as $row) {
+                $rules[] = new RedirectRule($row);
+            }
+        } catch (\Exception $e) {
+            trace_log($e->getMessage(), 'error');
         }
 
         $this->redirectRules = $rules;

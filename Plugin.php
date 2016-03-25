@@ -40,6 +40,10 @@ class Plugin extends PluginBase
         // Check for running in console or backend before route matching
         $path = storage_path('app/redirects.csv');
 
+        if (!file_exists($path) || !is_readable($path)) {
+            return;
+        }
+        
         $manager = new RedirectManager($path);
         $rule = $manager->match(Request::getRequestUri());
 

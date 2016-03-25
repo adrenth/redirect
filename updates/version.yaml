@@ -1,3 +1,4 @@
 1.0.1:
-  - First version of Redirect
-  - create_redirects_table.php
+    - First version of Redirect
+    - create_redirects_table.php
+1.0.2: Add extra checks for published redirect file
