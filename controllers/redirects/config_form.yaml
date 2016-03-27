@@ -6,7 +6,7 @@
 name: Redirect
 
 # Model Form Field configuration
-form: $/adrenth/redirect/models/redirect/form_fields.yaml
+form: $/adrenth/redirect/models/redirect/fields.yaml
 
 # Model Class name
 modelClass: Adrenth\Redirect\Models\Redirect

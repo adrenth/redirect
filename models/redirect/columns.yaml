@@ -11,15 +11,20 @@ columns:
         searchable: true
     status_code:
         label: adrenth.redirect::lang.redirect.status_code
+        type: partial
+        path: ~/plugins/adrenth/redirect/models/redirect/_status_code_column.htm
     match_type:
         label: adrenth.redirect::lang.redirect.match_type
         type: partial
         path: ~/plugins/adrenth/redirect/models/redirect/_match_type_column.htm
     hits:
         label: adrenth.redirect::lang.redirect.hits
+    sort_order:
+        label: adrenth.redirect::lang.redirect.priority
     is_enabled:
         label: adrenth.redirect::lang.redirect.enabled
         type: switch
-    sort_order:
-        label: adrenth.redirect::lang.redirect.sort_order
-        type: text
+    is_published:
+        label: adrenth.redirect::lang.redirect.published
+        type: partial
+        path: ~/plugins/adrenth/redirect/models/redirect/_is_published_column.htm

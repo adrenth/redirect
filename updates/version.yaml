@@ -3,3 +3,8 @@
     - create_redirects_table.php
 1.0.2: Add extra checks for published redirect file
 1.0.3: Add several UI improvements and added a redirect tester!
+1.0.4:
+    - Add more improvements and fixed some bugs
+    - add_test_url_to_redirects_table.php
+    - change_type_url_columns_redirects_table.php
+    - seed_redirects_table.php

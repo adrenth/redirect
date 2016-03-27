@@ -28,7 +28,7 @@ class Redirects extends Controller
     public $implement = [
         'Backend.Behaviors.FormController',
         'Backend.Behaviors.ListController',
-        'Backend.Behaviors.ReorderController'
+        'Backend.Behaviors.ReorderController',
     ];
 
     /** @type string */
@@ -40,6 +40,9 @@ class Redirects extends Controller
     /** @type string */
     public $reorderConfig = 'config_reorder.yaml';
 
+    /** @type string */
+    private $redirectsFile;
+
     /**
      * {@inheritdoc}
      */
@@ -47,41 +50,77 @@ class Redirects extends Controller
     {
         parent::__construct();
 
-        $this->requiredPermissions = ['adrenth.redirect.access_redirects'];
-
         BackendMenu::setContext('October.System', 'system', 'settings');
         SettingsManager::setContext('Adrenth.Redirect', 'redirects');
 
+        $this->addCss('/plugins/adrenth/redirect/assets/css/backend.css');
+
+        $this->requiredPermissions = ['adrenth.redirect.access_redirects'];
+        $this->redirectsFile = storage_path('app/redirects.csv');
+
+        // Make sure that all redirects are marked un-published if redirect file is not present
+        if (!file_exists($this->redirectsFile)) {
+            Redirect::unPublishAll();
+        }
+
         $this->vars['match'] = null;
+        $this->vars['unpublishedCount'] = $this->getUnpublishedCount();
+    }
+
+    /**
+     * @return int
+     */
+    private function getUnpublishedCount()
+    {
+        return Redirect::where(['is_published' => 0, 'is_enabled' => 1])->count();
     }
 
     /**
      * @return mixed
      * @throws \Exception
      */
-    public function onDelete()
+    public function index_onDelete()
     {
         if (($checkedIds = post('checked'))
             && is_array($checkedIds)
             && count($checkedIds)
         ) {
+            $deleteCount = 0;
             foreach ($checkedIds as $redirectId) {
                 if (!$redirect = Redirect::find($redirectId)) {
                     continue;
                 }
 
                 $redirect->delete();
+                $deleteCount++;
+            }
+
+            if ($deleteCount > 0) {
+                DB::table((new Redirect())->table)
+                    ->whereNotIn('id', $checkedIds)
+                    ->where('is_enabled', '=', 1)
+                    ->update(['is_published' => 0]);
             }
         }
 
-        return $this->listRefresh();
+        return array_merge(
+            $this->listRefresh(),
+            [
+                '#publishButton' => $this->makePartial(
+                    'button_publish',
+                    [
+                        'unpublishedCount' => $this->getUnpublishedCount(),
+                    ]
+                ),
+            ]
+        );
     }
 
     /**
      * @return void
      * @throws \InvalidArgumentException
      */
-    public function onPublish()
+    public function index_onPublish()
     {
         /** @type Collection $redirects */
         $redirects = Redirect::query()
@@ -89,9 +128,7 @@ class Redirects extends Controller
             ->orderBy('sort_order')
             ->get(['id', 'match_type', 'from_url', 'to_url', 'status_code', 'requirements']);
 
-        $path = storage_path('app/redirects.csv');
-
-        $writer = Writer::createFromPath($path, 'w+');
+        $writer = Writer::createFromPath($this->redirectsFile, 'w+');
         $writer->insertAll($redirects->toArray());
 
         DB::table((new Redirect())->table)
@@ -99,8 +136,10 @@ class Redirects extends Controller
             ->update(['is_published' => 1]);
 
         Flash::success(Lang::trans('adrenth.redirect::lang.redirect.publish_success', [
-            'number' => $redirects->count()
+            'number' => $redirects->count(),
         ]));
+
+        return $this->listRefresh();
     }
 
     /**
@@ -123,7 +162,7 @@ class Redirects extends Controller
 
         return [
             '#testResult' => $this->makePartial('redirect_test_result', [
-                'match' => $match
+                'match' => $match,
             ]),
         ];
     }

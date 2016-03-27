@@ -20,7 +20,7 @@ class CreateRedirectsTable extends Migration
         Schema::create(self::TABLE, function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
-            $table->enum('match_type', ['exact', 'placeholders']);
+            $table->char('match_type', '12');
             $table->string('from_url');
             $table->string('to_url');
             $table->json('requirements')->nullable();

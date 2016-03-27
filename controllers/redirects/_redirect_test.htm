@@ -5,6 +5,8 @@
     <input type="text"
            id="inputPath"
            class="form-control"
+           name="Redirect[test_url]"
+           value="<?= e($formModel->getAttribute('test_url')) ?>"
            placeholder="<?= e(trans('adrenth.redirect::lang.redirect.input_path_placeholder')) ?>">
     <p class="help-block"><?= trans('adrenth.redirect::lang.redirect.input_path_comment') ?></p>
     <div class="form-group">
@@ -13,7 +15,7 @@
                 data-request-data="inputPath: $('#inputPath').val()"
                 data-hotkey="ctrl+t, cmd+t"
                 data-load-indicator="<?= e(trans('adrenth.redirect::lang.redirect.testing')) ?>"
-                onclick="$('#testResult').html('')"
+                onclick="$('#testResult').html('');var inputPath=$('#inputPath').focus();inputPath.val(inputPath.val())"
                 style="margin-top: 10px"
                 class="btn btn-success oc-icon-play" data-disposable="">
             <?= trans('adrenth.redirect::lang.redirect.run_test') ?>

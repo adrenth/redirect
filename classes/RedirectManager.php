@@ -106,7 +106,10 @@ class RedirectManager
                 $route = new Route($rule->getFromUrl());
 
                 foreach ($rule->getRequirements() as $requirement) {
-                    $route->setRequirement($requirement['placeholder'], $requirement['requirement']);
+                    $route->setRequirement(
+                        str_replace(['{', '}'], '', $requirement['placeholder']),
+                        $requirement['requirement']
+                    );
                 }
 
                 $routeCollection = new RouteCollection();
