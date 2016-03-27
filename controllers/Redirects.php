@@ -29,6 +29,7 @@ class Redirects extends Controller
         'Backend.Behaviors.FormController',
         'Backend.Behaviors.ListController',
         'Backend.Behaviors.ReorderController',
+        'Backend.Behaviors.ImportExportController',
     ];
 
     /** @type string */
@@ -39,6 +40,9 @@ class Redirects extends Controller
 
     /** @type string */
     public $reorderConfig = 'config_reorder.yaml';
+
+    /** @type string */
+    public $importExportConfig = 'config_import_export.yaml';
 
     /** @type string */
     private $redirectsFile;
