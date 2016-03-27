@@ -5,26 +5,34 @@
 columns:
     from_url:
         label: adrenth.redirect::lang.redirect.from_url
+        type: partial
         searchable: true
+        path: $/adrenth/redirect/models/redirect/_url_column.htm
     to_url:
         label: adrenth.redirect::lang.redirect.to_url
+        type: partial
         searchable: true
+        path: $/adrenth/redirect/models/redirect/_url_column.htm
+        invisible: true
     status_code:
         label: adrenth.redirect::lang.redirect.status_code
         type: partial
-        path: ~/plugins/adrenth/redirect/models/redirect/_status_code_column.htm
+        path: $/adrenth/redirect/models/redirect/_status_code_column.htm
+        invisible: true
     match_type:
         label: adrenth.redirect::lang.redirect.match_type
         type: partial
-        path: ~/plugins/adrenth/redirect/models/redirect/_match_type_column.htm
+        path: $/adrenth/redirect/models/redirect/_match_type_column.htm
+        invisible: true
     hits:
         label: adrenth.redirect::lang.redirect.hits
     sort_order:
         label: adrenth.redirect::lang.redirect.priority
+        invisible: true
     is_enabled:
         label: adrenth.redirect::lang.redirect.enabled
         type: switch
     is_published:
         label: adrenth.redirect::lang.redirect.published
         type: partial
-        path: ~/plugins/adrenth/redirect/models/redirect/_is_published_column.htm
+        path: $/adrenth/redirect/models/redirect/_is_published_column.htm
