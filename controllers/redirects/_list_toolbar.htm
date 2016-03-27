@@ -22,4 +22,14 @@
             data-stripe-load-indicator>
         <?= e(trans('backend::lang.list.delete_selected')) ?>
     </button>
+
+    <div class="btn-group">
+        <a href="<?= Backend::url('adrenth/redirect/redirects/export') ?>" class="btn btn-default oc-icon-download">
+            <?= e(trans('adrenth.redirect::lang.redirect.export_redirects')) ?>
+        </a>
+        <a href="<?= Backend::url('adrenth/redirect/redirects/import') ?>" class="btn btn-default oc-icon-upload">
+            <?= e(trans('adrenth.redirect::lang.redirect.import_redirects')) ?>
+        </a>
+    </div>
+
 </div>

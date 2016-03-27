@@ -1,0 +1,15 @@
+# ===================================
+#  Import/Export Behavior Config
+# ===================================
+
+import:
+    title: adrenth.redirect::lang.redirect.import_redirects
+    modelClass: Adrenth\Redirect\Models\RedirectImport
+    list: $/adrenth/redirect/models/redirectimport/columns.yaml
+    redirect: adrenth/redirect/redirects
+export:
+    title: adrenth.redirect::lang.redirect.export_redirects
+    modelClass: Adrenth\Redirect\Models\RedirectExport
+    list: $/adrenth/redirect/models/redirectexport/columns.yaml
+    redirect: adrenth/redirect/redirects
+    filename: redirects.csv
