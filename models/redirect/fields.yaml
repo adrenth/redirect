@@ -78,6 +78,9 @@ fields:
         label: adrenth.redirect::lang.redirect.test_title
         type: section
         commentAbove: adrenth.redirect::lang.redirect.test_comment
+    test_url:
+        type: text
+        hidden: true
     test:
         tab: Test
         type: partial

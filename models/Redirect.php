@@ -54,6 +54,7 @@ class Redirect extends Model
     public $attributeNames = [
         'to_url' => 'adrenth.redirect::lang.redirect.to_url',
         'from_url' => 'adrenth.redirect::lang.redirect.from_url',
+        'test_url' => 'adrenth.redirect::lang.redirect.input_path',
         'match_type' => 'adrenth.redirect::lang.redirect.match_type',
         'status_code' => 'adrenth.redirect::lang.redirect.status_code',
         'sort_order' => 'adrenth.redirect::lang.redirect.sort_order',
