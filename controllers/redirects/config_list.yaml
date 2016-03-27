@@ -3,7 +3,7 @@
 # ===================================
 
 # Model List Column configuration
-list: $/adrenth/redirect/models/redirect/list_columns.yaml
+list: $/adrenth/redirect/models/redirect/columns.yaml
 
 # Model Class name
 modelClass: Adrenth\Redirect\Models\Redirect
