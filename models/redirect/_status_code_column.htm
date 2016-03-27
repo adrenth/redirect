@@ -1,0 +1,12 @@
+<?php
+
+switch ($value) {
+    case '301':
+        echo e(trans('adrenth.redirect::lang.redirect.permanent'));
+        break;
+    case '302':
+        echo e(trans('adrenth.redirect::lang.redirect.temporary'));
+        break;
+    default:
+        echo $value;
+}
