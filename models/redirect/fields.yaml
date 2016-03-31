@@ -45,6 +45,7 @@ tabs:
             comment: adrenth.redirect::lang.redirect.enabled_comment
             span: left
             type: switch
+            default: true
         #
         # Requirements
         #

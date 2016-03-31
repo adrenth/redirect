@@ -87,52 +87,93 @@ class Redirects extends Controller
      */
     private function getUnpublishedCount()
     {
-        return Redirect::where(['is_published' => 0, 'is_enabled' => 1])->count();
+        $total = 0;
+
+        /** @type Redirect $redirect */
+        $redirect = Redirect::select([DB::raw('COUNT(id) AS redirect_count')])
+            ->where('is_published', '<>', 1)
+            ->where('is_enabled', '=', 1)
+            ->first(['redirect_count']);
+
+        $total += (int) $redirect->getAttribute('redirect_count');
+
+        $redirect = Redirect::select([DB::raw('COUNT(id) AS redirect_count')])
+            ->where('is_published', '=', 2)
+            ->where('is_enabled', '=', 0)
+            ->first(['redirect_count']);
+
+        $total += (int) $redirect->getAttribute('redirect_count');
+
+        return $total;
     }
 
     /**
-     * @return mixed
+     * @return array
      * @throws \Exception
+     * @throws \InvalidArgumentException
      */
     public function index_onDelete()
     {
-        if (($checkedIds = post('checked'))
-            && is_array($checkedIds)
-            && count($checkedIds)
-        ) {
-            $deleteCount = 0;
-            foreach ($checkedIds as $redirectId) {
-                if (!$redirect = Redirect::find($redirectId)) {
-                    continue;
-                }
+        $checkedIds = $this->getCheckedIds();
 
-                $redirect->delete();
-                $deleteCount++;
+        $deleteCount = 0;
+        foreach ($checkedIds as $redirectId) {
+            if (!$redirect = Redirect::find($redirectId)) {
+                continue;
             }
 
-            if ($deleteCount > 0) {
-                DB::table((new Redirect())->table)
-                    ->whereNotIn('id', $checkedIds)
-                    ->where('is_enabled', '=', 1)
-                    ->update(['is_published' => 0]);
-            }
+            $redirect->delete();
+            $deleteCount++;
         }
 
-        return array_merge(
-            $this->listRefresh(),
-            [
-                '#publishButton' => $this->makePartial(
-                    'button_publish',
-                    [
-                        'unpublishedCount' => $this->getUnpublishedCount(),
-                    ]
-                ),
-            ]
-        );
+        if ($deleteCount > 0) {
+            DB::table((new Redirect())->table)
+                ->whereNotIn('id', $checkedIds)
+                ->where('is_enabled', '=', 1)
+                ->update(['is_published' => 2]);
+        }
+
+        return $this->listAndPublishButtonRefresh();
     }
 
     /**
-     * @return void
+     * @return array
+     */
+    public function index_onEnable()
+    {
+        $checkedIds = $this->getCheckedIds();
+
+        foreach ($checkedIds as $redirectId) {
+            if (!$redirect = Redirect::find($redirectId)) {
+                continue;
+            }
+
+            $redirect->update(['is_enabled' => 1]);
+        }
+
+        return $this->listAndPublishButtonRefresh();
+    }
+
+    /**
+     * @return array
+     */
+    public function index_onDisable()
+    {
+        $checkedIds = $this->getCheckedIds();
+
+        foreach ($checkedIds as $redirectId) {
+            if (!$redirect = Redirect::find($redirectId)) {
+                continue;
+            }
+
+            $redirect->update(['is_enabled' => 0]);
+        }
+
+        return $this->listAndPublishButtonRefresh();
+    }
+
+    /**
+     * @return array
      * @throws \InvalidArgumentException
      */
     public function index_onPublish()
@@ -155,15 +196,19 @@ class Redirects extends Controller
         $writer = Writer::createFromPath($this->redirectsFile, 'w+');
         $writer->insertAll($redirects->toArray());
 
-        DB::table((new Redirect())->table)
-            ->where('is_enabled', '=', 1)
+        $table = (new Redirect())->table;
+
+        DB::table($table)->where('is_enabled', '=', 1)
             ->update(['is_published' => 1]);
+
+        DB::table($table)->where('is_enabled', '=', 0)
+            ->update(['is_published' => 0]);
 
         Flash::success(Lang::trans('adrenth.redirect::lang.redirect.publish_success', [
             'number' => $redirects->count(),
         ]));
 
-        return $this->listRefresh();
+        return $this->listAndPublishButtonRefresh();
     }
 
     /**
@@ -193,5 +238,42 @@ class Redirects extends Controller
                 'match' => $match,
             ]),
         ];
+    }
+
+    /**
+     * @return array
+     */
+    private function getCheckedIds()
+    {
+        if (($checkedIds = post('checked'))
+            && is_array($checkedIds)
+            && count($checkedIds)
+        ) {
+            return $checkedIds;
+        }
+
+        return [];
+    }
+
+    /**
+     * @return array
+     */
+    private function listAndPublishButtonRefresh()
+    {
+        try {
+            return array_merge(
+                $this->listRefresh(),
+                [
+                    '#publishButton' => $this->makePartial(
+                        'button_publish',
+                        [
+                            'unpublishedCount' => $this->getUnpublishedCount(),
+                        ]
+                    ),
+                ]
+            );
+        } catch (\SystemException $e) {
+            return [];
+        }
     }
 }
