@@ -92,7 +92,7 @@ class RedirectManager
             $redirect->setAttribute('hits', $redirect->getAttribute('hits') + 1);
             $redirect->save();
         } catch (\Exception $e) {
-
+            trace_log($e);
         }
 
         header('Location: ' . $rule->getToUrl(), true, $rule->getStatusCode());
@@ -101,6 +101,8 @@ class RedirectManager
     }
 
     /**
+     * Change the match date; can be used to perform tests
+     *
      * @param Carbon $matchDate
      * @return $this
      */
@@ -113,71 +115,103 @@ class RedirectManager
     /**
      * @param RedirectRule $rule
      * @param string $url
-     * @return bool
+     * @return RedirectRule|bool
      */
     private function matchesRule(RedirectRule $rule, $url)
     {
-        // Perform a period match first!
+        // 1. Check if rule matches period
         if (!$this->matchesPeriod($rule)) {
             return false;
         }
 
-        // TODO: Refactor
-        switch ($rule->getMatchType()) {
-            case Redirect::TYPE_EXACT:
-                return $url === $rule->getFromUrl() ? $rule : false;
-            case Redirect::TYPE_PLACEHOLDERS:
-                $route = new Route($rule->getFromUrl());
+        // 2. Perform exact match if applicable
+        if ($rule->isExactMatchType()) {
+            return $this->matchExact($rule, $url);
+        }
 
-                foreach ($rule->getRequirements() as $requirement) {
-                    try {
-                        $route->setRequirement(
-                            str_replace(['{', '}'], '', $requirement['placeholder']),
-                            $requirement['requirement']
-                        );
-                    } catch (\InvalidArgumentException $e) {
-                        // Catch empty requirement / placeholder
-                    }
-                }
-
-                $routeCollection = new RouteCollection();
-                $routeCollection->add($rule->getId(), $route);
-
-                try {
-                    $matcher = new UrlMatcher($routeCollection, new RequestContext('/'));
-                    $match = $matcher->match($url);
-
-                    $items = array_except($match, '_route');
-
-                    foreach ($items as $key => $value) {
-                        $placeholder = '{' . $key . '}';
-                        $replacement = $this->findReplacementForPlaceholder($rule, $placeholder);
-                        $items[$placeholder] = $replacement === null ? $value : $replacement;
-                        unset($items[$key]);
-                    }
-
-                    $toUrl = str_replace(
-                        array_keys($items),
-                        array_values($items),
-                        $rule->getToUrl()
-                    );
-                } catch (\Exception $e) {
-                    return false;
-                }
-
-                return new RedirectRule([
-                    $rule->getId(),
-                    $rule->getMatchType(),
-                    $rule->getFromUrl(),
-                    $toUrl,
-                    $rule->getStatusCode(),
-                    json_encode($rule->getRequirements()),
-                    $rule->getFromDate(),
-                    $rule->getToDate(),
-                ]);
+        // 3. Perform placeholders match if applicable
+        if ($rule->isPlaceholdersMatchType()) {
+            return $this->matchPlaceholders($rule, $url);
         }
 
         return false;
+    }
+
+    /**
+     * Perform an exact URL match
+     *
+     * @param RedirectRule $rule
+     * @param string $url
+     * @return RedirectRule|bool
+     */
+    private function matchExact(RedirectRule $rule, $url)
+    {
+        return $url === $rule->getFromUrl() ? $rule : false;
+    }
+
+    /**
+     * Perform a placeholder URL match
+     *
+     * @param RedirectRule $rule
+     * @param string $url
+     * @return RedirectRule|bool
+     */
+    private function matchPlaceholders(RedirectRule $rule, $url)
+    {
+        $route = new Route($rule->getFromUrl());
+
+        foreach ($rule->getRequirements() as $requirement) {
+            try {
+                $route->setRequirement(
+                    str_replace(['{', '}'], '', $requirement['placeholder']),
+                    $requirement['requirement']
+                );
+            } catch (\InvalidArgumentException $e) {
+                // Catch empty requirement / placeholder
+            }
+        }
+
+        $routeCollection = new RouteCollection();
+        $routeCollection->add($rule->getId(), $route);
+
+        try {
+            $matcher = new UrlMatcher($routeCollection, new RequestContext('/'));
+            $match = $matcher->match($url);
+
+            $items = array_except($match, '_route');
+
+            foreach ($items as $key => $value) {
+                $placeholder = '{' . $key . '}';
+                $replacement = $this->findReplacementForPlaceholder($rule, $placeholder);
+                $items[$placeholder] = $replacement === null ? $value : $replacement;
+                unset($items[$key]);
+            }
+
+            $toUrl = str_replace(
+                array_keys($items),
+                array_values($items),
+                $rule->getToUrl()
+            );
+        } catch (\Exception $e) {
+            trace_log($e);
+            return false;
+        }
+
+        try {
+            return new RedirectRule([
+                $rule->getId(),
+                $rule->getMatchType(),
+                $rule->getFromUrl(),
+                $toUrl,
+                $rule->getStatusCode(),
+                json_encode($rule->getRequirements()),
+                $rule->getFromDate(),
+                $rule->getToDate(),
+            ]);
+        } catch (\InvalidArgumentException $e) {
+            trace_log($e);
+            return false;
+        }
     }
 
     /**
@@ -234,7 +268,7 @@ class RedirectManager
                 $rules[] = new RedirectRule($row);
             }
         } catch (\Exception $e) {
-            trace_log($e->getMessage(), 'error');
+            trace_log($e);
         }
 
         $this->redirectRules = $rules;

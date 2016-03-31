@@ -144,4 +144,20 @@ class RedirectRule
     {
         return $this->toDate;
     }
+
+    /**
+     * @return bool
+     */
+    public function isExactMatchType()
+    {
+        return $this->matchType === Redirect::TYPE_EXACT;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isPlaceholdersMatchType()
+    {
+        return $this->matchType === Redirect::TYPE_PLACEHOLDERS;
+    }
 }
