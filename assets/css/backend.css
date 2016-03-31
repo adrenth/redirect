@@ -28,3 +28,8 @@
       display: none; }
   #layout-body .control-toolbar .toolbar-item .search {
     margin-top: 10px; }
+
+#redirectPeriods {
+  font-size: 12px; }
+  #redirectPeriods a {
+    cursor: pointer; }

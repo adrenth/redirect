@@ -3,6 +3,7 @@
 namespace Adrenth\Redirect\Classes;
 
 use Adrenth\Redirect\Models\Redirect;
+use Carbon\Carbon;
 use InvalidArgumentException;
 use League\Csv\Reader;
 use Symfony\Component\Routing\Exception\MethodNotAllowedException;
@@ -25,8 +26,15 @@ class RedirectManager
     /** @type RedirectRule[] */
     private $redirectRules;
 
+    /** @type Carbon */
+    private $matchDate;
+
+    /**
+     * Constructs a RedirectManager instance
+     */
     protected function __construct()
     {
+        $this->matchDate = Carbon::now();
     }
 
     /**
@@ -93,12 +101,28 @@ class RedirectManager
     }
 
     /**
+     * @param Carbon $matchDate
+     * @return $this
+     */
+    public function setMatchDate(Carbon $matchDate)
+    {
+        $this->matchDate = $matchDate;
+        return $this;
+    }
+
+    /**
      * @param RedirectRule $rule
      * @param string $url
      * @return bool
      */
     private function matchesRule(RedirectRule $rule, $url)
     {
+        // Perform a period match first!
+        if (!$this->matchesPeriod($rule)) {
+            return false;
+        }
+
+        // TODO: Refactor
         switch ($rule->getMatchType()) {
             case Redirect::TYPE_EXACT:
                 return $url === $rule->getFromUrl() ? $rule : false;
@@ -106,10 +130,14 @@ class RedirectManager
                 $route = new Route($rule->getFromUrl());
 
                 foreach ($rule->getRequirements() as $requirement) {
-                    $route->setRequirement(
-                        str_replace(['{', '}'], '', $requirement['placeholder']),
-                        $requirement['requirement']
-                    );
+                    try {
+                        $route->setRequirement(
+                            str_replace(['{', '}'], '', $requirement['placeholder']),
+                            $requirement['requirement']
+                        );
+                    } catch (\InvalidArgumentException $e) {
+                        // Catch empty requirement / placeholder
+                    }
                 }
 
                 $routeCollection = new RouteCollection();
@@ -143,11 +171,29 @@ class RedirectManager
                     $rule->getFromUrl(),
                     $toUrl,
                     $rule->getStatusCode(),
-                    json_encode($rule->getRequirements())
+                    json_encode($rule->getRequirements()),
+                    $rule->getFromDate(),
+                    $rule->getToDate(),
                 ]);
         }
 
         return false;
+    }
+
+    /**
+     * Check if rule matches a period
+     *
+     * @param RedirectRule $rule
+     * @return bool
+     */
+    private function matchesPeriod(RedirectRule $rule)
+    {
+        /** @type Carbon $fromDate */
+        $fromDate = ($rule->getFromDate() instanceof Carbon) ? $rule->getFromDate() : clone $this->matchDate;
+        /** @type Carbon $toDate */
+        $toDate = ($rule->getToDate() instanceof Carbon) ? $rule->getToDate() : clone $this->matchDate;
+
+        return $this->matchDate->between($fromDate, $toDate);
     }
 
     /**

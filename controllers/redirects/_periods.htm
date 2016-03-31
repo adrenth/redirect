@@ -1,0 +1,24 @@
+<script type="text/javascript">
+    function changePeriod(count, units)
+    {
+        $('#DatePicker-formFromDate-input-from_date').val(moment().format('YYYY-MM-DD'));
+        $('#DatePicker-formToDate-input-to_date').val(moment().add(count, units).format('YYYY-MM-DD'));
+    }
+    function clearPeriod()
+    {
+        $('#DatePicker-formFromDate-input-from_date').val('');
+        $('#DatePicker-formToDate-input-to_date').val('');
+    }
+</script>
+<div id="redirectPeriods">
+    Predefined periods:
+    <a onclick="changePeriod(1, 'weeks')">1 week</a>
+    <span> | </span>
+    <a onclick="changePeriod(2, 'weeks')">2 weeks</a>
+    <span> | </span>
+    <a onclick="changePeriod(1, 'months')">1 month</a>
+    <span> | </span>
+    <a onclick="changePeriod(3, 'months')">3 months</a>
+    <span> | </span>
+    <a onclick="clearPeriod()">Clear period</a>
+</div>

@@ -9,6 +9,21 @@
            value="<?= e($formModel->getAttribute('test_url')) ?>"
            placeholder="<?= e(trans('adrenth.redirect::lang.redirect.input_path_placeholder')) ?>">
     <p class="help-block"><?= trans('adrenth.redirect::lang.redirect.input_path_comment') ?></p>
+</div>
+<div class="form-group span-right" id="testResult">
+    <?= $this->makePartial('redirect_test_result') ?>
+</div>
+<div class="form-group span-left">
+    <label class="control-label">
+        <?= trans('adrenth.redirect::lang.redirect.test_date') ?>
+    </label>
+    <div id="testDate" class="field-datepicker" data-control="datepicker" data-min-date="2000-01-01 00:00:00" data-max-date="2020-12-31 00:00:00">
+        <div class="input-with-icon right-align">
+            <i class="icon icon-calendar-o"></i>
+            <input type="text" name="test_date" value="<?= date('Y-m-d') ?>" class="form-control align-right" autocomplete="off">
+        </div>
+    </div>
+    <p class="help-block"><?= trans('adrenth.redirect::lang.redirect.test_date_comment') ?></p>
     <div class="form-group">
         <button type="submit"
                 data-request="onTest"
@@ -21,7 +36,4 @@
             <?= trans('adrenth.redirect::lang.redirect.run_test') ?>
         </button>
     </div>
-</div>
-<div class="form-group span-right" id="testResult">
-    <?= $this->makePartial('redirect_test_result') ?>
 </div>
