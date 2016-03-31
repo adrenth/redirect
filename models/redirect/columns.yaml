@@ -31,8 +31,9 @@ columns:
         invisible: true
     is_enabled:
         label: adrenth.redirect::lang.redirect.enabled
-        type: switch
+        type: partial
+        path: $/adrenth/redirect/models/redirect/_is_enabled_column.htm
     is_published:
-        label: adrenth.redirect::lang.redirect.published
+        label: adrenth.redirect::lang.redirect.status
         type: partial
         path: $/adrenth/redirect/models/redirect/_is_published_column.htm

@@ -87,7 +87,7 @@ class Redirect extends Model
 
         // Un-publish every touched record.
         foreach ($itemIds as $index => $id) {
-            $this->newQuery()->where('id', $id)->update(['is_published' => false]);
+            $this->newQuery()->where('id', $id)->update(['is_published' => 2]);
         }
     }
 
@@ -99,7 +99,7 @@ class Redirect extends Model
     public static function unPublishAll()
     {
         $instance = new self;
-        $instance->newQuery()->where('is_published', 1)->update(['is_published' => false]);
+        $instance->newQuery()->where('is_published', 1)->update(['is_published' => 2]);
     }
 
     /**
@@ -112,7 +112,7 @@ class Redirect extends Model
         $dirtyAttributes = $this->getDirty();
 
         if (!array_key_exists('hits', $dirtyAttributes) && $this->isDirty()) {
-            $this->setAttribute('is_published', false);
+            $this->setAttribute('is_published', $this->exists ? 2 : 0);
         }
     }
 

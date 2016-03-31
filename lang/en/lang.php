@@ -51,7 +51,7 @@ return [
         'publish_success' => ':number redirects are successfully published',
         'publish_hint' => 'To activate your redirects make sure they are enabled and then hit \'Publish redirects\'.',
         'publish_order_hint' => 'After re-ordering your redirects you need to be published again.',
-        'publish_confirm' => 'Are you sure you want to publish all redirects?',
+        'publish_confirm' => 'Are you sure you want to publish all changes?',
         'published' => 'Published',
         'priority' => 'Priority',
         'hits' => 'Hits',
@@ -83,5 +83,12 @@ return [
         'tab_scheduling' => 'Scheduling',
         'scheduling_comment' => 'Here you can provide a period on which this redirect will be available. '
             . 'All sorts of date combinations are possible.',
+        'status' => 'Status',
+        'status_published' => 'Published',
+        'status_unpublished' => 'Unpublished',
+        'status_changed' => 'Changed',
+        'delete' => 'Delete',
+        'enable' => 'Enable',
+        'disable' => 'Disable',
     ],
 ];
