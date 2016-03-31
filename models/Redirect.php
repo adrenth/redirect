@@ -109,7 +109,9 @@ class Redirect extends Model
      */
     public function beforeSave()
     {
-        if ($this->isDirty()) {
+        $dirtyAttributes = $this->getDirty();
+
+        if (!array_key_exists('hits', $dirtyAttributes) && $this->isDirty()) {
             $this->setAttribute('is_published', false);
         }
     }
