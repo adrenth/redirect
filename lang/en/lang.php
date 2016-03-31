@@ -50,7 +50,7 @@ return [
         'publish' => 'Publish',
         'publish_success' => ':number redirects are successfully published',
         'publish_hint' => 'To activate your redirects make sure they are enabled and then hit \'Publish redirects\'.',
-        'publish_order_hint' => 'After re-ordering your redirects you need to be published again.',
+        'publish_order_hint' => 'After re-ordering your redirects need to be published again.',
         'publish_confirm' => 'Are you sure you want to publish all changes?',
         'published' => 'Published',
         'priority' => 'Priority',
