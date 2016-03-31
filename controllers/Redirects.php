@@ -7,6 +7,7 @@ use Adrenth\Redirect\Classes\RedirectRule;
 use Adrenth\Redirect\Models\Redirect;
 use Backend\Classes\Controller;
 use BackendMenu;
+use Carbon\Carbon;
 use DB;
 use Flash;
 use Illuminate\Database\Eloquent\Collection;
@@ -57,7 +58,7 @@ class Redirects extends Controller
         BackendMenu::setContext('October.System', 'system', 'settings');
         SettingsManager::setContext('Adrenth.Redirect', 'redirects');
 
-        $this->addCss('/plugins/adrenth/redirect/assets/css/backend.css');
+        $this->loadAssets();
 
         $this->requiredPermissions = ['adrenth.redirect.access_redirects'];
         $this->redirectsFile = storage_path('app/redirects.csv');
@@ -69,6 +70,16 @@ class Redirects extends Controller
 
         $this->vars['match'] = null;
         $this->vars['unpublishedCount'] = $this->getUnpublishedCount();
+    }
+
+    /**
+     * Load assets
+     *
+     * @return void
+     */
+    private function loadAssets()
+    {
+        $this->addCss('/plugins/adrenth/redirect/assets/css/backend.css');
     }
 
     /**
@@ -130,7 +141,16 @@ class Redirects extends Controller
         $redirects = Redirect::query()
             ->where('is_enabled', '=', 1)
             ->orderBy('sort_order')
-            ->get(['id', 'match_type', 'from_url', 'to_url', 'status_code', 'requirements']);
+            ->get([
+                'id',
+                'match_type',
+                'from_url',
+                'to_url',
+                'status_code',
+                'requirements',
+                'from_date',
+                'to_date',
+            ]);
 
         $writer = Writer::createFromPath($this->redirectsFile, 'w+');
         $writer->insertAll($redirects->toArray());
@@ -159,6 +179,10 @@ class Redirects extends Controller
         try {
             $rule = RedirectRule::createWithModel($redirect);
             $manager = RedirectManager::createWithRule($rule);
+
+            $testDate = new Carbon(Request::get('test_date', date('Y-m-d')));
+            $manager->setMatchDate($testDate);
+
             $match = $manager->match($inputPath);
         } catch (\Exception $e) {
             throw new \ApplicationException($e->getMessage());

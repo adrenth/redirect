@@ -2,6 +2,7 @@
 
 namespace Adrenth\Redirect\Models;
 
+use Carbon\Carbon;
 use Model;
 use October\Rain\Database\Traits\Sortable;
 use October\Rain\Database\Traits\Validation;
@@ -43,7 +44,7 @@ class Redirect extends Model
     ];
 
     public $jsonable = [
-        'requirements'
+        'requirements',
     ];
 
     /**
@@ -57,8 +58,18 @@ class Redirect extends Model
         'test_url' => 'adrenth.redirect::lang.redirect.input_path',
         'match_type' => 'adrenth.redirect::lang.redirect.match_type',
         'status_code' => 'adrenth.redirect::lang.redirect.status_code',
+        'from_date' => 'adrenth.redirect::lang.redirect.from_date',
+        'to_date' => 'adrenth.redirect::lang.redirect.to_date',
         'sort_order' => 'adrenth.redirect::lang.redirect.sort_order',
         'requirements' => 'adrenth.redirect::lang.redirect.requirements',
+    ];
+
+    /**
+     * {@inheritdoc}
+     */
+    public $dates = [
+        'from_date',
+        'to_date',
     ];
 
     /**
@@ -98,8 +109,39 @@ class Redirect extends Model
      */
     public function beforeSave()
     {
-        if ($this->isDirty()) {
+        $dirtyAttributes = $this->getDirty();
+
+        if (!array_key_exists('hits', $dirtyAttributes) && $this->isDirty()) {
             $this->setAttribute('is_published', false);
         }
+    }
+
+    /**
+     * FromDate mutator
+     *
+     * @param mixed $value
+     * @return Carbon|null
+     */
+    public function getFromDateAttribute($value)
+    {
+        if ($value === '' || $value === null) {
+            return null;
+        }
+
+        return new Carbon($value);
+    }
+
+    /**
+     * ToDate mutator
+     * @param mixed $value
+     * @return Carbon|null
+     */
+    public function getToDateAttribute($value)
+    {
+        if ($value === '' || $value === null) {
+            return null;
+        }
+
+        return new Carbon($value);
     }
 }

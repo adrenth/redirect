@@ -1,48 +1,58 @@
 $red: #b32d00;
 
-.control-toolbar {
-    margin-top: -10px;
+#layout-body {
+    .control-toolbar {
+        margin-top: -10px;
 
-    #publishButton {
-        display: inline-block;
+        #publishButton {
+            display: inline-block;
+        }
+
+        .toolbar-item {
+            .btn {
+                position: relative;
+                margin-top: 10px;
+            }
+
+            .btn[data-badge] {
+                margin-right: 15px;
+
+                &:after {
+                    content: attr(data-badge);
+                    position: absolute;
+                    top: -10px;
+                    right: -8px;
+                    background-color: $red;
+                    padding-left: 5px;
+                    padding-right: 5px;
+                    color: #FFF;
+                    -webkit-border-radius: 4px;
+                    -moz-border-radius: 4px;
+                    border-radius: 4px;
+                    -webkit-transition: color 1s, background-color 1s;
+                    transition: color 1s, background-color 1s;
+                    z-index: 999;
+                }
+            }
+
+            .btn[data-badge="0"] {
+                margin-right: 10px;
+                &:after {
+                    display: none;
+                }
+            }
+
+            .search {
+                margin-top: 10px;
+            }
+        }
     }
+}
 
-    .toolbar-item {
-        .btn {
-            position: relative;
-            margin-top: 10px;
-        }
+#redirectPeriods {
+    font-size: 12px;
 
-        .btn[data-badge] {
-            margin-right: 15px;
-
-            &:after {
-                content: attr(data-badge);
-                position: absolute;
-                top: -10px;
-                right: -8px;
-                background-color: $red;
-                padding-left: 5px;
-                padding-right: 5px;
-                color: #FFF;
-                -webkit-border-radius: 4px;
-                -moz-border-radius: 4px;
-                border-radius: 4px;
-                -webkit-transition: color 1s, background-color 1s;
-                transition: color 1s, background-color 1s;
-                z-index: 999;
-            }
-        }
-
-        .btn[data-badge="0"] {
-            margin-right: 10px;
-            &:after {
-                display: none;
-            }
-        }
-
-        .search {
-            margin-top: 10px;
-        }
+    a {
+        cursor: pointer;
     }
 }

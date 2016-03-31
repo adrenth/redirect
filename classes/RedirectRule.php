@@ -3,6 +3,7 @@
 namespace Adrenth\Redirect\Classes;
 
 use Adrenth\Redirect\Models\Redirect;
+use Carbon\Carbon;
 
 /**
  * Class RedirectRule
@@ -29,14 +30,20 @@ class RedirectRule
     /** @type array */
     private $requirements;
 
+    /** @type Carbon */
+    private $fromDate;
+
+    /** @type Carbon */
+    private $toDate;
+
     /**
      * @param array $attributes
      * @throws \InvalidArgumentException
      */
     public function __construct(array $attributes)
     {
-        if (count($attributes) !== 6
-            || array_sum(array_keys($attributes)) !== 15
+        if (count($attributes) !== 8
+            || array_sum(array_keys($attributes)) !== 28
         ) {
             throw new \InvalidArgumentException('Invalid attributes provided');
         }
@@ -47,7 +54,9 @@ class RedirectRule
             $this->fromUrl,
             $this->toUrl,
             $this->statusCode,
-            $this->requirements
+            $this->requirements,
+            $this->fromDate,
+            $this->toDate,
         ) = $attributes;
 
         $this->requirements = json_decode($this->requirements, true);
@@ -67,6 +76,8 @@ class RedirectRule
             $model->getAttribute('to_url'),
             $model->getAttribute('status_code'),
             json_encode($model->getAttribute('requirements')),
+            $model->getAttribute('from_date'),
+            $model->getAttribute('to_date'),
         ]);
     }
 
@@ -107,7 +118,7 @@ class RedirectRule
      */
     public function getStatusCode()
     {
-        return $this->statusCode;
+        return (int) $this->statusCode;
     }
 
     /**
@@ -115,6 +126,38 @@ class RedirectRule
      */
     public function getRequirements()
     {
-        return $this->requirements;
+        return (array) $this->requirements;
+    }
+
+    /**
+     * @return Carbon|null
+     */
+    public function getFromDate()
+    {
+        return $this->fromDate;
+    }
+
+    /**
+     * @return Carbon|null
+     */
+    public function getToDate()
+    {
+        return $this->toDate;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isExactMatchType()
+    {
+        return $this->matchType === Redirect::TYPE_EXACT;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isPlaceholdersMatchType()
+    {
+        return $this->matchType === Redirect::TYPE_PLACEHOLDERS;
     }
 }

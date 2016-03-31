@@ -9,3 +9,6 @@
     - change_type_url_columns_redirects_table.php
     - seed_redirects_table.php
 1.0.5: Add support for importing and exporting redirects
+1.0.6:
+    - Some fixes and add scheduling support for redirects
+    - add_date_fields_to_redirects_table.php
