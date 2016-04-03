@@ -15,7 +15,4 @@
 1.0.8:
     - Improvements to code base
     - rename_is_published_column_redirects_table.php
-1.0.9:
-    - Add target types (CMS Pages and Static Pages)
-    - add_target_type_columsn_to_redirects_table.php
-1.0.10: Fixes issue with installing update 1.0.9
+1.0.9: Fixes issue with installing update 1.0.9
