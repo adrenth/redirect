@@ -17,6 +17,7 @@ class SeedRedirectsTable extends Seeder
      */
     public function run()
     {
+        /*
         Redirect::create([
             'match_type' => Redirect::TYPE_EXACT,
             'from_url' => '/example/source/path',
@@ -49,5 +50,6 @@ class SeedRedirectsTable extends Seeder
                 ]
             ]
         ]);
+        */
     }
 }
