@@ -7,7 +7,6 @@
     - Add more improvements and fixed some bugs
     - add_test_url_to_redirects_table.php
     - change_type_url_columns_redirects_table.php
-    - seed_redirects_table.php
 1.0.5: Add support for importing and exporting redirects
 1.0.6:
     - Some fixes and add scheduling support for redirects
@@ -16,3 +15,7 @@
 1.0.8:
     - Improvements to code base
     - rename_is_published_column_redirects_table.php
+1.0.9:
+    - Add target types (CMS Pages and Static Pages)
+    - add_target_type_columsn_to_redirects_table.php
+1.0.10: Fixes issue with installing update 1.0.9
