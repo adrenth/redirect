@@ -17,8 +17,14 @@ class Redirect extends Model
         setSortableOrder as traitSetSortableOrder;
     }
 
+    // Types
     const TYPE_EXACT = 'exact';
     const TYPE_PLACEHOLDERS = 'placeholders';
+
+    // Statuses
+    const STATUS_NOT_PUBLISHED = 0;
+    const STATUS_PUBLISHED = 1;
+    const STATUS_CHANGED = 2;
 
     /**
      * {@inheritdoc}
@@ -87,7 +93,9 @@ class Redirect extends Model
 
         // Un-publish every touched record.
         foreach ($itemIds as $index => $id) {
-            $this->newQuery()->where('id', $id)->update(['is_published' => 2]);
+            $this->newQuery()
+                ->where('id', $id)
+                ->update(['publish_status' => self::STATUS_CHANGED]);
         }
     }
 
@@ -96,10 +104,12 @@ class Redirect extends Model
      *
      * @return void
      */
-    public static function unPublishAll()
+    public static function unpublishAll()
     {
         $instance = new self;
-        $instance->newQuery()->where('is_published', 1)->update(['is_published' => 2]);
+        $instance->newQuery()
+            ->where('publish_status', self::STATUS_PUBLISHED)
+            ->update(['publish_status' => self::STATUS_CHANGED]);
     }
 
     /**
@@ -112,7 +122,7 @@ class Redirect extends Model
         $dirtyAttributes = $this->getDirty();
 
         if (!array_key_exists('hits', $dirtyAttributes) && $this->isDirty()) {
-            $this->setAttribute('is_published', $this->exists ? 2 : 0);
+            $this->setAttribute('publish_status', $this->exists ? self::STATUS_CHANGED : self::STATUS_NOT_PUBLISHED);
         }
     }
 
