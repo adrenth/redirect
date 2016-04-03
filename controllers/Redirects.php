@@ -91,7 +91,7 @@ class Redirects extends Controller
 
         /** @type Redirect $redirect */
         $redirect = Redirect::select([DB::raw('COUNT(id) AS redirect_count')])
-            ->where('publish_status', '<>', Redirect::STATUS_NOT_PUBLISHED)
+            ->where('publish_status', '<>', Redirect::STATUS_PUBLISHED)
             ->where('is_enabled', '=', 1)
             ->first(['redirect_count']);
 
