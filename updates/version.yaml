@@ -13,3 +13,6 @@
     - Some fixes and add scheduling support for redirects
     - add_date_fields_to_redirects_table.php
 1.0.7: Improve UI for managing redirects
+1.0.8:
+    - Improvements to code base
+    - rename_is_published_column_redirects_table.php

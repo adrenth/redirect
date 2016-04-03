@@ -33,7 +33,7 @@ columns:
         label: adrenth.redirect::lang.redirect.enabled
         type: partial
         path: $/adrenth/redirect/models/redirect/_is_enabled_column.htm
-    is_published:
+    publish_status:
         label: adrenth.redirect::lang.redirect.status
         type: partial
-        path: $/adrenth/redirect/models/redirect/_is_published_column.htm
+        path: $/adrenth/redirect/models/redirect/_publish_status_column.htm

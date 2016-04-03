@@ -16,6 +16,9 @@ return [
         'menu_description' => 'Manage redirects',
     ],
     'redirect' => [
+        'redirect' => 'Redirect',
+        'create_redirect' => 'Create Redirect',
+        'edit_redirect' => 'Edit Redirect',
         'from_url' => 'Source path',
         'from_url_placeholder' => '/source/path',
         'from_url_comment' => 'The source path to match.',
@@ -90,5 +93,11 @@ return [
         'delete' => 'Delete',
         'enable' => 'Enable',
         'disable' => 'Disable',
+        'predefined_periods' => 'Predefined periods',
+        '1week' => '1 week',
+        '2weeks' => '2 weeks',
+        '1month' => '1 month',
+        '2months' => '2 months',
+        'clear_period' => 'Clear Period',
     ],
 ];

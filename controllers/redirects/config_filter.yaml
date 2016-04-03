@@ -4,10 +4,10 @@ scopes:
         label: adrenth.redirect::lang.redirect.hide_disabled
         type: checkbox
         conditions: is_enabled <> '0'
-    is_published:
+    publish_status:
         label: adrenth.redirect::lang.redirect.hide_published
         type: checkbox
-        conditions: is_published <> '1'
+        conditions: publish_status <> '1'
     status_code:
         label: adrenth.redirect::lang.redirect.status_code
         type: group

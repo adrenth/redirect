@@ -7,13 +7,10 @@
 <?php Block::endPut() ?>
 
 <?php if (!$this->fatalError): ?>
-
     <?= Form::open(['class' => 'layout']) ?>
-
         <div class="layout-row">
             <?= $this->formRender() ?>
         </div>
-
         <div class="form-buttons">
             <div class="loading-indicator-container">
                 <button
@@ -46,12 +43,8 @@
                 </span>
             </div>
         </div>
-
     <?= Form::close() ?>
-
 <?php else: ?>
-
     <p class="flash-message static error"><?= e($this->fatalError) ?></p>
     <p><a href="<?= Backend::url('adrenth/redirect/redirects') ?>" class="btn btn-default"><?= e(trans('adrenth.redirect::lang.redirect.return_to_redirects')) ?></a></p>
-
 <?php endif ?>

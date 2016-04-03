@@ -3,7 +3,7 @@
 # ===================================
 
 # Record name
-name: Redirect
+name: adrenth.redirect::lang.redirect.redirect
 
 # Model Form Field configuration
 form: $/adrenth/redirect/models/redirect/fields.yaml
@@ -16,12 +16,12 @@ defaultRedirect: adrenth/redirect/redirects
 
 # Create page
 create:
-    title: Create Redirect
+    title: adrenth.redirect::lang.redirect.create_redirect
     redirect: adrenth/redirect/redirects/update/:id
     redirectClose: adrenth/redirect/redirects
 
 # Update page
 update:
-    title: Edit Redirect
+    title: adrenth.redirect::lang.redirect.edit_redirect
     redirect: adrenth/redirect/redirects
     redirectClose: adrenth/redirect/redirects

@@ -65,7 +65,7 @@ class Redirects extends Controller
 
         // Make sure that all redirects are marked un-published if redirect file is not present
         if (!file_exists($this->redirectsFile)) {
-            Redirect::unPublishAll();
+            Redirect::unpublishAll();
         }
 
         $this->vars['match'] = null;
@@ -91,14 +91,14 @@ class Redirects extends Controller
 
         /** @type Redirect $redirect */
         $redirect = Redirect::select([DB::raw('COUNT(id) AS redirect_count')])
-            ->where('is_published', '<>', 1)
+            ->where('publish_status', '<>', Redirect::STATUS_NOT_PUBLISHED)
             ->where('is_enabled', '=', 1)
             ->first(['redirect_count']);
 
         $total += (int) $redirect->getAttribute('redirect_count');
 
         $redirect = Redirect::select([DB::raw('COUNT(id) AS redirect_count')])
-            ->where('is_published', '=', 2)
+            ->where('publish_status', '=', Redirect::STATUS_CHANGED)
             ->where('is_enabled', '=', 0)
             ->first(['redirect_count']);
 
@@ -130,7 +130,7 @@ class Redirects extends Controller
             DB::table((new Redirect())->table)
                 ->whereNotIn('id', $checkedIds)
                 ->where('is_enabled', '=', 1)
-                ->update(['is_published' => 2]);
+                ->update(['publish_status' => Redirect::STATUS_CHANGED]);
         }
 
         return $this->listAndPublishButtonRefresh();
@@ -199,10 +199,10 @@ class Redirects extends Controller
         $table = (new Redirect())->table;
 
         DB::table($table)->where('is_enabled', '=', 1)
-            ->update(['is_published' => 1]);
+            ->update(['publish_status' => Redirect::STATUS_PUBLISHED]);
 
         DB::table($table)->where('is_enabled', '=', 0)
-            ->update(['is_published' => 0]);
+            ->update(['publish_status' => Redirect::STATUS_NOT_PUBLISHED]);
 
         Flash::success(Lang::trans('adrenth.redirect::lang.redirect.publish_success', [
             'number' => $redirects->count(),

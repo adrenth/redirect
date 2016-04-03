@@ -1,17 +1,15 @@
 <?php Block::put('breadcrumb') ?>
-<ul>
-    <li><a href="<?= Backend::url('system/settings') ?>"><?= e(trans('system::lang.settings.menu_label')) ?></a></li>
-    <li><a href="<?= Backend::url('adrenth/redirect/redirects') ?>"><?= e(trans('adrenth.redirect::lang.navigation.menu_label')) ?></a></li>
-    <li><?= e($this->pageTitle) ?></li>
-</ul>
+    <ul>
+        <li><a href="<?= Backend::url('system/settings') ?>"><?= e(trans('system::lang.settings.menu_label')) ?></a></li>
+        <li><a href="<?= Backend::url('adrenth/redirect/redirects') ?>"><?= e(trans('adrenth.redirect::lang.navigation.menu_label')) ?></a></li>
+        <li><?= e($this->pageTitle) ?></li>
+    </ul>
 <?php Block::endPut() ?>
 
 <?= Form::open(['class' => 'layout']) ?>
-
     <div class="layout-row">
         <?= $this->importRender() ?>
     </div>
-
     <div class="form-buttons">
         <button
             type="submit"
@@ -22,5 +20,4 @@
             <?= e(trans('adrenth.redirect::lang.redirect.import_redirects')) ?>
         </button>
     </div>
-
 <?= Form::close() ?>

@@ -1,6 +1,6 @@
-<?php if ($value == 1): ?>
+<?php if ($value === 1): ?>
     <div class="oc-icon-circle" style="color: green"><?= trans('adrenth.redirect::lang.redirect.status_published') ?></div>
-<?php elseif ($value == 2): ?>
+<?php elseif ($value === 2): ?>
     <div class="oc-icon-circle" style="color: orange"><?= trans('adrenth.redirect::lang.redirect.status_changed') ?></div>
 <?php else: ?>
     <div class="oc-icon-circle" style="color: red"><?= trans('adrenth.redirect::lang.redirect.status_unpublished') ?></div>

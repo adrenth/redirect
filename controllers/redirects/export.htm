@@ -7,11 +7,9 @@
 <?php Block::endPut() ?>
 
 <?= Form::open(['class' => 'layout']) ?>
-
     <div class="layout-row">
         <?= $this->exportRender() ?>
     </div>
-
     <div class="form-buttons">
         <div class="loading-indicator-container">
             <button
@@ -24,5 +22,4 @@
             </button>
         </div>
     </div>
-
 <?= Form::close() ?>
