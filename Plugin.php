@@ -23,7 +23,7 @@ class Plugin extends PluginBase
         return [
             'name' => 'adrenth.redirect::lang.plugin.name',
             'description' => 'adrenth.redirect::lang.plugin.description',
-            'author' => 'A. Drenth <adrenth@gmail.com>',
+            'author' => 'Alwin Drenth',
             'icon' => 'icon-link',
         ];
     }
