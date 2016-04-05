@@ -204,9 +204,13 @@ class Redirects extends Controller
         DB::table($table)->where('is_enabled', '=', 0)
             ->update(['publish_status' => Redirect::STATUS_NOT_PUBLISHED]);
 
-        Flash::success(Lang::trans('adrenth.redirect::lang.redirect.publish_success', [
-            'number' => $redirects->count(),
-        ]));
+        if ($redirects->count()) {
+            Flash::success(Lang::trans('adrenth.redirect::lang.flash.publish_success', [
+                'number' => $redirects->count(),
+            ]));
+        } else {
+            Flash::info(Lang::trans('adrenth.redirect::lang.flash.publish_no_redirects'));
+        }
 
         return $this->listAndPublishButtonRefresh();
     }

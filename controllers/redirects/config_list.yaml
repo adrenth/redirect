@@ -9,13 +9,13 @@ list: $/adrenth/redirect/models/redirect/columns.yaml
 modelClass: Adrenth\Redirect\Models\Redirect
 
 # List Title
-title: adrenth.redirect::lang.redirect.manage_redirects
+title: adrenth.redirect::lang.title.redirects
 
 # Link URL for each record
 recordUrl: adrenth/redirect/redirects/update/:id
 
 # Message to display if the list is empty
-noRecordsMessage: backend::lang.list.no_records
+noRecordsMessage: adrenth.redirect::lang.list.no_records
 
 # Records to display per page
 recordsPerPage: 20
