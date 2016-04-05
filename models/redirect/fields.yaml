@@ -19,7 +19,7 @@ fields:
         required: true
 
 tabs:
-    defaultTab: adrenth.redirect::lang.redirect.tab_general
+    defaultTab: adrenth.redirect::lang.tab.tab_general
     fields:
         #
         # General
@@ -50,7 +50,7 @@ tabs:
         # Requirements
         #
         section_requirements:
-            tab: adrenth.redirect::lang.redirect.tab_requirements
+            tab: adrenth.redirect::lang.tab.tab_requirements
             type: section
             commentAbove: adrenth.redirect::lang.redirect.requirements_comment
             trigger:
@@ -58,7 +58,7 @@ tabs:
                 field: match_type
                 condition: value[placeholders]
         requirements:
-            tab: adrenth.redirect::lang.redirect.tab_requirements
+            tab: adrenth.redirect::lang.tab.tab_requirements
             type: repeater
             span: full
             prompt: adrenth.redirect::lang.redirect.requirements_prompt
@@ -90,39 +90,39 @@ tabs:
         # Test
         #
         section_test:
-            tab: adrenth.redirect::lang.redirect.tab_test
+            tab: adrenth.redirect::lang.tab.tab_test
             type: section
-            commentAbove: adrenth.redirect::lang.redirect.test_comment
+            commentAbove: adrenth.redirect::lang.test.test_comment
         test_url:
-            tab: adrenth.redirect::lang.redirect.tab_test
+            tab: adrenth.redirect::lang.tab.tab_test
             type: text
             hidden: true
         test:
-            tab: adrenth.redirect::lang.redirect.tab_test
+            tab: adrenth.redirect::lang.tab.tab_test
             type: partial
             path: redirect_test
         #
         # Scheduling
         #
         section_scheduling:
-            tab: adrenth.redirect::lang.redirect.tab_scheduling
+            tab: adrenth.redirect::lang.tab.tab_scheduling
             type: section
-            commentAbove: adrenth.redirect::lang.redirect.scheduling_comment
+            commentAbove: adrenth.redirect::lang.scheduling.scheduling_comment
         from_date:
-            tab: adrenth.redirect::lang.redirect.tab_scheduling
-            label: adrenth.redirect::lang.redirect.from_date
-            comment: adrenth.redirect::lang.redirect.from_date_comment
+            tab: adrenth.redirect::lang.tab.tab_scheduling
+            label: adrenth.redirect::lang.scheduling.from_date
+            comment: adrenth.redirect::lang.scheduling.from_date_comment
             type: datepicker
             mode: date
             span: left
         to_date:
-            tab: adrenth.redirect::lang.redirect.tab_scheduling
-            label: adrenth.redirect::lang.redirect.to_date
-            comment: adrenth.redirect::lang.redirect.to_date_comment
+            tab: adrenth.redirect::lang.tab.tab_scheduling
+            label: adrenth.redirect::lang.scheduling.to_date
+            comment: adrenth.redirect::lang.scheduling.to_date_comment
             type: datepicker
             mode: date
             span: right
         periods:
-            tab: adrenth.redirect::lang.redirect.tab_scheduling
+            tab: adrenth.redirect::lang.tab.tab_scheduling
             type: partial
             path: periods

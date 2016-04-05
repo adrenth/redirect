@@ -16,12 +16,12 @@ defaultRedirect: adrenth/redirect/redirects
 
 # Create page
 create:
-    title: adrenth.redirect::lang.redirect.create_redirect
+    title: adrenth.redirect::lang.title.create_redirect
     redirect: adrenth/redirect/redirects/update/:id
     redirectClose: adrenth/redirect/redirects
 
 # Update page
 update:
-    title: adrenth.redirect::lang.redirect.edit_redirect
+    title: adrenth.redirect::lang.title.edit_redirect
     redirect: adrenth/redirect/redirects
     redirectClose: adrenth/redirect/redirects

@@ -1,11 +1,10 @@
 scopes:
-
     is_enabled:
-        label: adrenth.redirect::lang.redirect.hide_disabled
+        label: adrenth.redirect::lang.list.hide_disabled
         type: checkbox
         conditions: is_enabled <> '0'
     publish_status:
-        label: adrenth.redirect::lang.redirect.hide_published
+        label: adrenth.redirect::lang.list.hide_published
         type: checkbox
         conditions: publish_status <> '1'
     status_code:
