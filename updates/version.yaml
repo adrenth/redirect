@@ -18,3 +18,4 @@
 1.0.9: Fixes issue with installing update 1.0.8
 1.0.10: Small fixes
 1.0.11: Improve language file and messages
+1.0.12: Fixes/improvements and support for Laravel 5.1
