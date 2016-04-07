@@ -1,13 +1,13 @@
 <?php if ($match === false): ?>
     <div class="form-group">
-        <label style="color: red"><?= trans('adrenth.redirect::lang.redirect.no_match_label') ?></label>
+        <label style="color: red"><?= trans('adrenth.redirect::lang.test.no_match_label') ?></label>
         <div class="form-control oc-icon-thumbs-down">
-            <?= trans('adrenth.redirect::lang.redirect.no_match') ?>
+            <?= trans('adrenth.redirect::lang.test.no_match') ?>
         </div>
     </div>
 <?php elseif ($match !== null): ?>
     <div class="form-group">
-        <label style="color: green"><?= trans('adrenth.redirect::lang.redirect.match_success_label') ?></label>
+        <label style="color: green"><?= trans('adrenth.redirect::lang.test.match_success_label') ?></label>
         <div class="form-control oc-icon-thumbs-up">
             <?= $match->getToUrl() ?> <sup>(<?= $match->getStatusCode() ?>)</sup>
         </div>
