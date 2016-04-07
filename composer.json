@@ -2,6 +2,7 @@
     "name": "adrenth/redirect",
     "description": "A redirect plugin for OctoberCMS",
     "type": "october-plugin",
+    "license": "proprietary",
     "authors": [
         {
             "name": "Alwin Drenth",
@@ -9,7 +10,6 @@
         }
     ],
     "require": {
-        "league/csv": "^8.0",
-        "symfony/routing": "^3.0"
+        "league/csv": "^8.0"
     }
 }
