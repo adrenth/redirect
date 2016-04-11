@@ -43,9 +43,9 @@ class Redirect extends Model
      */
     public $rules = [
         'from_url' => 'required',
-        'to_url' => 'required|different:from_url',
+        'to_url' => 'required_if:status_code,301,302|different:from_url',
         'match_type' => 'required|in:exact,placeholders',
-        'status_code' => 'required|in:301,302',
+        'status_code' => 'required|in:301,302,404',
         'sort_order' => 'numeric',
     ];
 
@@ -61,11 +61,10 @@ class Redirect extends Model
     public $attributeNames = [
         'to_url' => 'adrenth.redirect::lang.redirect.to_url',
         'from_url' => 'adrenth.redirect::lang.redirect.from_url',
-        'test_url' => 'adrenth.redirect::lang.redirect.input_path',
         'match_type' => 'adrenth.redirect::lang.redirect.match_type',
         'status_code' => 'adrenth.redirect::lang.redirect.status_code',
-        'from_date' => 'adrenth.redirect::lang.redirect.from_date',
-        'to_date' => 'adrenth.redirect::lang.redirect.to_date',
+        'from_date' => 'adrenth.redirect::lang.scheduling.from_date',
+        'to_date' => 'adrenth.redirect::lang.scheduling.to_date',
         'sort_order' => 'adrenth.redirect::lang.redirect.sort_order',
         'requirements' => 'adrenth.redirect::lang.redirect.requirements',
     ];

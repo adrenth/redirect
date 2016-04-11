@@ -13,4 +13,5 @@ scopes:
         options:
             301: 301
             302: 302
+            404: 404
         conditions: status_code in (:filtered)
