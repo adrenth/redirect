@@ -17,6 +17,10 @@ fields:
         span: right
         comment: adrenth.redirect::lang.redirect.to_url_comment
         required: true
+        trigger:
+            action: hide
+            field: status_code
+            condition: value[404]
 
 tabs:
     defaultTab: adrenth.redirect::lang.tab.tab_general
@@ -40,6 +44,7 @@ tabs:
             options:
                 301: adrenth.redirect::lang.redirect.permanent
                 302: adrenth.redirect::lang.redirect.temporary
+                404: adrenth.redirect::lang.redirect.not_found
         is_enabled:
             label: adrenth.redirect::lang.redirect.enabled
             comment: adrenth.redirect::lang.redirect.enabled_comment

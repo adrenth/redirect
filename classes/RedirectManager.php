@@ -6,8 +6,7 @@ use Adrenth\Redirect\Models\Redirect;
 use Carbon\Carbon;
 use InvalidArgumentException;
 use League\Csv\Reader;
-use Symfony\Component\Routing\Exception\MethodNotAllowedException;
-use Symfony\Component\Routing\Exception\ResourceNotFoundException;
+use Log;
 use Symfony\Component\Routing\Matcher\UrlMatcher;
 use Symfony\Component\Routing\RequestContext;
 use Symfony\Component\Routing\Route;
@@ -92,7 +91,11 @@ class RedirectManager
             $redirect->setAttribute('hits', $redirect->getAttribute('hits') + 1);
             $redirect->save();
         } catch (\Exception $e) {
-            trace_log($e);
+            Log::error($e->getMessage());
+        }
+
+        if ($rule->getStatusCode() === 404) {
+            abort($rule->getStatusCode(), 'Not Found');
         }
 
         header('Location: ' . $rule->getToUrl(), true, $rule->getStatusCode());
@@ -193,7 +196,7 @@ class RedirectManager
                 $rule->getToUrl()
             );
         } catch (\Exception $e) {
-            trace_log($e);
+            Log::error($e->getMessage());
             return false;
         }
 
@@ -209,7 +212,7 @@ class RedirectManager
                 $rule->getToDate(),
             ]);
         } catch (\InvalidArgumentException $e) {
-            trace_log($e);
+            Log::error($e->getMessage());
             return false;
         }
     }
@@ -268,7 +271,7 @@ class RedirectManager
                 $rules[] = new RedirectRule($row);
             }
         } catch (\Exception $e) {
-            trace_log($e);
+            Log::error($e->getMessage());
         }
 
         $this->redirectRules = $rules;

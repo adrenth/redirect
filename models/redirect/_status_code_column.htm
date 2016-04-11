@@ -7,6 +7,9 @@ switch ($value) {
     case '302':
         echo e(trans('adrenth.redirect::lang.redirect.temporary'));
         break;
+    case '404':
+        echo e(trans('adrenth.redirect::lang.redirect.not_found'));
+        break;
     default:
         echo $value;
 }

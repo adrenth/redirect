@@ -19,3 +19,4 @@
 1.0.10: Small fixes
 1.0.11: Improve language file and messages
 1.0.12: Fixes/improvements and support for Laravel 5.1
+1.0.13: Add 404 status code (link spamming)
