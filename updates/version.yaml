@@ -21,6 +21,6 @@
 1.0.12: Fixes/improvements and support for Laravel 5.1
 1.0.13: Add 404 status code (link spamming)
 1.1.0:
-    - Add functionality to select a CMS Page as target
+    - Selecting a CMS Page as Redirect target is now possible
     - add_target_type_fields_to_redirects_table.php
     - publish.php

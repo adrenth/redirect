@@ -187,6 +187,7 @@ class Redirects extends Controller
         return [
             '#testResult' => $this->makePartial('redirect_test_result', [
                 'match' => $match,
+                'url' => $match ? $manager->getLocation($match) : '',
             ]),
         ];
     }

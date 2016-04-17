@@ -100,6 +100,24 @@ class RedirectManager
             abort($rule->getStatusCode(), 'Not Found');
         }
 
+        $toUrl = $this->getLocation($rule);
+
+        if (!$toUrl || empty($toUrl)) {
+            return;
+        }
+
+        header('Location: ' . $toUrl, true, $rule->getStatusCode());
+        exit();
+    }
+
+    /**
+     * Get Location URL to redirect to
+     *
+     * @param RedirectRule $rule
+     * @return bool|string
+     */
+    public function getLocation(RedirectRule $rule)
+    {
         $toUrl = false;
 
         // Determine the URL to redirect to
@@ -110,17 +128,12 @@ class RedirectManager
             case Redirect::TARGET_TYPE_CMS_PAGE:
                 $toUrl = $this->redirectToCmsPage($rule);
                 break;
-            case Redirect::TARGET_TYPE_STATIC_PAGE:
-                $toUrl = $this->redirectToStaticPage($rule);
-                break;
+//            case Redirect::TARGET_TYPE_STATIC_PAGE:
+//                $toUrl = $this->redirectToStaticPage($rule);
+//                break;
         }
 
-        if (!$toUrl || empty($toUrl)) {
-            return;
-        }
-
-        header('Location: ' . $toUrl, true, $rule->getStatusCode());
-        exit();
+        return $toUrl;
     }
 
     /**
@@ -160,14 +173,14 @@ class RedirectManager
         return $controller->pageUrl($rule->getCmsPage(), $parameters);
     }
 
-    /**
-     * @param RedirectRule $rule
-     * @return string
-     */
-    private function redirectToStaticPage(RedirectRule $rule)
-    {
-
-    }
+//    /**
+//     * @param RedirectRule $rule
+//     * @return string
+//     */
+//    private function redirectToStaticPage(RedirectRule $rule)
+//    {
+//
+//    }
 
     /**
      * Change the match date; can be used to perform tests
