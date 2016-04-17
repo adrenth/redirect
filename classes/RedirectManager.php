@@ -4,6 +4,8 @@ namespace Adrenth\Redirect\Classes;
 
 use Adrenth\Redirect\Models\Redirect;
 use Carbon\Carbon;
+use Cms\Classes\Controller;
+use Cms\Classes\Theme;
 use InvalidArgumentException;
 use League\Csv\Reader;
 use Log;
@@ -98,9 +100,73 @@ class RedirectManager
             abort($rule->getStatusCode(), 'Not Found');
         }
 
-        header('Location: ' . $rule->getToUrl(), true, $rule->getStatusCode());
+        $toUrl = false;
 
+        // Determine the URL to redirect to
+        switch ($rule->getTargetType()) {
+            case Redirect::TARGET_TYPE_PATH_URL:
+                $toUrl = $this->redirectToPathOrUrl($rule);
+                break;
+            case Redirect::TARGET_TYPE_CMS_PAGE:
+                $toUrl = $this->redirectToCmsPage($rule);
+                break;
+            case Redirect::TARGET_TYPE_STATIC_PAGE:
+                $toUrl = $this->redirectToStaticPage($rule);
+                break;
+        }
+
+        if (!$toUrl || empty($toUrl)) {
+            return;
+        }
+
+        header('Location: ' . $toUrl, true, $rule->getStatusCode());
         exit();
+    }
+
+    /**
+     * @param RedirectRule $rule
+     * @return string
+     */
+    private function redirectToPathOrUrl(RedirectRule $rule)
+    {
+        if ($rule->isExactMatchType()) {
+            return $rule->getToUrl();
+        }
+
+        $placeholderMatches = $rule->getPlaceholderMatches();
+
+        return str_replace(
+            array_keys($placeholderMatches),
+            array_values($placeholderMatches),
+            $rule->getToUrl()
+        );
+    }
+
+    /**
+     * @param RedirectRule $rule
+     * @return string
+     */
+    private function redirectToCmsPage(RedirectRule $rule)
+    {
+        $controller = new Controller(Theme::getActiveTheme());
+
+        $parameters = [];
+
+        // Strip curly braces from keys
+        foreach ($rule->getPlaceholderMatches() as $placeholder => $value) {
+            $parameters[str_replace(['{', '}'], '', $placeholder)] = $value;
+        }
+
+        return $controller->pageUrl($rule->getCmsPage(), $parameters);
+    }
+
+    /**
+     * @param RedirectRule $rule
+     * @return string
+     */
+    private function redirectToStaticPage(RedirectRule $rule)
+    {
+
     }
 
     /**
@@ -190,31 +256,13 @@ class RedirectManager
                 unset($items[$key]);
             }
 
-            $toUrl = str_replace(
-                array_keys($items),
-                array_values($items),
-                $rule->getToUrl()
-            );
+            $rule->setPlaceholderMatches($items);
         } catch (\Exception $e) {
             Log::error($e->getMessage());
             return false;
         }
 
-        try {
-            return new RedirectRule([
-                $rule->getId(),
-                $rule->getMatchType(),
-                $rule->getFromUrl(),
-                $toUrl,
-                $rule->getStatusCode(),
-                json_encode($rule->getRequirements()),
-                $rule->getFromDate(),
-                $rule->getToDate(),
-            ]);
-        } catch (\InvalidArgumentException $e) {
-            Log::error($e->getMessage());
-            return false;
-        }
+        return $rule;
     }
 
     /**

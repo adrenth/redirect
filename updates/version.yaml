@@ -20,3 +20,7 @@
 1.0.11: Improve language file and messages
 1.0.12: Fixes/improvements and support for Laravel 5.1
 1.0.13: Add 404 status code (link spamming)
+1.1.0:
+    - Add CMS page and Static Pages as target
+    - add_target_type_fields_to_redirects_table.php
+    - publish.php
