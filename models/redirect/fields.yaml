@@ -57,7 +57,7 @@ tabs:
             label: adrenth.redirect::lang.redirect.match_type
             type: dropdown
             required: true
-            span: left
+            span: right
             options:
                 exact: adrenth.redirect::lang.redirect.exact
                 placeholders: adrenth.redirect::lang.redirect.placeholders
