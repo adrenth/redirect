@@ -76,6 +76,10 @@ Input path: /blog.php?cat=news&subcat=general
 Result: /blog/news/general
 ````
 
+## SQLite
+
+SQLite is not supported!
+
 ## More information
 
 This plugin makes advantage of the `symfony/routing` package. So if you need more info on how to make requirements for your redirection URLs, please go to: [https://symfony.com/doc/current/components/routing/introduction.html#usage]()
