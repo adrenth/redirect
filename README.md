@@ -60,6 +60,26 @@ Result:
 /blog/animals/1337
 ````
 
+## Redirect Target
+
+As of version 1.1.0 you can select a CMS Page as a Redirect target. Placeholders are supported. Let's asume there is a page 'Blog' with the following URL: `/blog/:category/:subcategory`. 
+
+It is possible to create a Redirect with placeholders that has this CMS Page as a target:
+
+````
+Redirect with:
+Source: `/blog.php?cat={category}&subcat={subcategory}`
+Placeholders: {category}, {subcategory}
+Target: CMS Page `Blog`
+
+Input path: /blog.php?cat=news&subcat=general
+Result: /blog/news/general
+````
+
+## SQLite
+
+SQLite is not supported!
+
 ## More information
 
 This plugin makes advantage of the `symfony/routing` package. So if you need more info on how to make requirements for your redirection URLs, please go to: [https://symfony.com/doc/current/components/routing/introduction.html#usage]()

@@ -29,7 +29,5 @@
   #layout-body .control-toolbar .toolbar-item .search {
     margin-top: 10px; }
 
-#redirectPeriods {
-  font-size: 12px; }
-  #redirectPeriods a {
-    cursor: pointer; }
+#redirectPeriods a {
+  cursor: pointer; }

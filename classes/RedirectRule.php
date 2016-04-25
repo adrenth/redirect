@@ -19,10 +19,19 @@ class RedirectRule
     private $matchType;
 
     /** @type string */
+    private $targetType;
+
+    /** @type string */
     private $fromUrl;
 
     /** @type string */
     private $toUrl;
+
+    /** @type string */
+    private $cmsPage;
+
+    /** @type string */
+    private $staticPage;
 
     /** @type int */
     private $statusCode;
@@ -36,14 +45,17 @@ class RedirectRule
     /** @type Carbon */
     private $toDate;
 
+    /** @type array */
+    private $placeholderMatches;
+
     /**
      * @param array $attributes
      * @throws \InvalidArgumentException
      */
     public function __construct(array $attributes)
     {
-        if (count($attributes) !== 8
-            || array_sum(array_keys($attributes)) !== 28
+        if (count($attributes) !== 11
+            || array_sum(array_keys($attributes)) !== 55
         ) {
             throw new \InvalidArgumentException('Invalid attributes provided');
         }
@@ -51,8 +63,11 @@ class RedirectRule
         list(
             $this->id,
             $this->matchType,
+            $this->targetType,
             $this->fromUrl,
             $this->toUrl,
+            $this->cmsPage,
+            $this->staticPage,
             $this->statusCode,
             $this->requirements,
             $this->fromDate,
@@ -72,8 +87,11 @@ class RedirectRule
         return new self([
             $model->getAttribute('id'),
             $model->getAttribute('match_type'),
+            $model->getAttribute('target_type'),
             $model->getAttribute('from_url'),
             $model->getAttribute('to_url'),
+            $model->getAttribute('cms_page'),
+            $model->getAttribute('static_page'),
             $model->getAttribute('status_code'),
             json_encode($model->getAttribute('requirements')),
             $model->getAttribute('from_date'),
@@ -100,6 +118,14 @@ class RedirectRule
     /**
      * @return string
      */
+    public function getTargetType()
+    {
+        return $this->targetType;
+    }
+
+    /**
+     * @return string
+     */
     public function getFromUrl()
     {
         return $this->fromUrl;
@@ -111,6 +137,22 @@ class RedirectRule
     public function getToUrl()
     {
         return $this->toUrl;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCmsPage()
+    {
+        return $this->cmsPage;
+    }
+
+    /**
+     * @return string
+     */
+    public function getStaticPage()
+    {
+        return $this->staticPage;
     }
 
     /**
@@ -159,5 +201,23 @@ class RedirectRule
     public function isPlaceholdersMatchType()
     {
         return $this->matchType === Redirect::TYPE_PLACEHOLDERS;
+    }
+
+    /**
+     * @return array
+     */
+    public function getPlaceholderMatches()
+    {
+        return (array) $this->placeholderMatches;
+    }
+
+    /**
+     * @param array $placeholderMatches
+     * @return $this
+     */
+    public function setPlaceholderMatches(array $placeholderMatches = [])
+    {
+        $this->placeholderMatches = $placeholderMatches;
+        return $this;
     }
 }

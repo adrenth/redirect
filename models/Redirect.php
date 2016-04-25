@@ -2,7 +2,9 @@
 
 namespace Adrenth\Redirect\Models;
 
+use Adrenth\Redirect\Classes\OptionHelper;
 use Carbon\Carbon;
+use Illuminate\Support\Fluent;
 use Model;
 use October\Rain\Database\Traits\Sortable;
 use October\Rain\Database\Traits\Validation;
@@ -12,7 +14,10 @@ use October\Rain\Database\Traits\Validation;
  */
 class Redirect extends Model
 {
-    use Validation;
+    use Validation {
+        makeValidator as traitMakeValidator;
+    }
+
     use Sortable {
         setSortableOrder as traitSetSortableOrder;
     }
@@ -25,6 +30,19 @@ class Redirect extends Model
     const STATUS_NOT_PUBLISHED = 0;
     const STATUS_PUBLISHED = 1;
     const STATUS_CHANGED = 2;
+
+    const TARGET_TYPE_PATH_URL = 'path_or_url';
+    const TARGET_TYPE_CMS_PAGE = 'cms_page';
+//    const TARGET_TYPE_STATIC_PAGE = 'static_page';
+
+    /**
+     * @type array
+     */
+    public static $targetTypes = [
+        self::TARGET_TYPE_PATH_URL,
+        self::TARGET_TYPE_CMS_PAGE,
+//        self::TARGET_TYPE_STATIC_PAGE,
+    ];
 
     /**
      * {@inheritdoc}
@@ -43,8 +61,9 @@ class Redirect extends Model
      */
     public $rules = [
         'from_url' => 'required',
-        'to_url' => 'required_if:status_code,301,302|different:from_url',
+        'to_url' => 'different:from_url',
         'match_type' => 'required|in:exact,placeholders',
+        'target_type' => 'required|in:path_or_url,cms_page', // ,static_page
         'status_code' => 'required|in:301,302,404',
         'sort_order' => 'numeric',
     ];
@@ -62,6 +81,9 @@ class Redirect extends Model
         'to_url' => 'adrenth.redirect::lang.redirect.to_url',
         'from_url' => 'adrenth.redirect::lang.redirect.from_url',
         'match_type' => 'adrenth.redirect::lang.redirect.match_type',
+        'target_type' => 'adrenth.redirect::lang.redirect.target_type',
+        'cms_page' => 'adrenth.redirect::lang.redirect.target_type_cms_page',
+//        'static_page' => 'adrenth.redirect::lang.redirect.target_type_static_page',
         'status_code' => 'adrenth.redirect::lang.redirect.status_code',
         'from_date' => 'adrenth.redirect::lang.scheduling.from_date',
         'to_date' => 'adrenth.redirect::lang.scheduling.to_date',
@@ -96,6 +118,39 @@ class Redirect extends Model
                 ->where('id', $id)
                 ->update(['publish_status' => self::STATUS_CHANGED]);
         }
+    }
+
+    /**
+     * @param array $data
+     * @param array $rules
+     * @param array $customMessages
+     * @param array $attributeNames
+     * @return \Illuminate\Validation\Validator
+     */
+    protected static function makeValidator(
+        array $data,
+        array $rules,
+        array $customMessages = [],
+        array $attributeNames = []
+    ) {
+        $validator = self::traitMakeValidator($data, $rules, $customMessages, $attributeNames);
+
+        $validator->sometimes('to_url', 'required', function (Fluent $request) {
+            return in_array($request->get('status_code'), ['301', '302'], true)
+            && $request->get('target_type') === 'path_or_url';
+        });
+
+        $validator->sometimes('cms_page', 'required', function (Fluent $request) {
+            return in_array($request->get('status_code'), ['301', '302'], true)
+                && $request->get('target_type') === 'cms_page';
+        });
+
+//        $validator->sometimes('static_page', 'required', function (Fluent $request) {
+//            return in_array($request->get('status_code'), ['301', '302'], true)
+//            && $request->get('target_type') === 'static_page';
+//        });
+
+        return $validator;
     }
 
     /**
@@ -153,4 +208,31 @@ class Redirect extends Model
 
         return new Carbon($value);
     }
+
+    /**
+     * @see OptionHelper::getTargetTypeOptions()
+     * @return array
+     */
+    public function getTargetTypeOptions()
+    {
+        return OptionHelper::getTargetTypeOptions();
+    }
+
+    /**
+     * @see OptionHelper::getCmsPageOptions()
+     * @return array
+     */
+    public function getCmsPageOptions()
+    {
+        return OptionHelper::getCmsPageOptions();
+    }
+
+//    /**
+//     * @see OptionHelper::getStaticPageOptions()
+//     * @return array
+//     */
+//    public function getStaticPageOptions()
+//    {
+//        return OptionHelper::getStaticPageOptions();
+//    }
 }

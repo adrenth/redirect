@@ -1,15 +1,21 @@
-<?php namespace Adrenth\Redirect\Updates;
+<?php
 
+namespace Adrenth\Redirect\Updates;
+
+use Illuminate\Database\Schema\Blueprint;
 use Schema;
 use October\Rain\Database\Updates\Migration;
 
+/**
+ * Class CreateRedirectExportsTable
+ *
+ * @package Adrenth\Redirect\Updates
+ */
 class CreateRedirectExportsTable extends Migration
 {
-
     public function up()
     {
-        Schema::create('adrenth_redirect_redirect_exports', function($table)
-        {
+        Schema::create('adrenth_redirect_redirect_exports', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->timestamps();
@@ -20,5 +26,4 @@ class CreateRedirectExportsTable extends Migration
     {
         Schema::dropIfExists('adrenth_redirect_redirect_exports');
     }
-
 }

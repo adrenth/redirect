@@ -2,6 +2,7 @@
 
 namespace Adrenth\Redirect\Controllers;
 
+use Adrenth\Redirect\Classes\PublishManager;
 use Adrenth\Redirect\Classes\RedirectManager;
 use Adrenth\Redirect\Classes\RedirectRule;
 use Adrenth\Redirect\Models\Redirect;
@@ -10,7 +11,6 @@ use BackendMenu;
 use Carbon\Carbon;
 use DB;
 use Flash;
-use Illuminate\Database\Eloquent\Collection;
 use Lang;
 use League\Csv\Writer;
 use Request;
@@ -45,8 +45,8 @@ class Redirects extends Controller
     /** @type string */
     public $importExportConfig = 'config_import_export.yaml';
 
-    /** @type string */
-    private $redirectsFile;
+    /** @type PublishManager */
+    public $publishManager;
 
     /**
      * {@inheritdoc}
@@ -61,15 +61,11 @@ class Redirects extends Controller
         $this->loadAssets();
 
         $this->requiredPermissions = ['adrenth.redirect.access_redirects'];
-        $this->redirectsFile = storage_path('app/redirects.csv');
 
-        // Make sure that all redirects are marked un-published if redirect file is not present
-        if (!file_exists($this->redirectsFile)) {
-            Redirect::unpublishAll();
-        }
+        $this->publishManager = new PublishManager();
 
         $this->vars['match'] = null;
-        $this->vars['unpublishedCount'] = $this->getUnpublishedCount();
+        $this->vars['unpublishedCount'] = $this->publishManager->getUnpublishedCount();
     }
 
     /**
@@ -80,31 +76,6 @@ class Redirects extends Controller
     private function loadAssets()
     {
         $this->addCss('/plugins/adrenth/redirect/assets/css/backend.css');
-    }
-
-    /**
-     * @return int
-     */
-    private function getUnpublishedCount()
-    {
-        $total = 0;
-
-        /** @type Redirect $redirect */
-        $redirect = Redirect::select([DB::raw('COUNT(id) AS redirect_count')])
-            ->where('publish_status', '<>', Redirect::STATUS_PUBLISHED)
-            ->where('is_enabled', '=', 1)
-            ->first(['redirect_count']);
-
-        $total += (int) $redirect->getAttribute('redirect_count');
-
-        $redirect = Redirect::select([DB::raw('COUNT(id) AS redirect_count')])
-            ->where('publish_status', '=', Redirect::STATUS_CHANGED)
-            ->where('is_enabled', '=', 0)
-            ->first(['redirect_count']);
-
-        $total += (int) $redirect->getAttribute('redirect_count');
-
-        return $total;
     }
 
     /**
@@ -178,35 +149,11 @@ class Redirects extends Controller
      */
     public function index_onPublish()
     {
-        /** @type Collection $redirects */
-        $redirects = Redirect::query()
-            ->where('is_enabled', '=', 1)
-            ->orderBy('sort_order')
-            ->get([
-                'id',
-                'match_type',
-                'from_url',
-                'to_url',
-                'status_code',
-                'requirements',
-                'from_date',
-                'to_date',
-            ]);
+        $numberOfRedirects = $this->publishManager->publish();
 
-        $writer = Writer::createFromPath($this->redirectsFile, 'w+');
-        $writer->insertAll($redirects->toArray());
-
-        $table = (new Redirect())->table;
-
-        DB::table($table)->where('is_enabled', '=', 1)
-            ->update(['publish_status' => Redirect::STATUS_PUBLISHED]);
-
-        DB::table($table)->where('is_enabled', '=', 0)
-            ->update(['publish_status' => Redirect::STATUS_NOT_PUBLISHED]);
-
-        if ($redirects->count()) {
+        if ($numberOfRedirects) {
             Flash::success(Lang::trans('adrenth.redirect::lang.flash.publish_success', [
-                'number' => $redirects->count(),
+                'number' => $numberOfRedirects,
             ]));
         } else {
             Flash::info(Lang::trans('adrenth.redirect::lang.flash.publish_no_redirects'));
@@ -240,6 +187,7 @@ class Redirects extends Controller
         return [
             '#testResult' => $this->makePartial('redirect_test_result', [
                 'match' => $match,
+                'url' => $match ? $manager->getLocation($match) : '',
             ]),
         ];
     }
@@ -271,7 +219,7 @@ class Redirects extends Controller
                     '#publishButton' => $this->makePartial(
                         'button_publish',
                         [
-                            'unpublishedCount' => $this->getUnpublishedCount(),
+                            'unpublishedCount' => $this->publishManager->getUnpublishedCount(),
                         ]
                     ),
                 ]

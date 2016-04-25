@@ -10,17 +10,36 @@ fields:
         span: left
         comment: adrenth.redirect::lang.redirect.from_url_comment
         required: true
+
     to_url:
         label: adrenth.redirect::lang.redirect.to_url
         placeholder: adrenth.redirect::lang.redirect.to_url_placeholder
         type: text
         span: right
         comment: adrenth.redirect::lang.redirect.to_url_comment
-        required: true
+        cssClass: redirect-target
         trigger:
-            action: hide
-            field: status_code
-            condition: value[404]
+            action: show
+            field: target_type
+            condition: value[path_or_url]
+    cms_page:
+        label: adrenth.redirect::lang.redirect.target_type_cms_page
+        span: right
+        type: dropdown
+        cssClass: redirect-target
+        trigger:
+            action: show
+            field: target_type
+            condition: value[cms_page]
+    #static_page:
+    #    label: adrenth.redirect::lang.redirect.target_type_static_page
+    #    span: right
+    #    type: dropdown
+    #    cssClass: redirect-target
+    #    trigger:
+    #        action: show
+    #        field: target_type
+    #        condition: value[static_page]
 
 tabs:
     defaultTab: adrenth.redirect::lang.tab.tab_general
@@ -28,11 +47,17 @@ tabs:
         #
         # General
         #
+        target_type:
+            label: adrenth.redirect::lang.redirect.target_type
+            required: true
+            type: dropdown
+            default: path_or_url
+            span: left
         match_type:
             label: adrenth.redirect::lang.redirect.match_type
             type: dropdown
             required: true
-            span: left
+            span: right
             options:
                 exact: adrenth.redirect::lang.redirect.exact
                 placeholders: adrenth.redirect::lang.redirect.placeholders
@@ -45,6 +70,8 @@ tabs:
                 301: adrenth.redirect::lang.redirect.permanent
                 302: adrenth.redirect::lang.redirect.temporary
                 404: adrenth.redirect::lang.redirect.not_found
+            attributes:
+                onchange: "$('.redirect-target').toggle($(this).val() !== '404')"
         is_enabled:
             label: adrenth.redirect::lang.redirect.enabled
             comment: adrenth.redirect::lang.redirect.enabled_comment
