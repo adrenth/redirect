@@ -4,7 +4,6 @@ namespace Adrenth\Redirect\Classes;
 
 use Adrenth\Redirect\Models\Redirect;
 use Cms\Classes\Page;
-use Cms\Classes\Theme;
 // use System\Classes\PluginManager;
 
 /**
@@ -33,19 +32,7 @@ class OptionHelper
      */
     public static function getCmsPageOptions()
     {
-        $pages = Page::listInTheme(Theme::getActiveTheme());
-        $options = [];
-
-        /** @type Page $page */
-        foreach ($pages as $page) {
-            $options[$page->getFileName()] = sprintf(
-                '%s - %s',
-                $page->settings['title'],
-                $page->settings['url']
-            );
-        }
-
-        return $options;
+        return Page::getNameList();
     }
 
 //    /**
