@@ -1,6 +1,30 @@
 # Adrenth.Redirect
 
-An OctoberCMS plugin which allows you to manage redirects for your website.
+## The #1 Redirect plugin for OctoberCMS
+
+This is the best Redirect-plugin for OctoberCMS. With this plugin installed you can manage redirects directly from OctoberCMS' beautiful interface. Many webmasters use redirects to optimize their website for search engines. This plugin allows you to manage such redirects with a nice and user-friendly interface.
+
+## What does this plugin offer?
+
+This plugin adds a 'Redirects' settings section to OctoberCMS. Here you can manage your redirects. After setting up your redirects you can publish them directly to activate them.
+
+After publishing your redirect this plugin is trying to match your redirect very efficiently before your website is rendered.
+
+## Testing your redirects
+
+This plugin has an easy to use test tool to extensively test your redirects before you publish them.
+
+## Features
+
+* **Quick** matching algorithm
+* **Test** redirects before publishing
+* Matching using **placeholders** (dynamic paths)
+* Match placeholders using **regular expressions**
+* **Exact** path matching
+* **Importing** and **exporting** redirect rules
+* **Schedule** redirects
+* Redirect to **external** URLs
+* Redirect to **internal** CMS pages
 
 ## Redirection
 
@@ -15,23 +39,44 @@ This plugins ships with two types of redirects:
 
 My plan is to add more redirection types in the future.
 
+## Redirect target types
+
+This plugin allows you to redirect to the following types:
+
+* An internal path
+* An internal CMS Page
+* An external URL
+
 ## Placeholders
 
-Every placeholder can be attached to a requirement. A requirement consists of a `placeholder`, `requirement` and an optional `replacement` value.
+A placeholder is a dynamic piece in a URL surrounded with curly braces. 
+For example:
+
+````
+/my-blog/{category}/{id}
+````
+
+A placeholder can be replaced by a matched value:
+
+````
+/my-blog/hobbies/123
+````
+
+Any placeholder can be attached to a **requirement**. A **requirement** consists of a `placeholder`, `requirement` and an optional `replacement` value.
 
 Example:
 
 ````
-Input path:
+Request path:
 /blog.php?category=cat&id=145
 
-Source path: 
+Redirect Rule: Source path
 /blog.php?category={category}&id={id}
 
-Target path:
+Redirect Rule: Target path
 /blog/{category}/{id}
 
-Result path:
+Result:
 /blog/cat/145
 ````
 
@@ -47,13 +92,13 @@ Example:
 The requirement for `{category}` is `(dog|cat|mouse)`, with replacement value `animals`.
 
 ````
-Input path:
+Request path:
 /blog.php?category=mouse&id=1337
 
-Source path: 
+Redirect Rule: Source path 
 /blog.php?category={category}&id={id}
 
-Target path:
+Redirect Rule: Target path
 /blog/{category}/{id}
 
 Result:
@@ -72,13 +117,13 @@ Source: `/blog.php?cat={category}&subcat={subcategory}`
 Placeholders: {category}, {subcategory}
 Target: CMS Page `Blog`
 
-Input path: /blog.php?cat=news&subcat=general
+Request path: /blog.php?cat=news&subcat=general
 Result: /blog/news/general
 ````
 
 ## SQLite
 
-SQLite is not supported!
+SQLite is not supported in version 1.0.0 - 1.0.13.
 
 ## More information
 
@@ -87,3 +132,13 @@ This plugin makes advantage of the `symfony/routing` package. So if you need mor
 ## Contribution
 
 If you like to contribute to this plugin feel free to create a Pull Request. But you can also contact me. My contact details can be found in the source code of this project.
+
+## Questions? Need help?
+
+If you have any question about how to use this plugin, please don't hesitate to contact me. I'm happy to help you.
+
+You can also create an issue on the [GitHub](https://github.com/adrenth/redirect) page of this plugin.
+
+Kind regards,
+
+Alwin Drenth -- *Author of the Redirect plugin*
