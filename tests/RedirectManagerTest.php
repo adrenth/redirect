@@ -8,6 +8,11 @@ use Adrenth\Redirect\Models\Redirect;
 use Carbon\Carbon;
 use PluginTestCase;
 
+/**
+ * Class RedirectManagerTest
+ *
+ * @package Adrenth\Redirect\Tests
+ */
 class RedirectManagerTest extends PluginTestCase
 {
     public function testExactRedirect()
@@ -20,10 +25,10 @@ class RedirectManagerTest extends PluginTestCase
             'requirements' => null,
             'status_code' => 302,
             'is_enabled' => 1,
-            'publish_status' => 1,
-            'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now(),
+            'publish_status' => Redirect::STATUS_PUBLISHED,
         ]);
+
+        self::assertTrue($redirect->save());
 
         $rule = RedirectRule::createWithModel($redirect);
         self::assertInstanceOf(RedirectRule::class, $rule);
@@ -67,10 +72,10 @@ class RedirectManagerTest extends PluginTestCase
             ],
             'status_code' => 301,
             'is_enabled' => 1,
-            'publish_status' => 1,
-            'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now(),
+            'publish_status' => Redirect::STATUS_PUBLISHED,
         ]);
+
+        self::assertTrue($redirect->save());
 
         $rule = RedirectRule::createWithModel($redirect);
         self::assertInstanceOf(RedirectRule::class, $rule);
@@ -103,7 +108,7 @@ class RedirectManagerTest extends PluginTestCase
         // @TODO
     }
 
-    public function testScheduledRedirect()
+    public function testScheduledRedirectPeriod()
     {
         $redirect = new Redirect([
             'match_type' => Redirect::TYPE_EXACT,
@@ -113,12 +118,12 @@ class RedirectManagerTest extends PluginTestCase
             'requirements' => null,
             'status_code' => 302,
             'is_enabled' => 1,
-            'publish_status' => 1,
-            'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now(),
+            'publish_status' => Redirect::STATUS_PUBLISHED,
             'from_date' => Carbon::now(),
             'to_date' => Carbon::now()->addWeek(),
         ]);
+
+        self::assertTrue($redirect->save());
 
         $rule = RedirectRule::createWithModel($redirect);
         self::assertInstanceOf(RedirectRule::class, $rule);
@@ -126,12 +131,125 @@ class RedirectManagerTest extends PluginTestCase
         $manager = RedirectManager::createWithRule($rule);
         self::assertInstanceOf(RedirectManager::class, $manager);
 
-        $manager->setMatchDate(Carbon::now()->addDay(2));
+        // Test date between `from_date` and `end_date`
+        self::assertInstanceOf(
+            RedirectRule::class,
+            $manager->setMatchDate(Carbon::now()->addDay(2))
+                ->match('/this-should-be-source')
+        );
 
-        self::assertInstanceOf(RedirectRule::class, $manager->match('/this-should-be-source'));
+        // Test date equals `from_date`
+        self::assertInstanceOf(
+            RedirectRule::class,
+            $manager->setMatchDate(Carbon::now())
+                ->match('/this-should-be-source')
+        );
 
-        $manager->setMatchDate(Carbon::now()->addWeek()->addDay());
+        // Test date equals `to_date`
+        self::assertInstanceOf(
+            RedirectRule::class,
+            $manager->setMatchDate(Carbon::now()->addWeek())
+                ->match('/this-should-be-source')
+        );
 
-        self::assertFalse($manager->match('/this-should-be-source'));
+        // Test date greater than `to_date`
+        self::assertFalse(
+            $manager->setMatchDate(Carbon::now()->addWeek()->addDay())
+                ->match('/this-should-be-source')
+        );
+
+        // Test date less than `from_date`
+        self::assertFalse(
+            $manager->setMatchDate(Carbon::now()->subDay())
+                ->match('/this-should-be-source')
+        );
+    }
+
+    public function testScheduledRedirectOnlyFromDate()
+    {
+        $redirect = new Redirect([
+            'match_type' => Redirect::TYPE_EXACT,
+            'target_type' => Redirect::TARGET_TYPE_PATH_URL,
+            'from_url' => '/this-should-be-source',
+            'to_url' => '/this-should-be-target',
+            'requirements' => null,
+            'status_code' => 302,
+            'is_enabled' => 1,
+            'publish_status' => Redirect::STATUS_PUBLISHED,
+            'from_date' => Carbon::today()->addMonth(),
+            'to_date' => null,
+        ]);
+
+        self::assertTrue($redirect->save());
+
+        $rule = RedirectRule::createWithModel($redirect);
+        self::assertInstanceOf(RedirectRule::class, $rule);
+
+        $manager = RedirectManager::createWithRule($rule);
+        self::assertInstanceOf(RedirectManager::class, $manager);
+
+        // Test date equals `from_date`
+        self::assertInstanceOf(
+            RedirectRule::class,
+            $manager->setMatchDate(Carbon::today()->addMonth())
+                ->match('/this-should-be-source')
+        );
+
+        // Test date greater than `from_date`
+        self::assertInstanceOf(
+            RedirectRule::class,
+            $manager->setMatchDate(Carbon::today()->addMonth()->addDay())
+                ->match('/this-should-be-source')
+        );
+
+        // Test date less than `from_date`
+        self::assertFalse(
+            $manager->setMatchDate(Carbon::today()->addMonth()->subDay())
+                ->match('/this-should-be-source')
+        );
+    }
+
+    public function testScheduledRedirectOnlyToDate()
+    {
+        $redirect = new Redirect([
+            'match_type' => Redirect::TYPE_EXACT,
+            'target_type' => Redirect::TARGET_TYPE_PATH_URL,
+            'from_url' => '/this-should-be-source',
+            'to_url' => '/this-should-be-target',
+            'requirements' => null,
+            'status_code' => 302,
+            'is_enabled' => 1,
+            'publish_status' => Redirect::STATUS_PUBLISHED,
+            'from_date' => null,
+            'to_date' => Carbon::today()->addMonth(),
+        ]);
+
+        self::assertTrue($redirect->save());
+
+        $rule = RedirectRule::createWithModel($redirect);
+        self::assertInstanceOf(RedirectRule::class, $rule);
+
+        $manager = RedirectManager::createWithRule($rule);
+        self::assertInstanceOf(RedirectManager::class, $manager);
+
+        // Test date equals `to_date`
+        self::assertInstanceOf(
+            RedirectRule::class,
+            $manager->setMatchDate(Carbon::today()->addMonth())
+                ->match('/this-should-be-source')
+        );
+
+        // Test date less than `to_date`
+        self::assertInstanceOf(
+            RedirectRule::class,
+            $manager->setMatchDate(Carbon::today()->addMonth()->subDay())
+                ->match('/this-should-be-source')
+        );
+
+        // Test date greater than `to_date`
+        self::assertFalse(
+            $manager->setMatchDate(Carbon::today()->addMonth()->addDay())
+                ->match('/this-should-be-source')
+        );
     }
 }
