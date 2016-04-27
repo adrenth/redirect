@@ -286,12 +286,24 @@ class RedirectManager
      */
     private function matchesPeriod(RedirectRule $rule)
     {
-        /** @type Carbon $fromDate */
-        $fromDate = ($rule->getFromDate() instanceof Carbon) ? $rule->getFromDate() : clone $this->matchDate;
-        /** @type Carbon $toDate */
-        $toDate = ($rule->getToDate() instanceof Carbon) ? $rule->getToDate() : clone $this->matchDate;
+        if ($rule->getFromDate() instanceof Carbon
+            && $rule->getToDate() instanceof Carbon
+        ) {
+            return $this->matchDate->between($rule->getFromDate(), $rule->getToDate());
+        }
 
-        return $this->matchDate->between($fromDate, $toDate);
+        if ($rule->getFromDate() instanceof Carbon
+            && $rule->getToDate() === null) {
+            return $this->matchDate->gte($rule->getFromDate());
+        }
+        
+        if ($rule->getFromDate() === null
+            && $rule->getToDate() instanceof Carbon
+        ) {
+            return $this->matchDate->lte($rule->getToDate());
+        }
+
+        return true;
     }
 
     /**
