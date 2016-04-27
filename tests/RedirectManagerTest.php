@@ -6,6 +6,8 @@ use Adrenth\Redirect\Classes\RedirectManager;
 use Adrenth\Redirect\Classes\RedirectRule;
 use Adrenth\Redirect\Models\Redirect;
 use Carbon\Carbon;
+use Cms\Classes\Page;
+use Cms\Classes\Theme;
 use PluginTestCase;
 
 /**
@@ -24,7 +26,6 @@ class RedirectManagerTest extends PluginTestCase
             'to_url' => '/this-should-be-target',
             'requirements' => null,
             'status_code' => 302,
-            'is_enabled' => 1,
             'publish_status' => Redirect::STATUS_PUBLISHED,
         ]);
 
@@ -71,7 +72,6 @@ class RedirectManagerTest extends PluginTestCase
                 ]
             ],
             'status_code' => 301,
-            'is_enabled' => 1,
             'publish_status' => Redirect::STATUS_PUBLISHED,
         ]);
 
@@ -105,7 +105,42 @@ class RedirectManagerTest extends PluginTestCase
 
     public function testTargetCmsPageRedirect()
     {
-        // @TODO
+        $page = Page::load(Theme::getActiveTheme(), 'adrenth-redirect-testpage');
+
+        if ($page === null) {
+            $page = new Page();
+            $page->title = 'Testpage';
+            $page->url = '/adrenth/redirect/testpage';
+            $page->setFileNameAttribute('adrenth-redirect-testpage');
+            $page->save();
+        }
+
+        $redirect = new Redirect([
+            'match_type' => Redirect::TYPE_EXACT,
+            'target_type' => Redirect::TARGET_TYPE_CMS_PAGE,
+            'from_url' => '/this-should-be-source',
+            'cms_page' => 'adrenth-redirect-testpage',
+            'requirements' => null,
+            'status_code' => 302,
+            'publish_status' => Redirect::STATUS_PUBLISHED,
+            'from_date' => Carbon::now(),
+            'to_date' => Carbon::now()->addWeek(),
+        ]);
+
+        self::assertTrue($redirect->save());
+
+        $rule = RedirectRule::createWithModel($redirect);
+        self::assertInstanceOf(RedirectRule::class, $rule);
+
+        $manager = RedirectManager::createWithRule($rule);
+        self::assertInstanceOf(RedirectManager::class, $manager);
+
+        $result = $manager->match('/this-should-be-source');
+
+        self::assertInstanceOf(RedirectRule::class, $result);
+        self::assertEquals('http://localhost/adrenth/redirect/testpage', $manager->getLocation($result));
+
+        self::assertTrue($page->delete());
     }
 
     public function testScheduledRedirectPeriod()
@@ -117,7 +152,6 @@ class RedirectManagerTest extends PluginTestCase
             'to_url' => '/this-should-be-target',
             'requirements' => null,
             'status_code' => 302,
-            'is_enabled' => 1,
             'publish_status' => Redirect::STATUS_PUBLISHED,
             'from_date' => Carbon::now(),
             'to_date' => Carbon::now()->addWeek(),
