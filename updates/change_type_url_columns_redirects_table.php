@@ -3,7 +3,10 @@
 namespace Adrenth\Redirect\Updates;
 
 use DB;
+
+use Illuminate\Database\Schema\Blueprint;
 use October\Rain\Database\Updates\Migration;
+use Schema;
 
 /**
  * Class ChangeTypeUrlColumnsRedirectsTable
@@ -16,14 +19,18 @@ class ChangeTypeUrlColumnsRedirectsTable extends Migration
 
     public function up()
     {
-        DB::statement('ALTER TABLE ' . self::TABLE . ' MODIFY COLUMN to_url MEDIUMTEXT');
-        DB::statement('ALTER TABLE ' . self::TABLE . ' MODIFY COLUMN from_url MEDIUMTEXT');
-        DB::statement('ALTER TABLE ' . self::TABLE . ' MODIFY COLUMN match_type CHAR(12)');
+        Schema::table(self::TABLE, function (Blueprint $table) {
+            $table->mediumText('to_url')->change();
+            $table->mediumText('from_url')->change();
+            $table->string('match_type', 12)->change();
+        });
     }
 
     public function down()
     {
-        DB::statement('ALTER TABLE ' . self::TABLE . ' MODIFY COLUMN to_url VARCHAR(255)');
-        DB::statement('ALTER TABLE ' . self::TABLE . ' MODIFY COLUMN from_url VARCHAR(255)');
+        Schema::table(self::TABLE, function (Blueprint $table) {
+            $table->string('to_url')->change();
+            $table->string('from_url')->change();
+        });
     }
 }
