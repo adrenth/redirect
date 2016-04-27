@@ -23,6 +23,8 @@ return [
         'to_url' => 'Target Path or URL',
         'to_url_placeholder' => '/target/path or http://target.url',
         'to_url_comment' => 'The target path or URL to redirect to.',
+        'to_url_required_if' => 'The target path or URL is required',
+        'cms_page_required_if' => 'Please provide a CMS Page to redirect to',
         'match_type' => 'Match Type',
         'target_type' => 'Target Type',
         'target_type_path_or_url' => 'Path or URL',
