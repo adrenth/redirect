@@ -6,11 +6,6 @@
     <div id="publishButton">
         <?= $this->makePartial('button_publish') ?>
     </div>
-    <a href="<?= Backend::url('adrenth/redirect/redirects/reorder') ?>"
-       class="btn btn-default oc-icon-sort">
-        <?= e(trans('adrenth.redirect::lang.buttons.reorder_redirects')) ?>
-    </a>
-
     <div class="btn-group">
         <button class="btn btn-default oc-icon-trash-o"
                 disabled="disabled"
@@ -47,14 +42,4 @@
             <?= e(trans('adrenth.redirect::lang.buttons.disable')) ?>
         </button>
     </div>
-
-    <div class="btn-group">
-        <a href="<?= Backend::url('adrenth/redirect/redirects/export') ?>" class="btn btn-default oc-icon-download">
-            <?= e(trans('adrenth.redirect::lang.buttons.export')) ?>
-        </a>
-        <a href="<?= Backend::url('adrenth/redirect/redirects/import') ?>" class="btn btn-default oc-icon-upload">
-            <?= e(trans('adrenth.redirect::lang.buttons.import')) ?>
-        </a>
-    </div>
-
 </div>

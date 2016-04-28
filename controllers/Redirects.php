@@ -14,7 +14,6 @@ use Flash;
 use Lang;
 use League\Csv\Writer;
 use Request;
-use System\Classes\SettingsManager;
 
 /**
  * Class Redirects
@@ -55,8 +54,7 @@ class Redirects extends Controller
     {
         parent::__construct();
 
-        BackendMenu::setContext('October.System', 'system', 'settings');
-        SettingsManager::setContext('Adrenth.Redirect', 'redirects');
+        BackendMenu::setContext('Adrenth.Redirect', 'redirect', $this->action);
 
         $this->loadAssets();
 

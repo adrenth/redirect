@@ -1,6 +1,5 @@
 <?php Block::put('breadcrumb') ?>
     <ul>
-        <li><a href="<?= Backend::url('system/settings') ?>"><?= e(trans('system::lang.settings.menu_label')) ?></a></li>
         <li><a href="<?= Backend::url('adrenth/redirect/redirects') ?>"><?= e(trans('adrenth.redirect::lang.navigation.menu_label')) ?></a></li>
         <li><?= e($this->pageTitle) ?></li>
     </ul>

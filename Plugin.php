@@ -68,18 +68,51 @@ class Plugin extends PluginBase
     /**
      * {@inheritdoc}
      */
-    public function registerSettings()
+    public function registerNavigation()
     {
         return [
-            'redirects' => [
+            'redirect' => [
                 'label' => 'adrenth.redirect::lang.navigation.menu_label',
                 'icon' => 'icon-link',
-                'description' => 'adrenth.redirect::lang.navigation.menu_description',
                 'url' => Backend::url('adrenth/redirect/redirects'),
-                'order' => 500,
+                'order' => 50,
                 'permissions' => [
                     'adrenth.redirect.access_redirects',
                 ],
+                'sideMenu' => [
+                    'index' => [
+                        'icon' => 'icon-link',
+                        'label' => 'adrenth.redirect::lang.navigation.menu_label',
+                        'url' => Backend::url('adrenth/redirect/redirects'),
+                        'permissions' => [
+                            'adrenth.redirect.access_redirects',
+                        ],
+                    ],
+                    'reorder' => [
+                        'label' => 'adrenth.redirect::lang.buttons.reorder_redirects',
+                        'url' => Backend::url('adrenth/redirect/redirects/reorder'),
+                        'icon' => 'icon-sort-amount-asc',
+                        'permissions' => [
+                            'adrenth.redirect.access_redirects',
+                        ],
+                    ],
+                    'import' => [
+                        'label' => 'adrenth.redirect::lang.buttons.import',
+                        'url' => Backend::url('adrenth/redirect/redirects/import'),
+                        'icon' => 'icon-download',
+                        'permissions' => [
+                            'adrenth.redirect.access_redirects',
+                        ],
+                    ],
+                    'export' => [
+                        'label' => 'adrenth.redirect::lang.buttons.export',
+                        'url' => Backend::url('adrenth/redirect/redirects/export'),
+                        'icon' => 'icon-upload',
+                        'permissions' => [
+                            'adrenth.redirect.access_redirects',
+                        ],
+                    ],
+                ]
             ],
         ];
     }
