@@ -10,9 +10,8 @@ use Backend\Classes\Controller;
 use BackendMenu;
 use Carbon\Carbon;
 use DB;
-use Flash;
-use Lang;
 use League\Csv\Writer;
+use October\Rain\Database\Builder;
 use Request;
 
 /**
@@ -60,10 +59,7 @@ class Redirects extends Controller
 
         $this->requiredPermissions = ['adrenth.redirect.access_redirects'];
 
-        $this->publishManager = new PublishManager();
-
         $this->vars['match'] = null;
-        $this->vars['unpublishedCount'] = $this->publishManager->getUnpublishedCount();
     }
 
     /**
@@ -76,33 +72,16 @@ class Redirects extends Controller
         $this->addCss('/plugins/adrenth/redirect/assets/css/backend.css');
     }
 
+    // @codingStandardsIgnoreStart
+
     /**
      * @return array
-     * @throws \Exception
-     * @throws \InvalidArgumentException
      */
     public function index_onDelete()
     {
-        $checkedIds = $this->getCheckedIds();
+        Redirect::whereIn('id', $this->getCheckedIds())->delete();
 
-        $deleteCount = 0;
-        foreach ($checkedIds as $redirectId) {
-            if (!$redirect = Redirect::find($redirectId)) {
-                continue;
-            }
-
-            $redirect->delete();
-            $deleteCount++;
-        }
-
-        if ($deleteCount > 0) {
-            DB::table((new Redirect())->table)
-                ->whereNotIn('id', $checkedIds)
-                ->where('is_enabled', '=', 1)
-                ->update(['publish_status' => Redirect::STATUS_CHANGED]);
-        }
-
-        return $this->listAndPublishButtonRefresh();
+        return $this->listRefresh();
     }
 
     /**
@@ -110,17 +89,9 @@ class Redirects extends Controller
      */
     public function index_onEnable()
     {
-        $checkedIds = $this->getCheckedIds();
+        Redirect::whereIn('id', $this->getCheckedIds())->update(['is_enabled' => 1]);
 
-        foreach ($checkedIds as $redirectId) {
-            if (!$redirect = Redirect::find($redirectId)) {
-                continue;
-            }
-
-            $redirect->update(['is_enabled' => 1]);
-        }
-
-        return $this->listAndPublishButtonRefresh();
+        return $this->listRefresh();
     }
 
     /**
@@ -128,36 +99,23 @@ class Redirects extends Controller
      */
     public function index_onDisable()
     {
-        $checkedIds = $this->getCheckedIds();
+        Redirect::whereIn('id', $this->getCheckedIds())->update(['is_enabled' => 0]);
 
-        foreach ($checkedIds as $redirectId) {
-            if (!$redirect = Redirect::find($redirectId)) {
-                continue;
-            }
-
-            $redirect->update(['is_enabled' => 0]);
-        }
-
-        return $this->listAndPublishButtonRefresh();
+        return $this->listRefresh();
     }
 
+    // @codingStandardsIgnoreEnd
+
     /**
-     * @return array
-     * @throws \InvalidArgumentException
+     * Controller override: Extend the query used for populating the list
+     * after the default query is processed.
+     *
+     * @param \October\Rain\Database\Builder $query
+     * @param mixed $definition
      */
-    public function index_onPublish()
+    public function listExtendQuery(Builder $query, $definition = null)
     {
-        $numberOfRedirects = $this->publishManager->publish();
-
-        if ($numberOfRedirects) {
-            Flash::success(Lang::trans('adrenth.redirect::lang.flash.publish_success', [
-                'number' => $numberOfRedirects,
-            ]));
-        } else {
-            Flash::info(Lang::trans('adrenth.redirect::lang.flash.publish_no_redirects'));
-        }
-
-        return $this->listAndPublishButtonRefresh();
+        //$query->where('system', '=', 0);
     }
 
     /**
@@ -203,27 +161,5 @@ class Redirects extends Controller
         }
 
         return [];
-    }
-
-    /**
-     * @return array
-     */
-    private function listAndPublishButtonRefresh()
-    {
-        try {
-            return array_merge(
-                $this->listRefresh(),
-                [
-                    '#publishButton' => $this->makePartial(
-                        'button_publish',
-                        [
-                            'unpublishedCount' => $this->publishManager->getUnpublishedCount(),
-                        ]
-                    ),
-                ]
-            );
-        } catch (\SystemException $e) {
-            return [];
-        }
     }
 }

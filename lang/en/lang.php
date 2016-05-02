@@ -50,8 +50,6 @@ return [
         'not_found' => '404 - Not Found',
         'enabled' => 'Enabled',
         'enabled_comment' => 'Flick this switch to enable this redirect.',
-        'publish_confirm' => 'Are you sure you want to publish all changes?',
-        'published' => 'Published',
         'priority' => 'Priority',
         'hits' => 'Hits',
         'return_to_redirects' => 'Return to redirects list',
@@ -59,16 +57,9 @@ return [
         'created_at' => 'Created at',
         'modified_at' => 'Modified at',
     ],
-    'status' => [
-        'status' => 'Status',
-        'published' => 'Published',
-        'unpublished' => 'Unpublished',
-        'changed' => 'Changed',
-    ],
     'list' => [
         'no_records' => 'There are no redirects in this view.',
         'hide_disabled' => 'Hide Disabled',
-        'hide_published' => 'Hide Published',
     ],
     'scheduling' => [
         'from_date' => 'Available From',
@@ -85,7 +76,7 @@ return [
         'clear_period' => 'Clear Period',
     ],
     'test' => [
-        'test_comment' => 'Please test your redirect before publishing the redirect.',
+        'test_comment' => 'Please test your redirect before saving the redirect.',
         'input_path' => 'Input Path',
         'input_path_comment' => 'The input path to test. E.g. /old-blog/category/123',
         'input_path_placeholder' => '/input/path',
@@ -106,7 +97,6 @@ return [
     ],
     'buttons' => [
         'new_redirect' => 'Add',
-        'publish' => 'Publish',
         'delete' => 'Delete',
         'enable' => 'Enable',
         'disable' => 'Disable',
@@ -120,12 +110,4 @@ return [
         'tab_test' => 'Test',
         'tab_scheduling' => 'Scheduling',
     ],
-    'flash' => [
-        'publish_success' => ':number redirects are successfully published',
-        'publish_no_redirects' => 'No redirects to publish',
-    ],
-    'hint' => [
-        'publish' => 'To activate your redirects make sure they are enabled and then hit \'Publish redirects\'.',
-        'publish_order' => 'After re-ordering your redirects need to be published again.',
-    ]
 ];

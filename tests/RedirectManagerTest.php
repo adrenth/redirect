@@ -26,7 +26,6 @@ class RedirectManagerTest extends PluginTestCase
             'to_url' => '/this-should-be-target',
             'requirements' => null,
             'status_code' => 302,
-            'publish_status' => Redirect::STATUS_PUBLISHED,
         ]);
 
         self::assertTrue($redirect->save());
@@ -72,7 +71,6 @@ class RedirectManagerTest extends PluginTestCase
                 ]
             ],
             'status_code' => 301,
-            'publish_status' => Redirect::STATUS_PUBLISHED,
         ]);
 
         self::assertTrue($redirect->save());
@@ -122,7 +120,6 @@ class RedirectManagerTest extends PluginTestCase
             'cms_page' => 'adrenth-redirect-testpage',
             'requirements' => null,
             'status_code' => 302,
-            'publish_status' => Redirect::STATUS_PUBLISHED,
             'from_date' => Carbon::now(),
             'to_date' => Carbon::now()->addWeek(),
         ]);
@@ -152,7 +149,6 @@ class RedirectManagerTest extends PluginTestCase
             'to_url' => '/this-should-be-target',
             'requirements' => null,
             'status_code' => 302,
-            'publish_status' => Redirect::STATUS_PUBLISHED,
             'from_date' => Carbon::now(),
             'to_date' => Carbon::now()->addWeek(),
         ]);
@@ -209,7 +205,6 @@ class RedirectManagerTest extends PluginTestCase
             'requirements' => null,
             'status_code' => 302,
             'is_enabled' => 1,
-            'publish_status' => Redirect::STATUS_PUBLISHED,
             'from_date' => Carbon::today()->addMonth(),
             'to_date' => null,
         ]);
@@ -253,7 +248,6 @@ class RedirectManagerTest extends PluginTestCase
             'requirements' => null,
             'status_code' => 302,
             'is_enabled' => 1,
-            'publish_status' => Redirect::STATUS_PUBLISHED,
             'from_date' => null,
             'to_date' => Carbon::today()->addMonth(),
         ]);

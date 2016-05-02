@@ -2,9 +2,13 @@
 
 namespace Adrenth\Redirect;
 
-use App;
+use Adrenth\Redirect\Classes\PageHandler;
+use Adrenth\Redirect\Classes\PublishManager;
 use Adrenth\Redirect\Classes\RedirectManager;
+use Adrenth\Redirect\Models\Redirect;
+use App;
 use Backend;
+use Cms\Classes\Page;
 use Request;
 use System\Classes\PluginBase;
 
@@ -33,10 +37,28 @@ class Plugin extends PluginBase
      */
     public function boot()
     {
-        if (App::runningInBackend() || App::runningUnitTests()) {
-            return;
+        if (App::runningInBackend()
+            && !App::runningInConsole()
+            && !App::runningUnitTests()
+        ) {
+            $this->bootBackend();
         }
 
+        if (!App::runningInBackend()
+            && !App::runningUnitTests()
+            && !App::runningInConsole()
+        ) {
+            $this->bootFrontend();
+        }
+    }
+
+    /**
+     * Boot stuff for Frontend
+     *
+     * @return void
+     */
+    public function bootFrontend()
+    {
         // Check for running in console or backend before route matching
         $rulesPath = storage_path('app/redirects.csv');
 
@@ -50,6 +72,24 @@ class Plugin extends PluginBase
         if ($rule) {
             $manager->redirectWithRule($rule);
         }
+    }
+
+    /**
+     * Boot stuff for Backend
+     *
+     * @return void
+     */
+    public function bootBackend()
+    {
+        Redirect::extend(function (Redirect $redirect) {
+            $redirect->bindEvent('model.afterSave', function () {
+                PublishManager::instance()->publish();
+            });
+
+            $redirect->bindEvent('model.afterDelete', function () {
+                PublishManager::instance()->publish();
+            });
+        });
     }
 
     /**
