@@ -6,6 +6,7 @@ use Adrenth\Redirect\Models\Redirect;
 use Carbon\Carbon;
 use Cms\Classes\Controller;
 use Cms\Classes\Theme;
+use DB;
 use InvalidArgumentException;
 use League\Csv\Reader;
 use Log;
@@ -87,14 +88,9 @@ class RedirectManager
      */
     public function redirectWithRule(RedirectRule $rule)
     {
-        try {
-            /** @type Redirect $redirect */
-            $redirect = Redirect::find($rule->getId());
-            $redirect->setAttribute('hits', $redirect->getAttribute('hits') + 1);
-            $redirect->save();
-        } catch (\Exception $e) {
-            Log::error($e->getMessage());
-        }
+        /** @type Redirect $redirect */
+        Redirect::where('id', '=', $rule->getId())
+            ->update(['hits' => DB::raw('hits + 1')]);
 
         if ($rule->getStatusCode() === 404) {
             abort($rule->getStatusCode(), 'Not Found');
