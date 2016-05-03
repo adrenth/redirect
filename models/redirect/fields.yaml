@@ -10,7 +10,6 @@ fields:
         span: left
         comment: adrenth.redirect::lang.redirect.from_url_comment
         required: true
-
     to_url:
         label: adrenth.redirect::lang.redirect.to_url
         placeholder: adrenth.redirect::lang.redirect.to_url_placeholder

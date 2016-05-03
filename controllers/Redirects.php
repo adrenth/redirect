@@ -7,11 +7,12 @@ use Adrenth\Redirect\Classes\RedirectManager;
 use Adrenth\Redirect\Classes\RedirectRule;
 use Adrenth\Redirect\Models\Redirect;
 use Backend\Classes\Controller;
+use Backend\Classes\FormField;
+use Backend\Widgets\Form;
 use BackendMenu;
 use Carbon\Carbon;
 use DB;
 use League\Csv\Writer;
-use October\Rain\Database\Builder;
 use Request;
 
 /**
@@ -107,15 +108,26 @@ class Redirects extends Controller
     // @codingStandardsIgnoreEnd
 
     /**
-     * Controller override: Extend the query used for populating the list
-     * after the default query is processed.
+     * Called after the form fields are defined.
      *
-     * @param \October\Rain\Database\Builder $query
-     * @param mixed $definition
+     * @param Form $host
+     * @param array $fields
      */
-    public function listExtendQuery(Builder $query, $definition = null)
+    public function formExtendFields(Form $host, array $fields = [])
     {
-        //$query->where('system', '=', 0);
+        $disableFields = [
+            'from_url',
+            'to_url',
+            'cms_page',
+            'target_type',
+            'match_type',
+        ];
+
+        foreach ($disableFields as $disableField) {
+            /** @type FormField $field */
+            $field = $host->getField($disableField);
+            $field->disabled = $host->model->getAttribute('system');
+        }
     }
 
     /**

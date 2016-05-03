@@ -99,19 +99,18 @@ class PageHandler
         return $this->page->getOriginal('url');
     }
 
+    /**
+     * Create CMS page type
+     *
+     * @return void
+     */
     private function createRedirect()
     {
-        Redirect::where('cms_page', '=', $this->page->getBaseFileName())
-            ->where('system', '=', 1)
-            ->update([
-                'to_url' => $this->getNewUrl(),
-            ]);
-
         Redirect::create([
             'match_type' => Redirect::TYPE_EXACT,
-            'target_type' => Redirect::TARGET_TYPE_PATH_URL,
+            'target_type' => Redirect::TARGET_TYPE_CMS_PAGE,
             'from_url' => $this->getOriginalUrl(),
-            'to_url' => $this->getNewUrl(),
+            'to_url' => null,
             'cms_page' => $this->page->getBaseFileName(),
             'status_code' => 301,
             'is_enabled' => true,
