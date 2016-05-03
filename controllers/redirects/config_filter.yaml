@@ -1,13 +1,25 @@
 scopes:
+    system:
+        label: adrenth.redirect::lang.list.switch_system
+        type: switch
+        conditions:
+            - system <> true
+            - system = true
     is_enabled:
-        label: adrenth.redirect::lang.list.hide_disabled
-        type: checkbox
-        conditions: is_enabled <> '0'
+        label: adrenth.redirect::lang.list.switch_is_enabled
+        type: switch
+        conditions:
+            - is_enabled <> true
+            - is_enabled = true
+    match_type:
+        label: adrenth.redirect::lang.redirect.match_type
+        type: group
+        modelClass: Adrenth\Redirect\Models\Redirect
+        options: filterMatchTypeOptions
+        conditions: match_type in (:filtered)
     status_code:
         label: adrenth.redirect::lang.redirect.status_code
         type: group
-        options:
-            301: 301
-            302: 302
-            404: 404
+        modelClass: Adrenth\Redirect\Models\Redirect
+        options: filterStatusCodeOptions
         conditions: status_code in (:filtered)

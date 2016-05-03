@@ -26,6 +26,8 @@ return [
         'to_url_required_if' => 'The target path or URL is required',
         'cms_page_required_if' => 'Please provide a CMS Page to redirect to',
         'match_type' => 'Match Type',
+        'exact' => 'Exact',
+        'placeholders' => 'Placeholders',
         'target_type' => 'Target Type',
         'target_type_path_or_url' => 'Path or URL',
         'target_type_cms_page' => 'CMS Page',
@@ -43,8 +45,6 @@ return [
         'replacement' => 'Replacement',
         'replacement_comment' => 'Provide an optional replacement value for this placeholder. '
             . 'The matched placeholder will be replaced with this value in the target URL.',
-        'exact' => 'Exact',
-        'placeholders' => 'Placeholders',
         'permanent' => '301 - Permanent',
         'temporary' => '302 - Temporary',
         'not_found' => '404 - Not Found',
@@ -56,10 +56,14 @@ return [
         'delete_confirm' => 'Are you sure?',
         'created_at' => 'Created at',
         'modified_at' => 'Modified at',
+        'system_tip' => 'System generated redirect',
+        'user_tip' => 'User generated redirect',
+        'type' => 'Type',
     ],
     'list' => [
         'no_records' => 'There are no redirects in this view.',
-        'hide_disabled' => 'Hide Disabled',
+        'switch_is_enabled' => 'Enabled',
+        'switch_system' => 'System Redirects'
     ],
     'scheduling' => [
         'from_date' => 'Available From',

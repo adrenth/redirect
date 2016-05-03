@@ -27,13 +27,24 @@ class Redirect extends Model
     const TARGET_TYPE_CMS_PAGE = 'cms_page';
 //    const TARGET_TYPE_STATIC_PAGE = 'static_page';
 
-    /**
-     * @type array
-     */
+    /** @type array */
+    public static $types = [
+        self::TYPE_EXACT,
+        self::TYPE_PLACEHOLDERS,
+    ];
+
+    /** @type array */
     public static $targetTypes = [
         self::TARGET_TYPE_PATH_URL,
         self::TARGET_TYPE_CMS_PAGE,
 //        self::TARGET_TYPE_STATIC_PAGE,
+    ];
+
+    /** @type array */
+    public static $statusCodes = [
+        301 => 'permanent',
+        302 => 'temporary',
+        404 => 'not_found',
     ];
 
     /**
@@ -185,4 +196,32 @@ class Redirect extends Model
 //    {
 //        return OptionHelper::getStaticPageOptions();
 //    }
+
+    /**
+     * @return array
+     */
+    public function filterMatchTypeOptions()
+    {
+        $options = [];
+
+        foreach (self::$types as $value) {
+            $options[$value] = trans("adrenth.redirect::lang.redirect.$value");
+        }
+
+        return $options;
+    }
+
+    /**
+     * @return array
+     */
+    public function filterStatusCodeOptions()
+    {
+        $options = [];
+
+        foreach (self::$statusCodes as $value => $message) {
+            $options[$value] = trans("adrenth.redirect::lang.redirect.$message");
+        }
+
+        return $options;
+    }
 }
