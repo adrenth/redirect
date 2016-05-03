@@ -3,6 +3,12 @@
 # ===================================
 
 columns:
+    system:
+        label: adrenth.redirect::lang.redirect.type
+        width: 16px
+        type: partial
+        path: $/adrenth/redirect/models/redirect/_system_column.htm
+        sortable: false
     from_url:
         label: adrenth.redirect::lang.redirect.from_url
         type: partial

@@ -29,3 +29,6 @@
 1.1.3:
     - Add PhpUnit tests and minor improvements
     - change_to_url_column_redirects_table.php
+2.0.0:
+    - Redirect 2.0
+    - add_system_field_to_redirects_table.php

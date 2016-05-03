@@ -81,6 +81,18 @@ class Plugin extends PluginBase
      */
     public function bootBackend()
     {
+        Page::extend(function (Page $page) {
+            $handler = new PageHandler($page);
+
+            $page->bindEvent('model.beforeUpdate', function () use ($handler) {
+                $handler->onBeforeUpdate();
+            });
+
+            $page->bindEvent('model.afterDelete', function () use ($handler) {
+                $handler->onAfterDelete();
+            });
+        });
+
         Redirect::extend(function (Redirect $redirect) {
             $redirect->bindEvent('model.afterSave', function () {
                 PublishManager::instance()->publish();
