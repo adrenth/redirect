@@ -1,0 +1,9 @@
+<?php
+use Adrenth\Redirect\Models\Redirect;
+?>
+
+<?php if ($value === Redirect::TARGET_TYPE_PATH_URL): ?>
+    <span class="oc-icon-copy"></span>
+<?php elseif ($value === Redirect::TARGET_TYPE_CMS_PAGE): ?>
+    <span class="oc-icon-link"></span>
+<?php endif; ?>

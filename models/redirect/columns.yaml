@@ -14,27 +14,22 @@ columns:
         type: partial
         searchable: true
         path: $/adrenth/redirect/models/redirect/_url_column.htm
-    to_url:
-        label: adrenth.redirect::lang.redirect.to_url
+    target_type:
+        label: adrenth.redirect::lang.redirect.target_type
         type: partial
-        searchable: true
-        path: $/adrenth/redirect/models/redirect/_url_column.htm
-        invisible: true
+        path: $/adrenth/redirect/models/redirect/_target_type_column.htm
     status_code:
         label: adrenth.redirect::lang.redirect.status_code
         type: partial
         path: $/adrenth/redirect/models/redirect/_status_code_column.htm
-        invisible: true
     match_type:
         label: adrenth.redirect::lang.redirect.match_type
         type: partial
         path: $/adrenth/redirect/models/redirect/_match_type_column.htm
-        invisible: true
     hits:
         label: adrenth.redirect::lang.redirect.hits
     sort_order:
         label: adrenth.redirect::lang.redirect.priority
-        invisible: true
     is_enabled:
         label: adrenth.redirect::lang.redirect.enabled
         type: partial
