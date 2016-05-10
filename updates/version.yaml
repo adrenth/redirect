@@ -23,7 +23,6 @@
 1.1.0:
     - !!! Add support for redirection to a CMS Page (re-publishing redirects is required)
     - add_target_type_fields_to_redirects_table.php
-    - publish.php
 1.1.1: Fixes a bug that occured while editing a redirect (thanks lorajc)
 1.1.2: Fixes a bug for scheduled redirects
 1.1.3:
