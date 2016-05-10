@@ -98,6 +98,7 @@ class Redirect extends Model
         'to_date' => 'adrenth.redirect::lang.scheduling.to_date',
         'sort_order' => 'adrenth.redirect::lang.redirect.sort_order',
         'requirements' => 'adrenth.redirect::lang.redirect.requirements',
+        'last_used_at' => 'adrenth.redirect::lang.redirect.last_used_at'
     ];
 
     /**
@@ -106,6 +107,7 @@ class Redirect extends Model
     public $dates = [
         'from_date',
         'to_date',
+        'last_used_at',
     ];
 
     /**

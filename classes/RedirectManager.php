@@ -90,7 +90,10 @@ class RedirectManager
     {
         /** @type Redirect $redirect */
         Redirect::where('id', '=', $rule->getId())
-            ->update(['hits' => DB::raw('hits + 1')]);
+            ->update([
+                'hits' => DB::raw('hits + 1'),
+                'last_used_at' => Carbon::now(),
+            ]);
 
         if ($rule->getStatusCode() === 404) {
             abort($rule->getStatusCode(), 'Not Found');

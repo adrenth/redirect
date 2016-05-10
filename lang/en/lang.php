@@ -59,11 +59,12 @@ return [
         'system_tip' => 'System generated redirect',
         'user_tip' => 'User generated redirect',
         'type' => 'Type',
+        'last_used_at' => 'Last Used At',
     ],
     'list' => [
         'no_records' => 'There are no redirects in this view.',
         'switch_is_enabled' => 'Enabled',
-        'switch_system' => 'System Redirects'
+        'switch_system' => 'System Redirects',
     ],
     'scheduling' => [
         'from_date' => 'Available From',
