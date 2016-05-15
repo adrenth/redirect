@@ -4,7 +4,6 @@ namespace Adrenth\Redirect\Classes;
 
 use Adrenth\Redirect\Models\Redirect;
 use Cms\Classes\Page;
-use Flash;
 
 /**
  * Class PageHandler
@@ -42,9 +41,6 @@ class PageHandler
         }
 
         $this->createRedirect();
-
-        // @TODO Notify user something has happened?
-        // Flash::success('Page URL has changed, a redirect was automatically added');
     }
 
     public function onAfterDelete()

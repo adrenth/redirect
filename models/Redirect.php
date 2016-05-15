@@ -111,6 +111,13 @@ class Redirect extends Model
     ];
 
     /**
+     * {@inheritdoc}
+     */
+    public $hasMany = [
+        'clients' => Client::class,
+    ];
+
+    /**
      * @param array $data
      * @param array $rules
      * @param array $customMessages

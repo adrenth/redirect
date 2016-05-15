@@ -4,9 +4,57 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "630ae0b300b275d34d6c65644ac757f7",
-    "content-hash": "b6b4abda30c2bbefba2e95ebefb01c47",
+    "hash": "572b99672e5a8fbb477b3942aca85480",
+    "content-hash": "26331ac34f7283214a3da94c37e736e8",
     "packages": [
+        {
+            "name": "jaybizzle/crawler-detect",
+            "version": "v1.2.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/JayBizzle/Crawler-Detect.git",
+                "reference": "78879b1baecde277d2f077f649f29d31767dc4b9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/JayBizzle/Crawler-Detect/zipball/78879b1baecde277d2f077f649f29d31767dc4b9",
+                "reference": "78879b1baecde277d2f077f649f29d31767dc4b9",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Jaybizzle\\CrawlerDetect\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Mark Beech",
+                    "email": "m@rkbee.ch",
+                    "role": "Developer"
+                }
+            ],
+            "description": "CrawlerDetect is a PHP class for detecting bots/crawlers/spiders via the user agent",
+            "homepage": "https://github.com/JayBizzle/Crawler-Detect/",
+            "keywords": [
+                "crawler",
+                "crawler detect",
+                "crawler detector",
+                "crawlerdetect",
+                "php crawler detect"
+            ],
+            "time": "2016-05-05 20:42:31"
+        },
         {
             "name": "league/csv",
             "version": "8.0.0",

@@ -7,4 +7,5 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'League\\Csv\\' => array($vendorDir . '/league/csv/src'),
+    'Jaybizzle\\CrawlerDetect\\' => array($vendorDir . '/jaybizzle/crawler-detect/src'),
 );

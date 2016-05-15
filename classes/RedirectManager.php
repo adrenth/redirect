@@ -2,12 +2,14 @@
 
 namespace Adrenth\Redirect\Classes;
 
+use Adrenth\Redirect\Models\Client;
 use Adrenth\Redirect\Models\Redirect;
 use Carbon\Carbon;
 use Cms\Classes\Controller;
 use Cms\Classes\Theme;
 use DB;
 use InvalidArgumentException;
+use Jaybizzle\CrawlerDetect\CrawlerDetect;
 use League\Csv\Reader;
 use Log;
 use Symfony\Component\Routing\Matcher\UrlMatcher;
@@ -88,12 +90,7 @@ class RedirectManager
      */
     public function redirectWithRule(RedirectRule $rule)
     {
-        /** @type Redirect $redirect */
-        Redirect::where('id', '=', $rule->getId())
-            ->update([
-                'hits' => DB::raw('hits + 1'),
-                'last_used_at' => Carbon::now(),
-            ]);
+        $this->updateStatistics($rule->getId());
 
         if ($rule->getStatusCode() === 404) {
             abort($rule->getStatusCode(), 'Not Found');
@@ -347,5 +344,32 @@ class RedirectManager
         }
 
         $this->redirectRules = $rules;
+    }
+
+    /**
+     * Update database statistics
+     *
+     * @param int $redirectId
+     */
+    private function updateStatistics($redirectId)
+    {
+        $now = Carbon::now();
+
+        Redirect::where('id', '=', $redirectId)
+            ->update([
+                'hits' => DB::raw('hits + 1'),
+                'last_used_at' => $now,
+            ]);
+
+        $crawlerDetect = new CrawlerDetect();
+
+        Client::create([
+            'redirect_id' => $redirectId,
+            'timestamp' => $now,
+            'day' => $now->day,
+            'month' => $now->month,
+            'year' => $now->year,
+            'crawler' => $crawlerDetect->isCrawler() ? $crawlerDetect->getMatches() : null,
+        ]);
     }
 }
