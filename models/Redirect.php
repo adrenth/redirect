@@ -61,11 +61,17 @@ class Redirect extends Model
      */
     public $rules = [
         'from_url' => 'required',
-        'to_url' => 'different:from_url',
+        'to_url' => 'different:from_url|required_if:target_type,path_or_url',
+        'cms_page' => 'required_if:target_type,cms_page',
         'match_type' => 'required|in:exact,placeholders',
         'target_type' => 'required|in:path_or_url,cms_page', // ,static_page
         'status_code' => 'required|in:301,302,404',
         'sort_order' => 'numeric',
+    ];
+
+    public $customMessages = [
+        'to_url.required_if' => 'adrenth.redirect::lang.redirect.to_url_required_if',
+        'cms_page.required_if' => 'adrenth.redirect::lang.redirect.cms_page_required_if',
     ];
 
     public $jsonable = [
