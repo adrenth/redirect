@@ -29,6 +29,7 @@ class Plugin extends PluginBase
             'description' => 'adrenth.redirect::lang.plugin.description',
             'author' => 'Alwin Drenth',
             'icon' => 'icon-link',
+            'homepage' => 'https://github.com/adrenth/redirect',
         ];
     }
 
