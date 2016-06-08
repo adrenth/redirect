@@ -4,21 +4,21 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "572b99672e5a8fbb477b3942aca85480",
-    "content-hash": "26331ac34f7283214a3da94c37e736e8",
+    "hash": "319717fc6459cf5045c05a52eaa78b74",
+    "content-hash": "d87c46c110f6b2acd9fdca4e4c904ddc",
     "packages": [
         {
             "name": "jaybizzle/crawler-detect",
-            "version": "v1.2.2",
+            "version": "v1.2.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/JayBizzle/Crawler-Detect.git",
-                "reference": "78879b1baecde277d2f077f649f29d31767dc4b9"
+                "reference": "ef558efd72963fbcc6c0ef56cd2da841197b73d8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/JayBizzle/Crawler-Detect/zipball/78879b1baecde277d2f077f649f29d31767dc4b9",
-                "reference": "78879b1baecde277d2f077f649f29d31767dc4b9",
+                "url": "https://api.github.com/repos/JayBizzle/Crawler-Detect/zipball/ef558efd72963fbcc6c0ef56cd2da841197b73d8",
+                "reference": "ef558efd72963fbcc6c0ef56cd2da841197b73d8",
                 "shasum": ""
             },
             "require": {
@@ -53,64 +53,7 @@
                 "crawlerdetect",
                 "php crawler detect"
             ],
-            "time": "2016-05-05 20:42:31"
-        },
-        {
-            "name": "league/csv",
-            "version": "8.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/thephpleague/csv.git",
-                "reference": "0a1b535df48507f58ed3c7ab44e72272b11163ac"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/csv/zipball/0a1b535df48507f58ed3c7ab44e72272b11163ac",
-                "reference": "0a1b535df48507f58ed3c7ab44e72272b11163ac",
-                "shasum": ""
-            },
-            "require": {
-                "ext-mbstring": "*",
-                "php": ">=5.5.0"
-            },
-            "require-dev": {
-                "fabpot/php-cs-fixer": "^1.9",
-                "phpunit/phpunit": "^4.0"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "8.0-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "League\\Csv\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Ignace Nyamagana Butera",
-                    "email": "nyamsprod@gmail.com",
-                    "homepage": "https://github.com/nyamsprod/",
-                    "role": "Developer"
-                }
-            ],
-            "description": "Csv data manipulation made easy in PHP",
-            "homepage": "http://csv.thephpleague.com",
-            "keywords": [
-                "csv",
-                "export",
-                "filter",
-                "import",
-                "read",
-                "write"
-            ],
-            "time": "2015-12-11 09:28:14"
+            "time": "2016-05-19 22:01:17"
         }
     ],
     "packages-dev": [],
