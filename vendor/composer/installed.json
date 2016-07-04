@@ -1,17 +1,17 @@
 [
     {
         "name": "jaybizzle/crawler-detect",
-        "version": "v1.2.3",
-        "version_normalized": "1.2.3.0",
+        "version": "v1.2.6",
+        "version_normalized": "1.2.6.0",
         "source": {
             "type": "git",
             "url": "https://github.com/JayBizzle/Crawler-Detect.git",
-            "reference": "ef558efd72963fbcc6c0ef56cd2da841197b73d8"
+            "reference": "93ad7d892cfe89675f4e5eaec806d2b73310d4d9"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/JayBizzle/Crawler-Detect/zipball/ef558efd72963fbcc6c0ef56cd2da841197b73d8",
-            "reference": "ef558efd72963fbcc6c0ef56cd2da841197b73d8",
+            "url": "https://api.github.com/repos/JayBizzle/Crawler-Detect/zipball/93ad7d892cfe89675f4e5eaec806d2b73310d4d9",
+            "reference": "93ad7d892cfe89675f4e5eaec806d2b73310d4d9",
             "shasum": ""
         },
         "require": {
@@ -20,7 +20,7 @@
         "require-dev": {
             "phpunit/phpunit": "*"
         },
-        "time": "2016-05-19 22:01:17",
+        "time": "2016-07-01 20:39:10",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
