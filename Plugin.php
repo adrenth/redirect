@@ -2,9 +2,13 @@
 
 namespace Adrenth\Redirect;
 
-use App;
+use Adrenth\Redirect\Classes\PageHandler;
+use Adrenth\Redirect\Classes\PublishManager;
 use Adrenth\Redirect\Classes\RedirectManager;
+use Adrenth\Redirect\Models\Redirect;
+use App;
 use Backend;
+use Cms\Classes\Page;
 use Request;
 use System\Classes\PluginBase;
 
@@ -34,10 +38,28 @@ class Plugin extends PluginBase
      */
     public function boot()
     {
-        if (App::runningInBackend() || App::runningUnitTests()) {
-            return;
+        if (App::runningInBackend()
+            && !App::runningInConsole()
+            && !App::runningUnitTests()
+        ) {
+            $this->bootBackend();
         }
 
+        if (!App::runningInBackend()
+            && !App::runningUnitTests()
+            && !App::runningInConsole()
+        ) {
+            $this->bootFrontend();
+        }
+    }
+
+    /**
+     * Boot stuff for Frontend
+     *
+     * @return void
+     */
+    public function bootFrontend()
+    {
         // Check for running in console or backend before route matching
         $rulesPath = storage_path('app/redirects.csv');
 
@@ -51,6 +73,36 @@ class Plugin extends PluginBase
         if ($rule) {
             $manager->redirectWithRule($rule);
         }
+    }
+
+    /**
+     * Boot stuff for Backend
+     *
+     * @return void
+     */
+    public function bootBackend()
+    {
+        Page::extend(function (Page $page) {
+            $handler = new PageHandler($page);
+
+            $page->bindEvent('model.beforeUpdate', function () use ($handler) {
+                $handler->onBeforeUpdate();
+            });
+
+            $page->bindEvent('model.afterDelete', function () use ($handler) {
+                $handler->onAfterDelete();
+            });
+        });
+
+        Redirect::extend(function (Redirect $redirect) {
+            $redirect->bindEvent('model.afterSave', function () {
+                PublishManager::instance()->publish();
+            });
+
+            $redirect->bindEvent('model.afterDelete', function () {
+                PublishManager::instance()->publish();
+            });
+        });
     }
 
     /**
@@ -69,18 +121,51 @@ class Plugin extends PluginBase
     /**
      * {@inheritdoc}
      */
-    public function registerSettings()
+    public function registerNavigation()
     {
         return [
-            'redirects' => [
+            'redirect' => [
                 'label' => 'adrenth.redirect::lang.navigation.menu_label',
                 'icon' => 'icon-link',
-                'description' => 'adrenth.redirect::lang.navigation.menu_description',
                 'url' => Backend::url('adrenth/redirect/redirects'),
-                'order' => 500,
+                'order' => 50,
                 'permissions' => [
                     'adrenth.redirect.access_redirects',
                 ],
+                'sideMenu' => [
+                    'index' => [
+                        'icon' => 'icon-link',
+                        'label' => 'adrenth.redirect::lang.navigation.menu_label',
+                        'url' => Backend::url('adrenth/redirect/redirects'),
+                        'permissions' => [
+                            'adrenth.redirect.access_redirects',
+                        ],
+                    ],
+                    'reorder' => [
+                        'label' => 'adrenth.redirect::lang.buttons.reorder_redirects',
+                        'url' => Backend::url('adrenth/redirect/redirects/reorder'),
+                        'icon' => 'icon-sort-amount-asc',
+                        'permissions' => [
+                            'adrenth.redirect.access_redirects',
+                        ],
+                    ],
+                    'import' => [
+                        'label' => 'adrenth.redirect::lang.buttons.import',
+                        'url' => Backend::url('adrenth/redirect/redirects/import'),
+                        'icon' => 'icon-download',
+                        'permissions' => [
+                            'adrenth.redirect.access_redirects',
+                        ],
+                    ],
+                    'export' => [
+                        'label' => 'adrenth.redirect::lang.buttons.export',
+                        'url' => Backend::url('adrenth/redirect/redirects/export'),
+                        'icon' => 'icon-upload',
+                        'permissions' => [
+                            'adrenth.redirect.access_redirects',
+                        ],
+                    ],
+                ]
             ],
         ];
     }

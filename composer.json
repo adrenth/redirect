@@ -10,6 +10,6 @@
         }
     ],
     "require": {
-        "league/csv": "^8.0"
+        "jaybizzle/crawler-detect": "^1.2"
     }
 }

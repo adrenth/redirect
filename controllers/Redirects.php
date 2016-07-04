@@ -7,14 +7,13 @@ use Adrenth\Redirect\Classes\RedirectManager;
 use Adrenth\Redirect\Classes\RedirectRule;
 use Adrenth\Redirect\Models\Redirect;
 use Backend\Classes\Controller;
+use Backend\Classes\FormField;
+use Backend\Widgets\Form;
 use BackendMenu;
 use Carbon\Carbon;
 use DB;
-use Flash;
-use Lang;
 use League\Csv\Writer;
 use Request;
-use System\Classes\SettingsManager;
 
 /**
  * Class Redirects
@@ -55,17 +54,13 @@ class Redirects extends Controller
     {
         parent::__construct();
 
-        BackendMenu::setContext('October.System', 'system', 'settings');
-        SettingsManager::setContext('Adrenth.Redirect', 'redirects');
+        BackendMenu::setContext('Adrenth.Redirect', 'redirect', $this->action);
 
         $this->loadAssets();
 
         $this->requiredPermissions = ['adrenth.redirect.access_redirects'];
 
-        $this->publishManager = new PublishManager();
-
         $this->vars['match'] = null;
-        $this->vars['unpublishedCount'] = $this->publishManager->getUnpublishedCount();
     }
 
     /**
@@ -78,33 +73,16 @@ class Redirects extends Controller
         $this->addCss('/plugins/adrenth/redirect/assets/css/backend.css');
     }
 
+    // @codingStandardsIgnoreStart
+
     /**
      * @return array
-     * @throws \Exception
-     * @throws \InvalidArgumentException
      */
     public function index_onDelete()
     {
-        $checkedIds = $this->getCheckedIds();
+        Redirect::whereIn('id', $this->getCheckedIds())->delete();
 
-        $deleteCount = 0;
-        foreach ($checkedIds as $redirectId) {
-            if (!$redirect = Redirect::find($redirectId)) {
-                continue;
-            }
-
-            $redirect->delete();
-            $deleteCount++;
-        }
-
-        if ($deleteCount > 0) {
-            DB::table((new Redirect())->table)
-                ->whereNotIn('id', $checkedIds)
-                ->where('is_enabled', '=', 1)
-                ->update(['publish_status' => Redirect::STATUS_CHANGED]);
-        }
-
-        return $this->listAndPublishButtonRefresh();
+        return $this->listRefresh();
     }
 
     /**
@@ -112,17 +90,9 @@ class Redirects extends Controller
      */
     public function index_onEnable()
     {
-        $checkedIds = $this->getCheckedIds();
+        Redirect::whereIn('id', $this->getCheckedIds())->update(['is_enabled' => 1]);
 
-        foreach ($checkedIds as $redirectId) {
-            if (!$redirect = Redirect::find($redirectId)) {
-                continue;
-            }
-
-            $redirect->update(['is_enabled' => 1]);
-        }
-
-        return $this->listAndPublishButtonRefresh();
+        return $this->listRefresh();
     }
 
     /**
@@ -130,36 +100,34 @@ class Redirects extends Controller
      */
     public function index_onDisable()
     {
-        $checkedIds = $this->getCheckedIds();
+        Redirect::whereIn('id', $this->getCheckedIds())->update(['is_enabled' => 0]);
 
-        foreach ($checkedIds as $redirectId) {
-            if (!$redirect = Redirect::find($redirectId)) {
-                continue;
-            }
-
-            $redirect->update(['is_enabled' => 0]);
-        }
-
-        return $this->listAndPublishButtonRefresh();
+        return $this->listRefresh();
     }
 
+    // @codingStandardsIgnoreEnd
+
     /**
-     * @return array
-     * @throws \InvalidArgumentException
+     * Called after the form fields are defined.
+     *
+     * @param Form $host
+     * @param array $fields
      */
-    public function index_onPublish()
+    public function formExtendFields(Form $host, array $fields = [])
     {
-        $numberOfRedirects = $this->publishManager->publish();
+        $disableFields = [
+            'from_url',
+            'to_url',
+            'cms_page',
+            'target_type',
+            'match_type',
+        ];
 
-        if ($numberOfRedirects) {
-            Flash::success(Lang::trans('adrenth.redirect::lang.flash.publish_success', [
-                'number' => $numberOfRedirects,
-            ]));
-        } else {
-            Flash::info(Lang::trans('adrenth.redirect::lang.flash.publish_no_redirects'));
+        foreach ($disableFields as $disableField) {
+            /** @type FormField $field */
+            $field = $host->getField($disableField);
+            $field->disabled = $host->model->getAttribute('system');
         }
-
-        return $this->listAndPublishButtonRefresh();
     }
 
     /**
@@ -205,27 +173,5 @@ class Redirects extends Controller
         }
 
         return [];
-    }
-
-    /**
-     * @return array
-     */
-    private function listAndPublishButtonRefresh()
-    {
-        try {
-            return array_merge(
-                $this->listRefresh(),
-                [
-                    '#publishButton' => $this->makePartial(
-                        'button_publish',
-                        [
-                            'unpublishedCount' => $this->publishManager->getUnpublishedCount(),
-                        ]
-                    ),
-                ]
-            );
-        } catch (\SystemException $e) {
-            return [];
-        }
     }
 }

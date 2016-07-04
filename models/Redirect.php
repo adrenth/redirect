@@ -14,34 +14,37 @@ use October\Rain\Database\Traits\Validation;
  */
 class Redirect extends Model
 {
+    use Sortable;
     use Validation {
         makeValidator as traitMakeValidator;
-    }
-
-    use Sortable {
-        setSortableOrder as traitSetSortableOrder;
     }
 
     // Types
     const TYPE_EXACT = 'exact';
     const TYPE_PLACEHOLDERS = 'placeholders';
 
-    // Statuses
-    const STATUS_NOT_PUBLISHED = 0;
-    const STATUS_PUBLISHED = 1;
-    const STATUS_CHANGED = 2;
-
     const TARGET_TYPE_PATH_URL = 'path_or_url';
     const TARGET_TYPE_CMS_PAGE = 'cms_page';
 //    const TARGET_TYPE_STATIC_PAGE = 'static_page';
 
-    /**
-     * @type array
-     */
+    /** @type array */
+    public static $types = [
+        self::TYPE_EXACT,
+        self::TYPE_PLACEHOLDERS,
+    ];
+
+    /** @type array */
     public static $targetTypes = [
         self::TARGET_TYPE_PATH_URL,
         self::TARGET_TYPE_CMS_PAGE,
 //        self::TARGET_TYPE_STATIC_PAGE,
+    ];
+
+    /** @type array */
+    public static $statusCodes = [
+        301 => 'permanent',
+        302 => 'temporary',
+        404 => 'not_found',
     ];
 
     /**
@@ -95,6 +98,7 @@ class Redirect extends Model
         'to_date' => 'adrenth.redirect::lang.scheduling.to_date',
         'sort_order' => 'adrenth.redirect::lang.redirect.sort_order',
         'requirements' => 'adrenth.redirect::lang.redirect.requirements',
+        'last_used_at' => 'adrenth.redirect::lang.redirect.last_used_at'
     ];
 
     /**
@@ -103,28 +107,15 @@ class Redirect extends Model
     public $dates = [
         'from_date',
         'to_date',
+        'last_used_at',
     ];
 
     /**
-     * Override the setSortableOrder of the Sortable Trait
-     *
      * {@inheritdoc}
      */
-    public function setSortableOrder($itemIds, $itemOrders = null)
-    {
-        $this->traitSetSortableOrder($itemIds, $itemOrders);
-
-        if (!is_array($itemIds)) {
-            return;
-        }
-
-        // Un-publish every touched record.
-        foreach ($itemIds as $index => $id) {
-            $this->newQuery()
-                ->where('id', $id)
-                ->update(['publish_status' => self::STATUS_CHANGED]);
-        }
-    }
+    public $hasMany = [
+        'clients' => Client::class,
+    ];
 
     /**
      * @param array $data
@@ -157,33 +148,6 @@ class Redirect extends Model
 //        });
 
         return $validator;
-    }
-
-    /**
-     * Un-publis all records
-     *
-     * @return void
-     */
-    public static function unpublishAll()
-    {
-        $instance = new self;
-        $instance->newQuery()
-            ->where('publish_status', self::STATUS_PUBLISHED)
-            ->update(['publish_status' => self::STATUS_CHANGED]);
-    }
-
-    /**
-     * Before the model is saved, either created or updated.
-     *
-     * @return void
-     */
-    public function beforeSave()
-    {
-        $dirtyAttributes = $this->getDirty();
-
-        if (!array_key_exists('hits', $dirtyAttributes) && $this->isDirty()) {
-            $this->setAttribute('publish_status', $this->exists ? self::STATUS_CHANGED : self::STATUS_NOT_PUBLISHED);
-        }
     }
 
     /**
@@ -241,4 +205,32 @@ class Redirect extends Model
 //    {
 //        return OptionHelper::getStaticPageOptions();
 //    }
+
+    /**
+     * @return array
+     */
+    public function filterMatchTypeOptions()
+    {
+        $options = [];
+
+        foreach (self::$types as $value) {
+            $options[$value] = trans("adrenth.redirect::lang.redirect.$value");
+        }
+
+        return $options;
+    }
+
+    /**
+     * @return array
+     */
+    public function filterStatusCodeOptions()
+    {
+        $options = [];
+
+        foreach (self::$statusCodes as $value => $message) {
+            $options[$value] = trans("adrenth.redirect::lang.redirect.$message");
+        }
+
+        return $options;
+    }
 }

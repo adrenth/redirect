@@ -6,18 +6,17 @@ This is the best Redirect-plugin for OctoberCMS. With this plugin installed you 
 
 ## What does this plugin offer?
 
-This plugin adds a 'Redirects' settings section to OctoberCMS. Here you can manage your redirects. After setting up your redirects you can publish them directly to activate them.
-
-After publishing your redirect this plugin is trying to match your redirect very efficiently before your website is rendered.
+This plugin adds a 'Redirects' settings section to OctoberCMS. Here you can manage your redirects.
+This plugin is trying to match your redirect very efficiently before your website is rendered.
 
 ## Testing your redirects
 
-This plugin has an easy to use test tool to extensively test your redirects before you publish them.
+This plugin has an easy to use test tool to extensively test your redirects.
 
 ## Features
 
 * **Quick** matching algorithm
-* **Test** redirects before publishing
+* A **test** utility for redirects
 * Matching using **placeholders** (dynamic paths)
 * Match placeholders using **regular expressions**
 * **Exact** path matching
