@@ -26,6 +26,8 @@ return [
         'to_url_required_if' => 'The target path or URL is required',
         'cms_page_required_if' => 'Please provide a CMS Page to redirect to',
         'match_type' => 'Match Type',
+        'exact' => 'Exact',
+        'placeholders' => 'Placeholders',
         'target_type' => 'Target Type',
         'target_type_path_or_url' => 'Path or URL',
         'target_type_cms_page' => 'CMS Page',
@@ -43,32 +45,26 @@ return [
         'replacement' => 'Replacement',
         'replacement_comment' => 'Provide an optional replacement value for this placeholder. '
             . 'The matched placeholder will be replaced with this value in the target URL.',
-        'exact' => 'Exact',
-        'placeholders' => 'Placeholders',
         'permanent' => '301 - Permanent',
         'temporary' => '302 - Temporary',
         'not_found' => '404 - Not Found',
         'enabled' => 'Enabled',
         'enabled_comment' => 'Flick this switch to enable this redirect.',
-        'publish_confirm' => 'Are you sure you want to publish all changes?',
-        'published' => 'Published',
         'priority' => 'Priority',
         'hits' => 'Hits',
         'return_to_redirects' => 'Return to redirects list',
         'delete_confirm' => 'Are you sure?',
         'created_at' => 'Created at',
         'modified_at' => 'Modified at',
-    ],
-    'status' => [
-        'status' => 'Status',
-        'published' => 'Published',
-        'unpublished' => 'Unpublished',
-        'changed' => 'Changed',
+        'system_tip' => 'System generated redirect',
+        'user_tip' => 'User generated redirect',
+        'type' => 'Type',
+        'last_used_at' => 'Last Used At',
     ],
     'list' => [
         'no_records' => 'There are no redirects in this view.',
-        'hide_disabled' => 'Hide Disabled',
-        'hide_published' => 'Hide Published',
+        'switch_is_enabled' => 'Enabled',
+        'switch_system' => 'System Redirects',
     ],
     'scheduling' => [
         'from_date' => 'Available From',
@@ -85,7 +81,7 @@ return [
         'clear_period' => 'Clear Period',
     ],
     'test' => [
-        'test_comment' => 'Please test your redirect before publishing the redirect.',
+        'test_comment' => 'Please test your redirect before saving the redirect.',
         'input_path' => 'Input Path',
         'input_path_comment' => 'The input path to test. E.g. /old-blog/category/123',
         'input_path_placeholder' => '/input/path',
@@ -106,7 +102,6 @@ return [
     ],
     'buttons' => [
         'new_redirect' => 'Add',
-        'publish' => 'Publish',
         'delete' => 'Delete',
         'enable' => 'Enable',
         'disable' => 'Disable',
@@ -120,12 +115,4 @@ return [
         'tab_test' => 'Test',
         'tab_scheduling' => 'Scheduling',
     ],
-    'flash' => [
-        'publish_success' => ':number redirects are successfully published',
-        'publish_no_redirects' => 'No redirects to publish',
-    ],
-    'hint' => [
-        'publish' => 'To activate your redirects make sure they are enabled and then hit \'Publish redirects\'.',
-        'publish_order' => 'After re-ordering your redirects need to be published again.',
-    ]
 ];

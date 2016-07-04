@@ -11,6 +11,6 @@ columns:
     from_date: adrenth.redirect::lang.scheduling.from_date
     to_date: adrenth.redirect::lang.scheduling.to_date
     is_enabled: adrenth.redirect::lang.redirect.enabled
-    publish_status: adrenth.redirect::lang.redirect.published
+    last_used_at: adrenth.redirect::lang.redirect.last_used_at
     created_at: adrenth.redirect::lang.redirect.created_at
     updated_at: adrenth.redirect::lang.redirect.modified_at

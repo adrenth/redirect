@@ -1,38 +1,31 @@
 [
     {
-        "name": "league/csv",
-        "version": "8.0.0",
-        "version_normalized": "8.0.0.0",
+        "name": "jaybizzle/crawler-detect",
+        "version": "v1.2.3",
+        "version_normalized": "1.2.3.0",
         "source": {
             "type": "git",
-            "url": "https://github.com/thephpleague/csv.git",
-            "reference": "0a1b535df48507f58ed3c7ab44e72272b11163ac"
+            "url": "https://github.com/JayBizzle/Crawler-Detect.git",
+            "reference": "ef558efd72963fbcc6c0ef56cd2da841197b73d8"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/thephpleague/csv/zipball/0a1b535df48507f58ed3c7ab44e72272b11163ac",
-            "reference": "0a1b535df48507f58ed3c7ab44e72272b11163ac",
+            "url": "https://api.github.com/repos/JayBizzle/Crawler-Detect/zipball/ef558efd72963fbcc6c0ef56cd2da841197b73d8",
+            "reference": "ef558efd72963fbcc6c0ef56cd2da841197b73d8",
             "shasum": ""
         },
         "require": {
-            "ext-mbstring": "*",
-            "php": ">=5.5.0"
+            "php": ">=5.3.0"
         },
         "require-dev": {
-            "fabpot/php-cs-fixer": "^1.9",
-            "phpunit/phpunit": "^4.0"
+            "phpunit/phpunit": "*"
         },
-        "time": "2015-12-11 09:28:14",
+        "time": "2016-05-19 22:01:17",
         "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "8.0-dev"
-            }
-        },
         "installation-source": "dist",
         "autoload": {
             "psr-4": {
-                "League\\Csv\\": "src"
+                "Jaybizzle\\CrawlerDetect\\": "src/"
             }
         },
         "notification-url": "https://packagist.org/downloads/",
@@ -41,21 +34,19 @@
         ],
         "authors": [
             {
-                "name": "Ignace Nyamagana Butera",
-                "email": "nyamsprod@gmail.com",
-                "homepage": "https://github.com/nyamsprod/",
+                "name": "Mark Beech",
+                "email": "m@rkbee.ch",
                 "role": "Developer"
             }
         ],
-        "description": "Csv data manipulation made easy in PHP",
-        "homepage": "http://csv.thephpleague.com",
+        "description": "CrawlerDetect is a PHP class for detecting bots/crawlers/spiders via the user agent",
+        "homepage": "https://github.com/JayBizzle/Crawler-Detect/",
         "keywords": [
-            "csv",
-            "export",
-            "filter",
-            "import",
-            "read",
-            "write"
+            "crawler",
+            "crawler detect",
+            "crawler detector",
+            "crawlerdetect",
+            "php crawler detect"
         ]
     }
 ]
