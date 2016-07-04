@@ -29,7 +29,7 @@
     - Add PhpUnit tests and minor improvements
     - change_to_url_column_redirects_table.php
 2.0.0:
-    - !!! Brand new version of Redirect with a lot of new features
+    - !!! New major version with lot of new features (Use only with OctoberCMS stable)
     - create_clients_table.php
     - add_system_field_to_redirects_table.php
     - add_last_used_at_field_to_redirects_table.php
