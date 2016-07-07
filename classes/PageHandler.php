@@ -23,26 +23,40 @@ class PageHandler
         $this->page = $page;
     }
 
+    /**
+     * Triggered before the Page is stored to filesystem.
+     *
+     * @return void
+     */
     public function onBeforeUpdate()
     {
+        if ($this->page->getAttribute('is_hidden')) {
+            return;
+        }
+
         // Url hasn't change
         if (!$this->hasUrlChanged()) {
-            return false;
+            return;
         }
 
         // Parameters and regex are not supported
         if ($this->newUrlContainsParams()) {
-            return false;
+            return;
         }
 
         // Don't create a redirect loop; that would be silly ;-)
         if ($this->getNewUrl() === $this->getOriginalUrl()) {
-            return false;
+            return;
         }
 
         $this->createRedirect();
     }
 
+    /**
+     * Triggered after a Page has been deleted.
+     *
+     * @return void
+     */
     public function onAfterDelete()
     {
         Redirect::where('cms_page', '=', $this->page->getBaseFileName())
