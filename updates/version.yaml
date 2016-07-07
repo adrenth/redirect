@@ -33,3 +33,4 @@
     - create_clients_table.php
     - add_system_field_to_redirects_table.php
     - add_last_used_at_field_to_redirects_table.php
+2.0.1: Added French language (thanks pvullioud) and small improvements/fixes
