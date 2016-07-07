@@ -16,6 +16,7 @@ use Symfony\Component\Routing\Matcher\UrlMatcher;
 use Symfony\Component\Routing\RequestContext;
 use Symfony\Component\Routing\Route;
 use Symfony\Component\Routing\RouteCollection;
+use System\Classes\PluginManager;
 
 /**
  * Class RedirectManager
@@ -124,9 +125,9 @@ class RedirectManager
             case Redirect::TARGET_TYPE_CMS_PAGE:
                 $toUrl = $this->redirectToCmsPage($rule);
                 break;
-//            case Redirect::TARGET_TYPE_STATIC_PAGE:
-//                $toUrl = $this->redirectToStaticPage($rule);
-//                break;
+            case Redirect::TARGET_TYPE_STATIC_PAGE:
+                $toUrl = $this->redirectToStaticPage($rule);
+                break;
         }
 
         return $toUrl;
@@ -169,14 +170,18 @@ class RedirectManager
         return $controller->pageUrl($rule->getCmsPage(), $parameters);
     }
 
-//    /**
-//     * @param RedirectRule $rule
-//     * @return string
-//     */
-//    private function redirectToStaticPage(RedirectRule $rule)
-//    {
-//
-//    }
+    /**
+     * @param RedirectRule $rule
+     * @return string|bool
+     */
+    private function redirectToStaticPage(RedirectRule $rule)
+    {
+        if (class_exists('\RainLab\Pages\Classes\Page')) {
+            return \RainLab\Pages\Classes\Page::url($rule->getStaticPage());
+        }
+
+        return false;
+    }
 
     /**
      * Change the match date; can be used to perform tests

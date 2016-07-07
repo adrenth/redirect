@@ -30,15 +30,15 @@ fields:
             action: show
             field: target_type
             condition: value[cms_page]
-    #static_page:
-    #    label: adrenth.redirect::lang.redirect.target_type_static_page
-    #    span: right
-    #    type: dropdown
-    #    cssClass: redirect-target
-    #    trigger:
-    #        action: show
-    #        field: target_type
-    #        condition: value[static_page]
+    static_page:
+        label: adrenth.redirect::lang.redirect.target_type_static_page
+        span: right
+        type: dropdown
+        cssClass: redirect-target
+        trigger:
+            action: show
+            field: target_type
+            condition: value[static_page]
 
 tabs:
     defaultTab: adrenth.redirect::lang.tab.tab_general

@@ -25,6 +25,7 @@ return [
         'to_url_comment' => 'The target path or URL to redirect to.',
         'to_url_required_if' => 'The target path or URL is required',
         'cms_page_required_if' => 'Please provide a CMS Page to redirect to',
+        'static_page_required_if' => 'Please provide a Static Page to redirect to',
         'match_type' => 'Match Type',
         'exact' => 'Exact',
         'placeholders' => 'Placeholders',
