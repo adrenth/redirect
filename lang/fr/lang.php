@@ -73,12 +73,6 @@ return [
         'to_date_comment' => 'La date d\'expiration de cette redirection. Optionnel',
         'scheduling_comment' => 'Ici vous pouvez spécifier la période durant laquelle la redirection sera disponible. '
             . 'Toutes sortes de combinaisons de dates sont possible.',
-        'predefined_periods' => 'Périodes prédéfinies',
-        '1week' => '1 semaine',
-        '2weeks' => '2 semaines',
-        '1month' => '1 mois',
-        '2months' => '2 mois',
-        'clear_period' => 'Effacer la période',
     ],
     'test' => [
         'test_comment' => 'S\'il vous plaît, testez votre redirection avant de l\'enregistrer.',
