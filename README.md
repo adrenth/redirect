@@ -25,6 +25,15 @@ This plugin has an easy to use test tool to extensively test your redirects.
 * Redirect to **external** URLs
 * Redirect to **internal** CMS pages
 
+## What's new in version 2.0?
+
+* Automatic publishing of redirects
+* New polished UI
+* Automatic creation of redirect when changing CMS Page (System redirects)
+* Redirect statistics (under construction, will be released soon)
+* Compatibility with PHP 7+
+* Compatibility with OctoberCMS stable
+
 ## Redirection
 
 It is important for SEO create redirects of non-existent pages on your website. This plugin allows you to manage such redirects with a nice and user friendly user interface.

@@ -73,12 +73,6 @@ return [
         'to_date_comment' => 'The date until this redirect is active. Can be omitted.',
         'scheduling_comment' => 'Here you can provide a period on which this redirect will be available. '
             . 'All sorts of date combinations are possible.',
-        'predefined_periods' => 'Predefined periods',
-        '1week' => '1 week',
-        '2weeks' => '2 weeks',
-        '1month' => '1 month',
-        '2months' => '2 months',
-        'clear_period' => 'Clear Period',
     ],
     'test' => [
         'test_comment' => 'Please test your redirect before saving the redirect.',
