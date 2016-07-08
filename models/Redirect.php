@@ -25,7 +25,7 @@ class Redirect extends Model
 
     const TARGET_TYPE_PATH_URL = 'path_or_url';
     const TARGET_TYPE_CMS_PAGE = 'cms_page';
-//    const TARGET_TYPE_STATIC_PAGE = 'static_page';
+    const TARGET_TYPE_STATIC_PAGE = 'static_page';
 
     /** @type array */
     public static $types = [
@@ -37,7 +37,7 @@ class Redirect extends Model
     public static $targetTypes = [
         self::TARGET_TYPE_PATH_URL,
         self::TARGET_TYPE_CMS_PAGE,
-//        self::TARGET_TYPE_STATIC_PAGE,
+        self::TARGET_TYPE_STATIC_PAGE,
     ];
 
     /** @type array */
@@ -66,17 +66,27 @@ class Redirect extends Model
         'from_url' => 'required',
         'to_url' => 'different:from_url|required_if:target_type,path_or_url',
         'cms_page' => 'required_if:target_type,cms_page',
+        'static_page' => 'required_if:target_type,static_page',
         'match_type' => 'required|in:exact,placeholders',
-        'target_type' => 'required|in:path_or_url,cms_page', // ,static_page
+        'target_type' => 'required|in:path_or_url,cms_page,static_page',
         'status_code' => 'required|in:301,302,404',
         'sort_order' => 'numeric',
     ];
 
+    /**
+     * Custom validation messages
+     *
+     * @type array
+     */
     public $customMessages = [
         'to_url.required_if' => 'adrenth.redirect::lang.redirect.to_url_required_if',
         'cms_page.required_if' => 'adrenth.redirect::lang.redirect.cms_page_required_if',
+        'static_page.required_if' => 'adrenth.redirect::lang.redirect.static_page_required_if',
     ];
 
+    /**
+     * {@inheritdoc}
+     */
     public $jsonable = [
         'requirements',
     ];
@@ -92,7 +102,7 @@ class Redirect extends Model
         'match_type' => 'adrenth.redirect::lang.redirect.match_type',
         'target_type' => 'adrenth.redirect::lang.redirect.target_type',
         'cms_page' => 'adrenth.redirect::lang.redirect.target_type_cms_page',
-//        'static_page' => 'adrenth.redirect::lang.redirect.target_type_static_page',
+        'static_page' => 'adrenth.redirect::lang.redirect.target_type_static_page',
         'status_code' => 'adrenth.redirect::lang.redirect.status_code',
         'from_date' => 'adrenth.redirect::lang.scheduling.from_date',
         'to_date' => 'adrenth.redirect::lang.scheduling.to_date',
@@ -142,10 +152,10 @@ class Redirect extends Model
                 && $request->get('target_type') === 'cms_page';
         });
 
-//        $validator->sometimes('static_page', 'required', function (Fluent $request) {
-//            return in_array($request->get('status_code'), ['301', '302'], true)
-//            && $request->get('target_type') === 'static_page';
-//        });
+        $validator->sometimes('static_page', 'required', function (Fluent $request) {
+            return in_array($request->get('status_code'), ['301', '302'], true)
+            && $request->get('target_type') === 'static_page';
+        });
 
         return $validator;
     }
@@ -197,16 +207,18 @@ class Redirect extends Model
         return OptionHelper::getCmsPageOptions();
     }
 
-//    /**
-//     * @see OptionHelper::getStaticPageOptions()
-//     * @return array
-//     */
-//    public function getStaticPageOptions()
-//    {
-//        return OptionHelper::getStaticPageOptions();
-//    }
+    /**
+     * @see OptionHelper::getStaticPageOptions()
+     * @return array
+     */
+    public function getStaticPageOptions()
+    {
+        return OptionHelper::getStaticPageOptions();
+    }
 
     /**
+     * Filter options for Match Type.
+     *
      * @return array
      */
     public function filterMatchTypeOptions()
@@ -215,6 +227,22 @@ class Redirect extends Model
 
         foreach (self::$types as $value) {
             $options[$value] = trans("adrenth.redirect::lang.redirect.$value");
+        }
+
+        return $options;
+    }
+
+    /**
+     * Filter options for Target Type.
+     *
+     * @return array
+     */
+    public function filterTargetTypeOptions()
+    {
+        $options = [];
+
+        foreach (self::$targetTypes as $value) {
+            $options[$value] = trans("adrenth.redirect::lang.redirect.target_type_$value");
         }
 
         return $options;
@@ -232,5 +260,29 @@ class Redirect extends Model
         }
 
         return $options;
+    }
+
+    /**
+     * Triggered before the model is saved, either created or updated.
+     * Make sure target fields are correctly set after saving.
+     *
+     * @return void
+     */
+    public function beforeSave()
+    {
+        switch ($this->getAttribute('target_type')) {
+            case Redirect::TARGET_TYPE_PATH_URL:
+                $this->setAttribute('cms_page', null);
+                $this->setAttribute('static_page', null);
+                break;
+            case Redirect::TARGET_TYPE_CMS_PAGE:
+                $this->setAttribute('to_url', null);
+                $this->setAttribute('static_page', null);
+                break;
+            case Redirect::TARGET_TYPE_STATIC_PAGE:
+                $this->setAttribute('to_url', null);
+                $this->setAttribute('cms_page', null);
+                break;
+        }
     }
 }

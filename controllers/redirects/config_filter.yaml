@@ -17,6 +17,12 @@ scopes:
         modelClass: Adrenth\Redirect\Models\Redirect
         options: filterMatchTypeOptions
         conditions: match_type in (:filtered)
+    target_type:
+        label: adrenth.redirect::lang.redirect.target_type
+        type: group
+        modelClass: Adrenth\Redirect\Models\Redirect
+        options: filterTargetTypeOptions
+        conditions: target_type in (:filtered)
     status_code:
         label: adrenth.redirect::lang.redirect.status_code
         type: group
