@@ -61,6 +61,7 @@ return [
         'user_tip' => 'User generated redirect',
         'type' => 'Type',
         'last_used_at' => 'Last Used At',
+        'and_delete_log_item' => 'And delete selected log items', // since 2.0.3
     ],
     'list' => [
         'no_records' => 'There are no redirects in this view.',
@@ -91,12 +92,15 @@ return [
     'title' => [
         'import' => 'Import',
         'export' => 'Export',
-        'redirects' => 'Manage Redirects',
-        'create_redirect' => 'Create Redirect',
-        'edit_redirect' => 'Edit Redirect',
+        'redirects' => 'Manage redirects',
+        'create_redirect' => 'Create redirect',
+        'edit_redirect' => 'Edit redirect',
     ],
     'buttons' => [
-        'new_redirect' => 'Add',
+        'add' => 'Add', // since 2.0.3
+        'from_request_log' => 'From Request log', // since 2.0.3
+        'new_redirect' => 'New redirect', // changed since 2.0.3
+        'create_redirects' => 'Create redirects', // since 2.0.3
         'delete' => 'Delete',
         'enable' => 'Enable',
         'disable' => 'Disable',
@@ -110,4 +114,7 @@ return [
         'tab_test' => 'Test',
         'tab_scheduling' => 'Scheduling',
     ],
+    'flash' => [
+        'success_created_redirects' => 'Successfully created :count redirects', // since 2.0.3
+    ]
 ];
