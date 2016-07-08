@@ -12,7 +12,10 @@ use Backend\Widgets\Form;
 use BackendMenu;
 use Carbon\Carbon;
 use DB;
+use Flash;
+use Lang;
 use Request;
+use System\Models\RequestLog;
 
 /**
  * Class Redirects
@@ -35,7 +38,10 @@ class Redirects extends Controller
     public $formConfig = 'config_form.yaml';
 
     /** @type string */
-    public $listConfig = 'config_list.yaml';
+    public $listConfig = [
+        'list' => 'config_list.yaml',
+        'requestLog' => 'request-log/config_list.yaml',
+    ];
 
     /** @type string */
     public $reorderConfig = 'config_reorder.yaml';
@@ -55,21 +61,9 @@ class Redirects extends Controller
 
         BackendMenu::setContext('Adrenth.Redirect', 'redirect', $this->action);
 
-        $this->loadAssets();
-
         $this->requiredPermissions = ['adrenth.redirect.access_redirects'];
 
         $this->vars['match'] = null;
-    }
-
-    /**
-     * Load assets
-     *
-     * @return void
-     */
-    private function loadAssets()
-    {
-        $this->addCss('/plugins/adrenth/redirect/assets/css/backend.css');
     }
 
     // @codingStandardsIgnoreStart
@@ -157,6 +151,65 @@ class Redirects extends Controller
                 'url' => $match ? $manager->getLocation($match) : '',
             ]),
         ];
+    }
+
+    /**
+     * Triggers Request Log dialog
+     *
+     * @return string
+     * @throws \SystemException
+     */
+    public function onOpenRequestLog()
+    {
+        $this->makeLists();
+        return $this->makePartial('request-log/modal');
+    }
+
+    /**
+     * Create Redirects from Request Log items
+     *
+     * @return array
+     */
+    public function onCreateRedirectFromRequestLogItems()
+    {
+        $checkedIds = $this->getCheckedIds();
+        $redirectsCreated = 0;
+
+        foreach ($checkedIds as $checkedId) {
+            /** @type RequestLog $requestLog */
+            $requestLog = RequestLog::find($checkedId);
+            $path = parse_url($requestLog->getAttribute('url'), PHP_URL_PATH);
+
+            if ($path === false || $path === '/' || $path === '') {
+                continue;
+            }
+
+            Redirect::create([
+                'match_type' => Redirect::TYPE_EXACT,
+                'target_type' => Redirect::TARGET_TYPE_PATH_URL,
+                'from_url' => $path,
+                'to_url' => '/',
+                'status_code' => 301,
+                'is_enabled' => false,
+            ]);
+
+            $redirectsCreated++;
+        }
+
+        if ((bool) Request::get('andDelete', false)) {
+            RequestLog::destroy($checkedIds);
+        }
+
+        if ($redirectsCreated > 0) {
+            Flash::success(Lang::get(
+                'adrenth.redirect::lang.flash.success_created_redirects',
+                [
+                    'count' => $redirectsCreated
+                ]
+            ));
+        }
+
+        return $this->listRefresh();
     }
 
     /**

@@ -34,3 +34,5 @@
     - add_system_field_to_redirects_table.php
     - add_last_used_at_field_to_redirects_table.php
 2.0.1: Added French language (thanks pvullioud) and small improvements/fixes
+2.0.2: Support for Static Pages (RainLab.Pages)
+2.0.3: Add functionality that allows you to create redirects from Request Log items (feature-request by pvullioud)

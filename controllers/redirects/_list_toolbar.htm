@@ -1,9 +1,47 @@
-<div data-control="toolbar">
-    <a href="<?= Backend::url('adrenth/redirect/redirects/create') ?>"
+<style type="text/css">
+    .dropdown {
+        float: left;
+    }
+    div[data-control=toolbar] {
+        float: left;
+        width: 75%;
+    }
+</style>
+
+<div class="dropdown" style="float:left">
+    <a href="#"
+       data-toggle="dropdown"
        class="btn btn-primary oc-icon-plus">
-        <?= e(trans('adrenth.redirect::lang.buttons.new_redirect')) ?>
+        <?= e(trans('adrenth.redirect::lang.buttons.add')) ?>
     </a>
-    <div class="btn-group">
+    <ul class="dropdown-menu"
+        role="menu"
+        data-dropdown-title="<?= e(trans('adrenth.redirect::lang.buttons.add')) ?>">
+        <li role="presentation">
+            <a role="menuitem"
+               tabindex="-1"
+               href="<?= Backend::url('adrenth/redirect/redirects/create') ?>"
+               class="oc-icon-plus">
+                <?= e(trans('adrenth.redirect::lang.buttons.new_redirect')) ?>
+            </a>
+        </li>
+        <li role="presentation">
+            <a role="menuitem"
+               tabindex="-1"
+               href="#"
+               class="oc-icon-copy"
+               data-control="popup"
+               data-size="giant"
+               data-handler="onOpenRequestLog"
+               data-stripe-load-indicator>
+                <?= e(trans('adrenth.redirect::lang.buttons.from_request_log')) ?>
+            </a>
+        </li>
+    </ul>
+</div>
+
+<div data-control="toolbar">
+    <div class="btn-group" id="checkBoxTriggeredButtons">
         <button class="btn btn-default oc-icon-trash-o"
                 disabled="disabled"
                 onclick="$(this).data('request-data', { checked: $('.control-list').listWidget('getChecked') })"
@@ -12,7 +50,7 @@
                 data-trigger-action="enable"
                 data-trigger=".control-list input[type=checkbox]"
                 data-trigger-condition="checked"
-                data-request-success="$(this).prop('disabled', true)"
+                data-request-success="$('#checkBoxTriggeredButtons button').prop('disabled', true)"
                 data-stripe-load-indicator>
             <?= e(trans('adrenth.redirect::lang.buttons.delete')) ?>
         </button>
@@ -23,7 +61,7 @@
                 data-trigger-action="enable"
                 data-trigger=".control-list input[type=checkbox]"
                 data-trigger-condition="checked"
-                data-request-success="$(this).prop('disabled', true)"
+                data-request-success="$('#checkBoxTriggeredButtons button').prop('disabled', true)"
                 data-stripe-load-indicator>
             <?= e(trans('adrenth.redirect::lang.buttons.enable')) ?>
         </button>
@@ -34,7 +72,7 @@
                 data-trigger-action="enable"
                 data-trigger=".control-list input[type=checkbox]"
                 data-trigger-condition="checked"
-                data-request-success="$(this).prop('disabled', true)"
+                data-request-success="$('#checkBoxTriggeredButtons button').prop('disabled', true)"
                 data-stripe-load-indicator>
             <?= e(trans('adrenth.redirect::lang.buttons.disable')) ?>
         </button>
