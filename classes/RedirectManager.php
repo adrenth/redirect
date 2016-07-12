@@ -16,7 +16,6 @@ use Symfony\Component\Routing\Matcher\UrlMatcher;
 use Symfony\Component\Routing\RequestContext;
 use Symfony\Component\Routing\Route;
 use Symfony\Component\Routing\RouteCollection;
-use System\Classes\PluginManager;
 
 /**
  * Class RedirectManager
@@ -360,11 +359,17 @@ class RedirectManager
     {
         $now = Carbon::now();
 
-        Redirect::where('id', '=', $redirectId)
-            ->update([
-                'hits' => DB::raw('hits + 1'),
-                'last_used_at' => $now,
-            ]);
+        /** @type Redirect $redirect */
+        $redirect = Redirect::find($redirectId);
+
+        if ($redirect === null) {
+            return;
+        }
+
+        $redirect->update([
+            'hits' => DB::raw('hits + 1'),
+            'last_used_at' => $now,
+        ]);
 
         $crawlerDetect = new CrawlerDetect();
 
