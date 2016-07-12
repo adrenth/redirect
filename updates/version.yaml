@@ -36,3 +36,6 @@
 2.0.1: Added French language (thanks pvullioud) and small improvements/fixes
 2.0.2: Support for Static Pages (RainLab.Pages)
 2.0.3: Add functionality that allows you to create redirects from Request Log items (feature-request by pvullioud)
+2.0.4:
+    - Database fixes and fixed issue with publishing redirects
+    - remove_publish_status_column_redirects_table.php

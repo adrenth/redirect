@@ -12,6 +12,7 @@ use Backend\Widgets\Form;
 use BackendMenu;
 use Carbon\Carbon;
 use DB;
+use Event;
 use Flash;
 use Lang;
 use Request;
@@ -73,8 +74,8 @@ class Redirects extends Controller
      */
     public function index_onDelete()
     {
-        Redirect::whereIn('id', $this->getCheckedIds())->delete();
-
+        Redirect::destroy($this->getCheckedIds());
+        Event::fire('redirects.changed');
         return $this->listRefresh();
     }
 
@@ -84,7 +85,7 @@ class Redirects extends Controller
     public function index_onEnable()
     {
         Redirect::whereIn('id', $this->getCheckedIds())->update(['is_enabled' => 1]);
-
+        Event::fire('redirects.changed');
         return $this->listRefresh();
     }
 
@@ -94,7 +95,7 @@ class Redirects extends Controller
     public function index_onDisable()
     {
         Redirect::whereIn('id', $this->getCheckedIds())->update(['is_enabled' => 0]);
-
+        Event::fire('redirects.changed');
         return $this->listRefresh();
     }
 
@@ -201,6 +202,8 @@ class Redirects extends Controller
         }
 
         if ($redirectsCreated > 0) {
+            Event::fire('redirects.changed');
+
             Flash::success(Lang::get(
                 'adrenth.redirect::lang.flash.success_created_redirects',
                 [
@@ -225,5 +228,25 @@ class Redirects extends Controller
         }
 
         return [];
+    }
+
+    /**
+     * Called after the creation or updating form is saved.
+     *
+     * @param Model
+     */
+    public function formAfterSave($model)
+    {
+        Event::fire('redirects.changed');
+    }
+
+    /**
+     * Called after the form model is deleted.
+     *
+     * @param Model
+     */
+    public function formAfterDelete($model)
+    {
+        Event::fire('redirects.changed');
     }
 }

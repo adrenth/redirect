@@ -5,10 +5,10 @@ namespace Adrenth\Redirect;
 use Adrenth\Redirect\Classes\PageHandler;
 use Adrenth\Redirect\Classes\PublishManager;
 use Adrenth\Redirect\Classes\RedirectManager;
-use Adrenth\Redirect\Models\Redirect;
 use App;
 use Backend;
 use Cms\Classes\Page;
+use Event;
 use Request;
 use System\Classes\PluginBase;
 
@@ -94,14 +94,8 @@ class Plugin extends PluginBase
             });
         });
 
-        Redirect::extend(function (Redirect $redirect) {
-            $redirect->bindEvent('model.afterSave', function () {
-                PublishManager::instance()->publish();
-            });
-
-            $redirect->bindEvent('model.afterDelete', function () {
-                PublishManager::instance()->publish();
-            });
+        Event::listen('redirects.changed', function () {
+            PublishManager::instance()->publish();
         });
     }
 

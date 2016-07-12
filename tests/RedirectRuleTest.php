@@ -49,7 +49,6 @@ class RedirectRuleTest extends PluginTestCase
             'to_url' => '/this-should-be-target',
             'requirements' => null,
             'status_code' => 302,
-            'publish_status' => Redirect::STATUS_PUBLISHED,
         ]);
 
         $rule = RedirectRule::createWithModel($redirect);

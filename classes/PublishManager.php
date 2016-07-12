@@ -35,6 +35,10 @@ class PublishManager
      */
     public function publish()
     {
+        if (file_exists($this->redirectsFile)) {
+            unlink($this->redirectsFile);
+        }
+
         /** @type Collection $redirects */
         $redirects = Redirect::query()
             ->where('is_enabled', '=', 1)
@@ -53,8 +57,13 @@ class PublishManager
                 'to_date',
             ]);
 
-        $writer = Writer::createFromPath($this->redirectsFile, 'w+');
-        $writer->insertAll($redirects->toArray());
+        // TODO: Throw proper exception
+        try {
+            $writer = Writer::createFromPath($this->redirectsFile, 'w+');
+            $writer->insertAll($redirects->toArray());
+        } catch (\Exception $e) {
+            // ..
+        }
 
         return $redirects->count();
     }
