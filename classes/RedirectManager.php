@@ -71,6 +71,8 @@ class RedirectManager
      */
     public function match($url)
     {
+        $url = urldecode($url);
+
         $this->loadRedirectRules();
 
         foreach ($this->redirectRules as $rule) {
@@ -293,7 +295,8 @@ class RedirectManager
         }
 
         if ($rule->getFromDate() instanceof Carbon
-            && $rule->getToDate() === null) {
+            && $rule->getToDate() === null
+        ) {
             return $this->matchDate->gte($rule->getFromDate());
         }
 

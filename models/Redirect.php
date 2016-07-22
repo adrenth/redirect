@@ -108,7 +108,7 @@ class Redirect extends Model
         'to_date' => 'adrenth.redirect::lang.scheduling.to_date',
         'sort_order' => 'adrenth.redirect::lang.redirect.sort_order',
         'requirements' => 'adrenth.redirect::lang.redirect.requirements',
-        'last_used_at' => 'adrenth.redirect::lang.redirect.last_used_at'
+        'last_used_at' => 'adrenth.redirect::lang.redirect.last_used_at',
     ];
 
     /**
@@ -149,7 +149,7 @@ class Redirect extends Model
 
         $validator->sometimes('cms_page', 'required', function (Fluent $request) {
             return in_array($request->get('status_code'), ['301', '302'], true)
-                && $request->get('target_type') === 'cms_page';
+            && $request->get('target_type') === 'cms_page';
         });
 
         $validator->sometimes('static_page', 'required', function (Fluent $request) {
@@ -158,6 +158,16 @@ class Redirect extends Model
         });
 
         return $validator;
+    }
+
+    /**
+     * Mutator for 'from_url' attribute; make sure the value is URL decoded.
+     *
+     * @param string $value
+     */
+    public function setFromUrlAttribute($value)
+    {
+        $this->attributes['from_url'] = urldecode($value);
     }
 
     /**
@@ -177,6 +187,7 @@ class Redirect extends Model
 
     /**
      * ToDate mutator
+     *
      * @param mixed $value
      * @return Carbon|null
      */

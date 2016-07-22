@@ -23,7 +23,7 @@ class Client extends Model
      * {@inheritdoc}
      */
     public $belongsTo = [
-        'redirect' => Redirect::class
+        'redirect' => Redirect::class,
     ];
 
     /**

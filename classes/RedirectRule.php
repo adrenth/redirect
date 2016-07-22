@@ -72,7 +72,7 @@ class RedirectRule
             $this->requirements,
             $this->fromDate,
             $this->toDate,
-        ) = $attributes;
+            ) = $attributes;
 
         $this->requirements = json_decode($this->requirements, true);
     }

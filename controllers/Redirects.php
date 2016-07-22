@@ -207,7 +207,7 @@ class Redirects extends Controller
             Flash::success(Lang::get(
                 'adrenth.redirect::lang.flash.success_created_redirects',
                 [
-                    'count' => $redirectsCreated
+                    'count' => $redirectsCreated,
                 ]
             ));
         }
