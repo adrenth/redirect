@@ -161,6 +161,16 @@ class Redirect extends Model
     }
 
     /**
+     * Mutator for 'from_url' attribute; make sure the value is URL decoded.
+     *
+     * @param string $value
+     */
+    public function setFromUrlAttribute($value)
+    {
+        $this->attributes['from_url'] = urldecode($value);
+    }
+
+    /**
      * FromDate mutator
      *
      * @param mixed $value

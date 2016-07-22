@@ -71,6 +71,8 @@ class RedirectManager
      */
     public function match($url)
     {
+        $url = urldecode($url);
+
         $this->loadRedirectRules();
 
         foreach ($this->redirectRules as $rule) {
