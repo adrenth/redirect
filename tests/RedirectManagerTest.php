@@ -68,7 +68,7 @@ class RedirectManagerTest extends PluginTestCase
                     'placeholder' => '{id}',
                     'requirement' => '[0-9]{2}',
                     'replacement' => null,
-                ]
+                ],
             ],
             'status_code' => 301,
         ]);

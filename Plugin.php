@@ -159,7 +159,7 @@ class Plugin extends PluginBase
                             'adrenth.redirect.access_redirects',
                         ],
                     ],
-                ]
+                ],
             ],
         ];
     }

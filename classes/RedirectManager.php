@@ -295,7 +295,8 @@ class RedirectManager
         }
 
         if ($rule->getFromDate() instanceof Carbon
-            && $rule->getToDate() === null) {
+            && $rule->getToDate() === null
+        ) {
             return $this->matchDate->gte($rule->getFromDate());
         }
 

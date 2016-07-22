@@ -116,5 +116,5 @@ return [
     ],
     'flash' => [
         'success_created_redirects' => 'Successfully created :count redirects', // since 2.0.3
-    ]
+    ],
 ];
