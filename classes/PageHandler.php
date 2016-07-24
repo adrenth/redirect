@@ -12,7 +12,7 @@ use Cms\Classes\Page;
  */
 class PageHandler
 {
-    /** @type Page */
+    /** @var Page */
     private $page;
 
     /**

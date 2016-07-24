@@ -38,10 +38,11 @@ return [
         'requirements' => 'Conditions',
         'requirements_comment' => 'Spécifier une condition pour chaque placeholder.',
         'placeholder' => 'Placeholder',
-        'placeholder_comment' => 'Le nom du placeholder (en includant les accolades) renseigné dans le champ \'Chemin source\'. '
-            . 'Ex. {category} ou {id}',
+        'placeholder_comment' => 'Le nom du placeholder (en includant les accolades) '
+            . 'renseigné dans le champ \'Chemin source\'. Ex. {category} ou {id}',
         'requirement' => 'Condition',
-        'requirement_comment' => 'Défini la condition avec la syntaxe des expressions régulières. Ex. [0-9]+ ou [a-zA-Z]+.',
+        'requirement_comment' => 'Défini la condition avec la syntaxe des expressions régulières. '
+            . 'Ex. [0-9]+ ou [a-zA-Z]+.',
         'requirements_prompt' => 'Ajouter une nouvelle condition',
         'replacement' => 'Remplacement',
         'replacement_comment' => 'Fournit une valeur de remplacement optionnel pour ce placeholder. '
@@ -81,7 +82,8 @@ return [
         'input_path_comment' => 'Le chemin d\'entrée à tester. Ex. /old-blog/category/123',
         'input_path_placeholder' => '/chemin/a/tester',
         'test_date' => 'Date de test',
-        'test_date_comment' => 'Si vous avez planifiés cette redirections, vous pouvez la tester à une date spécifique.',
+        'test_date_comment' => 'Si vous avez planifiés cette redirections, '
+            . 'vous pouvez la tester à une date spécifique.',
         'testing' => 'Test en cours...',
         'run_test' => 'Lancer le test',
         'no_match_label' => 'Désolé, aucune correspondance',

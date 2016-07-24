@@ -35,22 +35,22 @@ class Redirects extends Controller
         'Backend.Behaviors.ImportExportController',
     ];
 
-    /** @type string */
+    /** @var string */
     public $formConfig = 'config_form.yaml';
 
-    /** @type string */
+    /** @var string */
     public $listConfig = [
         'list' => 'config_list.yaml',
         'requestLog' => 'request-log/config_list.yaml',
     ];
 
-    /** @type string */
+    /** @var string */
     public $reorderConfig = 'config_reorder.yaml';
 
-    /** @type string */
+    /** @var string */
     public $importExportConfig = 'config_import_export.yaml';
 
-    /** @type PublishManager */
+    /** @var PublishManager */
     public $publishManager;
 
     /**
@@ -118,7 +118,7 @@ class Redirects extends Controller
         ];
 
         foreach ($disableFields as $disableField) {
-            /** @type FormField $field */
+            /** @var FormField $field */
             $field = $host->getField($disableField);
             $field->disabled = $host->model->getAttribute('system');
         }
@@ -177,7 +177,7 @@ class Redirects extends Controller
         $redirectsCreated = 0;
 
         foreach ($checkedIds as $checkedId) {
-            /** @type RequestLog $requestLog */
+            /** @var RequestLog $requestLog */
             $requestLog = RequestLog::find($checkedId);
             $path = parse_url($requestLog->getAttribute('url'), PHP_URL_PATH);
 

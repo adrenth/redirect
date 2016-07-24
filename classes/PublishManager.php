@@ -17,7 +17,7 @@ class PublishManager
 {
     use Singleton;
 
-    /** @type string */
+    /** @var string */
     private $redirectsFile;
 
     /**
@@ -39,7 +39,7 @@ class PublishManager
             unlink($this->redirectsFile);
         }
 
-        /** @type Collection $redirects */
+        /** @var Collection $redirects */
         $redirects = Redirect::query()
             ->where('is_enabled', '=', 1)
             ->orderBy('sort_order')
