@@ -126,7 +126,8 @@ class RedirectManager
 
                 // Check if $toUrl is a relative path, if so, we need to add the base path to it.
                 // Refs: https://github.com/adrenth/redirect/issues/21
-                if ($toUrl[0] !== '/'
+                if (is_string($toUrl)
+                    && $toUrl[0] !== '/'
                     && substr($toUrl, 0, 7) !== 'http://'
                     && substr($toUrl, 0, 8) !== 'https://'
                 ) {
