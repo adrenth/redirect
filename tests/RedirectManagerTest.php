@@ -280,4 +280,61 @@ class RedirectManagerTest extends PluginTestCase
                 ->match('/this-should-be-source')
         );
     }
+
+    public function testRelativeRedirect()
+    {
+        $redirect = new Redirect([
+            'match_type' => Redirect::TYPE_EXACT,
+            'target_type' => Redirect::TARGET_TYPE_PATH_URL,
+            'from_url' => '/this-should-be-source',
+            'to_url' => 'relative/path/to',
+            'requirements' => null,
+            'status_code' => 302,
+            'is_enabled' => 1,
+            'from_date' => null,
+            'to_date' => null,
+        ]);
+
+        $rule = RedirectRule::createWithModel($redirect);
+        $manager = RedirectManager::createWithRule($rule);
+
+        self::assertEquals('/relative/path/to', $manager->getLocation($rule));
+
+        $manager->setBasePath('/subdirectory');
+
+        self::assertEquals('/subdirectory/relative/path/to', $manager->getLocation($rule));
+
+        $manager->setBasePath('/subdirectory/sub/sub//');
+
+        self::assertEquals('/subdirectory/sub/sub', $manager->getBasePath());
+        self::assertEquals('/subdirectory/sub/sub/relative/path/to', $manager->getLocation($rule));
+    }
+
+    public function testAbsoluteRedirect()
+    {
+        $redirect = new Redirect([
+            'match_type' => Redirect::TYPE_EXACT,
+            'target_type' => Redirect::TARGET_TYPE_PATH_URL,
+            'from_url' => '/this-should-be-source',
+            'to_url' => '/absolute/path/to',
+            'requirements' => null,
+            'status_code' => 302,
+            'is_enabled' => 1,
+            'from_date' => null,
+            'to_date' => null,
+        ]);
+
+        $rule = RedirectRule::createWithModel($redirect);
+        $manager = RedirectManager::createWithRule($rule);
+
+        self::assertEquals('/absolute/path/to', $manager->getLocation($rule));
+
+        $manager->setBasePath('/subdirectory');
+
+        self::assertEquals('/absolute/path/to', $manager->getLocation($rule));
+
+        $manager->setBasePath('/subdirectory/sub/sub');
+
+        self::assertEquals('/absolute/path/to', $manager->getLocation($rule));
+    }
 }

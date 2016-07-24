@@ -8,7 +8,6 @@ use Carbon\Carbon;
 use Cms\Classes\Controller;
 use Cms\Classes\Theme;
 use DB;
-use InvalidArgumentException;
 use Jaybizzle\CrawlerDetect\CrawlerDetect;
 use League\Csv\Reader;
 use Log;
@@ -34,12 +33,16 @@ class RedirectManager
     /** @var Carbon */
     private $matchDate;
 
+    /** @var string */
+    private $basePath;
+
     /**
      * Constructs a RedirectManager instance
      */
     protected function __construct()
     {
         $this->matchDate = Carbon::now();
+        $this->basePath = Request::getBasePath();
     }
 
     /**
@@ -62,6 +65,24 @@ class RedirectManager
         $instance = new self();
         $instance->redirectRules[] = $rule;
         return $instance;
+    }
+
+    /**
+     * @param string $basePath
+     * @return $this
+     */
+    public function setBasePath($basePath)
+    {
+        $this->basePath = rtrim($basePath, '/');
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getBasePath()
+    {
+        return $this->basePath;
     }
 
     /**
@@ -131,7 +152,7 @@ class RedirectManager
                     && substr($toUrl, 0, 7) !== 'http://'
                     && substr($toUrl, 0, 8) !== 'https://'
                 ) {
-                    $toUrl = Request::getBasePath() . '/' . $toUrl;
+                    $toUrl = $this->basePath . '/' . $toUrl;
                 }
 
                 break;
