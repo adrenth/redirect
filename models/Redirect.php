@@ -27,20 +27,20 @@ class Redirect extends Model
     const TARGET_TYPE_CMS_PAGE = 'cms_page';
     const TARGET_TYPE_STATIC_PAGE = 'static_page';
 
-    /** @type array */
+    /** @var array */
     public static $types = [
         self::TYPE_EXACT,
         self::TYPE_PLACEHOLDERS,
     ];
 
-    /** @type array */
+    /** @var array */
     public static $targetTypes = [
         self::TARGET_TYPE_PATH_URL,
         self::TARGET_TYPE_CMS_PAGE,
         self::TARGET_TYPE_STATIC_PAGE,
     ];
 
-    /** @type array */
+    /** @var array */
     public static $statusCodes = [
         301 => 'permanent',
         302 => 'temporary',
@@ -60,7 +60,7 @@ class Redirect extends Model
     /**
      * Validation rules
      *
-     * @type array
+     * @var array
      */
     public $rules = [
         'from_url' => 'required',
@@ -76,7 +76,7 @@ class Redirect extends Model
     /**
      * Custom validation messages
      *
-     * @type array
+     * @var array
      */
     public $customMessages = [
         'to_url.required_if' => 'adrenth.redirect::lang.redirect.to_url_required_if',
@@ -94,7 +94,7 @@ class Redirect extends Model
     /**
      * Custom attribute names
      *
-     * @type array
+     * @var array
      */
     public $attributeNames = [
         'to_url' => 'adrenth.redirect::lang.redirect.to_url',

@@ -19,7 +19,7 @@ class RedirectImport extends ImportModel
     /**
      * Validation rules
      *
-     * @type array
+     * @var array
      */
     public $rules = [
         'from_url' => 'required',

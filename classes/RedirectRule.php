@@ -12,40 +12,40 @@ use Carbon\Carbon;
  */
 class RedirectRule
 {
-    /** @type int */
+    /** @var int */
     private $id;
 
-    /** @type string */
+    /** @var string */
     private $matchType;
 
-    /** @type string */
+    /** @var string */
     private $targetType;
 
-    /** @type string */
+    /** @var string */
     private $fromUrl;
 
-    /** @type string */
+    /** @var string */
     private $toUrl;
 
-    /** @type string */
+    /** @var string */
     private $cmsPage;
 
-    /** @type string */
+    /** @var string */
     private $staticPage;
 
-    /** @type int */
+    /** @var int */
     private $statusCode;
 
-    /** @type array */
+    /** @var array */
     private $requirements;
 
-    /** @type Carbon */
+    /** @var Carbon */
     private $fromDate;
 
-    /** @type Carbon */
+    /** @var Carbon */
     private $toDate;
 
-    /** @type array */
+    /** @var array */
     private $placeholderMatches;
 
     /**

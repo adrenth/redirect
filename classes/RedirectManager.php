@@ -25,13 +25,13 @@ use Symfony\Component\Routing\RouteCollection;
  */
 class RedirectManager
 {
-    /** @type string */
+    /** @var string */
     private $redirectRulesPath;
 
-    /** @type RedirectRule[] */
+    /** @var RedirectRule[] */
     private $redirectRules;
 
-    /** @type Carbon */
+    /** @var Carbon */
     private $matchDate;
 
     /**
@@ -373,7 +373,7 @@ class RedirectManager
     {
         $now = Carbon::now();
 
-        /** @type Redirect $redirect */
+        /** @var Redirect $redirect */
         $redirect = Redirect::find($redirectId);
 
         if ($redirect === null) {
