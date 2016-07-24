@@ -12,6 +12,7 @@ use InvalidArgumentException;
 use Jaybizzle\CrawlerDetect\CrawlerDetect;
 use League\Csv\Reader;
 use Log;
+use Request;
 use Symfony\Component\Routing\Matcher\UrlMatcher;
 use Symfony\Component\Routing\RequestContext;
 use Symfony\Component\Routing\Route;
@@ -122,6 +123,16 @@ class RedirectManager
         switch ($rule->getTargetType()) {
             case Redirect::TARGET_TYPE_PATH_URL:
                 $toUrl = $this->redirectToPathOrUrl($rule);
+
+                // Check if $toUrl is a relative path, if so, we need to add the base path to it.
+                // Refs: https://github.com/adrenth/redirect/issues/21
+                if ($toUrl[0] !== '/'
+                    && substr($toUrl, 0, 7) !== 'http://'
+                    && substr($toUrl, 0, 8) !== 'https://'
+                ) {
+                    $toUrl = Request::getBasePath() . '/' . $toUrl;
+                }
+
                 break;
             case Redirect::TARGET_TYPE_CMS_PAGE:
                 $toUrl = $this->redirectToCmsPage($rule);

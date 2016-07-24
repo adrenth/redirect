@@ -21,7 +21,7 @@ return [
         'from_url_placeholder' => '/source/path',
         'from_url_comment' => 'The source path to match.',
         'to_url' => 'Target Path or URL',
-        'to_url_placeholder' => '/target/path or http://target.url',
+        'to_url_placeholder' => '/absolute/path, relative/path or http://target.url', // changed since 2.0.6
         'to_url_comment' => 'The target path or URL to redirect to.',
         'to_url_required_if' => 'The target path or URL is required',
         'cms_page_required_if' => 'Please provide a CMS Page to redirect to',
