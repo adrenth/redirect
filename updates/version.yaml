@@ -42,3 +42,6 @@
 2.0.5: Fix issue with URL character encoding source path
 2.0.6: Fix path issues with redirects when OctoberCMS installed in a subdirectory
 2.0.7: Fix uninstall issue
+2.0.8:
+    - Database maintenance. Updated all timestamp columns to be nullable.
+    - update_timestamp_nullable.php
