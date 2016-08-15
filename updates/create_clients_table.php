@@ -19,7 +19,7 @@ class CreateClientsTable extends Migration
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->unsignedInteger('redirect_id');
-            $table->timestamp('timestamp');
+            $table->timestamp('timestamp')->nullable();
             $table->unsignedTinyInteger('day');
             $table->unsignedTinyInteger('month');
             $table->unsignedSmallInteger('year');
