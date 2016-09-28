@@ -5,6 +5,7 @@ namespace Adrenth\Redirect\Updates;
 use Illuminate\Database\Schema\Blueprint;
 use October\Rain\Database\Updates\Migration;
 use Schema;
+use DB;
 
 /**
  * Class ChangeTypeUrlColumnsRedirectsTable
@@ -17,6 +18,7 @@ class ChangeTypeUrlColumnsRedirectsTable extends Migration
 
     public function up()
     {
+        DB::getDoctrineSchemaManager()->getDatabasePlatform()->registerDoctrineTypeMapping('json', 'text');
         Schema::table(self::TABLE, function (Blueprint $table) {
             $table->mediumText('to_url')->change();
             $table->mediumText('from_url')->change();
