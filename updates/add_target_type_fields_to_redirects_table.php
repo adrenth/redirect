@@ -18,7 +18,7 @@ class AddTargetTypeColumnsToRedirectsTable extends Migration
     public function up()
     {
         Schema::table(self::TABLE, function (Blueprint $table) {
-            $table->char('target_type', 12)->default('path_or_url')->after('match_type');
+            $table->string('target_type', 12)->default('path_or_url')->after('match_type');
             $table->string('cms_page')->nullable()->after('test_url');
             $table->string('static_page')->nullable()->after('cms_page');
         });
