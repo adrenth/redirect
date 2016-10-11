@@ -11,7 +11,6 @@ use Backend\Classes\FormField;
 use Backend\Widgets\Form;
 use BackendMenu;
 use Carbon\Carbon;
-use DB;
 use Event;
 use Flash;
 use Lang;
