@@ -3,7 +3,6 @@
 namespace Adrenth\Redirect\Classes;
 
 use Adrenth\Redirect\Models\Redirect;
-use DB;
 use Illuminate\Database\Eloquent\Collection;
 use League\Csv\Writer;
 use October\Rain\Support\Traits\Singleton;
