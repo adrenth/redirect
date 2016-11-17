@@ -71,6 +71,10 @@ tabs:
                 404: adrenth.redirect::lang.redirect.not_found
             attributes:
                 onchange: "$('.redirect-target').toggle($(this).val() !== '404')"
+        sort_order:
+            label: adrenth.redirect::lang.redirect.priority
+            type: text
+            span: right
         is_enabled:
             label: adrenth.redirect::lang.redirect.enabled
             comment: adrenth.redirect::lang.redirect.enabled_comment
