@@ -26,6 +26,10 @@ columns:
         label: adrenth.redirect::lang.redirect.match_type
         type: partial
         path: $/adrenth/redirect/models/redirect/_match_type_column.htm
+    category:
+        label: adrenth.redirect::lang.redirect.category
+        type: icon
+        sortable: false
     hits:
         label: adrenth.redirect::lang.redirect.hits
     sort_order:

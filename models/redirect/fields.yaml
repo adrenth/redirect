@@ -81,6 +81,10 @@ tabs:
             span: left
             type: switch
             default: true
+        category:
+            label: adrenth.redirect::lang.redirect.category
+            span: right
+            type: dropdown
         #
         # Requirements
         #

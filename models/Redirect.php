@@ -128,6 +128,13 @@ class Redirect extends Model
     ];
 
     /**
+     * {@inheritdoc}
+     */
+    public $belongsTo = [
+        'category' => Category::class,
+    ];
+
+    /**
      * @param array $data
      * @param array $rules
      * @param array $customMessages
@@ -225,6 +232,15 @@ class Redirect extends Model
     public function getStaticPageOptions()
     {
         return OptionHelper::getStaticPageOptions();
+    }
+
+    /**
+     * @see OptionHelper::getCategoryOptions()
+     * @return array
+     */
+    public function getCategoryOptions()
+    {
+        return OptionHelper::getCategoryOptions();
     }
 
     /**

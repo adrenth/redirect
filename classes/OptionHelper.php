@@ -2,6 +2,7 @@
 
 namespace Adrenth\Redirect\Classes;
 
+use Adrenth\Redirect\Models\Category;
 use Adrenth\Redirect\Models\Redirect;
 use Cms\Classes\Page;
 use Cms\Classes\Theme;
@@ -58,6 +59,24 @@ class OptionHelper
             if (array_key_exists('title', $page->viewBag)) {
                 $options[$page->getFileName()] = $page->viewBag['title'];
             }
+        }
+
+        return $options;
+    }
+
+    /**
+     * @return array
+     */
+    public static function getCategoryOptions()
+    {
+        $options = [];
+        $categories = Category::all(['id', 'name', 'icon'])->toArray();
+
+        foreach ($categories as $category) {
+            $options[$category['id']] = [
+                $category['name'],
+                $category['icon'],
+            ];
         }
 
         return $options;

@@ -5,6 +5,7 @@ namespace Adrenth\Redirect;
 use Adrenth\Redirect\Classes\PageHandler;
 use Adrenth\Redirect\Classes\PublishManager;
 use Adrenth\Redirect\Classes\RedirectManager;
+use Adrenth\Redirect\Models\Category;
 use App;
 use Backend;
 use Cms\Classes\Page;
@@ -144,6 +145,14 @@ class Plugin extends PluginBase
                             'adrenth.redirect.access_redirects',
                         ],
                     ],
+                    'category' => [
+                        'label' => 'adrenth.redirect::lang.buttons.categories',
+                        'url' => Backend::url('adrenth/redirect/categories'),
+                        'icon' => 'icon-tag',
+                        'permissions' => [
+                            'adrenth.redirect.access_redirects',
+                        ],
+                    ],
                     'import' => [
                         'label' => 'adrenth.redirect::lang.buttons.import',
                         'url' => Backend::url('adrenth/redirect/redirects/import'),
@@ -162,6 +171,33 @@ class Plugin extends PluginBase
                     ],
                 ],
             ],
+        ];
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function registerListColumnTypes()
+    {
+        return [
+            'icon' => function ($value) {
+                if (strpos($value, 'oc-icon') === 0) {
+                    return sprintf(
+                        '<span class="%s"></span>',
+                        $value
+                    );
+                }
+
+                if ($value instanceof Category) {
+                    return sprintf(
+                        '<span class="%s" title="%s"></span>',
+                        $value->getAttribute('icon'),
+                        $value->getAttribute('name')
+                    );
+                }
+
+                return '-';
+            },
         ];
     }
 }
