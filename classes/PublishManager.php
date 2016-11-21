@@ -5,6 +5,7 @@ namespace Adrenth\Redirect\Classes;
 use Adrenth\Redirect\Models\Redirect;
 use Illuminate\Database\Eloquent\Collection;
 use League\Csv\Writer;
+use Log;
 use October\Rain\Support\Traits\Singleton;
 
 /**
@@ -56,12 +57,18 @@ class PublishManager
                 'to_date',
             ]);
 
-        // TODO: Throw proper exception
         try {
             $writer = Writer::createFromPath($this->redirectsFile, 'w+');
-            $writer->insertAll($redirects->toArray());
+
+            foreach ($redirects->toArray() as $row) {
+                if (array_key_exists('requirements', $row)) {
+                    $row['requirements'] = json_encode($row['requirements']);
+                }
+
+                $writer->insertOne($row);
+            }
         } catch (\Exception $e) {
-            // ..
+            Log::critical($e);
         }
 
         return $redirects->count();

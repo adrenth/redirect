@@ -46,3 +46,4 @@
     - Database maintenance. Updated all timestamp columns to be nullable.
     - update_timestamp_nullable.php
 2.0.9: Reduce logging entries for "Route not found" on placeholder redirects
+2.0.10: Fixes critical issue with writing redirects file (thanks jan-vince)
