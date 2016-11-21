@@ -6,7 +6,3 @@ fields:
     name:
         label: adrenth.redirect::lang.redirect.name
         span: left
-    icon:
-        label: adrenth.redirect::lang.redirect.icon
-        type: dropdown
-        span: left

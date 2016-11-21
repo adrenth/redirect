@@ -6,6 +6,3 @@ columns:
     name:
         label: adrenth.redirect::lang.redirect.name
         searchable: true
-    icon:
-        label: adrenth.redirect::lang.redirect.icon
-        type: icon

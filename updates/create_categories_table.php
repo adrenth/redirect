@@ -2,6 +2,8 @@
 
 namespace Adrenth\Redirect\Updates;
 
+use Adrenth\Redirect\Models\Category;
+use DB;
 use Schema;
 use October\Rain\Database\Schema\Blueprint;
 use October\Rain\Database\Updates\Migration;
@@ -19,9 +21,10 @@ class CreateCategoriesTable extends Migration
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->string('name');
-            $table->string('icon');
             $table->timestamps();
         });
+
+        Category::create(['name' => 'General']);
     }
 
     public function down()

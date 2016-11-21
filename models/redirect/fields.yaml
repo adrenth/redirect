@@ -84,7 +84,8 @@ tabs:
         category:
             label: adrenth.redirect::lang.redirect.category
             span: right
-            type: dropdown
+            nameFrom: name
+            type: relation
         #
         # Requirements
         #

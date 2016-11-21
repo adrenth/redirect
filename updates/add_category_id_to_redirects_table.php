@@ -28,6 +28,7 @@ class AddCategoryIdToRedirectsTable extends Migration
     public function down()
     {
         Schema::table('adrenth_redirect_redirects', function (Blueprint $table) {
+            $table->dropForeign('adrenth_redirect_redirects_category_id_foreign');
             $table->dropColumn('category_id');
         });
     }

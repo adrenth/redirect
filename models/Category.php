@@ -2,7 +2,6 @@
 
 namespace Adrenth\Redirect\Models;
 
-use Adrenth\Redirect\Classes\IconList;
 use Model;
 
 /**
@@ -26,12 +25,4 @@ class Category extends Model
      * {@inheritdoc}
      */
     protected $fillable = [];
-
-    /**
-     * @return array
-     */
-    public function getIconOptions()
-    {
-        return IconList::getList();
-    }
 }

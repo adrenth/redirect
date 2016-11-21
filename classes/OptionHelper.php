@@ -69,16 +69,6 @@ class OptionHelper
      */
     public static function getCategoryOptions()
     {
-        $options = [];
-        $categories = Category::all(['id', 'name', 'icon'])->toArray();
-
-        foreach ($categories as $category) {
-            $options[$category['id']] = [
-                $category['name'],
-                $category['icon'],
-            ];
-        }
-
-        return $options;
+        return (array) Category::all(['id', 'name'])->lists('name', 'key');
     }
 }
