@@ -41,7 +41,7 @@
         'requirement_comment' => 'Ange kraven i regular expression-syntax. Ex. [0-9]+ eller [a-zA-Z]+.',
         'requirements_prompt' => 'Lägg till krav',
         'replacement' => 'Ersättning',
-        'replacement_comment' => 'Provide an optional replacement value for this placeholder. The matched placeholder will be replaced with this value in the target URL.',
+        'replacement_comment' => 'Ange en valfritt ersättningsvärde för denna platshållare. Den matchade platshållaren kommer att ersättas av detta värde i måladressen',
         'permanent' => '301 - Permanent',
         'temporary' => '302 - Tillfällig',
         'not_found' => '404 - Ofunnen',
