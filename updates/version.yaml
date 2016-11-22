@@ -48,7 +48,6 @@
 2.0.9: Reduce logging entries for "Route not found" on placeholder redirects
 2.0.10: Fixes critical issue with writing redirects file (thanks jan-vince)
 2.0.11:
-    - Add categories for categorizing redirects
+    - Add categories for categorizing redirects. And added swedish language (tack Hambern)
     - create_categories_table.php
     - add_category_id_to_redirects_table.php
-2.0.12: Add categories to categorize your redirects. And added swedish language (tack Hambern)
