@@ -55,6 +55,7 @@ return [
         'priority' => 'Priorité',
         'hits' => 'Hits',
         'return_to_redirects' => 'Retour à la liste des redirections',
+        'return_to_categories' => 'Return to categories list', // TODO
         'delete_confirm' => 'Êtes-vous sûr?',
         'created_at' => 'Créé à',
         'modified_at' => 'Modifié à',
@@ -62,6 +63,10 @@ return [
         'user_tip' => 'Redirection générée par l\'utilisateur',
         'type' => 'Type',
         'last_used_at' => 'Dernière utilisation à',
+        'and_delete_log_item' => 'And delete selected log items', // TODO
+        'category' => 'Category', // TODO
+        'categories' => 'Categories', // TODO
+        'name' => 'Name', // TODO
     ],
     'list' => [
         'no_records' => 'Il n\'y a pas de redirections dans cette vue.',
@@ -96,20 +101,32 @@ return [
         'redirects' => 'Gestion des redirections',
         'create_redirect' => 'Création de redirection',
         'edit_redirect' => 'Edition de redirection',
+        'categories' => 'Manage categories', // TODO
+        'create_category' => 'Create category', // TODO
+        'edit_category' => 'Edit category', // TODO
     ],
     'buttons' => [
+        'add' => 'Add', // TODO
+        'from_request_log' => 'From Request log', // TODO
         'new_redirect' => 'Ajouter',
+        'create_redirects' => 'Create redirects', // TODO
         'delete' => 'Supprimer',
         'enable' => 'Activer',
         'disable' => 'Désactiver',
         'reorder_redirects' => 'Réordonner',
         'export' => 'Exporter',
         'import' => 'Importer',
+        'categories' => 'Categories', // TODO
+        'new_category' => 'New category', // TODO
+        'reset_statistics' => 'Reset statistics', // TODO
     ],
     'tab' => [
         'tab_general' => 'Général',
         'tab_requirements' => 'Conditions',
         'tab_test' => 'Test',
         'tab_scheduling' => 'Planification',
+    ],
+    'flash' => [
+        'success_created_redirects' => 'Successfully created :count redirects', // TODO
     ],
 ];

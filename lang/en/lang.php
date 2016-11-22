@@ -66,7 +66,6 @@ return [
         'category' => 'Category',
         'categories' => 'Categories',
         'name' => 'Name',
-        'icon' => 'Icon',
     ],
     'list' => [
         'no_records' => 'There are no redirects in this view.',
@@ -117,6 +116,7 @@ return [
         'import' => 'Import',
         'categories' => 'Categories',
         'new_category' => 'New category',
+        'reset_statistics' => 'Reset statistics',
     ],
     'tab' => [
         'tab_general' => 'General',
