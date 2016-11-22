@@ -178,6 +178,16 @@ class Redirect extends Model
     }
 
     /**
+     * Mutator for 'sort_order' attribute; make sure the value is an integer.
+     *
+     * @param mixed $value
+     */
+    public function setSortOrderAttribute($value)
+    {
+        $this->attributes['sort_order'] = (int) $value;
+    }
+
+    /**
      * FromDate mutator
      *
      * @param mixed $value
