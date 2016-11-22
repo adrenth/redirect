@@ -1,9 +1,0 @@
-<?php
-$maxChars = 40;
-$textLength = strlen($value);
-?>
-<?php if ($textLength > $maxChars): ?>
-    <span title="<?= $value ?>"><?= substr_replace($value, '...', $maxChars / 2, $textLength - $maxChars) ?></span>
-<?php else: ?>
-    <?= $value ?>
-<?php endif; ?>
