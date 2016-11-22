@@ -66,7 +66,6 @@ return [
         'category' => 'Category',
         'categories' => 'Categories',
         'name' => 'Name',
-        'icon' => 'Icon',
     ],
     'list' => [
         'no_records' => 'There are no redirects in this view.',

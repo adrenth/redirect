@@ -45,7 +45,7 @@ return [
         'requirements_prompt' => 'Lägg till krav',
         'replacement' => 'Ersättning',
         'replacement_comment' => 'Provide an optional replacement value for this placeholder. '
-            . 'The matched placeholder will be replaced with this value in the target URL.',
+            . 'The matched placeholder will be replaced with this value in the target URL.', // TODO
         'permanent' => '301 - Permanent',
         'temporary' => '302 - Tillfällig',
         'not_found' => '404 - Ofunnen',
@@ -54,6 +54,7 @@ return [
         'priority' => 'Prioritet',
         'hits' => 'Träffar',
         'return_to_redirects' => 'Återvänd till ompekningar',
+        'return_to_categories' => 'Return to categories list', // TODO
         'delete_confirm' => 'Är du säker?',
         'created_at' => 'Skapad',
         'modified_at' => 'Ändrad',
@@ -62,6 +63,9 @@ return [
         'type' => 'Typ',
         'last_used_at' => 'Användes senast',
         'and_delete_log_item' => 'Och radera valda log-filer',
+        'category' => 'Category', // TODO
+        'categories' => 'Categories', // TODO
+        'name' => 'Name', // TODO
     ],
     'list' => [
         'no_records' => 'Det finns inga ompekningar i denna vy',
@@ -95,6 +99,9 @@ return [
         'redirects' => 'Hantera ompekningar',
         'create_redirect' => 'Skapa ompekning',
         'edit_redirect' => 'Ändra ompekning',
+        'categories' => 'Manage categories', // TODO
+        'create_category' => 'Create category', // TODO
+        'edit_category' => 'Edit category', // TODO
     ],
     'buttons' => [
         'add' => 'Skapa',
@@ -107,6 +114,8 @@ return [
         'reorder_redirects' => 'Omsortera',
         'export' => 'Exportera',
         'import' => 'Importera',
+        'categories' => 'Categories', // TODO
+        'new_category' => 'New category', // TODO
     ],
     'tab' => [
         'tab_general' => 'Allmänt',
