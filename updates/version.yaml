@@ -51,3 +51,4 @@
     - Add categories for categorizing redirects
     - create_categories_table.php
     - add_category_id_to_redirects_table.php
+2.0.12: Add categories to categorize your redirects. And added swedish language (tack Hambern)

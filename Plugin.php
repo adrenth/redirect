@@ -240,7 +240,7 @@ class Plugin extends PluginBase
                     $value ? 'oc-icon-magic' : 'oc-icon-user',
                     e(trans('adrenth.redirect::lang.redirect.system_tip'))
                 );
-            }
+            },
         ];
     }
 }
