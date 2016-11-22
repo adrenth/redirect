@@ -1,4 +1,6 @@
-<?php return [
+<?php
+
+return [
     'plugin' => [
         'name' => 'Ompekning',
         'description' => 'Hantera ompekningar',
@@ -36,12 +38,14 @@
         'requirements' => 'Krav',
         'requirements_comment' => 'Ange krav för varje platshållare',
         'placeholder' => 'Platshållare',
-        'placeholder_comment' => 'Platshållarens namn (inklusive måsvingar) som hittas i anropsadressfältet. Ex. {category} eller {id}',
+        'placeholder_comment' => 'Platshållarens namn (inklusive måsvingar) som hittas i anropsadressfältet. '
+            . 'Ex. {category} eller {id}',
         'requirement' => 'Krav',
         'requirement_comment' => 'Ange kraven i regular expression-syntax. Ex. [0-9]+ eller [a-zA-Z]+.',
         'requirements_prompt' => 'Lägg till krav',
         'replacement' => 'Ersättning',
-        'replacement_comment' => 'Provide an optional replacement value for this placeholder. The matched placeholder will be replaced with this value in the target URL.',
+        'replacement_comment' => 'Provide an optional replacement value for this placeholder. '
+            . 'The matched placeholder will be replaced with this value in the target URL.',
         'permanent' => '301 - Permanent',
         'temporary' => '302 - Tillfällig',
         'not_found' => '404 - Ofunnen',
@@ -69,7 +73,8 @@
         'from_date_comment' => 'Det datum då denna ompekning blir aktiv. Kan lämnas tomt',
         'to_date' => 'Aktiv tills',
         'to_date_comment' => 'Det datum då demma ompekning blir inaktiv. Kan lämas tomt',
-        'scheduling_comment' => 'Här kan du ange ett tidsspann då denna ompekning ska vara aktiv. Alla typer av datumkombinationer är möjliga',
+        'scheduling_comment' => 'Här kan du ange ett tidsspann då denna ompekning ska vara aktiv. '
+            . 'Alla typer av datumkombinationer är möjliga',
     ],
     'test' => [
         'test_comment' => 'Var god testa din ompekning innan du sparar den',
