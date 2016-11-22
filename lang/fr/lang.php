@@ -118,6 +118,7 @@ return [
         'import' => 'Importer',
         'categories' => 'Categories', // TODO
         'new_category' => 'New category', // TODO
+        'reset_statistics' => 'Reset statistics', // TODO
     ],
     'tab' => [
         'tab_general' => 'Général',

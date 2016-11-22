@@ -77,4 +77,15 @@
             <?= e(trans('adrenth.redirect::lang.buttons.disable')) ?>
         </button>
     </div>
+    <button class="btn btn-default oc-icon-undo"
+            disabled="disabled"
+            onclick="$(this).data('request-data', { checked: $('.control-list').listWidget('getChecked') })"
+            data-request="onResetStatistics"
+            data-trigger-action="enable"
+            data-trigger=".control-list input[type=checkbox]"
+            data-trigger-condition="checked"
+            data-request-success="$('#checkBoxTriggeredButtons button').prop('disabled', true)"
+            data-stripe-load-indicator>
+        <?= e(trans('adrenth.redirect::lang.buttons.reset_statistics')) ?>
+    </button>
 </div>

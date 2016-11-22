@@ -168,6 +168,14 @@ class Redirect extends Model
     }
 
     /**
+     * @return \October\Rain\Database\Relations\BelongsTo
+     */
+    public function clients()
+    {
+        return $this->hasMany(Client::class);
+    }
+
+    /**
      * Mutator for 'from_url' attribute; make sure the value is URL decoded.
      *
      * @param string $value
@@ -175,6 +183,16 @@ class Redirect extends Model
     public function setFromUrlAttribute($value)
     {
         $this->attributes['from_url'] = urldecode($value);
+    }
+
+    /**
+     * Mutator for 'sort_order' attribute; make sure the value is an integer.
+     *
+     * @param mixed $value
+     */
+    public function setSortOrderAttribute($value)
+    {
+        $this->attributes['sort_order'] = (int) $value;
     }
 
     /**
