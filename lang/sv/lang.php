@@ -1,4 +1,6 @@
-<?php return [
+<?php
+
+return [
     'plugin' => [
         'name' => 'Ompekning',
         'description' => 'Hantera ompekningar',
@@ -36,12 +38,14 @@
         'requirements' => 'Krav',
         'requirements_comment' => 'Ange krav för varje platshållare',
         'placeholder' => 'Platshållare',
-        'placeholder_comment' => 'Platshållarens namn (inklusive måsvingar) som hittas i anropsadressfältet. Ex. {category} eller {id}',
+        'placeholder_comment' => 'Platshållarens namn (inklusive måsvingar) som hittas i anropsadressfältet. '
+            . 'Ex. {category} eller {id}',
         'requirement' => 'Krav',
         'requirement_comment' => 'Ange kraven i regular expression-syntax. Ex. [0-9]+ eller [a-zA-Z]+.',
         'requirements_prompt' => 'Lägg till krav',
         'replacement' => 'Ersättning',
-        'replacement_comment' => 'Provide an optional replacement value for this placeholder. The matched placeholder will be replaced with this value in the target URL.',
+        'replacement_comment' => 'Provide an optional replacement value for this placeholder. '
+            . 'The matched placeholder will be replaced with this value in the target URL.', // TODO
         'permanent' => '301 - Permanent',
         'temporary' => '302 - Tillfällig',
         'not_found' => '404 - Ofunnen',
@@ -50,6 +54,7 @@
         'priority' => 'Prioritet',
         'hits' => 'Träffar',
         'return_to_redirects' => 'Återvänd till ompekningar',
+        'return_to_categories' => 'Return to categories list', // TODO
         'delete_confirm' => 'Är du säker?',
         'created_at' => 'Skapad',
         'modified_at' => 'Ändrad',
@@ -58,6 +63,9 @@
         'type' => 'Typ',
         'last_used_at' => 'Användes senast',
         'and_delete_log_item' => 'Och radera valda log-filer',
+        'category' => 'Category', // TODO
+        'categories' => 'Categories', // TODO
+        'name' => 'Name', // TODO
     ],
     'list' => [
         'no_records' => 'Det finns inga ompekningar i denna vy',
@@ -69,7 +77,8 @@
         'from_date_comment' => 'Det datum då denna ompekning blir aktiv. Kan lämnas tomt',
         'to_date' => 'Aktiv tills',
         'to_date_comment' => 'Det datum då demma ompekning blir inaktiv. Kan lämas tomt',
-        'scheduling_comment' => 'Här kan du ange ett tidsspann då denna ompekning ska vara aktiv. Alla typer av datumkombinationer är möjliga',
+        'scheduling_comment' => 'Här kan du ange ett tidsspann då denna ompekning ska vara aktiv. '
+            . 'Alla typer av datumkombinationer är möjliga',
     ],
     'test' => [
         'test_comment' => 'Var god testa din ompekning innan du sparar den',
@@ -90,6 +99,9 @@
         'redirects' => 'Hantera ompekningar',
         'create_redirect' => 'Skapa ompekning',
         'edit_redirect' => 'Ändra ompekning',
+        'categories' => 'Manage categories', // TODO
+        'create_category' => 'Create category', // TODO
+        'edit_category' => 'Edit category', // TODO
     ],
     'buttons' => [
         'add' => 'Skapa',
@@ -102,6 +114,8 @@
         'reorder_redirects' => 'Omsortera',
         'export' => 'Exportera',
         'import' => 'Importera',
+        'categories' => 'Categories', // TODO
+        'new_category' => 'New category', // TODO
     ],
     'tab' => [
         'tab_general' => 'Allmänt',

@@ -1,0 +1,27 @@
+# ===================================
+#  Form Behavior Config
+# ===================================
+
+# Record name
+name: adrenth.redirect::lang.redirect.category
+
+# Model Form Field configuration
+form: $/adrenth/redirect/models/category/fields.yaml
+
+# Model Class name
+modelClass: Adrenth\Redirect\Models\Category
+
+# Default redirect location
+defaultRedirect: adrenth/redirect/categories
+
+# Create page
+create:
+    title: adrenth.redirect::lang.title.create_category
+    redirect: adrenth/redirect/categories/update/:id
+    redirectClose: adrenth/redirect/categories
+
+# Update page
+update:
+    title: adrenth.redirect::lang.title.edit_category
+    redirect: adrenth/redirect/categories
+    redirectClose: adrenth/redirect/categories

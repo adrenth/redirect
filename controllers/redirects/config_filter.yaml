@@ -29,3 +29,8 @@ scopes:
         modelClass: Adrenth\Redirect\Models\Redirect
         options: filterStatusCodeOptions
         conditions: status_code in (:filtered)
+    category:
+        label: adrenth.redirect::lang.redirect.category
+        modelClass: Adrenth\Redirect\Models\Category
+        conditions: category_id in (:filtered)
+        nameFrom: name

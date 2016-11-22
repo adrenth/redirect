@@ -1,0 +1,8 @@
+# ===================================
+#  List Column Definitions
+# ===================================
+
+columns:
+    name:
+        label: adrenth.redirect::lang.redirect.name
+        searchable: true

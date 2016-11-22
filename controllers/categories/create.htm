@@ -1,7 +1,6 @@
 <?php Block::put('breadcrumb') ?>
     <ul>
-        <li><a href="<?= Backend::url('system/settings') ?>"><?= e(trans('system::lang.settings.menu_label')) ?></a></li>
-        <li><a href="<?= Backend::url('adrenth/redirect/redirects') ?>"><?= e(trans('adrenth.redirect::lang.navigation.menu_label')) ?></a></li>
+        <li><a href="<?= Backend::url('adrenth/redirect/categories') ?>"><?= e(trans('adrenth.redirect::lang.redirect.categories')) ?></a></li>
         <li><?= e($this->pageTitle) ?></li>
     </ul>
 <?php Block::endPut() ?>
@@ -34,7 +33,7 @@
                     <?= e(trans('backend::lang.form.create_and_close')) ?>
                 </button>
                 <span class="btn-text">
-                    <?= e(trans('backend::lang.form.or')) ?> <a href="<?= Backend::url('adrenth/redirect/redirects') ?>"><?= e(trans('backend::lang.form.cancel')) ?></a>
+                    <?= e(trans('backend::lang.form.or')) ?> <a href="<?= Backend::url('adrenth/redirect/categories') ?>"><?= e(trans('backend::lang.form.cancel')) ?></a>
                 </span>
             </div>
         </div>
@@ -44,6 +43,6 @@
 <?php else: ?>
 
     <p class="flash-message static error"><?= e($this->fatalError) ?></p>
-    <p><a href="<?= Backend::url('adrenth/redirect/redirects') ?>" class="btn btn-default"><?= e(trans('adrenth.redirect::lang.redirect.return_to_redirects')) ?></a></p>
+    <p><a href="<?= Backend::url('adrenth/redirect/categories') ?>" class="btn btn-default"><?= e(trans('adrenth.redirect::lang.redirect.return_to_categories')) ?></a></p>
 
 <?php endif ?>

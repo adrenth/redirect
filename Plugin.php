@@ -5,6 +5,8 @@ namespace Adrenth\Redirect;
 use Adrenth\Redirect\Classes\PageHandler;
 use Adrenth\Redirect\Classes\PublishManager;
 use Adrenth\Redirect\Classes\RedirectManager;
+use Adrenth\Redirect\Models\Category;
+use Adrenth\Redirect\Models\Redirect;
 use App;
 use Backend;
 use Cms\Classes\Page;
@@ -144,6 +146,14 @@ class Plugin extends PluginBase
                             'adrenth.redirect.access_redirects',
                         ],
                     ],
+                    'category' => [
+                        'label' => 'adrenth.redirect::lang.buttons.categories',
+                        'url' => Backend::url('adrenth/redirect/categories'),
+                        'icon' => 'icon-tag',
+                        'permissions' => [
+                            'adrenth.redirect.access_redirects',
+                        ],
+                    ],
                     'import' => [
                         'label' => 'adrenth.redirect::lang.buttons.import',
                         'url' => Backend::url('adrenth/redirect/redirects/import'),
@@ -162,6 +172,75 @@ class Plugin extends PluginBase
                     ],
                 ],
             ],
+        ];
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function registerListColumnTypes()
+    {
+        return [
+            'redirect_switch_color' => function ($value) {
+                $format = '<div class="oc-icon-circle" style="color: %s">%s</div>';
+
+                if ((int) $value === 1) {
+                    return sprintf($format, '#95b753', e(trans('backend::lang.list.column_switch_true')));
+                }
+
+                return sprintf($format, '#cc3300', e(trans('backend::lang.list.column_switch_false')));
+            },
+            'redirect_match_type' => function ($value) {
+                switch ($value) {
+                    case Redirect::TYPE_EXACT:
+                        return e(trans('adrenth.redirect::lang.redirect.exact'));
+                    case Redirect::TYPE_PLACEHOLDERS:
+                        return e(trans('adrenth.redirect::lang.redirect.exact'));
+                    default:
+                        return $value;
+                }
+            },
+            'redirect_status_code' => function ($value) {
+                switch ($value) {
+                    case 301:
+                        return e(trans('adrenth.redirect::lang.redirect.permanent'));
+                    case 302:
+                        return e(trans('adrenth.redirect::lang.redirect.temporary'));
+                    case 404:
+                        return e(trans('adrenth.redirect::lang.redirect.not_found'));
+                    default:
+                        return $value;
+                }
+            },
+            'redirect_target_type' => function ($value) {
+                switch ($value) {
+                    case Redirect::TARGET_TYPE_PATH_URL:
+                        return e(trans('adrenth.redirect::lang.redirect.target_type_path_or_url'));
+                    case Redirect::TARGET_TYPE_CMS_PAGE:
+                        return e(trans('adrenth.redirect::lang.redirect.target_type_cms_page'));
+                    case Redirect::TARGET_TYPE_STATIC_PAGE:
+                        return e(trans('adrenth.redirect::lang.redirect.target_type_static_page'));
+                    default:
+                        return $value;
+                }
+            },
+            'redirect_from_url' => function ($value) {
+                $maxChars = 40;
+                $textLength = strlen($value);
+                if ($textLength > $maxChars) {
+                    return '<span title="' . e($value) . '">'
+                        . substr_replace($value, '...', $maxChars / 2, $textLength - $maxChars)
+                        . '</span>';
+                }
+                return $value;
+            },
+            'redirect_system' => function ($value) {
+                return sprintf(
+                    '<span class="%s" title="%s"></span>',
+                    $value ? 'oc-icon-magic' : 'oc-icon-user',
+                    e(trans('adrenth.redirect::lang.redirect.system_tip'))
+                );
+            },
         ];
     }
 }

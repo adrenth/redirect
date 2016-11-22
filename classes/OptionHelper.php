@@ -2,6 +2,7 @@
 
 namespace Adrenth\Redirect\Classes;
 
+use Adrenth\Redirect\Models\Category;
 use Adrenth\Redirect\Models\Redirect;
 use Cms\Classes\Page;
 use Cms\Classes\Theme;
@@ -61,5 +62,13 @@ class OptionHelper
         }
 
         return $options;
+    }
+
+    /**
+     * @return array
+     */
+    public static function getCategoryOptions()
+    {
+        return (array) Category::all(['id', 'name'])->lists('name', 'key');
     }
 }

@@ -6,31 +6,30 @@ columns:
     system:
         label: adrenth.redirect::lang.redirect.type
         width: 16px
-        type: partial
-        path: $/adrenth/redirect/models/redirect/_system_column.htm
+        type: redirect_system
         sortable: false
     from_url:
         label: adrenth.redirect::lang.redirect.from_url
-        type: partial
+        type: redirect_from_url
         searchable: true
-        path: $/adrenth/redirect/models/redirect/_url_column.htm
     target_type:
         label: adrenth.redirect::lang.redirect.target_type
-        type: partial
-        path: $/adrenth/redirect/models/redirect/_target_type_column.htm
+        type: redirect_target_type
     status_code:
         label: adrenth.redirect::lang.redirect.status_code
-        type: partial
-        path: $/adrenth/redirect/models/redirect/_status_code_column.htm
+        type: redirect_status_code
     match_type:
         label: adrenth.redirect::lang.redirect.match_type
-        type: partial
-        path: $/adrenth/redirect/models/redirect/_match_type_column.htm
+        type: redirect_match_type
+    category:
+        label: adrenth.redirect::lang.redirect.category
+        relation: category
+        select: name
+        default: '-'
     hits:
         label: adrenth.redirect::lang.redirect.hits
     sort_order:
         label: adrenth.redirect::lang.redirect.priority
     is_enabled:
         label: adrenth.redirect::lang.redirect.enabled
-        type: partial
-        path: $/adrenth/redirect/models/redirect/_is_enabled_column.htm
+        type: redirect_switch_color

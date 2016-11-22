@@ -54,6 +54,7 @@ return [
         'priority' => 'Priority',
         'hits' => 'Hits',
         'return_to_redirects' => 'Return to redirects list',
+        'return_to_categories' => 'Return to categories list',
         'delete_confirm' => 'Are you sure?',
         'created_at' => 'Created at',
         'modified_at' => 'Modified at',
@@ -61,7 +62,10 @@ return [
         'user_tip' => 'User generated redirect',
         'type' => 'Type',
         'last_used_at' => 'Last Used At',
-        'and_delete_log_item' => 'And delete selected log items', // since 2.0.3
+        'and_delete_log_item' => 'And delete selected log items', // since 2.0.3,
+        'category' => 'Category',
+        'categories' => 'Categories',
+        'name' => 'Name',
     ],
     'list' => [
         'no_records' => 'There are no redirects in this view.',
@@ -95,6 +99,9 @@ return [
         'redirects' => 'Manage redirects',
         'create_redirect' => 'Create redirect',
         'edit_redirect' => 'Edit redirect',
+        'categories' => 'Manage categories',
+        'create_category' => 'Create category',
+        'edit_category' => 'Edit category',
     ],
     'buttons' => [
         'add' => 'Add', // since 2.0.3
@@ -107,6 +114,8 @@ return [
         'reorder_redirects' => 'Reorder',
         'export' => 'Export',
         'import' => 'Import',
+        'categories' => 'Categories',
+        'new_category' => 'New category',
     ],
     'tab' => [
         'tab_general' => 'General',
