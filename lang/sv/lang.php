@@ -112,6 +112,7 @@
         'import' => 'Importera',
         'categories' => 'Kategorier',
         'new_category' => 'Ny kategori',
+        'reset_statistics' => 'Återställ statistik',
     ],
     'tab' => [
         'tab_general' => 'Allmänt',
