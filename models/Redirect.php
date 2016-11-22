@@ -168,6 +168,14 @@ class Redirect extends Model
     }
 
     /**
+     * @return \October\Rain\Database\Relations\BelongsTo
+     */
+    public function clients()
+    {
+        return $this->hasMany(Client::class);
+    }
+
+    /**
      * Mutator for 'from_url' attribute; make sure the value is URL decoded.
      *
      * @param string $value

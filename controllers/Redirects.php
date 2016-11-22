@@ -21,6 +21,8 @@ use System\Models\RequestLog;
  * Class Redirects
  *
  * @package Adrenth\Redirect\Controllers
+ * @method array listRefresh()
+ * @method void makeLists()
  */
 class Redirects extends Controller
 {
@@ -209,6 +211,23 @@ class Redirects extends Controller
                     'count' => $redirectsCreated,
                 ]
             ));
+        }
+
+        return $this->listRefresh();
+    }
+
+    /**
+     * @return array
+     */
+    public function onResetStatistics()
+    {
+        $checkedIds = $this->getCheckedIds();
+
+        foreach ($checkedIds as $checkedId) {
+            /** @var Redirect $redirect */
+            $redirect = Redirect::find($checkedId);
+            $redirect->update(['hits' => 0]);
+            $redirect->clients()->delete();
         }
 
         return $this->listRefresh();

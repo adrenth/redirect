@@ -116,6 +116,7 @@ return [
         'import' => 'Import',
         'categories' => 'Categories',
         'new_category' => 'New category',
+        'reset_statistics' => 'Reset statistics',
     ],
     'tab' => [
         'tab_general' => 'General',
