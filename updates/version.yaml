@@ -52,3 +52,4 @@
     - create_categories_table.php
     - add_category_id_to_redirects_table.php
 2.0.12: Fixes some issues and add ability to reset redirect statistics
+2.0.13: Language update (sv) and Postgres compatibility
