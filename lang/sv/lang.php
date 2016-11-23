@@ -1,4 +1,6 @@
-<?php return [
+<?php
+
+return [
     'plugin' => [
         'name' => 'Ompekning',
         'description' => 'Hantera ompekningar',
