@@ -5,7 +5,7 @@ namespace Adrenth\Redirect;
 use Adrenth\Redirect\Classes\PageHandler;
 use Adrenth\Redirect\Classes\PublishManager;
 use Adrenth\Redirect\Classes\RedirectManager;
-use Adrenth\Redirect\Models\Category;
+use Adrenth\Redirect\Classes\StaticPageHandler;
 use Adrenth\Redirect\Models\Redirect;
 use App;
 use Backend;
@@ -96,6 +96,20 @@ class Plugin extends PluginBase
                 $handler->onAfterDelete();
             });
         });
+
+        if (class_exists('\RainLab\Pages\Classes\Page')) {
+            \RainLab\Pages\Classes\Page::extend(function (\RainLab\Pages\Classes\Page $page) {
+                $handler = new StaticPageHandler($page);
+
+                $page->bindEvent('model.beforeUpdate', function () use ($handler) {
+                    $handler->onBeforeUpdate();
+                });
+
+                $page->bindEvent('model.afterDelete', function () use ($handler) {
+                    $handler->onAfterDelete();
+                });
+            });
+        }
 
         Event::listen('redirects.changed', function () {
             PublishManager::instance()->publish();

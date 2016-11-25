@@ -128,5 +128,6 @@ return [
     ],
     'flash' => [
         'success_created_redirects' => 'Successfully created :count redirects', // TODO
+        'static_page_redirect_not_supported' => 'This redirect cannot be modified. Plugin RainLab.Pages is required.', // TODO
     ],
 ];

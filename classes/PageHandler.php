@@ -3,7 +3,8 @@
 namespace Adrenth\Redirect\Classes;
 
 use Adrenth\Redirect\Models\Redirect;
-use Cms\Classes\Page;
+use Cms\Classes\CmsCompoundObject;
+use Event;
 
 /**
  * Class PageHandler
@@ -12,13 +13,13 @@ use Cms\Classes\Page;
  */
 class PageHandler
 {
-    /** @var Page */
-    private $page;
+    /** @var CmsCompoundObject */
+    protected $page;
 
     /**
-     * @param Page $page
+     * @param CmsCompoundObject $page
      */
-    public function __construct(Page $page)
+    public function __construct(CmsCompoundObject $page)
     {
         $this->page = $page;
     }
@@ -50,6 +51,8 @@ class PageHandler
         }
 
         $this->createRedirect();
+
+        Event::fire('redirects.changed');
     }
 
     /**
@@ -59,22 +62,24 @@ class PageHandler
      */
     public function onAfterDelete()
     {
-        Redirect::where('cms_page', '=', $this->page->getBaseFileName())
+        Redirect::where($this->getTargetType(), '=', $this->page->getBaseFileName())
             ->where('system', '=', 1)
             ->delete();
 
-        Redirect::where('cms_page', '=', $this->page->getBaseFileName())
+        Redirect::where($this->getTargetType(), '=', $this->page->getBaseFileName())
             ->where('system', '=', 0)
             ->update([
-                'cms_page' => null,
+                $this->getTargetType() => null,
                 'is_enabled' => false,
             ]);
+
+        Event::fire('redirects.changed');
     }
 
     /**
      * @return bool
      */
-    private function hasUrlChanged()
+    protected function hasUrlChanged()
     {
         return array_key_exists('url', $this->page->getDirty());
     }
@@ -82,7 +87,7 @@ class PageHandler
     /**
      * @return bool
      */
-    private function newUrlContainsParams()
+    protected function newUrlContainsParams()
     {
         return strpos($this->getNewUrl(), ':') !== false;
     }
@@ -90,7 +95,7 @@ class PageHandler
     /**
      * @return array
      */
-    private function getOriginalUrl()
+    protected function getOriginalUrl()
     {
         return $this->page->getOriginal('url');
     }
@@ -98,7 +103,7 @@ class PageHandler
     /**
      * @return array
      */
-    private function getNewUrl()
+    protected function getNewUrl()
     {
         $dirty = $this->page->getDirty();
 
@@ -110,18 +115,26 @@ class PageHandler
     }
 
     /**
+     * @return string
+     */
+    protected function getTargetType()
+    {
+        return Redirect::TARGET_TYPE_CMS_PAGE;
+    }
+
+    /**
      * Create CMS page type
      *
      * @return void
      */
-    private function createRedirect()
+    protected function createRedirect()
     {
         Redirect::create([
             'match_type' => Redirect::TYPE_EXACT,
-            'target_type' => Redirect::TARGET_TYPE_CMS_PAGE,
+            'target_type' => $this->getTargetType(),
             'from_url' => $this->getOriginalUrl(),
             'to_url' => null,
-            'cms_page' => $this->page->getBaseFileName(),
+            $this->getTargetType() => $this->page->getBaseFileName(),
             'status_code' => 301,
             'is_enabled' => true,
             'system' => true,

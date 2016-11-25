@@ -13,7 +13,9 @@ use BackendMenu;
 use Carbon\Carbon;
 use Event;
 use Flash;
+use Illuminate\Http\RedirectResponse;
 use Lang;
+use Redirect as RedirectFacade;
 use Request;
 use System\Models\RequestLog;
 
@@ -66,6 +68,28 @@ class Redirects extends Controller
         $this->requiredPermissions = ['adrenth.redirect.access_redirects'];
 
         $this->vars['match'] = null;
+    }
+
+    /**
+     * Edit Controller action
+     *
+     * @param int $recordId The model primary key to update.
+     * @param string $context Explicitly define a form context.
+     * @return RedirectResponse
+     */
+    public function update($recordId = null, $context = null)
+    {
+        /** @var Redirect $redirect */
+        $redirect = Redirect::findOrFail($recordId);
+
+        if ($redirect->getAttribute('target_type') === Redirect::TARGET_TYPE_STATIC_PAGE
+            && !class_exists('\RainLab\Pages\Classes\Page')
+        ) {
+            Flash::error(Lang::get('adrenth.redirect::lang.flash.static_page_redirect_not_supported'));
+            return RedirectFacade::back();
+        }
+
+        parent::update($recordId, $context);
     }
 
     // @codingStandardsIgnoreStart
