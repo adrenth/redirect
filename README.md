@@ -1,12 +1,12 @@
 # Adrenth.Redirect
 
-## The #1 Redirect plugin for OctoberCMS
+## The #1 Redirect plugin for October CMS
 
-This is the best Redirect-plugin for OctoberCMS. With this plugin installed you can manage redirects directly from OctoberCMS' beautiful interface. Many webmasters use redirects to optimize their website for search engines. This plugin allows you to manage such redirects with a nice and user-friendly interface.
+This is the best Redirect-plugin for October CMS. With this plugin installed you can manage redirects directly from October CMS' beautiful interface. Many webmasters use redirects to optimize their website for search engines. This plugin allows you to manage such redirects with a nice and user-friendly interface.
 
 ## What does this plugin offer?
 
-This plugin adds a 'Redirects' settings section to OctoberCMS. Here you can manage your redirects.
+This plugin adds a 'Redirects' settings section to October CMS. Here you can manage your redirects.
 This plugin is trying to match your redirect very efficiently before your website is rendered.
 
 ## Testing your redirects
@@ -32,7 +32,7 @@ This plugin has an easy to use test tool to extensively test your redirects.
 * Automatic creation of redirect when changing CMS Page (System redirects)
 * Redirect statistics (under construction, will be released soon)
 * Compatibility with PHP 7+
-* Compatibility with OctoberCMS stable
+* Compatibility with October CMS stable
 
 ## Redirection
 
