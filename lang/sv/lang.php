@@ -64,7 +64,11 @@ return [
         'category' => 'Kategori',
         'categories' => 'Kategorier',
         'name' => 'Namn',
-        'icon' => 'Ikon',
+        'date_time' => 'Date & Time', // TODO
+        'date' => 'Date', // TODO
+        'truncate_confirm' => 'Are you sure you want to delete ALL records?', // TODO
+        'truncating' => 'Deleting...', // TODO
+
     ],
     'list' => [
         'no_records' => 'Det finns inga ompekningar i denna vy',
@@ -100,6 +104,7 @@ return [
         'categories' => 'Hantera kategorier',
         'create_category' => 'Skapa kategori',
         'edit_category' => 'Ändra kategori',
+        'view_redirect_log' => 'View redirect log', // TODO
     ],
     'buttons' => [
         'add' => 'Skapa',
@@ -115,6 +120,8 @@ return [
         'categories' => 'Kategorier',
         'new_category' => 'Ny kategori',
         'reset_statistics' => 'Återställ statistik',
+        'logs' => 'Redirect log', // TODO
+        'empty_redirect_log' => 'Empty redirect log', // TODO
     ],
     'tab' => [
         'tab_general' => 'Allmänt',
@@ -125,5 +132,7 @@ return [
     'flash' => [
         'success_created_redirects' => 'Skapade :count ompekningar',
         'static_page_redirect_not_supported' => 'This redirect cannot be modified. Plugin RainLab.Pages is required.', // TODO
+        'truncate_success' => 'Successfully deleted all records', // TODO
+        'delete_selected_success' => 'Successfully deleted selected records', // TODO
     ],
 ];

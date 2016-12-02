@@ -1,0 +1,15 @@
+# ===================================
+# Filter Scope Definitions
+# ===================================
+
+scopes:
+    date_time:
+        label: adrenth.redirect::lang.redirect.date
+        type: date
+        conditions: date_time >= ':filtered'
+    status_code:
+        label: adrenth.redirect::lang.redirect.status_code
+        type: group
+        modelClass: Adrenth\Redirect\Models\Redirect
+        options: filterStatusCodeOptions
+        conditions: status_code in (:filtered)

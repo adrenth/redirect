@@ -1,6 +1,6 @@
 {
     "name": "adrenth/redirect",
-    "description": "A redirect plugin for OctoberCMS",
+    "description": "A redirect plugin for October CMS",
     "type": "october-plugin",
     "license": "proprietary",
     "authors": [

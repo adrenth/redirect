@@ -74,7 +74,7 @@ class Plugin extends PluginBase
         $rule = $manager->match($requestUri);
 
         if ($rule) {
-            $manager->redirectWithRule($rule);
+            $manager->redirectWithRule($rule, $requestUri);
         }
     }
 
@@ -156,6 +156,14 @@ class Plugin extends PluginBase
                         'label' => 'adrenth.redirect::lang.buttons.reorder_redirects',
                         'url' => Backend::url('adrenth/redirect/redirects/reorder'),
                         'icon' => 'icon-sort-amount-asc',
+                        'permissions' => [
+                            'adrenth.redirect.access_redirects',
+                        ],
+                    ],
+                    'logs' => [
+                        'label' => 'adrenth.redirect::lang.buttons.logs',
+                        'url' => Backend::url('adrenth/redirect/logs'),
+                        'icon' => 'icon-file-text-o',
                         'permissions' => [
                             'adrenth.redirect.access_redirects',
                         ],

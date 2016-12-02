@@ -4,6 +4,7 @@ namespace Adrenth\Redirect\Classes;
 
 use Adrenth\Redirect\Models\Client;
 use Adrenth\Redirect\Models\Redirect;
+use Adrenth\Redirect\Models\RedirectLog;
 use Carbon\Carbon;
 use Cms\Classes\Controller;
 use Cms\Classes\Theme;
@@ -110,13 +111,15 @@ class RedirectManager
      * Redirect with specific rule
      *
      * @param RedirectRule $rule
+     * @param string $requestUri
      * @return void
      */
-    public function redirectWithRule(RedirectRule $rule)
+    public function redirectWithRule(RedirectRule $rule, $requestUri)
     {
         $this->updateStatistics($rule->getId());
 
         if ($rule->getStatusCode() === 404) {
+            $this->addLogEntry($rule, $requestUri, '');
             abort($rule->getStatusCode(), 'Not Found');
         }
 
@@ -125,6 +128,8 @@ class RedirectManager
         if (!$toUrl || empty($toUrl)) {
             return;
         }
+
+        $this->addLogEntry($rule, $requestUri, $toUrl);
 
         header('Location: ' . $toUrl, true, $rule->getStatusCode());
         exit();
@@ -392,14 +397,14 @@ class RedirectManager
      */
     private function updateStatistics($redirectId)
     {
-        $now = Carbon::now();
-
         /** @var Redirect $redirect */
         $redirect = Redirect::find($redirectId);
 
         if ($redirect === null) {
             return;
         }
+
+        $now = Carbon::now();
 
         $redirect->update([
             'hits' => DB::raw('hits + 1'),
@@ -415,6 +420,34 @@ class RedirectManager
             'month' => $now->month,
             'year' => $now->year,
             'crawler' => $crawlerDetect->isCrawler() ? $crawlerDetect->getMatches() : null,
+        ]);
+    }
+
+    /**
+     * @param RedirectRule $rule
+     * @param $requestUri
+     * @param $toUrl
+     */
+    private function addLogEntry(RedirectRule $rule, $requestUri, $toUrl)
+    {
+        /** @var Redirect $redirect */
+        $redirect = Redirect::find($rule->getId());
+
+        if ($redirect === null) {
+            return;
+        }
+
+        $now = Carbon::now();
+
+        RedirectLog::create([
+            'redirect_id' => $rule->getId(),
+            'from_url' => $requestUri,
+            'to_url' => $toUrl,
+            'status_code' => $rule->getStatusCode(),
+            'day' => $now->day,
+            'month' => $now->month,
+            'year' => $now->year,
+            'date_time' => $now,
         ]);
     }
 }

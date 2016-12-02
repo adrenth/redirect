@@ -66,6 +66,10 @@ return [
         'category' => 'Category',
         'categories' => 'Categories',
         'name' => 'Name',
+        'date_time' => 'Date & Time',
+        'date' => 'Date',
+        'truncate_confirm' => 'Are you sure you want to delete ALL records?',
+        'truncating' => 'Deleting...',
     ],
     'list' => [
         'no_records' => 'There are no redirects in this view.',
@@ -102,6 +106,7 @@ return [
         'categories' => 'Manage categories',
         'create_category' => 'Create category',
         'edit_category' => 'Edit category',
+        'view_redirect_log' => 'View redirect log',
     ],
     'buttons' => [
         'add' => 'Add', // since 2.0.3
@@ -117,6 +122,8 @@ return [
         'categories' => 'Categories',
         'new_category' => 'New category',
         'reset_statistics' => 'Reset statistics',
+        'logs' => 'Redirect log',
+        'empty_redirect_log' => 'Empty redirect log',
     ],
     'tab' => [
         'tab_general' => 'General',
@@ -127,5 +134,7 @@ return [
     'flash' => [
         'success_created_redirects' => 'Successfully created :count redirects', // since 2.0.3
         'static_page_redirect_not_supported' => 'This redirect cannot be modified. Plugin RainLab.Pages is required.',
+        'truncate_success' => 'Successfully deleted all records',
+        'delete_selected_success' => 'Successfully deleted selected records',
     ],
 ];

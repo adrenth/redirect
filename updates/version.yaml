@@ -29,7 +29,7 @@
     - Add PhpUnit tests and minor improvements
     - change_to_url_column_redirects_table.php
 2.0.0:
-    - !!! New major version with lot of new features (Use only with OctoberCMS stable)
+    - !!! New major version with lot of new features (Use only with October CMS stable)
     - create_clients_table.php
     - add_system_field_to_redirects_table.php
     - add_last_used_at_field_to_redirects_table.php
@@ -40,7 +40,7 @@
     - Database fixes and fixed issue with publishing redirects
     - remove_publish_status_column_redirects_table.php
 2.0.5: Fix issue with URL character encoding source path
-2.0.6: Fix path issues with redirects when OctoberCMS installed in a subdirectory
+2.0.6: Fix path issues with redirects when October CMS installed in a subdirectory
 2.0.7: Fix uninstall issue
 2.0.8:
     - Database maintenance. Updated all timestamp columns to be nullable.
@@ -54,3 +54,6 @@
 2.0.12: Fixes some issues and add ability to reset redirect statistics
 2.0.13: Language update (sv) and Postgres compatibility
 2.0.14: Automatic (system) redirect creation when Static Page or CMS Page URL changes
+2.0.15:
+    - Add redirect log
+    - create_redirect_logs_table.php
