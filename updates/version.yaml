@@ -54,3 +54,6 @@
 2.0.12: Fixes some issues and add ability to reset redirect statistics
 2.0.13: Language update (sv) and Postgres compatibility
 2.0.14: Automatic (system) redirect creation when Static Page or CMS Page URL changes
+2.0.15:
+    - Add redirect log
+    - create_redirect_logs_table.php
