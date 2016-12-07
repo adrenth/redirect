@@ -57,3 +57,4 @@
 2.0.15:
     - Add redirect log
     - create_redirect_logs_table.php
+2.0.16: Add spanish language (gracias arzola)
