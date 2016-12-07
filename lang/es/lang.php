@@ -66,6 +66,10 @@ return [
         'category' => 'Categoría',
         'categories' => 'Categorías',
         'name' => 'Nombre',
+        'date_time' => 'Date & Time', // TODO
+        'date' => 'Date', // TODO
+        'truncate_confirm' => 'Are you sure you want to delete ALL records?', // TODO
+        'truncating' => 'Deleting...', // TODO
     ],
     'list' => [
         'no_records' => 'No hay redirecciones en esta vista.',
@@ -102,6 +106,7 @@ return [
         'categories' => 'Administrar las categorías',
         'create_category' => 'Crear una categoría',
         'edit_category' => 'Modificar una categoría',
+        'view_redirect_log' => 'View redirect log', // TODO
     ],
     'buttons' => [
         'add' => 'Agregar', // since 2.0.3
@@ -117,6 +122,8 @@ return [
         'categories' => 'Categorías',
         'new_category' => 'Nueva categoría',
         'reset_statistics' => 'Limpiar estadísticas',
+        'logs' => 'Redirect log', // TODO
+        'empty_redirect_log' => 'Empty redirect log', // TODO
     ],
     'tab' => [
         'tab_general' => 'General',
@@ -127,5 +134,7 @@ return [
     'flash' => [
         'success_created_redirects' => 'Se crearon con éxito :count redirecciones', // since 2.0.3
         'static_page_redirect_not_supported' => 'Esta redirección no puede ser modificada. El Plugin RainLab.Pages es requerido.',
+        'truncate_success' => 'Successfully deleted all records', // TODO
+        'delete_selected_success' => 'Successfully deleted selected records', // TODO
     ],
 ];
