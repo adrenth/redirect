@@ -2,13 +2,19 @@
 
 namespace Adrenth\Redirect\Controllers;
 
+use Backend\Behaviors\FormController;
+use Backend\Behaviors\ListController;
 use BackendMenu;
 use Backend\Classes\Controller;
+
+/** @noinspection ClassOverridesFieldOfSuperClassInspection */
 
 /**
  * Class Categories
  *
  * @package Adrenth\Redirect\Controllers
+ * @mixin FormController
+ * @mixin ListController
  */
 class Categories extends Controller
 {
@@ -20,9 +26,15 @@ class Categories extends Controller
         'Backend.Behaviors.ListController'
     ];
 
+    /** @var string */
     public $formConfig = 'config_form.yaml';
+
+    /** @var string */
     public $listConfig = 'config_list.yaml';
 
+    /**
+     * {@inheritdoc}
+     */
     public function __construct()
     {
         parent::__construct();

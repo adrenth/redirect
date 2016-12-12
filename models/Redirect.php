@@ -4,13 +4,19 @@ namespace Adrenth\Redirect\Models;
 
 use Adrenth\Redirect\Classes\OptionHelper;
 use Carbon\Carbon;
+use Eloquent;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Fluent;
-use Model;
 use October\Rain\Database\Traits\Sortable;
 use October\Rain\Database\Traits\Validation;
 
+/** @noinspection ClassOverridesFieldOfSuperClassInspection */
+
 /**
- * Redirect Model
+ * Class Redirect
+ *
+ * @package Adrenth\Redirect\Models
+ * @mixin Eloquent
  */
 class Redirect extends Model
 {

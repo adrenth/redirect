@@ -3,16 +3,19 @@
 namespace Adrenth\Redirect\Controllers;
 
 use Adrenth\Redirect\Models\RedirectLog;
+use Backend\Behaviors\ListController;
 use BackendMenu;
 use Backend\Classes\Controller;
 use Flash;
 use Lang;
 
+/** @noinspection ClassOverridesFieldOfSuperClassInspection */
+
 /**
  * Class Logs
  *
  * @package Adrenth\Redirect\Controllers
- * @method array listRefresh()
+ * @mixin ListController
  */
 class Logs extends Controller
 {

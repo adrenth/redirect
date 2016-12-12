@@ -2,12 +2,16 @@
 
 namespace Adrenth\Redirect\Models;
 
-use Model;
+use Eloquent;
+use Illuminate\Database\Eloquent\Model;
+
+/** @noinspection ClassOverridesFieldOfSuperClassInspection */
 
 /**
  * Class Category
  *
  * @package Adrenth\Redirect\Models
+ * @mixin Eloquent
  */
 class Category extends Model
 {
