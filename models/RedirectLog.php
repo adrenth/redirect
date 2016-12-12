@@ -3,7 +3,7 @@
 namespace Adrenth\Redirect\Models;
 
 use Eloquent;
-use Illuminate\Database\Eloquent\Model;
+use October\Rain\Database\Model;
 
 /** @noinspection ClassOverridesFieldOfSuperClassInspection */
 
