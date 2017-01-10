@@ -107,6 +107,7 @@ return [
         'create_category' => 'Crear una categoría',
         'edit_category' => 'Modificar una categoría',
         'view_redirect_log' => 'Ver log de redirecciones',
+        'statistics' => 'Statistics', // TODO
     ],
     'buttons' => [
         'add' => 'Agregar', // since 2.0.3

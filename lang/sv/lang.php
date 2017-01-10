@@ -105,6 +105,7 @@ return [
         'create_category' => 'Skapa kategori',
         'edit_category' => 'Ändra kategori',
         'view_redirect_log' => 'View redirect log', // TODO
+        'statistics' => 'Statistics', // TODO
     ],
     'buttons' => [
         'add' => 'Skapa',

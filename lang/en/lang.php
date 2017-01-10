@@ -107,6 +107,7 @@ return [
         'create_category' => 'Create category',
         'edit_category' => 'Edit category',
         'view_redirect_log' => 'View redirect log',
+        'statistics' => 'Statistics',
     ],
     'buttons' => [
         'add' => 'Add', // since 2.0.3

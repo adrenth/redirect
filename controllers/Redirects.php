@@ -74,7 +74,9 @@ class Redirects extends Controller
     {
         parent::__construct();
 
-        BackendMenu::setContext('Adrenth.Redirect', 'redirect', $this->action);
+        $sideMenuItemCode = ($this->action === 'reorder') ? $this->action : 'redirects';
+
+        BackendMenu::setContext('Adrenth.Redirect', 'redirect', $sideMenuItemCode);
 
         $this->requiredPermissions = ['adrenth.redirect.access_redirects'];
 
