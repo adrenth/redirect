@@ -4,8 +4,8 @@ namespace Adrenth\Redirect\Controllers;
 
 use Backend\Behaviors\FormController;
 use Backend\Behaviors\ListController;
-use BackendMenu;
 use Backend\Classes\Controller;
+use BackendMenu;
 
 /** @noinspection ClassOverridesFieldOfSuperClassInspection */
 

@@ -4,8 +4,8 @@ namespace Adrenth\Redirect\Controllers;
 
 use Adrenth\Redirect\Models\RedirectLog;
 use Backend\Behaviors\ListController;
-use BackendMenu;
 use Backend\Classes\Controller;
+use BackendMenu;
 use Flash;
 use Lang;
 

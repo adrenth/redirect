@@ -5,8 +5,8 @@ namespace Adrenth\Redirect\Models;
 use Adrenth\Redirect\Classes\OptionHelper;
 use Carbon\Carbon;
 use Eloquent;
-use October\Rain\Database\Model;
 use Illuminate\Support\Fluent;
+use October\Rain\Database\Model;
 use October\Rain\Database\Traits\Sortable;
 use October\Rain\Database\Traits\Validation;
 
