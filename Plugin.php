@@ -138,13 +138,21 @@ class Plugin extends PluginBase
             'redirect' => [
                 'label' => 'adrenth.redirect::lang.navigation.menu_label',
                 'icon' => 'icon-link',
-                'url' => Backend::url('adrenth/redirect/redirects'),
+                'url' => Backend::url('adrenth/redirect/statistics'),
                 'order' => 50,
                 'permissions' => [
                     'adrenth.redirect.access_redirects',
                 ],
                 'sideMenu' => [
-                    'index' => [
+                    'statistics' => [
+                        'icon' => 'icon-bar-chart',
+                        'label' => 'adrenth.redirect::lang.title.statistics',
+                        'url' => Backend::url('adrenth/redirect/statistics'),
+                        'permissions' => [
+                            'adrenth.redirect.access_redirects',
+                        ],
+                    ],
+                    'redirects' => [
                         'icon' => 'icon-link',
                         'label' => 'adrenth.redirect::lang.navigation.menu_label',
                         'url' => Backend::url('adrenth/redirect/redirects'),

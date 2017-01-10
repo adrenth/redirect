@@ -1,0 +1,51 @@
+<div class="row">
+    <div class="col-md-4">
+        <div class="report-widget">
+            <h3>Redirects per month</h3>
+            <div class="control-status-list">
+                <ul>
+                    <?php foreach ($redirectHitsPerMonth as $record): ?>
+                    <li>
+                        <span class="status-text"><?= date('F', mktime(0, 0, 0, $record['month'])) ?> <?= $record['year'] ?></span>
+                        <span class="status-label"><?= number_format($record['hits'], 0, null, '.') ?></span>
+                    </li>
+                    <?php endforeach; ?>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="report-widget">
+            <h3>Top 10 crawlers this month</h3>
+            <div class="control-status-list">
+                <ul>
+                    <?php foreach ($topTenCrawlersThisMonth as $record): ?>
+                    <li>
+                        <span class="status-text"><?= $record['crawler'] ?></span>
+                        <span class="status-label"><?= number_format($record['hits'], 0, null, '.') ?></span>
+                    </li>
+                    <?php endforeach; ?>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="report-widget">
+            <h3>Top 10 redirects this month</h3>
+            <div class="control-status-list">
+                <ul>
+                    <?php foreach ($topTenRedirectsThisMonth as $record): ?>
+                    <li>
+                        <span class="status-text">
+                            <a href="<?= Backend::url('adrenth/redirect/redirects/update/' . $record['redirect_id']) ?>">
+                                <?= $record['from_url'] ?>
+                            </a>
+                        </span>
+                        <span class="status-label"><?= number_format($record['hits'], 0, null, '.') ?></span>
+                    </li>
+                    <?php endforeach; ?>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

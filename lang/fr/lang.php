@@ -109,6 +109,7 @@ return [
         'create_category' => 'Create category', // TODO
         'edit_category' => 'Edit category', // TODO
         'view_redirect_log' => 'View redirect log', // TODO
+        'statistics' => 'Statistics', // TODO
     ],
     'buttons' => [
         'add' => 'Add', // TODO
