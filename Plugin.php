@@ -217,7 +217,7 @@ class Plugin extends PluginBase
                     case Redirect::TYPE_EXACT:
                         return e(trans('adrenth.redirect::lang.redirect.exact'));
                     case Redirect::TYPE_PLACEHOLDERS:
-                        return e(trans('adrenth.redirect::lang.redirect.exact'));
+                        return e(trans('adrenth.redirect::lang.redirect.placeholders'));
                     default:
                         return $value;
                 }
