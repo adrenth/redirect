@@ -6,25 +6,36 @@ use Adrenth\Redirect\Classes\PublishManager;
 use Adrenth\Redirect\Classes\RedirectManager;
 use Adrenth\Redirect\Classes\RedirectRule;
 use Adrenth\Redirect\Models\Redirect;
+use ApplicationException;
+use Backend\Behaviors\FormController;
+use Backend\Behaviors\ImportExportController;
+use Backend\Behaviors\ListController;
+use Backend\Behaviors\ReorderController;
 use Backend\Classes\Controller;
 use Backend\Classes\FormField;
 use Backend\Widgets\Form;
 use BackendMenu;
 use Carbon\Carbon;
 use Event;
+use Exception;
 use Flash;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\RedirectResponse;
 use Lang;
 use Redirect as RedirectFacade;
 use Request;
 use System\Models\RequestLog;
 
+/** @noinspection ClassOverridesFieldOfSuperClassInspection */
+
 /**
  * Class Redirects
  *
  * @package Adrenth\Redirect\Controllers
- * @method array listRefresh()
- * @method void makeLists()
+ * @mixin FormController
+ * @mixin ListController
+ * @mixin ReorderController
+ * @mixin ImportExportController
  */
 class Redirects extends Controller
 {
@@ -76,6 +87,7 @@ class Redirects extends Controller
      * @param int $recordId The model primary key to update.
      * @param string $context Explicitly define a form context.
      * @return RedirectResponse
+     * @throws ModelNotFoundException
      */
     public function update($recordId = null, $context = null)
     {
@@ -152,7 +164,7 @@ class Redirects extends Controller
     /**
      * Test Input Path
      *
-     * @throws \ApplicationException
+     * @throws ApplicationException
      */
     public function onTest()
     {
@@ -167,8 +179,8 @@ class Redirects extends Controller
             $manager->setMatchDate($testDate);
 
             $match = $manager->match($inputPath);
-        } catch (\Exception $e) {
-            throw new \ApplicationException($e->getMessage());
+        } catch (Exception $e) {
+            throw new ApplicationException($e->getMessage());
         }
 
         return [

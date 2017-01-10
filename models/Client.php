@@ -2,10 +2,16 @@
 
 namespace Adrenth\Redirect\Models;
 
-use Model;
+use Eloquent;
+use October\Rain\Database\Model;
+
+/** @noinspection ClassOverridesFieldOfSuperClassInspection */
 
 /**
- * Client Model
+ * Class Client
+ *
+ * @package Adrenth\Redirect\Models
+ * @mixin Eloquent
  */
 class Client extends Model
 {

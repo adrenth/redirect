@@ -2,12 +2,16 @@
 
 namespace Adrenth\Redirect\Models;
 
-use Model;
+use Eloquent;
+use October\Rain\Database\Model;
+
+/** @noinspection ClassOverridesFieldOfSuperClassInspection */
 
 /**
  * Class RedirectLog
  *
  * @package Adrenth\Redirect\Models
+ * @mixin Eloquent
  */
 class RedirectLog extends Model
 {

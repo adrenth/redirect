@@ -3,8 +3,8 @@
 namespace Adrenth\Redirect\Updates;
 
 use Illuminate\Database\Schema\Blueprint;
-use Schema;
 use October\Rain\Database\Updates\Migration;
+use Schema;
 
 /**
  * Class CreateRedirectImportsTable

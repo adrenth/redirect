@@ -21,7 +21,7 @@ noRecordsMessage: adrenth.redirect::lang.list.no_records
 recordsPerPage: 20
 
 # Displays the list column set up button
-showSetup: false
+showSetup: true
 
 # Displays the sorting link on each column
 showSorting: true
