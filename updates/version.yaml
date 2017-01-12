@@ -60,3 +60,4 @@
 2.0.16: Add spanish language (gracias arzola)
 2.0.17: Minor fixes and code optimization
 2.0.18: Add redirect statistics (WIP) (please submit your ideas!)
+2.0.19: Fix SQLite compatibility issues (thanks jan-vince)
