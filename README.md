@@ -2,12 +2,11 @@
 
 ## The #1 Redirect plugin for October CMS
 
-This is the best Redirect-plugin for October CMS. With this plugin installed you can manage redirects directly from October CMS' beautiful interface. Many webmasters use redirects to optimize their website for search engines. This plugin allows you to manage such redirects with a nice and user-friendly interface.
+This is the best Redirect-plugin for October CMS. With this plugin installed you can manage redirects directly from October CMS' beautiful interface. Many webmasters and SEO specialists use redirects to optimize their website for search engines. This plugin allows you to manage such redirects with a nice and user-friendly interface.
 
 ## What does this plugin offer?
 
-This plugin adds a 'Redirects' settings section to October CMS. Here you can manage your redirects.
-This plugin is trying to match your redirect very efficiently before your website is rendered.
+This plugin adds a 'Redirects' section to the main menu of October CMS. This plugin is trying to match your redirect very efficiently before your website is rendered.
 
 ## Testing your redirects
 
@@ -21,9 +20,20 @@ This plugin has an easy to use test tool to extensively test your redirects.
 * Match placeholders using **regular expressions**
 * **Exact** path matching
 * **Importing** and **exporting** redirect rules
-* **Schedule** redirects
+* **Schedule** redirects (e.g. active for 2 months)
 * Redirect to **external** URLs
 * Redirect to **internal** CMS pages
+* Redirect **log**
+* **Categorize** redirects
+* **Statistics**
+    * Hits per redirect
+    * Popular redirects per month (top 10)
+    * Popular crawlers per month (top 10)
+    * Number of redirects per month
+    * And more...
+* Multilingual ***(Need help translating!)***
+* Supports MySQL, SQLite and PostgreSQL
+* HTTP status codes 301, 302, 404, 410
 
 ## What's new in version 2.0?
 
@@ -129,9 +139,11 @@ Request path: /blog.php?cat=news&subcat=general
 Result: /blog/news/general
 ````
 
-## SQLite
+## Supported database platforms
 
-SQLite is not supported in version 1.0.0 - 1.0.13.
+* MySQL
+* PostgreSQL
+* SQLite
 
 ## More information
 

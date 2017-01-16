@@ -118,9 +118,18 @@ class RedirectManager
     {
         $this->updateStatistics($rule->getId());
 
-        if ($rule->getStatusCode() === 404) {
+        $statusCode = $rule->getStatusCode();
+
+        if ($statusCode === 404 || $statusCode === 410) {
             $this->addLogEntry($rule, $requestUri, '');
-            abort($rule->getStatusCode(), 'Not Found');
+
+            header(sprintf(
+                'HTTP/1.1 %d %s',
+                $statusCode,
+                $statusCode === 404 ? 'Not Found' : 'Gone'
+            ));
+
+            exit(0);
         }
 
         $toUrl = $this->getLocation($rule);
@@ -131,8 +140,8 @@ class RedirectManager
 
         $this->addLogEntry($rule, $requestUri, $toUrl);
 
-        header('Location: ' . $toUrl, true, $rule->getStatusCode());
-        exit();
+        header('Location: ' . $toUrl, true, $statusCode);
+        exit(0);
     }
 
     /**
