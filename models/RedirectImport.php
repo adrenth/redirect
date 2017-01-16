@@ -24,7 +24,7 @@ class RedirectImport extends ImportModel
     public $rules = [
         'from_url' => 'required',
         'match_type' => 'required|in:exact,placeholders',
-        'status_code' => 'required|in:301,302,404',
+        'status_code' => 'required|in:301,302,404,410',
     ];
 
     /**

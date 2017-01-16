@@ -47,6 +47,7 @@ return [
         'permanent' => '301 - Permanent',
         'temporary' => '302 - Tillfällig',
         'not_found' => '404 - Ofunnen',
+        'gone' => '410 - Gone', // TODO
         'enabled' => 'Aktiv',
         'enabled_comment' => 'Slå på för att aktivera ompekningen',
         'priority' => 'Prioritet',

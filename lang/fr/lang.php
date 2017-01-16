@@ -50,6 +50,7 @@ return [
         'permanent' => '301 - Permanente',
         'temporary' => '302 - Temporaire',
         'not_found' => '404 - Page non trouvée',
+        'gone' => '410 - Gone', // TODO
         'enabled' => 'Activée',
         'enabled_comment' => 'Actionnez ce switch pour activer la redirection.',
         'priority' => 'Priorité',

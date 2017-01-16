@@ -49,6 +49,7 @@ return [
         'permanent' => '301 - Permanent',
         'temporary' => '302 - Temporary',
         'not_found' => '404 - Not Found',
+        'gone' => '410 - Gone',
         'enabled' => 'Enabled',
         'enabled_comment' => 'Flick this switch to enable this redirect.',
         'priority' => 'Priority',

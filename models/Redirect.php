@@ -51,6 +51,7 @@ class Redirect extends Model
         301 => 'permanent',
         302 => 'temporary',
         404 => 'not_found',
+        410 => 'gone',
     ];
 
     /**
@@ -75,7 +76,7 @@ class Redirect extends Model
         'static_page' => 'required_if:target_type,static_page',
         'match_type' => 'required|in:exact,placeholders',
         'target_type' => 'required|in:path_or_url,cms_page,static_page',
-        'status_code' => 'required|in:301,302,404',
+        'status_code' => 'required|in:301,302,404,410',
         'sort_order' => 'numeric',
     ];
 
@@ -174,7 +175,7 @@ class Redirect extends Model
     }
 
     /**
-     * @return \October\Rain\Database\Relations\BelongsTo
+     * @return \October\Rain\Database\Relations\HasMany
      */
     public function clients()
     {

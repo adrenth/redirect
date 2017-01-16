@@ -238,6 +238,8 @@ class Plugin extends PluginBase
                         return e(trans('adrenth.redirect::lang.redirect.temporary'));
                     case 404:
                         return e(trans('adrenth.redirect::lang.redirect.not_found'));
+                    case 410:
+                        return e(trans('adrenth.redirect::lang.redirect.gone'));
                     default:
                         return $value;
                 }

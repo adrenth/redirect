@@ -49,6 +49,7 @@ return [
         'permanent' => '301 - Permanente',
         'temporary' => '302 - Temporal',
         'not_found' => '404 - No encontrado',
+        'gone' => '410 - Gone', // TODO
         'enabled' => 'Activado',
         'enabled_comment' => 'Activa este switch para activar esta redirección.',
         'priority' => 'Prioridad',
