@@ -33,6 +33,7 @@ This plugin has an easy to use test tool to extensively test your redirects.
     * And more...
 * Multilingual ***(Need help translating!)***
 * Supports MySQL, SQLite and PostgreSQL
+* HTTP status codes 301, 302, 404, 410
 
 ## What's new in version 2.0?
 
