@@ -72,22 +72,25 @@ tabs:
                 404: adrenth.redirect::lang.redirect.not_found
                 410: adrenth.redirect::lang.redirect.gone
             attributes:
-                onchange: "$('.redirect-target').toggle($(this).val().charAt(0) !== '4')"
+                onchange: "$('.redirect-target').toggle($(this).val().charAt(0) !== '4');$('div.status-info').hide();$('#info' + $(this).val()).show();"
         sort_order:
             label: adrenth.redirect::lang.redirect.priority
             type: text
             span: right
-        is_enabled:
-            label: adrenth.redirect::lang.redirect.enabled
-            comment: adrenth.redirect::lang.redirect.enabled_comment
+        status_code_info:
+            type: partial
             span: left
-            type: switch
-            default: true
         category:
             label: adrenth.redirect::lang.redirect.category
             span: right
             nameFrom: name
             type: relation
+        is_enabled:
+            label: adrenth.redirect::lang.redirect.enabled
+            comment: adrenth.redirect::lang.redirect.enabled_comment
+            span: right
+            type: switch
+            default: true
         #
         # Requirements
         #
