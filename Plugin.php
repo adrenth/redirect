@@ -236,6 +236,8 @@ class Plugin extends PluginBase
                         return e(trans('adrenth.redirect::lang.redirect.permanent'));
                     case 302:
                         return e(trans('adrenth.redirect::lang.redirect.temporary'));
+                    case 303:
+                        return e(trans('adrenth.redirect::lang.redirect.see_other'));
                     case 404:
                         return e(trans('adrenth.redirect::lang.redirect.not_found'));
                     case 410:

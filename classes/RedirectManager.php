@@ -38,6 +38,19 @@ class RedirectManager
     private $basePath;
 
     /**
+     * HTTP 1.1 headers
+     *
+     * @var array
+     */
+    private static $headers = [
+        301 => 'HTTP/1.1 301 Moved Permanently',
+        302 => 'HTTP/1.1 302 Found',
+        303 => 'HTTP/1.1 303 See Other',
+        404 => 'HTTP/1.1 404 Not Found',
+        410 => 'HTTP/1.1 410 Gone',
+    ];
+
+    /**
      * Constructs a RedirectManager instance
      */
     protected function __construct()
@@ -121,14 +134,8 @@ class RedirectManager
         $statusCode = $rule->getStatusCode();
 
         if ($statusCode === 404 || $statusCode === 410) {
+            header(self::$headers[$statusCode], true, $statusCode);
             $this->addLogEntry($rule, $requestUri, '');
-
-            header(sprintf(
-                'HTTP/1.1 %d %s',
-                $statusCode,
-                $statusCode === 404 ? 'Not Found' : 'Gone'
-            ));
-
             exit(0);
         }
 
@@ -140,7 +147,9 @@ class RedirectManager
 
         $this->addLogEntry($rule, $requestUri, $toUrl);
 
+        header(self::$headers[$statusCode], true, $statusCode);
         header('Location: ' . $toUrl, true, $statusCode);
+
         exit(0);
     }
 

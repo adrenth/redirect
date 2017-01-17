@@ -62,3 +62,4 @@
 2.0.18: Add redirect statistics (WIP) (please submit your ideas!)
 2.0.19: Fix SQLite compatibility issues (thanks jan-vince)
 2.0.20: Add HTTP status code 410 (Gone) (requested by jan-vince)
+2.0.21: Add HTTP status code 303 (See Other) (requested by ayumihamsaki)

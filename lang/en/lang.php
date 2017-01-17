@@ -48,6 +48,7 @@ return [
             . 'The matched placeholder will be replaced with this value in the target URL.',
         'permanent' => '301 - Permanent',
         'temporary' => '302 - Temporary',
+        'see_other' => '303 - See Other',
         'not_found' => '404 - Not Found',
         'gone' => '410 - Gone',
         'enabled' => 'Enabled',

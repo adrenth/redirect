@@ -68,6 +68,7 @@ tabs:
             options:
                 301: adrenth.redirect::lang.redirect.permanent
                 302: adrenth.redirect::lang.redirect.temporary
+                303: adrenth.redirect::lang.redirect.see_other
                 404: adrenth.redirect::lang.redirect.not_found
                 410: adrenth.redirect::lang.redirect.gone
             attributes:
