@@ -1,0 +1,68 @@
+<?php $model = $this->formGetModel() ?>
+
+<div class="status-info small callout callout-info"
+     <?php if ($model && (int) $model->status_code !== 301): ?>style="display: none;"<?php endif; ?>
+     id="info301">
+    <div class="content">
+        The 301 (Moved Permanently) status code indicates that the target
+        resource has been assigned a new permanent URI and any future
+        references to this resource ought to use one of the enclosed URIs.
+        Clients with link-editing capabilities ought to automatically re-link
+        references to the effective request URI to one or more of the new
+        references sent by the server, where possible.
+    </div>
+</div>
+
+<div class="status-info small callout callout-info"
+    <?php if ($model && (int) $model->status_code !== 302): ?>style="display: none;"<?php endif; ?>
+     id="info302">
+    <div class="content">
+        The 302 (Found) status code indicates that the target resource
+        resides temporarily under a different URI.  Since the redirection
+        might be altered on occasion, the client ought to continue to use the
+        effective request URI for future requests.
+    </div>
+</div>
+
+<div class="status-info small callout callout-info"
+    <?php if ($model && (int) $model->status_code !== 303): ?>style="display: none;"<?php endif; ?>
+     id="info303">
+    <div class="content">
+        The 303 (See Other) status code indicates that the server is
+        redirecting the user agent to a different resource, as indicated by a
+        URI in the Location header field, which is intended to provide an
+        indirect response to the original request.  A user agent can perform
+        a retrieval request targeting that URI (a GET or HEAD request if
+        using HTTP), which might also be redirected, and present the eventual
+        result as an answer to the original request.  Note that the new URI
+        in the Location header field is not considered equivalent to the
+        effective request URI.
+    </div>
+</div>
+
+<div class="status-info small callout callout-info"
+    <?php if ($model && (int) $model->status_code !== 404): ?>style="display: none;"<?php endif; ?>
+     id="info404">
+    <div class="content">
+        The 404 (Not Found) status code indicates that the origin server did
+        not find a current representation for the target resource or is not
+        willing to disclose that one exists. A 404 status code does not
+        indicate whether this lack of representation is temporary or
+        permanent; the 410 (Gone) status code is preferred over 404 if the
+        origin server knows, presumably through some configurable means, that
+        the condition is likely to be permanent.
+    </div>
+</div>
+
+<div class="status-info small callout callout-info"
+    <?php if ($model && (int) $model->status_code !== 410): ?>style="display: none;"<?php endif; ?>
+     id="info410">
+    <div class="content">
+        The 410 (Gone) status code indicates that access to the target
+        resource is no longer available at the origin server and that this
+        condition is likely to be permanent. If the origin server does not
+        know, or has no facility to determine, whether or not the condition
+        is permanent, the status code 404 (Not Found) ought to be used
+        instead.
+    </div>
+</div>

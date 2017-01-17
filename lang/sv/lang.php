@@ -46,6 +46,7 @@ return [
         'replacement_comment' => 'Ange en valfritt ersättningsvärde för denna platshållare. Den matchade platshållaren kommer att ersättas av detta värde i måladressen',
         'permanent' => '301 - Permanent',
         'temporary' => '302 - Tillfällig',
+        'see_other' => '303 - See Other', // TODO
         'not_found' => '404 - Ofunnen',
         'gone' => '410 - Gone', // TODO
         'enabled' => 'Aktiv',

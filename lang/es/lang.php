@@ -48,6 +48,7 @@ return [
             . 'El marcador coincidente será reemplazado con el valor de la URL destino.',
         'permanent' => '301 - Permanente',
         'temporary' => '302 - Temporal',
+        'see_other' => '303 - See Other', // TODO
         'not_found' => '404 - No encontrado',
         'gone' => '410 - Gone', // TODO
         'enabled' => 'Activado',

@@ -29,6 +29,7 @@ class Redirect extends Model
     const TYPE_EXACT = 'exact';
     const TYPE_PLACEHOLDERS = 'placeholders';
 
+    // Target Types
     const TARGET_TYPE_PATH_URL = 'path_or_url';
     const TARGET_TYPE_CMS_PAGE = 'cms_page';
     const TARGET_TYPE_STATIC_PAGE = 'static_page';
@@ -50,6 +51,7 @@ class Redirect extends Model
     public static $statusCodes = [
         301 => 'permanent',
         302 => 'temporary',
+        303 => 'see_other',
         404 => 'not_found',
         410 => 'gone',
     ];
@@ -76,7 +78,7 @@ class Redirect extends Model
         'static_page' => 'required_if:target_type,static_page',
         'match_type' => 'required|in:exact,placeholders',
         'target_type' => 'required|in:path_or_url,cms_page,static_page',
-        'status_code' => 'required|in:301,302,404,410',
+        'status_code' => 'required|in:301,302,303,404,410',
         'sort_order' => 'numeric',
     ];
 
@@ -157,17 +159,17 @@ class Redirect extends Model
         $validator = self::traitMakeValidator($data, $rules, $customMessages, $attributeNames);
 
         $validator->sometimes('to_url', 'required', function (Fluent $request) {
-            return in_array($request->get('status_code'), ['301', '302'], true)
+            return in_array($request->get('status_code'), ['301', '302', '303'], true)
             && $request->get('target_type') === 'path_or_url';
         });
 
         $validator->sometimes('cms_page', 'required', function (Fluent $request) {
-            return in_array($request->get('status_code'), ['301', '302'], true)
+            return in_array($request->get('status_code'), ['301', '302', '303'], true)
             && $request->get('target_type') === 'cms_page';
         });
 
         $validator->sometimes('static_page', 'required', function (Fluent $request) {
-            return in_array($request->get('status_code'), ['301', '302'], true)
+            return in_array($request->get('status_code'), ['301', '302', '303'], true)
             && $request->get('target_type') === 'static_page';
         });
 
