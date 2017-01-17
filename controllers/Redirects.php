@@ -161,6 +161,12 @@ class Redirects extends Controller
             $field = $host->getField($disableField);
             $field->disabled = $host->model->getAttribute('system');
         }
+
+        if (in_array((int) $host->model->getAttribute('status_code'), [404, 410], true)) {
+            /** @var FormField $field */
+            $field = $host->getField('to_url');
+            $field->cssClass = 'hidden';
+        }
     }
 
     /**
