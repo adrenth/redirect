@@ -176,7 +176,7 @@ class Plugin extends PluginBase
                             'adrenth.redirect.access_redirects',
                         ],
                     ],
-                    'category' => [
+                    'categories' => [
                         'label' => 'adrenth.redirect::lang.buttons.categories',
                         'url' => Backend::url('adrenth/redirect/categories'),
                         'icon' => 'icon-tag',
