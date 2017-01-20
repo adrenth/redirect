@@ -226,16 +226,17 @@ class Redirects extends Controller
         foreach ($checkedIds as $checkedId) {
             /** @var RequestLog $requestLog */
             $requestLog = RequestLog::find($checkedId);
-            $path = parse_url($requestLog->getAttribute('url'), PHP_URL_PATH);
 
-            if ($path === false || $path === '/' || $path === '') {
+            $url = $this->parseRequestLogItemUrl($requestLog->getAttribute('url'));
+
+            if ($url === '') {
                 continue;
             }
 
             Redirect::create([
                 'match_type' => Redirect::TYPE_EXACT,
                 'target_type' => Redirect::TARGET_TYPE_PATH_URL,
-                'from_url' => $path,
+                'from_url' => $url,
                 'to_url' => '/',
                 'status_code' => 301,
                 'is_enabled' => false,
@@ -292,6 +293,27 @@ class Redirects extends Controller
         }
 
         return [];
+    }
+
+    /**
+     * @param string $url
+     * @return string
+     */
+    private function parseRequestLogItemUrl($url)
+    {
+        $path = parse_url($url, PHP_URL_PATH);
+
+        if ($path === false || $path === '/' || $path === '') {
+            return '';
+        }
+
+        $query = parse_url($url, PHP_URL_QUERY);
+
+        if ($query !== false && $query !== '') {
+            $path .= '?' . $query;
+        }
+
+        return $path;
     }
 
     /**
