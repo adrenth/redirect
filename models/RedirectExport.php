@@ -4,6 +4,8 @@ namespace Adrenth\Redirect\Models;
 
 use Backend\Models\ExportModel;
 
+/** @noinspection LongInheritanceChainInspection */
+
 /**
  * Class RedirectExport
  *

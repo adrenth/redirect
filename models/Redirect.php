@@ -143,6 +143,8 @@ class Redirect extends Model
         'category' => Category::class,
     ];
 
+    /** @noinspection MoreThanThreeArgumentsInspection */
+
     /**
      * @param array $data
      * @param array $rules
