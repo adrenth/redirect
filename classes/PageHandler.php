@@ -59,6 +59,7 @@ class PageHandler
      * Triggered after a Page has been deleted.
      *
      * @return void
+     * @throws \Exception
      */
     public function onAfterDelete()
     {

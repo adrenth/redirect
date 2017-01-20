@@ -90,7 +90,7 @@ class Redirects extends Controller
      *
      * @param int $recordId The model primary key to update.
      * @param string $context Explicitly define a form context.
-     * @return RedirectResponse
+     * @return mixed
      * @throws ModelNotFoundException
      */
     public function update($recordId = null, $context = null)
@@ -307,10 +307,13 @@ class Redirects extends Controller
             return '';
         }
 
-        $query = parse_url($url, PHP_URL_QUERY);
+        // Using `parse_url($url, PHP_URL_QUERY)` will result in a string of sorted query params (2.0.23):
+        // e.g ?a=z&z=a becomes ?z=a&a=z
+        // So let's just grab the query part using string functions to make sure whe have the exact query string.
+        $questionMarkPosition = strpos($url, '?');
 
-        if ($query !== false && $query !== '') {
-            $path .= '?' . $query;
+        if ($questionMarkPosition !== false) {
+            $path .= substr($url, $questionMarkPosition);
         }
 
         return $path;

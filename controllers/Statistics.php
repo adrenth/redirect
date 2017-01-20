@@ -34,6 +34,7 @@ class Statistics extends Controller
      */
     public function getRedirectHitsPerMonth()
     {
+        /** @noinspection PhpMethodParametersCountMismatchInspection */
         return (array) Client::selectRaw('COUNT(id) AS hits')
             ->addSelect('month', 'year')
             ->groupBy('month', 'year')
@@ -65,6 +66,7 @@ class Statistics extends Controller
      */
     public function getTopTenRedirectsThisMonth()
     {
+        /** @noinspection PhpMethodParametersCountMismatchInspection */
         return (array) Client::selectRaw('COUNT(redirect_id) AS hits')
             ->addSelect('redirect_id', 'r.from_url')
             ->join('adrenth_redirect_redirects AS r', 'r.id', '=', 'redirect_id')

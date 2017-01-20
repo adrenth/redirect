@@ -3,8 +3,8 @@
 namespace Adrenth\Redirect\Tests;
 
 use Adrenth\Redirect\Classes\OptionHelper;
-use PluginTestCase;
 use Adrenth\Redirect\Models\Redirect;
+use PluginTestCase;
 
 /**
  * Class OptionHelperTest

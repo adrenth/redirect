@@ -234,6 +234,7 @@ class RedirectManager
     private function redirectToStaticPage(RedirectRule $rule)
     {
         if (class_exists('\RainLab\Pages\Classes\Page')) {
+            /** @noinspection PhpUnnecessaryFullyQualifiedNameInspection */
             return \RainLab\Pages\Classes\Page::url($rule->getStaticPage());
         }
 
@@ -385,7 +386,7 @@ class RedirectManager
     /**
      * Load definitions into memory
      *
-     * @return RedirectRule[]
+     * @return void
      */
     private function loadRedirectRules()
     {
@@ -396,6 +397,7 @@ class RedirectManager
         $rules = [];
 
         try {
+            /** @var Reader $reader */
             $reader = Reader::createFromPath($this->redirectRulesPath);
 
             foreach ($reader as $row) {
