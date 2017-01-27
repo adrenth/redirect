@@ -66,3 +66,4 @@
 2.0.22: Add Russian language and fix backend menu navigation issue (спасибо sheck87)
 2.0.23: Add missing query part of the URL when creating a Redirect from Request Log
 2.0.24: Minor fixes and code optimization
+3.0.0: New major version; license change and as of now a paid plugin

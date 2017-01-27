@@ -40,9 +40,20 @@ This plugin has an easy to use test tool to extensively test your redirects.
 * Automatic publishing of redirects
 * New polished UI
 * Automatic creation of redirect when changing CMS Page (System redirects)
-* Redirect statistics (under construction, will be released soon)
+* Redirect statistics
 * Compatibility with PHP 7+
 * Compatibility with October CMS stable
+
+## Version 3.0
+
+As of version 3.0 the plugin will be a paid plugin.
+
+Upcoming 3.0 features:
+* Extended redirect statistics
+* Redirect loop detection
+* Prevention of loop redirects
+* Improved performance
+* New UI
 
 ## Redirection
 
