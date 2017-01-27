@@ -46,7 +46,7 @@ This plugin has an easy to use test tool to extensively test your redirects.
 
 ## Version 3.0
 
-As of version 3.0 the plugin will only support PHP7+ and it will be a paid plugin. Current version 2.0 will be maintained until version 3.0 arrives.
+As of version 3.0 the plugin will be a paid plugin.
 
 Upcoming 3.0 features:
 * Extended redirect statistics
