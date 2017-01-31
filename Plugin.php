@@ -31,7 +31,7 @@ class Plugin extends PluginBase
             'description' => 'adrenth.redirect::lang.plugin.description',
             'author' => 'Alwin Drenth',
             'icon' => 'icon-link',
-            'homepage' => 'https://github.com/adrenth/redirect',
+            'homepage' => 'http://octobercms.com/plugin/adrenth-redirect',
         ];
     }
 
