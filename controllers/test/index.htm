@@ -1,0 +1,30 @@
+<?= Form::open(['class' => 'layout']) ?>
+
+<div class="row">
+    <div class="col-md-offset-2 col-md-6">
+        <div class="form-group">
+            <input class="form-control input-lg"
+                   name="testPath"
+                   type="text"
+                   placeholder="<?= e(trans('adrenth.redirect::lang.test.input_path_placeholder')) ?>">
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="form-buttons">
+            <div class="loading-indicator-container">
+                <button class="btn btn-primary btn-lg input-lg"
+                        data-request="onTest"
+                        data-load-indicator="Running tests">
+                    <i class="icon-check-circle"></i>
+                    Start tests
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-offset-2 col-md-8" id="testResults">
+        <?= $this->makePartial('test_results') ?>
+    </div>
+</div>
+
+<?= Form::close() ?>

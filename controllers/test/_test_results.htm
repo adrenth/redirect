@@ -1,0 +1,10 @@
+<h3>Test results</h3>
+
+<p>Redirect loop test: <?php if ($maxRedirectsError !== ''): ?><?= $maxRedirects ?><?php else: ?>OK<?php endif; ?></p>
+
+<?php if ($matchedRedirect): ?>
+<p>Matched redirect: <?= $matchedRedirect->getId(); ?></p>
+
+<?php else: ?>
+<p>No redirect match found</p>
+<?php endif; ?>
