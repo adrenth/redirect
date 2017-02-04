@@ -1,10 +1,41 @@
 <h3>Test results</h3>
 
-<p>Redirect loop test: <?php if ($maxRedirectsError !== ''): ?><?= $maxRedirects ?><?php else: ?>OK<?php endif; ?></p>
+<div class="row">
+    <div class="col-md-3"><strong>Test</strong></div>
+    <div class="col-md-1"><strong>Result</strong></div>
+    <div class="col-md-6"><strong>Message</strong></div>
+    <div class="col-md-1"><strong>Duration</strong></div>
+</div>
 
-<?php if ($matchedRedirect): ?>
-<p>Matched redirect: <?= $matchedRedirect->getId(); ?></p>
-
-<?php else: ?>
-<p>No redirect match found</p>
+<?php if (isset($maxRedirectsResult)): ?>
+<div class="row">
+    <div class="col-md-3">Redirect loop test</div>
+    <div class="col-md-1"><?= $maxRedirectsResult->isPassed() ? 'PASSED' : 'FAILED' ?></div>
+    <div class="col-md-6"><?= $maxRedirectsResult->getMessage() ?></div>
+    <div class="col-md-1"><?= $maxRedirectsResult->getDuration() ?>ms</div>
+</div>
+<?php endif; ?>
+<?php if (isset($matchedRedirectResult)): ?>
+<div class="row">
+    <div class="col-md-3">Redirect match test</div>
+    <div class="col-md-1"><?= $matchedRedirectResult->isPassed() ? 'PASSED' : 'FAILED' ?></div>
+    <div class="col-md-6"><?= $matchedRedirectResult->getMessage() ?></div>
+    <div class="col-md-1"><?= $matchedRedirectResult->getDuration() ?>ms</div>
+</div>
+<?php endif; ?>
+<?php if (isset($responseCodeResult)): ?>
+<div class="row">
+    <div class="col-md-3">Response HTTP code test</div>
+    <div class="col-md-1"><?= $responseCodeResult->isPassed() ? 'PASSED' : 'FAILED' ?></div>
+    <div class="col-md-6"><?= $responseCodeResult->getMessage() ?></div>
+    <div class="col-md-1"><?= $responseCodeResult->getDuration() ?>ms</div>
+</div>
+<?php endif; ?>
+<?php if (isset($redirectCountResult)): ?>
+<div class="row">
+    <div class="col-md-3">Redirect count test</div>
+    <div class="col-md-1"><?= $redirectCountResult->isPassed() ? 'PASSED' : 'FAILED' ?></div>
+    <div class="col-md-6"><?= $redirectCountResult->getMessage() ?></div>
+    <div class="col-md-1"><?= $redirectCountResult->getDuration() ?>ms</div>
+</div>
 <?php endif; ?>

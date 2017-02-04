@@ -7,6 +7,7 @@ use Adrenth\Redirect\Classes\RedirectTester;
 use Backend\Classes\Controller;
 use BackendMenu;
 use Cms;
+use Flash;
 use Input;
 
 /**
@@ -28,24 +29,27 @@ class Test extends Controller
 
     public function index()
     {
-        $this->vars['maxRedirectsError'] = '';
-        $this->vars['matchedRedirect'] = false;
     }
 
     // @codingStandardsIgnoreStart
 
     public function index_onTest()
     {
-        $testPath = Input::get('testPath', '/');
+        $testPath = Input::get('testPath');
+
+        if (empty($testPath)) {
+            Flash::error('Cannot start tests with an empty path.');
+            return [];
+        }
 
         $tester = new RedirectTester($testPath);
 
-        $tester->testMatchRedirect();
-
         return [
             '#testResults' => $this->makePartial('test_results', [
-                'maxRedirectsError' => $tester->testMaxRedirects(),
-                'matchedRedirect' => $tester->testMatchRedirect(),
+                'maxRedirectsResult' => $tester->testMaxRedirects(),
+                'matchedRedirectResult' => $tester->testMatchRedirect(),
+                'responseCodeResult' => $tester->testResponseCode(),
+                'redirectCountResult' => $tester->testRedirectCount(),
             ])
         ];
     }
