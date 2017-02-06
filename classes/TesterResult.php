@@ -3,11 +3,11 @@
 namespace Adrenth\Redirect\Classes;
 
 /**
- * Class RedirectTestResult
+ * Class TesterResult
  *
  * @package Adrenth\Redirect\Classes
  */
-class RedirectTestResult
+class TesterResult
 {
     /** @var bool */
     private $passed;
@@ -21,13 +21,12 @@ class RedirectTestResult
     /**
      * @param bool $passed
      * @param string $message
-     * @param int $duration
      */
-    public function __construct($passed, $message, $duration)
+    public function __construct($passed, $message)
     {
         $this->passed = $passed;
         $this->message = $message;
-        $this->duration = $duration;
+        $this->duration = 0;
     }
 
     /**
@@ -44,6 +43,16 @@ class RedirectTestResult
     public function getMessage()
     {
         return $this->message;
+    }
+
+    /**
+     * @param int $duration
+     * @return TesterResult
+     */
+    public function setDuration($duration): TesterResult
+    {
+        $this->duration = (int) $duration;
+        return $this;
     }
 
     /**

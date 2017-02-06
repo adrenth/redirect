@@ -41,6 +41,9 @@ class RedirectManager
     /** @var bool */
     private $loggingEnabled = true;
 
+    /** @var bool */
+    private $statisticsEnabled = true;
+
     /**
      * HTTP 1.1 headers
      *
@@ -106,7 +109,17 @@ class RedirectManager
      */
     public function setLoggingEnabled($loggingEnabled): RedirectManager
     {
-        $this->loggingEnabled = $loggingEnabled;
+        $this->loggingEnabled = (bool) $loggingEnabled;
+        return $this;
+    }
+
+    /**
+     * @param bool $statisticsEnabled
+     * @return RedirectManager
+     */
+    public function setStatisticsEnabled($statisticsEnabled): RedirectManager
+    {
+        $this->statisticsEnabled = (bool) $statisticsEnabled;
         return $this;
     }
 
@@ -446,6 +459,10 @@ class RedirectManager
      */
     private function updateStatistics($redirectId)
     {
+        if (!$this->statisticsEnabled) {
+            return;
+        }
+
         /** @var Redirect $redirect */
         $redirect = Redirect::find($redirectId);
 

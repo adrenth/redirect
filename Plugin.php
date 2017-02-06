@@ -71,6 +71,11 @@ class Plugin extends PluginBase
             return;
         }
 
+        if (Request::header('X-Adrenth-Redirect') === 'Tester') {
+            $manager->setStatisticsEnabled(false)
+                ->setLoggingEnabled(false);
+        }
+
         $requestUri = str_replace(Request::getBasePath(), '', Request::getRequestUri());
 
         $rule = $manager->match($requestUri);
@@ -163,10 +168,10 @@ class Plugin extends PluginBase
                             'adrenth.redirect.access_redirects',
                         ],
                     ],
-                    'test' => [
-                        'icon' => 'icon-check-circle',
-                        'label' => 'adrenth.redirect::lang.buttons.test',
-                        'url' => Backend::url('adrenth/redirect/test'),
+                    'test_lab' => [
+                        'icon' => 'icon-flask',
+                        'label' => 'adrenth.redirect::lang.title.test_lab',
+                        'url' => Backend::url('adrenth/redirect/testlab'),
                         'permissions' => [
                             'adrenth.redirect.access_redirects',
                         ],
