@@ -34,7 +34,7 @@ class RedirectCount extends Tester
         $redirectCount = (int) curl_getinfo($curlHandle, CURLINFO_REDIRECT_COUNT);
 
         return new TesterResult(
-            $redirectCount <= self::MAX_REDIRECTS,
+            $redirectCount === 1,
             'Number of redirects followed: ' . $redirectCount . ' (test limited to 10)'
         );
     }

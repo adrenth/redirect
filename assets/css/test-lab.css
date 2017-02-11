@@ -1,0 +1,33 @@
+#layout-body {
+    background: black url("/plugins/adrenth/redirect/assets/images/test-lab-background.jpg") no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+.test-lab {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+}
+
+#testerResults {
+    font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
+    font-size: 12px;
+    color: #00FF00;
+    position: relative;
+    top: 0;
+    overflow: scroll;
+    height: 85%;
+    text-shadow: black 1px 1px;
+}
+
+#testerResults .failed {
+    color: #ff0000;
+}
+
+#progress {
+    color: white;
+}

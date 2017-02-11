@@ -62,4 +62,12 @@ class TesterResult
     {
         return $this->duration;
     }
+
+    /**
+     * @return string
+     */
+    public function getStatusCssClass()
+    {
+        return $this->passed ? 'passed' : 'failed';
+    }
 }

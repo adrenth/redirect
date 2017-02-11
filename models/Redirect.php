@@ -162,20 +162,36 @@ class Redirect extends Model
 
         $validator->sometimes('to_url', 'required', function (Fluent $request) {
             return in_array($request->get('status_code'), ['301', '302', '303'], true)
-            && $request->get('target_type') === 'path_or_url';
+            && $request->get('target_type') === self::TARGET_TYPE_PATH_URL;
         });
 
         $validator->sometimes('cms_page', 'required', function (Fluent $request) {
             return in_array($request->get('status_code'), ['301', '302', '303'], true)
-            && $request->get('target_type') === 'cms_page';
+            && $request->get('target_type') === self::TARGET_TYPE_CMS_PAGE;
         });
 
         $validator->sometimes('static_page', 'required', function (Fluent $request) {
             return in_array($request->get('status_code'), ['301', '302', '303'], true)
-            && $request->get('target_type') === 'static_page';
+            && $request->get('target_type') === self::TARGET_TYPE_STATIC_PAGE;
         });
 
         return $validator;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isMatchTypeExact()
+    {
+        return $this->attributes['match_type'] === self::TYPE_EXACT;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isMatchTypePlaceholders()
+    {
+        return $this->attributes['match_type'] === self::TYPE_PLACEHOLDERS;
     }
 
     /**

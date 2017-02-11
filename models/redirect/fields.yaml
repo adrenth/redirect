@@ -180,19 +180,3 @@ tabs:
             comment: 'Flick this switch to allow testing this redirect in the TestLab.'
             type: switch
             span: left
-        input_paths:
-            tab: adrenth.redirect::lang.tab.tab_test_lab
-            type: repeater
-            commentAbove: 'Provide a list of input paths.'
-            prompt: 'Add new input path'
-            span: left
-            trigger:
-                action: show
-                field: match_type
-                condition: value[placeholders]
-            form:
-                fields:
-                    input_path:
-                        label: Source Path
-                        placeholder: adrenth.redirect::lang.redirect.input_path_placeholder
-

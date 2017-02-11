@@ -19,6 +19,8 @@ use Input;
  */
 class TestLab extends Controller
 {
+    public $bodyClass = 'layout-relative';
+
     /**
      * {@inheritdoc}
      */
@@ -32,44 +34,49 @@ class TestLab extends Controller
     public function index()
     {
         $this->pageTitle = trans('adrenth.redirect::lang.title.test_lab');
+
+        $this->addCss('/plugins/adrenth/redirect/assets/css/test-lab.css', 'Adrenth.Redirect');
+
+        $this->vars['redirectCount'] = Redirect::where('test_lab', '=', true)->count();
     }
 
-//    private function loadRedirectsForTestLab()
-//    {
-//        // loads all redirects
-//    }
-//
-//    private function getNextRedirect()
-//    {
-//        // get the next redirect to start
-//
-//        return new Redirect();
-//    }
-//
-//    private function testRedirect(Redirect $redirect)
-//    {
-//
-//    }
+    private function loadRedirect($offset)
+    {
+        return Redirect::where('test_lab', '=', true)
+            ->offset($offset)
+            ->limit(1)
+            ->orderBy('sort_order')
+            ->first();
+    }
 
     // @codingStandardsIgnoreStart
 
     public function index_onTest()
     {
-        $testPath = Input::get('testPath');
+        $offset = Input::get('offset');
 
-        if (empty($testPath)) {
-            Flash::error('Cannot start tests with an empty path.');
-            return [];
+        $redirect = $this->loadRedirect($offset);
+
+        if (empty($redirect)) {
+            return '';
         }
 
-        return [
-            '#testResults' => $this->makePartial('test_results', [
+        // TODO
+        $testPath = '/';
+
+        if ($redirect->isMatchTypeExact()) {
+            $testPath = $redirect->getAttribute('from_url');
+        }
+
+        return $this->makePartial(
+            'tester_result', [
+                'redirect' => $redirect,
                 'maxRedirectsResult' => (new RedirectLoop($testPath))->execute(),
                 'matchedRedirectResult' => (new RedirectMatch($testPath))->execute(),
                 'responseCodeResult' => (new ResponseCode($testPath))->execute(),
                 'redirectCountResult' => (new RedirectCount($testPath))->execute(),
-            ])
-        ];
+            ]
+        );
     }
 
     // @codingStandardsIgnoreEnd

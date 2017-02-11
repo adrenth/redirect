@@ -1,0 +1,30 @@
+<div class="row">
+    <div class="col-md-12">
+        <strong><?= $redirect->from_url ?> -> <?= $redirect->to_url ?></strong>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-3">Loop</div>
+    <div class="col-md-1 <?= $maxRedirectsResult->getStatusCssClass() ?>"><?= $maxRedirectsResult->isPassed() ? 'PASSED' : 'FAILED' ?></div>
+    <div class="col-md-6"><?= $maxRedirectsResult->getMessage() ?></div>
+    <div class="col-md-1 text-right"><?= $maxRedirectsResult->getDuration() ?>ms</div>
+</div>
+<div class="row">
+    <div class="col-md-3">Match</div>
+    <div class="col-md-1 <?= $matchedRedirectResult->getStatusCssClass() ?>"><?= $matchedRedirectResult->isPassed() ? 'PASSED' : 'FAILED' ?></div>
+    <div class="col-md-6"><?= $matchedRedirectResult->getMessage() ?></div>
+    <div class="col-md-1 text-right"><?= $matchedRedirectResult->getDuration() ?>ms</div>
+</div>
+<div class="row">
+    <div class="col-md-3">Response HTTP code</div>
+    <div class="col-md-1 <?= $responseCodeResult->getStatusCssClass() ?>"><?= $responseCodeResult->isPassed() ? 'PASSED' : 'FAILED' ?></div>
+    <div class="col-md-6"><?= $responseCodeResult->getMessage() ?></div>
+    <div class="col-md-1 text-right"><?= $responseCodeResult->getDuration() ?>ms</div>
+</div>
+<div class="row">
+    <div class="col-md-3">Redirect count</div>
+    <div class="col-md-1 <?= $redirectCountResult->getStatusCssClass() ?>"><?= $redirectCountResult->isPassed() ? 'PASSED' : 'FAILED' ?></div>
+    <div class="col-md-6"><?= $redirectCountResult->getMessage() ?></div>
+    <div class="col-md-1 text-right"><?= $redirectCountResult->getDuration() ?>ms</div>
+</div>
