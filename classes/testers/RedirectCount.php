@@ -31,10 +31,13 @@ class RedirectCount extends Tester
             return new TesterResult(false, 'Could not execute request.', 0);
         }
 
+        $statusCode = (int) curl_getinfo($curlHandle, CURLINFO_HTTP_CODE);
         $redirectCount = (int) curl_getinfo($curlHandle, CURLINFO_REDIRECT_COUNT);
 
+        curl_close($curlHandle);
+
         return new TesterResult(
-            $redirectCount === 1,
+            $redirectCount === 1 || $redirectCount === 0 && $statusCode > 400,
             'Number of redirects followed: ' . $redirectCount . ' (test limited to 10)'
         );
     }
