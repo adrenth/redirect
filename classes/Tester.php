@@ -52,6 +52,22 @@ abstract class Tester
     }
 
     /**
+     * @return string
+     */
+    public function getTestPath()
+    {
+        return $this->testPath;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTestUrl()
+    {
+        return $this->testUrl;
+    }
+
+    /**
      * Execute test
      *
      * @return TesterResult

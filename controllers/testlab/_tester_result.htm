@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-md-12">
-        <strong><?= $redirect->from_url ?> -> <?= $redirect->to_url ?></strong>
+        <strong><?= $testPath ?> -> <?= $redirect->to_url ?></strong> (<a href="<?= Backend::url("adrenth/redirect/redirects/update/$redirect->id") ?>">edit</a>)
     </div>
 </div>
 
@@ -22,7 +22,7 @@
     <div class="col-md-6"><?= $responseCodeResult->getMessage() ?></div>
     <div class="col-md-1 text-right"><?= $responseCodeResult->getDuration() ?>ms</div>
 </div>
-<div class="row">
+<div class="row last">
     <div class="col-md-3">Redirect count</div>
     <div class="col-md-1 <?= $redirectCountResult->getStatusCssClass() ?>"><?= $redirectCountResult->isPassed() ? 'PASSED' : 'FAILED' ?></div>
     <div class="col-md-6"><?= $redirectCountResult->getMessage() ?></div>

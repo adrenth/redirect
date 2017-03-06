@@ -9,7 +9,6 @@ use Adrenth\Redirect\Classes\Testers\ResponseCode;
 use Adrenth\Redirect\Models\Redirect;
 use Backend\Classes\Controller;
 use BackendMenu;
-use Flash;
 use Input;
 
 /**
@@ -19,13 +18,13 @@ use Input;
  */
 class TestLab extends Controller
 {
-    public $bodyClass = 'layout-relative';
-
     /**
      * {@inheritdoc}
      */
     public function __construct()
     {
+        $this->bodyClass = 'layout-relative';
+
         parent::__construct();
 
         BackendMenu::setContext('Adrenth.Redirect', 'redirect', 'test_lab');
@@ -37,12 +36,17 @@ class TestLab extends Controller
 
         $this->addCss('/plugins/adrenth/redirect/assets/css/test-lab.css', 'Adrenth.Redirect');
 
-        $this->vars['redirectCount'] = Redirect::where('test_lab', '=', true)->count();
+        $this->vars['redirectCount'] = Redirect::enabled()->testLabEnabled()->count();
     }
 
+    /**
+     * @param int $offset
+     * @return Redirect|null
+     */
     private function loadRedirect($offset)
     {
-        return Redirect::where('test_lab', '=', true)
+        return Redirect::enabled()
+            ->testLabEnabled()
             ->offset($offset)
             ->limit(1)
             ->orderBy('sort_order')
@@ -57,20 +61,22 @@ class TestLab extends Controller
 
         $redirect = $this->loadRedirect($offset);
 
-        if (empty($redirect)) {
+        if ($redirect === null) {
             return '';
         }
 
-        // TODO
         $testPath = '/';
 
         if ($redirect->isMatchTypeExact()) {
             $testPath = $redirect->getAttribute('from_url');
+        } elseif ($redirect->getAttribute('test_lab_path')) {
+            $testPath = $redirect->getAttribute('test_lab_path');
         }
 
         return $this->makePartial(
             'tester_result', [
                 'redirect' => $redirect,
+                'testPath' => $testPath,
                 'maxRedirectsResult' => (new RedirectLoop($testPath))->execute(),
                 'matchedRedirectResult' => (new RedirectMatch($testPath))->execute(),
                 'responseCodeResult' => (new ResponseCode($testPath))->execute(),

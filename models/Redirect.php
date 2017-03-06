@@ -6,6 +6,7 @@ use Adrenth\Redirect\Classes\OptionHelper;
 use Carbon\Carbon;
 use Eloquent;
 use Illuminate\Support\Fluent;
+use October\Rain\Database\Builder;
 use October\Rain\Database\Model;
 use October\Rain\Database\Traits\Sortable;
 use October\Rain\Database\Traits\Validation;
@@ -176,6 +177,24 @@ class Redirect extends Model
         });
 
         return $validator;
+    }
+
+    /**
+     * @param Builder $builder
+     * @return Builder
+     */
+    public function scopeEnabled(Builder $builder)
+    {
+        return $builder->where('is_enabled', '=', true);
+    }
+
+    /**
+     * @param Builder $builder
+     * @return Builder
+     */
+    public function scopeTestLabEnabled(Builder $builder)
+    {
+        return $builder->where('test_lab', '=', true);
     }
 
     /**

@@ -111,7 +111,7 @@ return [
         'edit_category' => 'Edit category',
         'view_redirect_log' => 'View redirect log',
         'statistics' => 'Statistics',
-        'test_lab' => 'TestLab',
+        'test_lab' => 'TestLab (beta)',
     ],
     'buttons' => [
         'add' => 'Add', // since 2.0.3

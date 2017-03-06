@@ -2,6 +2,7 @@
 
 <input type="hidden" id="redirectCount" value="<?= $redirectCount ?>">
 <div class="row test-lab">
+    <?php if ($redirectCount !== 0): ?>
     <div class="col-md-10">
         <div class="progress">
             <div class="progress-bar"
@@ -22,11 +23,26 @@
                 id="testButton"
                 type="button"
                 onclick="start();">
-            <i class="icon-check-circle"></i>
             Start tests
         </button>
     </div>
+
     <div class="col-md-12" id="testerResults"></div>
+    <?php else: ?>
+    <div class="col-md-12">
+        <div class="callout fade in callout-warning">
+            <button type="button"
+                    class="close"
+                    data-dismiss="callout"
+                    aria-hidden="true">&times;
+            </button>
+            <div class="content">
+                <p>No redirects have been marked with TestLab enabled. Please enable the option 'Include in
+                    TestLab' when editing a redirect.</p>
+            </div>
+        </div>
+    </div>
+    <?php endif; ?>
 </div>
 
 <?= Form::close() ?>
@@ -42,17 +58,24 @@
                     updateStatusBar(total, total);
                     return;
                 }
+
                 $('#testerResults').prepend(data.result);
+
                 updateStatusBar(total, offset);
-                testerExecute(offset + 1, total);
+
+                if (offset + 1 !== total) {
+                    testerExecute(offset + 1, total);
+                }
             }
         });
     }
 
     function start() {
         updateStatusBar(0);
+
         $('#testerResults').html('');
-        testerExecute(1, $('#redirectCount').val());
+
+        testerExecute(0, $('#redirectCount').val());
     }
 
     function updateStatusBar(total, offset)

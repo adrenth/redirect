@@ -70,3 +70,4 @@
 3.1.0:
     - Add TestLab; allows you to mass test your redirects
     - 310_01_AddTestLabToRedirectsTable.php
+    - 310_02_AddTestLabPathToRedirectsTable.php
