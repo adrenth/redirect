@@ -3,7 +3,7 @@
 namespace Adrenth\Redirect\Classes\Testers;
 
 use Adrenth\Redirect\Classes\Exceptions\RulesPathNotReadable;
-use Adrenth\Redirect\Classes\Tester;
+use Adrenth\Redirect\Classes\TesterBase;
 use Adrenth\Redirect\Classes\TesterResult;
 use Backend;
 
@@ -12,7 +12,7 @@ use Backend;
  *
  * @package Adrenth\Redirect\Classes\Testers
  */
-class RedirectMatch extends Tester
+class RedirectMatch extends TesterBase
 {
     /**
      * {@inheritdoc}
@@ -32,7 +32,7 @@ class RedirectMatch extends Tester
         }
 
         $message = sprintf(
-            'Matched <a href="%s">redirect</a>.',
+            'Matched <a href="%s" target="_blank">redirect</a>.',
             Backend::url('adrenth/redirect/redirects/update/' . $match->getId())
         );
 

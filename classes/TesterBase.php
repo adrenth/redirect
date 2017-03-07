@@ -2,6 +2,7 @@
 
 namespace Adrenth\Redirect\Classes;
 
+use Adrenth\Redirect\Classes\Contracts\Tester;
 use Adrenth\Redirect\Classes\Exceptions\RulesPathNotReadable;
 use Cms;
 use Symfony\Component\Stopwatch\Stopwatch;
@@ -11,9 +12,20 @@ use Symfony\Component\Stopwatch\Stopwatch;
  *
  * @package Adrenth\Redirect\Classes
  */
-abstract class Tester
+abstract class TesterBase implements Tester
 {
+    /**
+     * Maximum redirects to follow.
+     *
+     * @var int
+     */
     const MAX_REDIRECTS = 10;
+
+    /**
+     * Connection timeout in seconds.
+     *
+     * @var int
+     */
     const CONNECTION_TIMEOUT = 10;
 
     /** @var string */
@@ -32,9 +44,7 @@ abstract class Tester
     }
 
     /**
-     * Execute the test
-     *
-     * @return TesterResult
+     * {@inheritdoc}
      */
     final public function execute()
     {
@@ -52,7 +62,7 @@ abstract class Tester
     }
 
     /**
-     * @return string
+     * {@inheritdoc}
      */
     public function getTestPath()
     {
@@ -60,7 +70,7 @@ abstract class Tester
     }
 
     /**
-     * @return string
+     * {@inheritdoc}
      */
     public function getTestUrl()
     {

@@ -3,7 +3,7 @@
 namespace Adrenth\Redirect\Classes\Testers;
 
 use Adrenth\Redirect\Classes\Exceptions\RulesPathNotReadable;
-use Adrenth\Redirect\Classes\Tester;
+use Adrenth\Redirect\Classes\TesterBase;
 use Adrenth\Redirect\Classes\TesterResult;
 use Adrenth\Redirect\Models\Redirect;
 use Backend;
@@ -20,7 +20,7 @@ use Backend;
  *
  * @package Adrenth\Redirect\Classes\Testers
  */
-class ResponseCode extends Tester
+class ResponseCode extends TesterBase
 {
     /**
      * {@inheritdoc}
@@ -57,7 +57,8 @@ class ResponseCode extends Tester
 
         if ($match && $match->getStatusCode() !== $statusCode) {
             $message = sprintf(
-                'Matched <a href="%s">redirect</a>, but response HTTP code did not match! Expected %d but received %s.',
+                'Matched <a href="%s" target="_blank">redirect</a>, '
+                    . 'but response HTTP code did not match! Expected %d but received %s.',
                 Backend::url('adrenth/redirect/redirects/update/' . $match->getId()),
                 $match->getStatusCode(),
                 $statusCode
@@ -66,7 +67,7 @@ class ResponseCode extends Tester
             return new TesterResult(false, $message);
         } elseif ($match && $match->getStatusCode() === $statusCode) {
             $message = sprintf(
-                'Matched <a href="%s">redirect</a>, response HTTP code %d.',
+                'Matched <a href="%s" target="_blank">redirect</a>, response HTTP code %d.',
                 Backend::url('adrenth/redirect/redirects/update/' . $match->getId()),
                 $statusCode
             );

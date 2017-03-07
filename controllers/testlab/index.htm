@@ -1,9 +1,10 @@
 <?= Form::open(['class' => 'layout']) ?>
 
 <input type="hidden" id="redirectCount" value="<?= $redirectCount ?>">
+
 <div class="row test-lab">
     <?php if ($redirectCount !== 0): ?>
-    <div class="col-md-10">
+    <div class="col-md-9 col-sm-8">
         <div class="progress">
             <div class="progress-bar"
                  id="progressBar"
@@ -18,15 +19,10 @@
             Press the 'Start tests' button to begin.
         </p>
     </div>
-    <div class="col-md-2">
-        <button class="btn btn-primary btn-block input-lg"
-                id="testButton"
-                type="button"
-                onclick="start();">
-            Start tests
-        </button>
+    <div class="col-md-3 col-sm-4" id="testButtonWrapper">
+        <?= $this->makePartial('test_button', ['redirectCount' => $redirectCount]) ?>
     </div>
-
+    <div class="clearfix"></div>
     <div class="col-md-12" id="testerResults"></div>
     <?php else: ?>
     <div class="col-md-12">
@@ -46,55 +42,3 @@
 </div>
 
 <?= Form::close() ?>
-
-<script type="text/javascript">
-    function testerExecute(offset, total) {
-        $.request('onTest', {
-            data: {
-                offset: offset
-            },
-            success: function (data) {
-                if (data.result === '' || typeof data.result === 'undefined') {
-                    updateStatusBar(total, total);
-                    return;
-                }
-
-                $('#testerResults').prepend(data.result);
-
-                updateStatusBar(total, offset);
-
-                if (offset + 1 !== total) {
-                    testerExecute(offset + 1, total);
-                }
-            }
-        });
-    }
-
-    function start() {
-        updateStatusBar(0);
-
-        $('#testerResults').html('');
-
-        testerExecute(0, $('#redirectCount').val());
-    }
-
-    function updateStatusBar(total, offset)
-    {
-        var width = 0;
-
-        if (total > 0) {
-            width = Math.ceil(100 / total * offset);
-        }
-
-        var progress = $('#progress');
-            progress.html(width + '% complete');
-
-        var progressBar = $('#progressBar');
-            progressBar.attr('aria-valuenow', width);
-            progressBar.css('width', width + '%');
-
-        if (width === 0) {
-            progress.html(progress.data('initial'));
-        }
-    }
-</script>

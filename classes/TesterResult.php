@@ -49,7 +49,7 @@ class TesterResult
      * @param int $duration
      * @return TesterResult
      */
-    public function setDuration($duration): TesterResult
+    public function setDuration($duration)
     {
         $this->duration = (int) $duration;
         return $this;

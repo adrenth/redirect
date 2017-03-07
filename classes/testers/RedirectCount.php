@@ -2,7 +2,7 @@
 
 namespace Adrenth\Redirect\Classes\Testers;
 
-use Adrenth\Redirect\Classes\Tester;
+use Adrenth\Redirect\Classes\TesterBase;
 use Adrenth\Redirect\Classes\TesterResult;
 
 /**
@@ -10,7 +10,7 @@ use Adrenth\Redirect\Classes\TesterResult;
  *
  * @package Adrenth\Redirect\Classes\Testers
  */
-class RedirectCount extends Tester
+class RedirectCount extends TesterBase
 {
     /**
      * {@inheritdoc}
@@ -38,7 +38,7 @@ class RedirectCount extends Tester
 
         return new TesterResult(
             $redirectCount === 1 || $redirectCount === 0 && $statusCode > 400,
-            'Number of redirects followed: ' . $redirectCount . ' (test limited to 10)'
+            'Number of redirects followed: ' . $redirectCount . ' (limited to 10).'
         );
     }
 }

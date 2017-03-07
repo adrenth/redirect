@@ -2,7 +2,7 @@
 
 namespace Adrenth\Redirect\Classes\Testers;
 
-use Adrenth\Redirect\Classes\Tester;
+use Adrenth\Redirect\Classes\TesterBase;
 use Adrenth\Redirect\Classes\TesterResult;
 
 /**
@@ -10,7 +10,7 @@ use Adrenth\Redirect\Classes\TesterResult;
  *
  * @package Adrenth\Redirect\Classes\Testers
  */
-class RedirectLoop extends Tester
+class RedirectLoop extends TesterBase
 {
     /**
      * {@inheritdoc}

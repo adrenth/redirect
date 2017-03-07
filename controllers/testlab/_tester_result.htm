@@ -1,30 +1,33 @@
-<div class="row">
-    <div class="col-md-12">
-        <strong><?= $testPath ?> -> <?= $redirect->to_url ?></strong> (<a href="<?= Backend::url("adrenth/redirect/redirects/update/$redirect->id") ?>">edit</a>)
+<div class="row heading">
+    <div class="col-md-8">
+        <h5><?= $testPath ?> <i class="icon-arrow-right"></i> <?= $redirect->to_url ?></h5>
+    </div>
+    <div class="col-md-4 text-right">
+        <div class="loading-indicator-container">
+            <div class="toolbar">
+                <a class="btn btn-outline-default btn-xs toolbar-item"
+                   href="<?= Backend::url('adrenth/redirect/redirects/update/' . $redirect->id) ?>">
+                    <i class="oc-icon-pencil"></i>Edit
+                </a>
+                <a class="btn btn-outline-danger btn-xs toolbar-item"
+                   data-request="onExclude"
+                   data-request-data="id: <?= $redirect->id ?>"
+                   data-request-confirm="Are you sure want to exclude this redirect from TestLab?"
+                   data-load-indicator="Excluding redirect from TestLab"
+                   href="javascript:;">
+                    <i class="oc-icon-ban"></i>Exclude
+                </a>
+                <a class="btn btn-outline-success btn-xs toolbar-item"
+                   data-request="onReRun"
+                   data-request-data="id: <?= $redirect->id ?>"
+                   data-load-indicator="Running tests, please wait..."
+                   href="javascript:;">
+                    <i class="oc-icon-refresh"></i>Re-run
+                </a>
+            </div>
+        </div>
     </div>
 </div>
-
-<div class="row">
-    <div class="col-md-3">Loop</div>
-    <div class="col-md-1 <?= $maxRedirectsResult->getStatusCssClass() ?>"><?= $maxRedirectsResult->isPassed() ? 'PASSED' : 'FAILED' ?></div>
-    <div class="col-md-6"><?= $maxRedirectsResult->getMessage() ?></div>
-    <div class="col-md-1 text-right"><?= $maxRedirectsResult->getDuration() ?>ms</div>
-</div>
-<div class="row">
-    <div class="col-md-3">Match</div>
-    <div class="col-md-1 <?= $matchedRedirectResult->getStatusCssClass() ?>"><?= $matchedRedirectResult->isPassed() ? 'PASSED' : 'FAILED' ?></div>
-    <div class="col-md-6"><?= $matchedRedirectResult->getMessage() ?></div>
-    <div class="col-md-1 text-right"><?= $matchedRedirectResult->getDuration() ?>ms</div>
-</div>
-<div class="row">
-    <div class="col-md-3">Response HTTP code</div>
-    <div class="col-md-1 <?= $responseCodeResult->getStatusCssClass() ?>"><?= $responseCodeResult->isPassed() ? 'PASSED' : 'FAILED' ?></div>
-    <div class="col-md-6"><?= $responseCodeResult->getMessage() ?></div>
-    <div class="col-md-1 text-right"><?= $responseCodeResult->getDuration() ?>ms</div>
-</div>
-<div class="row last">
-    <div class="col-md-3">Redirect count</div>
-    <div class="col-md-1 <?= $redirectCountResult->getStatusCssClass() ?>"><?= $redirectCountResult->isPassed() ? 'PASSED' : 'FAILED' ?></div>
-    <div class="col-md-6"><?= $redirectCountResult->getMessage() ?></div>
-    <div class="col-md-1 text-right"><?= $redirectCountResult->getDuration() ?>ms</div>
+<div class="tester-result" id="testerResult<?= $redirect->id ?>">
+    <?= $this->makePartial('tester_result_items', $testResults) ?>
 </div>
