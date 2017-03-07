@@ -107,7 +107,7 @@ class RedirectManager
      * @param bool $loggingEnabled
      * @return RedirectManager
      */
-    public function setLoggingEnabled($loggingEnabled): RedirectManager
+    public function setLoggingEnabled($loggingEnabled)
     {
         $this->loggingEnabled = (bool) $loggingEnabled;
         return $this;
@@ -117,7 +117,7 @@ class RedirectManager
      * @param bool $statisticsEnabled
      * @return RedirectManager
      */
-    public function setStatisticsEnabled($statisticsEnabled): RedirectManager
+    public function setStatisticsEnabled($statisticsEnabled)
     {
         $this->statisticsEnabled = (bool) $statisticsEnabled;
         return $this;
