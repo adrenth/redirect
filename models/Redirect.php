@@ -6,6 +6,7 @@ use Adrenth\Redirect\Classes\OptionHelper;
 use Carbon\Carbon;
 use Eloquent;
 use Illuminate\Support\Fluent;
+use October\Rain\Database\Builder;
 use October\Rain\Database\Model;
 use October\Rain\Database\Traits\Sortable;
 use October\Rain\Database\Traits\Validation;
@@ -162,20 +163,54 @@ class Redirect extends Model
 
         $validator->sometimes('to_url', 'required', function (Fluent $request) {
             return in_array($request->get('status_code'), ['301', '302', '303'], true)
-            && $request->get('target_type') === 'path_or_url';
+            && $request->get('target_type') === self::TARGET_TYPE_PATH_URL;
         });
 
         $validator->sometimes('cms_page', 'required', function (Fluent $request) {
             return in_array($request->get('status_code'), ['301', '302', '303'], true)
-            && $request->get('target_type') === 'cms_page';
+            && $request->get('target_type') === self::TARGET_TYPE_CMS_PAGE;
         });
 
         $validator->sometimes('static_page', 'required', function (Fluent $request) {
             return in_array($request->get('status_code'), ['301', '302', '303'], true)
-            && $request->get('target_type') === 'static_page';
+            && $request->get('target_type') === self::TARGET_TYPE_STATIC_PAGE;
         });
 
         return $validator;
+    }
+
+    /**
+     * @param Builder $builder
+     * @return Builder
+     */
+    public function scopeEnabled(Builder $builder)
+    {
+        return $builder->where('is_enabled', '=', true);
+    }
+
+    /**
+     * @param Builder $builder
+     * @return Builder
+     */
+    public function scopeTestLabEnabled(Builder $builder)
+    {
+        return $builder->where('test_lab', '=', true);
+    }
+
+    /**
+     * @return bool
+     */
+    public function isMatchTypeExact()
+    {
+        return $this->attributes['match_type'] === self::TYPE_EXACT;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isMatchTypePlaceholders()
+    {
+        return $this->attributes['match_type'] === self::TYPE_PLACEHOLDERS;
     }
 
     /**

@@ -2,6 +2,7 @@
 
 namespace Adrenth\Redirect\Classes;
 
+use Adrenth\Redirect\Classes\Exceptions\RulesPathNotReadable;
 use Adrenth\Redirect\Models\Client;
 use Adrenth\Redirect\Models\Redirect;
 use Adrenth\Redirect\Models\RedirectLog;
@@ -37,6 +38,12 @@ class RedirectManager
     /** @var string */
     private $basePath;
 
+    /** @var bool */
+    private $loggingEnabled = true;
+
+    /** @var bool */
+    private $statisticsEnabled = true;
+
     /**
      * HTTP 1.1 headers
      *
@@ -60,6 +67,21 @@ class RedirectManager
     }
 
     /**
+     * @return RedirectManager
+     * @throws RulesPathNotReadable
+     */
+    public static function createWithDefaultRulesPath()
+    {
+        $rulesPath = storage_path('app/redirects.csv');
+
+        if (!file_exists($rulesPath) || !is_readable($rulesPath)) {
+            throw RulesPathNotReadable::withPath($rulesPath);
+        }
+
+        return RedirectManager::createWithRulesPath($rulesPath);
+    }
+
+    /**
      * @param $redirectRulesPath
      * @return RedirectManager
      */
@@ -79,6 +101,26 @@ class RedirectManager
         $instance = new self();
         $instance->redirectRules[] = $rule;
         return $instance;
+    }
+
+    /**
+     * @param bool $loggingEnabled
+     * @return RedirectManager
+     */
+    public function setLoggingEnabled($loggingEnabled): RedirectManager
+    {
+        $this->loggingEnabled = (bool) $loggingEnabled;
+        return $this;
+    }
+
+    /**
+     * @param bool $statisticsEnabled
+     * @return RedirectManager
+     */
+    public function setStatisticsEnabled($statisticsEnabled): RedirectManager
+    {
+        $this->statisticsEnabled = (bool) $statisticsEnabled;
+        return $this;
     }
 
     /**
@@ -417,6 +459,10 @@ class RedirectManager
      */
     private function updateStatistics($redirectId)
     {
+        if (!$this->statisticsEnabled) {
+            return;
+        }
+
         /** @var Redirect $redirect */
         $redirect = Redirect::find($redirectId);
 
@@ -447,9 +493,14 @@ class RedirectManager
      * @param RedirectRule $rule
      * @param $requestUri
      * @param $toUrl
+     * @return void
      */
     private function addLogEntry(RedirectRule $rule, $requestUri, $toUrl)
     {
+        if (!$this->loggingEnabled) {
+            return;
+        }
+
         /** @var Redirect $redirect */
         $redirect = Redirect::find($rule->getId());
 

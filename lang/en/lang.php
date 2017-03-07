@@ -24,6 +24,7 @@ return [
         'to_url_placeholder' => '/absolute/path, relative/path or http://target.url', // changed since 2.0.6
         'to_url_comment' => 'The target path or URL to redirect to.',
         'to_url_required_if' => 'The target path or URL is required',
+        'input_path_placeholder' => '/input/path',
         'cms_page_required_if' => 'Please provide a CMS Page to redirect to',
         'static_page_required_if' => 'Please provide a Static Page to redirect to',
         'match_type' => 'Match Type',
@@ -110,6 +111,7 @@ return [
         'edit_category' => 'Edit category',
         'view_redirect_log' => 'View redirect log',
         'statistics' => 'Statistics',
+        'test_lab' => 'TestLab (beta)',
     ],
     'buttons' => [
         'add' => 'Add', // since 2.0.3
@@ -133,6 +135,7 @@ return [
         'tab_requirements' => 'Requirements',
         'tab_test' => 'Test',
         'tab_scheduling' => 'Scheduling',
+        'tab_test_lab' => 'TestLab',
     ],
     'flash' => [
         'success_created_redirects' => 'Successfully created :count redirects', // since 2.0.3

@@ -67,3 +67,7 @@
 2.0.23: Add missing query part of the URL when creating a Redirect from Request Log
 2.0.24: Minor fixes and code optimization
 3.0.0: New major version; license change and as of now a paid plugin
+3.1.0:
+    - Add TestLab (beta); allows you to mass test your redirects
+    - 310_01_AddTestLabToRedirectsTable.php
+    - 310_02_AddTestLabPathToRedirectsTable.php

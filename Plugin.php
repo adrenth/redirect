@@ -2,6 +2,7 @@
 
 namespace Adrenth\Redirect;
 
+use Adrenth\Redirect\Classes\Exceptions\RulesPathNotReadable;
 use Adrenth\Redirect\Classes\PageHandler;
 use Adrenth\Redirect\Classes\PublishManager;
 use Adrenth\Redirect\Classes\RedirectManager;
@@ -11,6 +12,7 @@ use App;
 use Backend;
 use Cms\Classes\Page;
 use Event;
+use Exception;
 use Request;
 use System\Classes\PluginBase;
 
@@ -37,6 +39,7 @@ class Plugin extends PluginBase
 
     /**
      * {@inheritdoc}
+     * @throws Exception
      */
     public function boot()
     {
@@ -62,15 +65,19 @@ class Plugin extends PluginBase
      */
     public function bootFrontend()
     {
-        // Check for running in console or backend before route matching
-        $rulesPath = storage_path('app/redirects.csv');
-
-        if (!file_exists($rulesPath) || !is_readable($rulesPath)) {
+        try {
+            $manager = RedirectManager::createWithDefaultRulesPath();
+        } catch (RulesPathNotReadable $e) {
             return;
         }
 
+        if (Request::header('X-Adrenth-Redirect') === 'Tester') {
+            $manager->setStatisticsEnabled(false)
+                ->setLoggingEnabled(false);
+        }
+
         $requestUri = str_replace(Request::getBasePath(), '', Request::getRequestUri());
-        $manager = RedirectManager::createWithRulesPath($rulesPath);
+
         $rule = $manager->match($requestUri);
 
         if ($rule) {
@@ -82,6 +89,7 @@ class Plugin extends PluginBase
      * Boot stuff for Backend
      *
      * @return void
+     * @throws Exception
      */
     public function bootBackend()
     {
@@ -156,6 +164,14 @@ class Plugin extends PluginBase
                         'icon' => 'icon-link',
                         'label' => 'adrenth.redirect::lang.navigation.menu_label',
                         'url' => Backend::url('adrenth/redirect/redirects'),
+                        'permissions' => [
+                            'adrenth.redirect.access_redirects',
+                        ],
+                    ],
+                    'test_lab' => [
+                        'icon' => 'icon-flask',
+                        'label' => 'adrenth.redirect::lang.title.test_lab',
+                        'url' => Backend::url('adrenth/redirect/testlab'),
                         'permissions' => [
                             'adrenth.redirect.access_redirects',
                         ],
