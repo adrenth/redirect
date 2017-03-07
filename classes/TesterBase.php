@@ -95,12 +95,19 @@ abstract class TesterBase implements Tester
         curl_setopt($curlHandle, CURLOPT_MAXREDIRS, self::MAX_REDIRECTS);
         curl_setopt($curlHandle, CURLOPT_CONNECTTIMEOUT, self::CONNECTION_TIMEOUT);
         curl_setopt($curlHandle, CURLOPT_AUTOREFERER, true);
+
+        // This constant is not available when open_basedir or safe_mode are enabled.
         curl_setopt($curlHandle, CURLOPT_FOLLOWLOCATION, true);
+
         /** @noinspection CurlSslServerSpoofingInspection */
         curl_setopt($curlHandle, CURLOPT_SSL_VERIFYHOST, false);
         /** @noinspection CurlSslServerSpoofingInspection */
         curl_setopt($curlHandle, CURLOPT_SSL_VERIFYPEER, false);
-        curl_setopt($curlHandle, CURLOPT_SSL_VERIFYSTATUS, false);
+
+        if (PHP_MAJOR_VERSION === 7) {
+            curl_setopt($curlHandle, CURLOPT_SSL_VERIFYSTATUS, false);
+        }
+
         curl_setopt($curlHandle, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($curlHandle, CURLOPT_VERBOSE, false);
         curl_setopt($curlHandle, CURLOPT_HTTPHEADER, [
