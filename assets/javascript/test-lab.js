@@ -5,7 +5,7 @@ function testerExecute(offset, total, button) {
         },
         success: function (data) {
             if (data.result === '' || typeof data.result === 'undefined') {
-                $('#testButton').prop('disabled', false);
+                testerDone();
                 updateStatusBar(total, total);
                 return;
             }
@@ -17,15 +17,36 @@ function testerExecute(offset, total, button) {
             if (offset + 1 !== total) {
                 testerExecute(offset + 1, total, button);
             }
+        },
+        error: function() {
+            if (offset + 1 !== total) {
+                testerExecute(offset + 1, total, button);
+            }
         }
     });
 }
 
-function start(button) {
+function testerDone() {
+    $('#testButton').prop('disabled', false);
+
+    var loader = $('#loader');
+        loader.removeClass('loading');
+
+    setTimeout(function () {
+        loader.addClass('hidden');
+    }, 500);
+}
+
+function testerStart(button) {
     updateStatusBar(0);
 
     $('#testerResults').html('');
-    $('#testButton').prop('disabled', true);
+
+    button.prop('disabled', true);
+
+    var loader = $('#loader');
+        loader.removeClass('hidden');
+        loader.addClass('loading');
 
     testerExecute(0, $('#redirectCount').val(), button);
 }
@@ -38,7 +59,7 @@ function updateStatusBar(total, offset) {
     }
 
     var progress = $('#progress');
-    progress.html(width + '% complete');
+    progress.html(width + '% complete (' + offset + ' of ' + total + ')');
 
     var progressBar = $('#progressBar');
     progressBar.attr('aria-valuenow', width);

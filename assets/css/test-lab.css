@@ -25,11 +25,18 @@
     text-align: center;
 }
 
-#progress {
+/*
+ * Progress Bar
+ **********************************************************************************************************************/
 
+.progress {
+    height: 34px;
+    margin-bottom: 4px;
 }
 
+.progress-bar {
 
+}
 
 /*
  * Tester Results

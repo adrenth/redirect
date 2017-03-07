@@ -10,6 +10,7 @@ use Adrenth\Redirect\Classes\Testers\ResponseCode;
 use Adrenth\Redirect\Models\Redirect;
 use Backend\Classes\Controller;
 use BackendMenu;
+use Exception;
 use Flash;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Input;
@@ -69,13 +70,25 @@ class TestLab extends Controller
             return '';
         }
 
-        return $this->makePartial(
-            'tester_result', [
-                'redirect' => $redirect,
-                'testPath' => $this->getTestPath($redirect),
-                'testResults' => $this->getTestResults($redirect),
-            ]
-        );
+        try {
+            $partial = $this->makePartial(
+                'tester_result', [
+                    'redirect' => $redirect,
+                    'testPath' => $this->getTestPath($redirect),
+                    'testResults' => $this->getTestResults($redirect),
+                ]
+            );
+        } catch (Exception $e) {
+            $partial = $this->makePartial(
+                'tester_failed',
+                [
+                    'redirect' => $redirect,
+                    'message' => $e->getMessage()
+                ]
+            );
+        }
+
+        return $partial;
     }
 
     /**

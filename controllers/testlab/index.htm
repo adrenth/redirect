@@ -34,7 +34,7 @@
             </button>
             <div class="content">
                 <p>No redirects have been marked with TestLab enabled. Please enable the option 'Include in
-                    TestLab' when editing a redirect.</p>
+                    TestLab' when <a href="<?= Backend::url('adrenth/redirect/redirects') ?>">editing</a> a redirect.</p>
             </div>
         </div>
     </div>
@@ -42,3 +42,7 @@
 </div>
 
 <?= Form::close() ?>
+
+<div id="loader" class="popup-backdrop fade in hidden">
+    <div class="modal-content popup-loading-indicator"></div>
+</div>
