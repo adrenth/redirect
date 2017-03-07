@@ -39,10 +39,10 @@ class RedirectRule
     /** @var array */
     private $requirements;
 
-    /** @var Carbon */
+    /** @var Carbon|null */
     private $fromDate;
 
-    /** @var Carbon */
+    /** @var Carbon|null */
     private $toDate;
 
     /** @var array */
@@ -73,6 +73,18 @@ class RedirectRule
             $this->fromDate,
             $this->toDate,
             ) = $attributes;
+
+        if (empty($this->fromDate)) {
+            $this->fromDate = null;
+        } else {
+            $this->fromDate = Carbon::createFromFormat('Y-m-d', substr($this->fromDate, 0, 10));
+        }
+
+        if (empty($this->toDate)) {
+            $this->toDate = null;
+        } else {
+            $this->toDate = Carbon::createFromFormat('Y-m-d', substr($this->toDate, 0, 10));
+        }
 
         $this->requirements = json_decode($this->requirements, true);
     }

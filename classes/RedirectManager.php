@@ -10,6 +10,8 @@ use Carbon\Carbon;
 use Cms\Classes\Controller;
 use Cms\Classes\Theme;
 use DB;
+use Exception;
+use InvalidArgumentException;
 use Jaybizzle\CrawlerDetect\CrawlerDetect;
 use League\Csv\Reader;
 use Log;
@@ -58,7 +60,7 @@ class RedirectManager
     ];
 
     /**
-     * Constructs a RedirectManager instance
+     * Constructs a RedirectManager instance.
      */
     protected function __construct()
     {
@@ -142,7 +144,7 @@ class RedirectManager
     }
 
     /**
-     * Find a match based on given URL
+     * Find a match based on given URL.
      *
      * @param string $url
      * @return RedirectRule|false
@@ -163,7 +165,7 @@ class RedirectManager
     }
 
     /**
-     * Redirect with specific rule
+     * Redirect with specific rule.
      *
      * @param RedirectRule $rule
      * @param string $requestUri
@@ -196,7 +198,7 @@ class RedirectManager
     }
 
     /**
-     * Get Location URL to redirect to
+     * Get Location URL to redirect to.
      *
      * @param RedirectRule $rule
      * @return bool|string
@@ -284,7 +286,7 @@ class RedirectManager
     }
 
     /**
-     * Change the match date; can be used to perform tests
+     * Change the match date; can be used to perform tests.
      *
      * @param Carbon $matchDate
      * @return $this
@@ -302,17 +304,12 @@ class RedirectManager
      */
     private function matchesRule(RedirectRule $rule, $url)
     {
-        // 1. Check if rule matches period
-        if (!$this->matchesPeriod($rule)) {
-            return false;
-        }
-
-        // 2. Perform exact match if applicable
+        // Perform exact match if applicable
         if ($rule->isExactMatchType()) {
             return $this->matchExact($rule, $url);
         }
 
-        // 3. Perform placeholders match if applicable
+        // Perform placeholders match if applicable
         if ($rule->isPlaceholdersMatchType()) {
             return $this->matchPlaceholders($rule, $url);
         }
@@ -321,7 +318,7 @@ class RedirectManager
     }
 
     /**
-     * Perform an exact URL match
+     * Perform an exact URL match.
      *
      * @param RedirectRule $rule
      * @param string $url
@@ -333,7 +330,7 @@ class RedirectManager
     }
 
     /**
-     * Perform a placeholder URL match
+     * Perform a placeholder URL match.
      *
      * @param RedirectRule $rule
      * @param string $url
@@ -349,7 +346,7 @@ class RedirectManager
                     str_replace(['{', '}'], '', $requirement['placeholder']),
                     $requirement['requirement']
                 );
-            } catch (\InvalidArgumentException $e) {
+            } catch (InvalidArgumentException $e) {
                 // Catch empty requirement / placeholder
             }
         }
@@ -371,7 +368,7 @@ class RedirectManager
             }
 
             $rule->setPlaceholderMatches($items);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return false;
         }
 
@@ -379,7 +376,7 @@ class RedirectManager
     }
 
     /**
-     * Check if rule matches a period
+     * Check if rule matches a period.
      *
      * @param RedirectRule $rule
      * @return bool
@@ -398,8 +395,8 @@ class RedirectManager
             return $this->matchDate->gte($rule->getFromDate());
         }
 
-        if ($rule->getFromDate() === null
-            && $rule->getToDate() instanceof Carbon
+        if ($rule->getToDate() instanceof Carbon
+            && $rule->getFromDate() === null
         ) {
             return $this->matchDate->lte($rule->getToDate());
         }
@@ -408,7 +405,7 @@ class RedirectManager
     }
 
     /**
-     * Find replacement value for placeholder
+     * Find replacement value for placeholder.
      *
      * @param RedirectRule $rule
      * @param string $placeholder
@@ -426,7 +423,7 @@ class RedirectManager
     }
 
     /**
-     * Load definitions into memory
+     * Load definitions into memory.
      *
      * @return void
      */
@@ -443,17 +440,21 @@ class RedirectManager
             $reader = Reader::createFromPath($this->redirectRulesPath);
 
             foreach ($reader as $row) {
-                $rules[] = new RedirectRule($row);
+                $rule = new RedirectRule($row);
+
+                if ($this->matchesPeriod($rule)) {
+                    $rules[] = $rule;
+                }
             }
-        } catch (\Exception $e) {
-            Log::error($e->getMessage());
+        } catch (Exception $e) {
+            Log::error($e);
         }
 
         $this->redirectRules = $rules;
     }
 
     /**
-     * Update database statistics
+     * Update database statistics.
      *
      * @param int $redirectId
      */

@@ -12,7 +12,6 @@ use Adrenth\Redirect\Classes\TesterResult;
  */
 class RedirectFinalDestination extends TesterBase
 {
-
     /**
      * Execute test
      *
