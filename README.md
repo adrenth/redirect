@@ -1,16 +1,12 @@
 # Adrenth.Redirect
 
-## The #1 Redirect plugin for October CMS
+## The #1 Redirect plugin for October CMS ([Editors' choice](http://octobercms.com/plugins/featured))
 
 This is the best Redirect-plugin for October CMS. With this plugin installed you can manage redirects directly from October CMS' beautiful interface. Many webmasters and SEO specialists use redirects to optimize their website for search engines. This plugin allows you to manage such redirects with a nice and user-friendly interface.
 
 ## What does this plugin offer?
 
-This plugin adds a 'Redirects' section to the main menu of October CMS. This plugin is trying to match your redirect very efficiently before your website is rendered.
-
-## Testing your redirects
-
-This plugin has an easy to use test tool to extensively test your redirects.
+This plugin adds a 'Redirects' section to the main menu of October CMS. This plugin is trying to match your redirect very efficiently and fast before your website is rendered.
 
 ## Features
 
@@ -31,27 +27,29 @@ This plugin has an easy to use test tool to extensively test your redirects.
     * Popular crawlers per month (top 10)
     * Number of redirects per month
     * And more...
-* Multilingual ***(Need help translating!)***
+* Multilingual ***(Need help translating! Contact me at adrenth@gmail.com)***
 * Supports MySQL, SQLite and PostgreSQL
-* HTTP status codes 301, 302, 404, 410
+* HTTP status codes 301, 302, 303, 404, 410
 
-## What's new in version 2.0?
+## Currently in development
 
-* Automatic publishing of redirects
-* New polished UI
-* Automatic creation of redirect when changing CMS Page (System redirects)
-* Redirect statistics
-* Compatibility with PHP 7+
-* Compatibility with October CMS stable
+**Redirect TestLab**
 
-## Version 3.0
+![Imgur](http://i.imgur.com/5ZxHKWV.png)
 
-As of version 3.0 the plugin will be a paid plugin.
+With the Redirect TestLab you will be able to mass test (a selection) of redirect with several testers. Currently the following testers are finished:
 
-Upcoming 3.0 features:
+* A redirect loop tester (if any of your redirects will result in a loop)
+* A redirect count tester (counts the times your a request will be redirected until it reaches its destination)
+* A response code tester (tests if the returned response code is ok)
+* A redirect match tester (tests if your redirect will match the redirect you have configured).
+* Final destination URL tester (determines the final destination URL).
+
+You will be able to check all your redirects at once and check if there is any error in your configuration.
+
+## Upcoming features
+
 * Extended redirect statistics
-* Redirect loop detection
-* Prevention of loop redirects
 * Improved performance
 * New UI
 
@@ -63,10 +61,8 @@ It is important for SEO create redirects of non-existent pages on your website. 
 
 This plugins ships with two types of redirects:
 
-* **Exact**; performs an exact match on the Source path
-* **Placeholders**; matches placeholders like {id} or {category} (like the defined routes in Symfony or Laravel framework)
-
-My plan is to add more redirection types in the future.
+* **Exact**; performs an exact match on the Source path.
+* **Placeholders**; matches placeholders like {id} or {category} (like the defined routes in Symfony or Laravel framework).
 
 ## Redirect target types
 
@@ -97,7 +93,7 @@ Example:
 
 ````
 Request path:
-/blog.php?category=cat&id=145
+/blog.php?category=mouse&id=1337
 
 Redirect Rule: Source path
 /blog.php?category={category}&id={id}
@@ -106,7 +102,7 @@ Redirect Rule: Target path
 /blog/{category}/{id}
 
 Result:
-/blog/cat/145
+/blog/mouse/1337
 ````
 
 * The requirement for `{category}` would be: `[a-zA-Z]` or could be more specific like `(dog|cat|mouse)`.
@@ -134,6 +130,12 @@ Result:
 /blog/animals/1337
 ````
 
+![](https://i.imgur.com/928z7pI.png)
+
+Result in TestLab:
+
+![](https://i.imgur.com/BswnUAo.png)
+
 ## Redirect Target
 
 As of version 1.1.0 you can select a CMS Page as a Redirect target. Placeholders are supported. Let's asume there is a page 'Blog' with the following URL: `/blog/:category/:subcategory`. 
@@ -158,18 +160,26 @@ Result: /blog/news/general
 
 ## More information
 
-This plugin makes advantage of the `symfony/routing` package. So if you need more info on how to make requirements for your redirection URLs, please go to: [https://symfony.com/doc/current/components/routing/introduction.html#usage]()
+This plugin makes advantage of the `symfony/routing` package. So if you need more info on how to make requirements for your redirection URLs, please go to: [](https://symfony.com/doc/current/components/routing/introduction.html#usage)
 
 ## Contribution
 
-If you like to contribute to this plugin feel free to create a Pull Request. But you can also contact me. My contact details can be found in the source code of this project.
+You can contact me when you like to contribute to this plugin. I'm still looking for people who want to translate this plugin.
 
 ## Questions? Need help?
 
 If you have any question about how to use this plugin, please don't hesitate to contact me. I'm happy to help you.
 
-You can also create an issue on the [GitHub](https://github.com/adrenth/redirect) page of this plugin.
-
 Kind regards,
 
 Alwin Drenth -- *Author of the Redirect plugin*
+
+## Other plugins by [Alwin Drenth](http://octobercms.com/author/Adrenth)
+
+![HtmlPurifier](http://octobercms.com/storage/app/uploads/public/588/334/987/thumb_6466_64x64_0_0_auto.png)
+
+[**HtmlPurifier**](http://octobercms.com/plugin/adrenth-htmlpurifier) -  *Adds a standards compliant HTML filter to October CMS.*
+
+![RssFetcher](http://octobercms.com/storage/app/uploads/public/567/69d/038/thumb_3541_64x64_0_0_auto.png)
+
+[**RssFetcher**](http://octobercms.com/plugin/adrenth-rssfetcher) - *Fetches RSS/Atom feeds from different sources to publish on your website or dashboard.*
