@@ -71,3 +71,5 @@
     - Add TestLab (beta); allows you to mass test your redirects
     - 310_01_AddTestLabToRedirectsTable.php
     - 310_02_AddTestLabPathToRedirectsTable.php
+3.1.1:
+    - Minor improvements to UI
