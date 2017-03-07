@@ -124,7 +124,7 @@ class Redirect extends Model
     /**
      * {@inheritdoc}
      */
-    public $dates = [
+    protected $dates = [
         'from_date',
         'to_date',
         'last_used_at',
@@ -375,5 +375,37 @@ class Redirect extends Model
                 $this->setAttribute('cms_page', null);
                 break;
         }
+    }
+
+    /**
+     * Check if this redirect is active on certain date.
+     *
+     * @param Carbon $date
+     * @return bool
+     */
+    public function isActiveOnDate(Carbon $date)
+    {
+        if ($this->getAttribute('from_date') instanceof Carbon
+            && $this->getAttribute('to_date') instanceof Carbon
+        ) {
+            return $date->between(
+                $this->getAttribute('from_date'),
+                $this->getAttribute('to_date')
+            );
+        }
+
+        if ($this->getAttribute('from_date') instanceof Carbon
+            && $this->getAttribute('to_date') === null
+        ) {
+            return $date->gte($this->getAttribute('from_date'));
+        }
+
+        if ($this->getAttribute('to_date') instanceof Carbon
+            && $this->getAttribute('from_date') === null
+        ) {
+            return $date->lte($this->getAttribute('to_date'));
+        }
+
+        return true;
     }
 }

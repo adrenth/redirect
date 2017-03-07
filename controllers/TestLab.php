@@ -10,10 +10,12 @@ use Adrenth\Redirect\Classes\Testers\ResponseCode;
 use Adrenth\Redirect\Models\Redirect;
 use Backend\Classes\Controller;
 use BackendMenu;
+use Carbon\Carbon;
 use Exception;
 use Flash;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Input;
+use October\Rain\Database\Collection;
 
 /**
  * Class Test
@@ -22,6 +24,9 @@ use Input;
  */
 class TestLab extends Controller
 {
+    /** @var array */
+    private $redirects;
+
     /**
      * {@inheritdoc}
      */
@@ -32,6 +37,8 @@ class TestLab extends Controller
         parent::__construct();
 
         BackendMenu::setContext('Adrenth.Redirect', 'redirect', 'test_lab');
+
+        $this->loadRedirects();
     }
 
     public function index()
@@ -44,27 +51,39 @@ class TestLab extends Controller
         $this->vars['redirectCount'] = $this->getRedirectCount();
     }
 
+    private function loadRedirects()
+    {
+        /** @var Collection $redirects */
+        $this->redirects = array_values(Redirect::enabled()
+            ->testLabEnabled()
+            ->orderBy('sort_order')
+            ->get()
+            ->filter(function (Redirect $redirect) {
+                return $redirect->isActiveOnDate(Carbon::today());
+            })
+            ->all());
+    }
+
     /**
      * @param int $offset
      * @return Redirect|null
      */
-    private function loadRedirect($offset)
+    private function offsetGetRedirect($offset)
     {
-        return Redirect::enabled()
-            ->testLabEnabled()
-            ->offset($offset)
-            ->limit(1)
-            ->orderBy('sort_order')
-            ->first();
+        if (array_key_exists($offset, $this->redirects)) {
+            return $this->redirects[$offset];
+        }
+
+        return null;
     }
 
     // @codingStandardsIgnoreStart
 
     public function index_onTest()
     {
-        $offset = Input::get('offset');
+        $offset = (int) Input::get('offset');
 
-        $redirect = $this->loadRedirect($offset);
+        $redirect = $this->offsetGetRedirect($offset);
 
         if ($redirect === null) {
             return '';
@@ -173,6 +192,6 @@ class TestLab extends Controller
      */
     private function getRedirectCount()
     {
-        return (int) Redirect::enabled()->testLabEnabled()->count();
+        return count($this->redirects);
     }
 }
