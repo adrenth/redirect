@@ -3,6 +3,7 @@
 namespace Adrenth\Redirect\Controllers;
 
 use Adrenth\Redirect\Classes\PublishManager;
+use Adrenth\Redirect\Classes\RedirectLoopDetector;
 use Adrenth\Redirect\Classes\RedirectManager;
 use Adrenth\Redirect\Classes\RedirectRule;
 use Adrenth\Redirect\Models\Redirect;
@@ -20,7 +21,6 @@ use Event;
 use Exception;
 use Flash;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Http\RedirectResponse;
 use Lang;
 use Redirect as RedirectFacade;
 use Request;

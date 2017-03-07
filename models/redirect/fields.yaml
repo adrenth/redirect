@@ -167,3 +167,26 @@ tabs:
             type: datepicker
             mode: date
             span: right
+        #
+        # TestLab
+        #
+        section_test_lab:
+            tab: adrenth.redirect::lang.tab.tab_test_lab
+            type: section
+            commentAbove: 'TestLab allows you to mass test your redirects.'
+        test_lab:
+            tab: adrenth.redirect::lang.tab.tab_test_lab
+            label: 'Include in TestLab'
+            comment: 'Flick this switch to allow testing this redirect in the TestLab.'
+            type: switch
+            span: left
+        test_lab_path:
+            tab: adrenth.redirect::lang.tab.tab_test_lab
+            label: 'Test Path'
+            comment: 'This path will be used when performing tests. Replace placeholders with real values.'
+            type: text
+            span: left
+            trigger:
+                action: show
+                field: match_type
+                condition: value[placeholders]
