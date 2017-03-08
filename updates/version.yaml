@@ -73,3 +73,4 @@
     - 310_02_AddTestLabPathToRedirectsTable.php
 3.1.1: Resolves PHP 5.6 compatibility issues and other minor fixes
 3.1.2: Fix redirect schedule issue
+3.2.0: Improvements to Statistics dashboard

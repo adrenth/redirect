@@ -1,51 +1,116 @@
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-12">
+        <div class="report-widget redirect-hits-per-day">
+            <h3>Redirect hits per day</h3>
+            <div id="visualization"></div>
+            <p class="help-block"><em>Click on the chart to enable zooming and dragging.</em></p>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
         <div class="report-widget">
+        <div class="scoreboard">
+            <div data-control="toolbar">
+                <div class="scoreboard-item control-chart"
+                     data-control="chart-pie"
+                     data-center-text="<?= number_format($totalActiveRedirects, 0, '', '.') ?>"
+                     data-size="120">
+                    <ul>
+                        <?php foreach ($activeRedirects as $group => $activeRedirect): ?>
+                        <li><?= trans('adrenth.redirect::lang.redirect.' . \Adrenth\Redirect\Models\Redirect::$statusCodes[$group]) ?>
+                            <span><?= count($activeRedirect) ?></span></li>
+                        <?php endforeach; ?>
+                    </ul>
+                </div>
+                <div class="scoreboard-item title-value">
+                    <h4>Requests redirected</h4>
+                    <p><?= number_format($totalRedirectsServed, 0, '', '.') ?></p>
+                    <p class="description">all time</p>
+                </div>
+                <div class="scoreboard-item title-value">
+                    <h4>Active redirects</h4>
+                    <p><?= number_format($totalActiveRedirects, 0, '', '.') ?></p>
+                </div>
+                <div class="scoreboard-item title-value">
+                    <h4>Redirects this month</h4>
+                    <p><?= number_format($totalThisMonth, 0, '', '.') ?></p>
+                    <p class="description ">previous month: <?= number_format($totalLastMonth, 0, '', '.') ?></p>
+                </div>
+                <?php if ($latestClient): ?>
+                <div class="scoreboard-item title-value">
+                    <h4>Latest redirected request</h4>
+                    <p class="<?= $latestClient->crawler ? 'oc-icon-google' : 'oc-icon-user' ?>"><?= $latestClient->redirect->from_url ?></p>
+                    <p class="description"><?= $latestClient->timestamp ?></p>
+                </div>
+                <?php endif; ?>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="report-widget general">
             <h3>Redirects per month</h3>
-            <div class="control-status-list">
-                <ul>
-                    <?php foreach ($redirectHitsPerMonth as $record): ?>
-                    <li>
-                        <span class="status-text"><?= date('F', mktime(0, 0, 0, $record['month'])) ?> <?= $record['year'] ?></span>
-                        <span class="status-label"><?= number_format($record['hits'], 0, null, '.') ?></span>
-                    </li>
-                    <?php endforeach; ?>
-                </ul>
-            </div>
+            <?php if ($redirectHitsPerMonth): ?>
+                <div class="control-status-list">
+                    <ul>
+                        <?php foreach ($redirectHitsPerMonth as $record): ?>
+                        <li>
+                            <span class="status-text"><?= date('F', mktime(0, 0, 0, $record['month'])) ?> <?= $record['year'] ?></span>
+                            <span class="status-label"><?= number_format($record['hits'], 0, null, '.') ?></span>
+                        </li>
+                        <?php endforeach; ?>
+                    </ul>
+                </div>
+            <?php else: ?>
+                <p class="help-block"><i class="oc-icon-meh-o"></i> No data</p>
+            <?php endif; ?>
         </div>
     </div>
     <div class="col-md-4">
-        <div class="report-widget">
+        <div class="report-widget general">
             <h3>Top 10 crawlers this month</h3>
-            <div class="control-status-list">
-                <ul>
-                    <?php foreach ($topTenCrawlersThisMonth as $record): ?>
-                    <li>
-                        <span class="status-text"><?= $record['crawler'] ?></span>
-                        <span class="status-label"><?= number_format($record['hits'], 0, null, '.') ?></span>
-                    </li>
-                    <?php endforeach; ?>
-                </ul>
-            </div>
+            <?php if ($topTenCrawlersThisMonth): ?>
+                <div class="control-status-list">
+                    <ul>
+                        <?php foreach ($topTenCrawlersThisMonth as $record): ?>
+                        <li>
+                            <span class="status-text"><?= $record['crawler'] ?></span>
+                            <span class="status-label"><?= number_format($record['hits'], 0, null, '.') ?></span>
+                        </li>
+                        <?php endforeach; ?>
+                    </ul>
+                </div>
+            <?php else: ?>
+                <p class="help-block"><i class="oc-icon-meh-o"></i> No data</p>
+            <?php endif; ?>
         </div>
     </div>
     <div class="col-md-4">
-        <div class="report-widget">
+        <div class="report-widget general">
             <h3>Top 10 redirects this month</h3>
-            <div class="control-status-list">
-                <ul>
-                    <?php foreach ($topTenRedirectsThisMonth as $record): ?>
-                    <li>
-                        <span class="status-text">
-                            <a href="<?= Backend::url('adrenth/redirect/redirects/update/' . $record['redirect_id']) ?>">
-                                <?= $record['from_url'] ?>
-                            </a>
-                        </span>
-                        <span class="status-label"><?= number_format($record['hits'], 0, null, '.') ?></span>
-                    </li>
-                    <?php endforeach; ?>
-                </ul>
-            </div>
+            <?php if ($topTenRedirectsThisMonth): ?>
+                <div class="control-status-list">
+                    <ul>
+                        <?php foreach ($topTenRedirectsThisMonth as $record): ?>
+                        <li>
+                            <span class="status-text">
+                                <a href="<?= Backend::url('adrenth/redirect/redirects/update/' . $record['redirect_id']) ?>">
+                                    <?= $record['from_url'] ?>
+                                </a>
+                            </span>
+                            <span class="status-label"><?= number_format($record['hits'], 0, null, '.') ?></span>
+                        </li>
+                        <?php endforeach; ?>
+                    </ul>
+                </div>
+            <?php else: ?>
+                <p class="help-block"><i class="oc-icon-meh-o"></i> No data</p>
+            <?php endif; ?>
         </div>
     </div>
 </div>
