@@ -15,6 +15,16 @@ return [
         'menu_label' => 'Redirects',
         'menu_description' => 'Manage redirects',
     ],
+    'settings' => [
+        'menu_label' => 'Redirects',
+        'menu_description' => 'Manage settings for Redirects.',
+        'logging_enabled_label' => 'Log redirect events',
+        'logging_enabled_comment' => 'Store redirect events in the database.',
+        'statistics_enabled_label' => 'Gather statistics',
+        'statistics_enabled_comment' => 'Gather statistics of redirected requests to get more insight.',
+        'test_lab_enabled_label' => 'TestLab (beta)',
+        'test_lab_enabled_comment' => 'TestLab allows you to mass test your redirects.',
+    ],
     'redirect' => [
         'redirect' => 'Redirect',
         'from_url' => 'Source Path',

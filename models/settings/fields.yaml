@@ -1,0 +1,21 @@
+# ===================================
+#  Settings Form Field Definitions
+# ===================================
+
+fields:
+    logging_enabled:
+        label: adrenth.redirect::lang.settings.logging_enabled_label
+        comment: adrenth.redirect::lang.settings.logging_enabled_comment
+        type: switch
+        default: true
+    statistics_enabled:
+        label: adrenth.redirect::lang.settings.statistics_enabled_label
+        comment: adrenth.redirect::lang.settings.statistics_enabled_comment
+        type: switch
+        default: true
+    test_lab_enabled:
+        label: adrenth.redirect::lang.settings.test_lab_enabled_label
+        comment: adrenth.redirect::lang.settings.test_lab_enabled_comment
+        type: switch
+        default: true
+

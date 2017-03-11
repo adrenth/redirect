@@ -28,6 +28,7 @@ columns:
         default: '-'
     hits:
         label: adrenth.redirect::lang.redirect.hits
+        type: number
     sort_order:
         label: adrenth.redirect::lang.redirect.priority
     is_enabled:

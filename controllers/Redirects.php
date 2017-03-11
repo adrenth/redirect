@@ -3,10 +3,10 @@
 namespace Adrenth\Redirect\Controllers;
 
 use Adrenth\Redirect\Classes\PublishManager;
-use Adrenth\Redirect\Classes\RedirectLoopDetector;
 use Adrenth\Redirect\Classes\RedirectManager;
 use Adrenth\Redirect\Classes\RedirectRule;
 use Adrenth\Redirect\Models\Redirect;
+use Adrenth\Redirect\Models\Settings;
 use ApplicationException;
 use Backend\Behaviors\FormController;
 use Backend\Behaviors\ImportExportController;
@@ -168,6 +168,10 @@ class Redirects extends Controller
             /** @var FormField $field */
             $field = $host->getField('to_url');
             $field->cssClass = 'hidden';
+        }
+
+        if (!Settings::isTestLabEnabled()) {
+            $host->removeTab('adrenth.redirect::lang.tab.tab_test_lab');
         }
     }
 
