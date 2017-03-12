@@ -75,5 +75,5 @@
 3.1.2: Fix redirect schedule issue
 3.2.0: Improvements to Statistics dashboard
 3.3.0:
-    - Add Redirect settings (see Settings > Misc > Redirect)
+    - Add Redirect settings (see Settings > Misc > Redirect) and minor fixes
     - 330_01_AddDefaultSettings.php
