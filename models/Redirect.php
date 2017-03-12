@@ -74,7 +74,7 @@ class Redirect extends Model
      */
     public $rules = [
         'from_url' => 'required',
-        'to_url' => 'different:from_url|required_if:target_type,path_or_url',
+        'to_url' => 'different:from_url|required_unless:target_type,path_or_url,status_code,301,status_code,302,status_code,303',
         'cms_page' => 'required_if:target_type,cms_page',
         'static_page' => 'required_if:target_type,static_page',
         'match_type' => 'required|in:exact,placeholders',
@@ -89,7 +89,7 @@ class Redirect extends Model
      * @var array
      */
     public $customMessages = [
-        'to_url.required_if' => 'adrenth.redirect::lang.redirect.to_url_required_if',
+        'to_url.required_unless' => 'adrenth.redirect::lang.redirect.to_url_required_if',
         'cms_page.required_if' => 'adrenth.redirect::lang.redirect.cms_page_required_if',
         'static_page.required_if' => 'adrenth.redirect::lang.redirect.static_page_required_if',
     ];

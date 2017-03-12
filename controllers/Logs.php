@@ -41,11 +41,21 @@ class Logs extends Controller
 
     // @codingStandardsIgnoreStart
 
+    /**
+     * Refresh list.
+     *
+     * @return array
+     */
     public function index_onRefresh()
     {
         return $this->listRefresh();
     }
 
+    /**
+     * Empty redirect log.
+     *
+     * @return array
+     */
     public function index_onEmptyLog()
     {
         RedirectLog::truncate();
@@ -53,6 +63,11 @@ class Logs extends Controller
         return $this->listRefresh();
     }
 
+    /**
+     * Delete 1 or more checked redirect log items.
+     *
+     * @return array
+     */
     public function index_onDelete()
     {
         if (($checkedIds = post('checked', []))

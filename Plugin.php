@@ -8,6 +8,7 @@ use Adrenth\Redirect\Classes\PublishManager;
 use Adrenth\Redirect\Classes\RedirectManager;
 use Adrenth\Redirect\Classes\StaticPageHandler;
 use Adrenth\Redirect\Models\Redirect;
+use Adrenth\Redirect\Models\Settings;
 use App;
 use Backend;
 use Cms\Classes\Page;
@@ -70,6 +71,9 @@ class Plugin extends PluginBase
         } catch (RulesPathNotReadable $e) {
             return;
         }
+
+        $manager->setLoggingEnabled(Settings::isLoggingEnabled())
+            ->setStatisticsEnabled(Settings::isStatisticsEnabled());
 
         if (Request::header('X-Adrenth-Redirect') === 'Tester') {
             $manager->setStatisticsEnabled(false)
@@ -142,36 +146,25 @@ class Plugin extends PluginBase
      */
     public function registerNavigation()
     {
-        return [
+        $defaultBackendUrl = Backend::url(
+            'adrenth/redirect/' . (Settings::isStatisticsEnabled() ? 'statistics' : 'redirects')
+        );
+
+        $navigation = [
             'redirect' => [
                 'label' => 'adrenth.redirect::lang.navigation.menu_label',
                 'icon' => 'icon-link',
-                'url' => Backend::url('adrenth/redirect/statistics'),
+                'url' => $defaultBackendUrl,
                 'order' => 50,
                 'permissions' => [
                     'adrenth.redirect.access_redirects',
                 ],
                 'sideMenu' => [
-                    'statistics' => [
-                        'icon' => 'icon-bar-chart',
-                        'label' => 'adrenth.redirect::lang.title.statistics',
-                        'url' => Backend::url('adrenth/redirect/statistics'),
-                        'permissions' => [
-                            'adrenth.redirect.access_redirects',
-                        ],
-                    ],
                     'redirects' => [
                         'icon' => 'icon-link',
                         'label' => 'adrenth.redirect::lang.navigation.menu_label',
                         'url' => Backend::url('adrenth/redirect/redirects'),
-                        'permissions' => [
-                            'adrenth.redirect.access_redirects',
-                        ],
-                    ],
-                    'test_lab' => [
-                        'icon' => 'icon-flask',
-                        'label' => 'adrenth.redirect::lang.title.test_lab',
-                        'url' => Backend::url('adrenth/redirect/testlab'),
+                        'order' => 20,
                         'permissions' => [
                             'adrenth.redirect.access_redirects',
                         ],
@@ -180,14 +173,7 @@ class Plugin extends PluginBase
                         'label' => 'adrenth.redirect::lang.buttons.reorder_redirects',
                         'url' => Backend::url('adrenth/redirect/redirects/reorder'),
                         'icon' => 'icon-sort-amount-asc',
-                        'permissions' => [
-                            'adrenth.redirect.access_redirects',
-                        ],
-                    ],
-                    'logs' => [
-                        'label' => 'adrenth.redirect::lang.buttons.logs',
-                        'url' => Backend::url('adrenth/redirect/logs'),
-                        'icon' => 'icon-file-text-o',
+                        'order' => 40,
                         'permissions' => [
                             'adrenth.redirect.access_redirects',
                         ],
@@ -196,6 +182,7 @@ class Plugin extends PluginBase
                         'label' => 'adrenth.redirect::lang.buttons.categories',
                         'url' => Backend::url('adrenth/redirect/categories'),
                         'icon' => 'icon-tag',
+                        'order' => 60,
                         'permissions' => [
                             'adrenth.redirect.access_redirects',
                         ],
@@ -204,6 +191,7 @@ class Plugin extends PluginBase
                         'label' => 'adrenth.redirect::lang.buttons.import',
                         'url' => Backend::url('adrenth/redirect/redirects/import'),
                         'icon' => 'icon-download',
+                        'order' => 70,
                         'permissions' => [
                             'adrenth.redirect.access_redirects',
                         ],
@@ -212,12 +200,72 @@ class Plugin extends PluginBase
                         'label' => 'adrenth.redirect::lang.buttons.export',
                         'url' => Backend::url('adrenth/redirect/redirects/export'),
                         'icon' => 'icon-upload',
+                        'order' => 80,
                         'permissions' => [
                             'adrenth.redirect.access_redirects',
                         ],
                     ],
                 ],
             ],
+        ];
+
+        if (Settings::isStatisticsEnabled()) {
+            $navigation['redirect']['sideMenu']['statistics'] = [
+                'icon' => 'icon-bar-chart',
+                'label' => 'adrenth.redirect::lang.title.statistics',
+                'url' => Backend::url('adrenth/redirect/statistics'),
+                'order' => 10,
+                'permissions' => [
+                    'adrenth.redirect.access_redirects',
+                ],
+            ];
+        }
+
+        if (Settings::isTestLabEnabled()) {
+            $navigation['redirect']['sideMenu']['test_lab'] = [
+                'icon' => 'icon-flask',
+                'label' => 'adrenth.redirect::lang.title.test_lab',
+                'url' => Backend::url('adrenth/redirect/testlab'),
+                'order' => 30,
+                'permissions' => [
+                    'adrenth.redirect.access_redirects',
+                ],
+            ];
+        }
+
+        if (Settings::isLoggingEnabled()) {
+            $navigation['redirect']['sideMenu']['logs'] = [
+                'label' => 'adrenth.redirect::lang.buttons.logs',
+                'url' => Backend::url('adrenth/redirect/logs'),
+                'icon' => 'icon-file-text-o',
+                'visible' => false,
+                'order' => 50,
+                'permissions' => [
+                    'adrenth.redirect.access_redirects',
+                ],
+            ];
+        }
+
+        return $navigation;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function registerSettings()
+    {
+        /** @noinspection ClassConstantCanBeUsedInspection */
+        return [
+            'config' => [
+                'label' => 'adrenth.redirect::lang.settings.menu_label',
+                'description' => 'adrenth.redirect::lang.settings.menu_description',
+                'icon' => 'icon-link',
+                'class' => 'Adrenth\Redirect\Models\Settings',
+                'order' => 600,
+                'permissions' => [
+                    'adrenth.redirect.access_redirects',
+                ],
+            ]
         ];
     }
 
