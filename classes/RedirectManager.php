@@ -304,6 +304,10 @@ class RedirectManager
      */
     private function matchesRule(RedirectRule $rule, $url)
     {
+        if (!$this->matchesPeriod($rule)) {
+            return false;
+        }
+
         // Perform exact match if applicable
         if ($rule->isExactMatchType()) {
             return $this->matchExact($rule, $url);

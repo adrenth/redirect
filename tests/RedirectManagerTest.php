@@ -120,8 +120,8 @@ class RedirectManagerTest extends PluginTestCase
             'cms_page' => 'adrenth-redirect-testpage',
             'requirements' => null,
             'status_code' => 302,
-            'from_date' => Carbon::now(),
-            'to_date' => Carbon::now()->addWeek(),
+            'from_date' => Carbon::today(),
+            'to_date' => Carbon::today()->addWeek(),
         ]);
 
         self::assertTrue($redirect->save());
@@ -149,8 +149,8 @@ class RedirectManagerTest extends PluginTestCase
             'to_url' => '/this-should-be-target',
             'requirements' => null,
             'status_code' => 302,
-            'from_date' => Carbon::now(),
-            'to_date' => Carbon::now()->addWeek(),
+            'from_date' => Carbon::today(),
+            'to_date' => Carbon::today()->addWeek(),
         ]);
 
         self::assertTrue($redirect->save());
@@ -164,33 +164,33 @@ class RedirectManagerTest extends PluginTestCase
         // Test date between `from_date` and `end_date`
         self::assertInstanceOf(
             RedirectRule::class,
-            $manager->setMatchDate(Carbon::now()->addDay(2))
+            $manager->setMatchDate(Carbon::today()->addDay(2))
                 ->match('/this-should-be-source')
         );
 
         // Test date equals `from_date`
         self::assertInstanceOf(
             RedirectRule::class,
-            $manager->setMatchDate(Carbon::now())
+            $manager->setMatchDate(Carbon::today())
                 ->match('/this-should-be-source')
         );
 
         // Test date equals `to_date`
         self::assertInstanceOf(
             RedirectRule::class,
-            $manager->setMatchDate(Carbon::now()->addWeek())
+            $manager->setMatchDate(Carbon::today()->addWeek())
                 ->match('/this-should-be-source')
         );
 
         // Test date greater than `to_date`
         self::assertFalse(
-            $manager->setMatchDate(Carbon::now()->addWeek()->addDay())
+            $manager->setMatchDate(Carbon::today()->addWeek()->addDay())
                 ->match('/this-should-be-source')
         );
 
         // Test date less than `from_date`
         self::assertFalse(
-            $manager->setMatchDate(Carbon::now()->subDay())
+            $manager->setMatchDate(Carbon::today()->subDay())
                 ->match('/this-should-be-source')
         );
     }

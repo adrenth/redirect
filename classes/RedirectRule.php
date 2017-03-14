@@ -77,13 +77,19 @@ class RedirectRule
         if (empty($this->fromDate)) {
             $this->fromDate = null;
         } else {
-            $this->fromDate = Carbon::createFromFormat('Y-m-d', substr($this->fromDate, 0, 10));
+            $this->fromDate = Carbon::createFromFormat(
+                'Y-m-d H:i:s',
+                substr($this->fromDate, 0, 10) . ' 00:00:00'
+            );
         }
 
         if (empty($this->toDate)) {
             $this->toDate = null;
         } else {
-            $this->toDate = Carbon::createFromFormat('Y-m-d', substr($this->toDate, 0, 10));
+            $this->toDate = Carbon::createFromFormat(
+                'Y-m-d H:i:s',
+                substr($this->toDate, 0, 10) . ' 00:00:00'
+            );
         }
 
         $this->requirements = json_decode($this->requirements, true);
