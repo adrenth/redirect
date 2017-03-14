@@ -82,6 +82,8 @@ class Redirects extends Controller
 
         $this->requiredPermissions = ['adrenth.redirect.access_redirects'];
 
+        $this->addCss('/plugins/adrenth/redirect/assets/css/redirect.css', 'Adrenth.Redirect');
+
         $this->vars['match'] = null;
     }
 
@@ -143,6 +145,14 @@ class Redirects extends Controller
     // @codingStandardsIgnoreEnd
 
     /**
+     * @return string
+     */
+    public function onShowStatusCodeInfo()
+    {
+        return (string) $this->makePartial('status_code_info', [], false);
+    }
+
+    /**
      * Called after the form fields are defined.
      *
      * @param Form $host
@@ -164,14 +174,49 @@ class Redirects extends Controller
             $field->disabled = $host->model->getAttribute('system');
         }
 
-        if (in_array((int) $host->model->getAttribute('status_code'), [404, 410], true)) {
-            /** @var FormField $field */
-            $field = $host->getField('to_url');
-            $field->cssClass = 'hidden';
-        }
-
         if (!Settings::isTestLabEnabled()) {
             $host->removeTab('adrenth.redirect::lang.tab.tab_test_lab');
+        }
+
+        if (Request::method() === 'GET') {
+            $this->formExtendRefreshFields($host, $fields);
+        }
+    }
+
+    /**
+     * Called when the form is refreshed, giving the opportunity to modify the form fields.
+     *
+     * @param Form $host The hosting form widget
+     * @param array $fields Current form fields
+     * @return array
+     */
+    public function formExtendRefreshFields(Form $host, $fields)
+    {
+        if ($fields['status_code']->value
+            && $fields['status_code']->value[0] === '4'
+        ) {
+            $host->getField('to_url')->hidden = true;
+            $host->getField('static_page')->hidden = true;
+            $host->getField('cms_page')->hidden = true;
+            return;
+        }
+
+        switch ($fields['target_type']->value) {
+            case Redirect::TARGET_TYPE_CMS_PAGE:
+                $host->getField('to_url')->hidden = true;
+                $host->getField('static_page')->hidden = true;
+                $host->getField('cms_page')->hidden = false;
+                break;
+            case Redirect::TARGET_TYPE_STATIC_PAGE:
+                $host->getField('to_url')->hidden = true;
+                $host->getField('static_page')->hidden = false;
+                $host->getField('cms_page')->hidden = true;
+                break;
+            default:
+                $host->getField('to_url')->hidden = false;
+                $host->getField('static_page')->hidden = true;
+                $host->getField('cms_page')->hidden = true;
+                break;
         }
     }
 

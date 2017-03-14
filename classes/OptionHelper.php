@@ -16,10 +16,17 @@ use System\Classes\PluginManager;
 class OptionHelper
 {
     /**
+     * @param int $statusCode
      * @return array
      */
-    public static function getTargetTypeOptions()
+    public static function getTargetTypeOptions($statusCode)
     {
+        if ($statusCode === 404 || $statusCode === 410) {
+            return [
+                Redirect::TARGET_TYPE_NONE => 'adrenth.redirect::lang.redirect.target_type_none',
+            ];
+        }
+
         return [
             Redirect::TARGET_TYPE_PATH_URL => 'adrenth.redirect::lang.redirect.target_type_path_or_url',
             Redirect::TARGET_TYPE_CMS_PAGE => 'adrenth.redirect::lang.redirect.target_type_cms_page',
@@ -34,7 +41,7 @@ class OptionHelper
      */
     public static function getCmsPageOptions()
     {
-        return Page::getNameList();
+        return ['' => '-- ' . trans('adrenth.redirect::lang.redirect.none') . ' --' ] + Page::getNameList();
     }
 
     /**
@@ -44,15 +51,15 @@ class OptionHelper
      */
     public static function getStaticPageOptions()
     {
+        $options = ['' => '-- ' . trans('adrenth.redirect::lang.redirect.none') . ' --' ];
+
         $hasPagesPlugin = PluginManager::instance()->hasPlugin('RainLab.Pages');
 
         if (!$hasPagesPlugin) {
-            return [];
+            return $options;
         }
 
         $pages = \RainLab\Pages\Classes\Page::listInTheme(Theme::getActiveTheme());
-
-        $options = [];
 
         /** @var \RainLab\Pages\Classes\Page $page */
         foreach ($pages as $page) {

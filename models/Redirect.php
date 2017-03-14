@@ -6,6 +6,7 @@ use Adrenth\Redirect\Classes\OptionHelper;
 use Carbon\Carbon;
 use Eloquent;
 use Illuminate\Support\Fluent;
+use Illuminate\Validation\Validator;
 use October\Rain\Database\Builder;
 use October\Rain\Database\Model;
 use October\Rain\Database\Traits\Sortable;
@@ -34,6 +35,7 @@ class Redirect extends Model
     const TARGET_TYPE_PATH_URL = 'path_or_url';
     const TARGET_TYPE_CMS_PAGE = 'cms_page';
     const TARGET_TYPE_STATIC_PAGE = 'static_page';
+    const TARGET_TYPE_NONE = 'none';
 
     /** @var array */
     public static $types = [
@@ -46,6 +48,7 @@ class Redirect extends Model
         self::TARGET_TYPE_PATH_URL,
         self::TARGET_TYPE_CMS_PAGE,
         self::TARGET_TYPE_STATIC_PAGE,
+        self::TARGET_TYPE_NONE,
     ];
 
     /** @var array */
@@ -74,11 +77,11 @@ class Redirect extends Model
      */
     public $rules = [
         'from_url' => 'required',
-        'to_url' => 'different:from_url|required_unless:target_type,path_or_url,status_code,301,status_code,302,status_code,303',
+        'to_url' => 'different:from_url|required_if:target_type,path_or_url',
         'cms_page' => 'required_if:target_type,cms_page',
         'static_page' => 'required_if:target_type,static_page',
         'match_type' => 'required|in:exact,placeholders',
-        'target_type' => 'required|in:path_or_url,cms_page,static_page',
+        'target_type' => 'required|in:path_or_url,cms_page,static_page,none',
         'status_code' => 'required|in:301,302,303,404,410',
         'sort_order' => 'numeric',
     ];
@@ -89,7 +92,7 @@ class Redirect extends Model
      * @var array
      */
     public $customMessages = [
-        'to_url.required_unless' => 'adrenth.redirect::lang.redirect.to_url_required_if',
+        'to_url.required_if' => 'adrenth.redirect::lang.redirect.to_url_required_if',
         'cms_page.required_if' => 'adrenth.redirect::lang.redirect.cms_page_required_if',
         'static_page.required_if' => 'adrenth.redirect::lang.redirect.static_page_required_if',
     ];
@@ -151,7 +154,7 @@ class Redirect extends Model
      * @param array $rules
      * @param array $customMessages
      * @param array $attributeNames
-     * @return \Illuminate\Validation\Validator
+     * @return Validator
      */
     protected static function makeValidator(
         array $data,
@@ -277,7 +280,7 @@ class Redirect extends Model
      */
     public function getTargetTypeOptions()
     {
-        return OptionHelper::getTargetTypeOptions();
+        return OptionHelper::getTargetTypeOptions((int) $this->getAttribute('status_code'));
     }
 
     /**
@@ -362,6 +365,11 @@ class Redirect extends Model
     public function beforeSave()
     {
         switch ($this->getAttribute('target_type')) {
+            case Redirect::TARGET_TYPE_NONE:
+                $this->setAttribute('to_url', null);
+                $this->setAttribute('cms_page', null);
+                $this->setAttribute('static_page', null);
+                break;
             case Redirect::TARGET_TYPE_PATH_URL:
                 $this->setAttribute('cms_page', null);
                 $this->setAttribute('static_page', null);
