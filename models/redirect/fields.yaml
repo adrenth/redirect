@@ -7,7 +7,7 @@ fields:
         type: balloon-selector
         required: true
         span: full
-
+        default: 301
         options:
             301: adrenth.redirect::lang.redirect.permanent
             302: adrenth.redirect::lang.redirect.temporary
@@ -31,7 +31,6 @@ fields:
         default: path_or_url
         span: left
         dependsOn: status_code
-
     from_url:
         label: adrenth.redirect::lang.redirect.from_url
         placeholder: adrenth.redirect::lang.redirect.from_url_placeholder
@@ -39,6 +38,8 @@ fields:
         span: left
         comment: adrenth.redirect::lang.redirect.from_url_comment
         required: true
+        attributes:
+            autofocus: ''
     to_url:
         label: adrenth.redirect::lang.redirect.to_url
         placeholder: adrenth.redirect::lang.redirect.to_url_placeholder
@@ -62,6 +63,29 @@ fields:
         dependsOn:
             - target_type
             - status_code
+    from_scheme:
+        label: adrenth.redirect::lang.redirect.from_scheme
+        comment: adrenth.redirect::lang.redirect.from_scheme_comment
+        commentHtml: true
+        type: balloon-selector
+        span: left
+        default: auto
+        options:
+            http: http
+            https: https
+            auto: adrenth.redirect::lang.redirect.scheme_auto
+    to_scheme:
+        label: adrenth.redirect::lang.redirect.to_scheme
+        comment: adrenth.redirect::lang.redirect.to_scheme_comment
+        commentHtml: true
+        type: balloon-selector
+        span: right
+        default: auto
+        options:
+            http: http
+            https: https
+            auto: adrenth.redirect::lang.redirect.scheme_auto
+        dependsOn: status_code
 
 tabs:
     defaultTab: adrenth.redirect::lang.tab.tab_general

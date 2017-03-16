@@ -30,10 +30,17 @@ return [
         'from_url' => 'Source Path',
         'from_url_placeholder' => '/source/path',
         'from_url_comment' => 'The source path to match.',
+        'from_scheme' => 'Source scheme',
+        'from_scheme_comment' => 'Force match on scheme. If HTTP is selected <u>http://domain.com/path</u> will '
+            . 'match and <u>https://domain.com/path</u> does not match.',
         'to_url' => 'Target Path or URL',
         'to_url_placeholder' => '/absolute/path, relative/path or http://target.url', // changed since 2.0.6
         'to_url_comment' => 'The target path or URL to redirect to.',
         'to_url_required_if' => 'The target path or URL is required',
+        'to_scheme' => 'Target scheme',
+        'to_scheme_comment' => 'Target scheme will be forced to HTTP or HTTPS '
+            . 'or choose AUTOMATIC to use the default scheme of the website.',
+        'scheme_auto' => 'Automatic',
         'input_path_placeholder' => '/input/path',
         'cms_page_required_if' => 'Please provide a CMS Page to redirect to',
         'static_page_required_if' => 'Please provide a Static Page to redirect to',

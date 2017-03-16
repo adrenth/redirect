@@ -4,6 +4,7 @@ namespace Adrenth\Redirect\Classes;
 
 use Adrenth\Redirect\Models\Redirect;
 use Carbon\Carbon;
+use InvalidArgumentException;
 
 /**
  * Class RedirectRule
@@ -25,7 +26,13 @@ class RedirectRule
     private $fromUrl;
 
     /** @var string */
+    private $fromScheme;
+
+    /** @var string */
     private $toUrl;
+
+    /** @var string */
+    private $toScheme;
 
     /** @var string */
     private $cmsPage;
@@ -50,29 +57,17 @@ class RedirectRule
 
     /**
      * @param array $attributes
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     public function __construct(array $attributes)
     {
-        if (count($attributes) !== 11
-            || array_sum(array_keys($attributes)) !== 55
-        ) {
-            throw new \InvalidArgumentException('Invalid attributes provided');
-        }
+        foreach ($attributes as $key => $value) {
+            $property = camel_case($key);
 
-        list(
-            $this->id,
-            $this->matchType,
-            $this->targetType,
-            $this->fromUrl,
-            $this->toUrl,
-            $this->cmsPage,
-            $this->staticPage,
-            $this->statusCode,
-            $this->requirements,
-            $this->fromDate,
-            $this->toDate,
-            ) = $attributes;
+            if (property_exists($this, $property)) {
+                $this->{$property} = $value;
+            }
+        }
 
         if (empty($this->fromDate)) {
             $this->fromDate = null;
@@ -98,23 +93,14 @@ class RedirectRule
     /**
      * @param Redirect $model
      * @return RedirectRule
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     public static function createWithModel(Redirect $model)
     {
-        return new self([
-            $model->getAttribute('id'),
-            $model->getAttribute('match_type'),
-            $model->getAttribute('target_type'),
-            $model->getAttribute('from_url'),
-            $model->getAttribute('to_url'),
-            $model->getAttribute('cms_page'),
-            $model->getAttribute('static_page'),
-            $model->getAttribute('status_code'),
-            json_encode($model->getAttribute('requirements')),
-            $model->getAttribute('from_date'),
-            $model->getAttribute('to_date'),
-        ]);
+        $attributes = $model->toArray();
+        $attributes['requirements'] = json_encode($model->getAttribute('requirements'));
+
+        return new self($attributes);
     }
 
     /**
@@ -152,9 +138,25 @@ class RedirectRule
     /**
      * @return string
      */
+    public function getFromScheme()
+    {
+        return $this->fromScheme;
+    }
+
+    /**
+     * @return string
+     */
     public function getToUrl()
     {
         return $this->toUrl;
+    }
+
+    /**
+     * @return string
+     */
+    public function getToScheme()
+    {
+        return $this->toScheme;
     }
 
     /**
