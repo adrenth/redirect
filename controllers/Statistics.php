@@ -22,7 +22,7 @@ class Statistics extends Controller
 
         BackendMenu::setContext('Adrenth.Redirect', 'redirect', 'statistics');
 
-        $this->pageTitle = trans('adrenth.redirect::lang.title.statistics');
+        $this->pageTitle = 'adrenth.redirect::lang.title.statistics';
 
         $this->addJs('https://cdnjs.cloudflare.com/ajax/libs/vis/4.18.1/vis.min.js');
         $this->addJs('/plugins/adrenth/redirect/assets/javascript/statistics.js');
