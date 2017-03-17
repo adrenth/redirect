@@ -97,7 +97,7 @@ class RedirectRule
      */
     public static function createWithModel(Redirect $model)
     {
-        $attributes = $model->toArray();
+        $attributes = $model->getAttributes();
         $attributes['requirements'] = json_encode($model->getAttribute('requirements'));
 
         return new self($attributes);

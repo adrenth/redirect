@@ -233,9 +233,10 @@ class Redirects extends Controller
 
         try {
             $rule = RedirectRule::createWithModel($redirect);
+
             $manager = RedirectManager::createWithRule($rule);
 
-            $testDate = new Carbon(Request::get('test_date', date('Y-m-d')));
+            $testDate = Carbon::createFromFormat('Y-m-d', Request::get('test_date', date('Y-m-d')));
             $manager->setMatchDate($testDate);
 
             // TODO: Allow user to pass the scheme.
