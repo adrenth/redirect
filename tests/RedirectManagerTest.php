@@ -40,13 +40,13 @@ class RedirectManagerTest extends PluginTestCase
         self::assertInstanceOf(RedirectManager::class, $manager);
 
         $test = '/this-should-be-source';
-        $result = $manager->match($test, Redirect::SCHEME_AUTO);
+        $result = $manager->match($test, Redirect::SCHEME_HTTPS);
 
         self::assertInstanceOf(RedirectRule::class, $result);
         self::assertEquals(Cms::url('/this-should-be-target'), $manager->getLocation($result));
 
         $test = '/this-is-something-totally-different';
-        self::assertEquals(false, $manager->match($test, Redirect::SCHEME_AUTO));
+        self::assertEquals(false, $manager->match($test, Redirect::SCHEME_HTTPS));
     }
 
     public function testPlaceholderRedirect()
@@ -95,7 +95,7 @@ class RedirectManagerTest extends PluginTestCase
         self::assertEquals(Cms::url('/blog/octobercms/test/13'), $manager->getLocation($result));
 
         $test = '/blog.php?cat=wordpress&section=test&id=99';
-        $result = $manager->match($test, Redirect::SCHEME_AUTO);
+        $result = $manager->match($test, Redirect::SCHEME_HTTPS);
         self::assertInstanceOf(RedirectRule::class, $result);
         self::assertEquals(Cms::url('/blog/wordpress/test/99'), $manager->getLocation($result));
 
@@ -353,6 +353,135 @@ class RedirectManagerTest extends PluginTestCase
         $manager->setBasePath('/subdirectory/sub/sub');
 
         self::assertEquals(Cms::url('/absolute/path/to'), $manager->getLocation($rule));
+    }
+
+    public function testSchemeHttpToHttpsRedirect()
+    {
+        $redirect = new Redirect([
+            'match_type' => Redirect::TYPE_EXACT,
+            'target_type' => Redirect::TARGET_TYPE_PATH_URL,
+            'from_scheme' => Redirect::SCHEME_HTTP,
+            'from_url' => '/this-should-be-http-source',
+            'to_scheme' => Redirect::SCHEME_HTTPS,
+            'to_url' => '/this-should-be-https-target',
+            'requirements' => null,
+            'status_code' => 302,
+            'is_enabled' => 1,
+            'from_date' => null,
+            'to_date' => null,
+        ]);
+
+        $rule = RedirectRule::createWithModel($redirect);
+        $manager = RedirectManager::createWithRule($rule);
+
+        // This one should not match
+        $rule = $manager->match('/this-should-be-http-source', Redirect::SCHEME_HTTPS);
+
+        self::assertFalse($rule);
+
+        // This one should match
+        $rule = $manager->match('/this-should-be-http-source', Redirect::SCHEME_HTTP);
+
+        self::assertNotFalse($rule);
+
+        // Cms::url() returns http://localhost by default.
+        $expectedTargetUrl = Cms::url('/this-should-be-https-target');
+
+        // Make sure that it really returns http://localhost by default.
+        self::assertEquals('http://localhost/this-should-be-https-target', $expectedTargetUrl);
+
+        // Now construct the expected target URL.
+        $expectedTargetUrl = str_replace('http://', 'https://', $expectedTargetUrl);
+
+        // Get the actual target URL
+        $actualTargetUrl = $manager->getLocation($rule);
+
+        // These should be equal
+        self::assertEquals($expectedTargetUrl, $actualTargetUrl);
+    }
+
+    public function testSchemeHttpsToHttpRedirect()
+    {
+        $redirect = new Redirect([
+            'match_type' => Redirect::TYPE_EXACT,
+            'target_type' => Redirect::TARGET_TYPE_PATH_URL,
+            'from_scheme' => Redirect::SCHEME_HTTPS,
+            'from_url' => '/this-should-be-https-source',
+            'to_scheme' => Redirect::SCHEME_HTTP,
+            'to_url' => '/this-should-be-http-target',
+            'requirements' => null,
+            'status_code' => 301,
+            'is_enabled' => 1,
+            'from_date' => null,
+            'to_date' => null,
+        ]);
+
+        $rule = RedirectRule::createWithModel($redirect);
+        $manager = RedirectManager::createWithRule($rule);
+
+        // This one should not match
+        $rule = $manager->match('/this-should-be-https-source', Redirect::SCHEME_HTTP);
+
+        self::assertFalse($rule);
+
+        // This one should match
+        $rule = $manager->match('/this-should-be-https-source', Redirect::SCHEME_HTTPS);
+
+        self::assertNotFalse($rule);
+
+        // Cms::url() returns http://localhost by default.
+        $expectedTargetUrl = Cms::url('/this-should-be-http-target');
+
+        // Make sure that it really returns http://localhost by default.
+        self::assertEquals('http://localhost/this-should-be-http-target', $expectedTargetUrl);
+
+        // Get the actual target URL
+        $actualTargetUrl = $manager->getLocation($rule);
+
+        // These should be equal
+        self::assertEquals($expectedTargetUrl, $actualTargetUrl);
+    }
+
+    public function testSchemeAutoToAutoRedirect()
+    {
+        $redirect = new Redirect([
+            'match_type' => Redirect::TYPE_EXACT,
+            'target_type' => Redirect::TARGET_TYPE_PATH_URL,
+            'from_scheme' => Redirect::SCHEME_AUTO,
+            'from_url' => '/this-should-be-auto-source',
+            'to_scheme' => Redirect::SCHEME_AUTO,
+            'to_url' => '/this-should-be-auto-target',
+            'requirements' => null,
+            'status_code' => 301,
+            'is_enabled' => 1,
+            'from_date' => null,
+            'to_date' => null,
+        ]);
+
+        $rule = RedirectRule::createWithModel($redirect);
+        $manager = RedirectManager::createWithRule($rule);
+
+        // This one should match
+        $rule = $manager->match('/this-should-be-auto-source', Redirect::SCHEME_HTTP);
+
+        self::assertNotFalse($rule);
+
+        // This one should also match
+        $rule = $manager->match('/this-should-be-auto-source', Redirect::SCHEME_HTTPS);
+
+        self::assertNotFalse($rule);
+
+        // Cms::url() returns http://localhost by default.
+        $expectedTargetUrl = Cms::url('/this-should-be-auto-target');
+
+        // Make sure that it really returns http://localhost by default.
+        self::assertEquals('http://localhost/this-should-be-auto-target', $expectedTargetUrl);
+
+        // Get the actual target URL
+        $actualTargetUrl = $manager->getLocation($rule);
+
+        // These should be equal
+        self::assertEquals($expectedTargetUrl, $actualTargetUrl);
     }
 
     // TODO: Add unit tests for scheme redirection.

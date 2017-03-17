@@ -2,6 +2,7 @@
 
 namespace Adrenth\Redirect\Classes;
 
+use Adrenth\Redirect\Classes\Exceptions\InvalidScheme;
 use Adrenth\Redirect\Classes\Exceptions\RulesPathNotReadable;
 use Adrenth\Redirect\Models\Client;
 use Adrenth\Redirect\Models\Redirect;
@@ -150,12 +151,15 @@ class RedirectManager
      * @param string $requestPath
      * @param string $scheme 'http' or 'https'
      * @return RedirectRule|false
+     * @throws InvalidScheme
      */
     public function match($requestPath, $scheme)
     {
-        $requestPath = urldecode($requestPath);
+        if ($scheme !== Redirect::SCHEME_HTTP && $scheme !== Redirect::SCHEME_HTTPS) {
+            throw InvalidScheme::withScheme($scheme);
+        }
 
-        // TODO: Validate $scheme
+        $requestPath = urldecode($requestPath);
 
         $this->loadRedirectRules();
 
