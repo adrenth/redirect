@@ -9,7 +9,7 @@ use RuntimeException;
  *
  * @package Adrenth\Redirect\Classes\Exceptions
  */
-final class RulesPathNotReadable extends RuntimeException
+class RulesPathNotReadable extends RuntimeException
 {
     /**
      * @param string $path

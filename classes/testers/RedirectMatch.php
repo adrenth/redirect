@@ -5,7 +5,9 @@ namespace Adrenth\Redirect\Classes\Testers;
 use Adrenth\Redirect\Classes\Exceptions\RulesPathNotReadable;
 use Adrenth\Redirect\Classes\TesterBase;
 use Adrenth\Redirect\Classes\TesterResult;
+use Adrenth\Redirect\Models\Redirect;
 use Backend;
+use Request;
 
 /**
  * Class RedirectMatch
@@ -25,7 +27,8 @@ class RedirectMatch extends TesterBase
             return new TesterResult(false, $e->getMessage());
         }
 
-        $match = $manager->match($this->testPath);
+        // TODO: Add scheme.
+        $match = $manager->match($this->testPath, Request::getScheme());
 
         if ($match === false) {
             return new TesterResult(false, 'Did not match any redirect.');

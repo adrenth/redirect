@@ -17,17 +17,16 @@ class RedirectRuleTest extends PluginTestCase
     public function testInstance()
     {
         $rule = new RedirectRule([
-            1,
-            Redirect::TYPE_EXACT,
-            Redirect::TARGET_TYPE_PATH_URL,
-            '/from/url',
-            '/to/url',
-            null,
-            null,
-            301,
-            null,
-            Carbon::today(),
-            Carbon::tomorrow(),
+            'id' => 1,
+            'match_type' => Redirect::TYPE_EXACT,
+            'target_type' => Redirect::TARGET_TYPE_PATH_URL,
+            'from_scheme' => Redirect::SCHEME_AUTO,
+            'from_url' => '/from/url',
+            'to_url' => '/to/url',
+            'to_scheme' => Redirect::SCHEME_HTTPS,
+            'status_code' => 301,
+            'from_date' => Carbon::today(),
+            'to_date' => Carbon::tomorrow(),
         ]);
 
         self::assertEquals(1, $rule->getId());
@@ -38,6 +37,8 @@ class RedirectRuleTest extends PluginTestCase
         self::assertEquals(301, $rule->getStatusCode());
         self::assertEquals(Carbon::today(), $rule->getFromDate());
         self::assertEquals(Carbon::tomorrow(), $rule->getToDate());
+        self::assertEquals(Redirect::SCHEME_AUTO, $rule->getFromScheme());
+        self::assertEquals(Redirect::SCHEME_HTTPS, $rule->getToScheme());
     }
 
     public function testModel()
@@ -45,8 +46,10 @@ class RedirectRuleTest extends PluginTestCase
         $redirect = new Redirect([
             'match_type' => Redirect::TYPE_EXACT,
             'target_type' => Redirect::TARGET_TYPE_PATH_URL,
+            'from_scheme' => Redirect::SCHEME_AUTO,
             'from_url' => '/this-should-be-source',
             'to_url' => '/this-should-be-target',
+            'to_scheme' => Redirect::SCHEME_AUTO,
             'requirements' => null,
             'status_code' => 302,
         ]);
@@ -59,5 +62,7 @@ class RedirectRuleTest extends PluginTestCase
         self::assertEquals('/this-should-be-source', $rule->getFromUrl());
         self::assertEquals('/this-should-be-target', $rule->getToUrl());
         self::assertEquals(302, $rule->getStatusCode());
+        self::assertEquals(Redirect::SCHEME_AUTO, $rule->getToScheme());
+        self::assertEquals(Redirect::SCHEME_AUTO, $rule->getFromScheme());
     }
 }
