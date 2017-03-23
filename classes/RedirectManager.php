@@ -2,11 +2,13 @@
 
 namespace Adrenth\Redirect\Classes;
 
+use Adrenth\Redirect\Classes\Exceptions\InvalidScheme;
 use Adrenth\Redirect\Classes\Exceptions\RulesPathNotReadable;
 use Adrenth\Redirect\Models\Client;
 use Adrenth\Redirect\Models\Redirect;
 use Adrenth\Redirect\Models\RedirectLog;
 use Carbon\Carbon;
+use Cms;
 use Cms\Classes\Controller;
 use Cms\Classes\Theme;
 use DB;
@@ -146,17 +148,23 @@ class RedirectManager
     /**
      * Find a match based on given URL.
      *
-     * @param string $url
+     * @param string $requestPath
+     * @param string $scheme 'http' or 'https'
      * @return RedirectRule|false
+     * @throws InvalidScheme
      */
-    public function match($url)
+    public function match($requestPath, $scheme)
     {
-        $url = urldecode($url);
+        if ($scheme !== Redirect::SCHEME_HTTP && $scheme !== Redirect::SCHEME_HTTPS) {
+            throw InvalidScheme::withScheme($scheme);
+        }
+
+        $requestPath = urldecode($requestPath);
 
         $this->loadRedirectRules();
 
         foreach ($this->redirectRules as $rule) {
-            if ($matchedRule = $this->matchesRule($rule, $url)) {
+            if ($matchedRule = $this->matchesRule($rule, $requestPath, $scheme)) {
                 return $matchedRule;
             }
         }
@@ -222,6 +230,10 @@ class RedirectManager
                     $toUrl = $this->basePath . '/' . $toUrl;
                 }
 
+                if ($toUrl[0] === '/') {
+                    $toUrl = Cms::url($toUrl);
+                }
+
                 break;
             case Redirect::TARGET_TYPE_CMS_PAGE:
                 $toUrl = $this->redirectToCmsPage($rule);
@@ -229,6 +241,10 @@ class RedirectManager
             case Redirect::TARGET_TYPE_STATIC_PAGE:
                 $toUrl = $this->redirectToStaticPage($rule);
                 break;
+        }
+
+        if ($rule->getToScheme() !== Redirect::SCHEME_AUTO) {
+            $toUrl = str_replace(['https://', 'http://'], $rule->getToScheme() . '://', $toUrl);
         }
 
         return $toUrl;
@@ -298,24 +314,29 @@ class RedirectManager
     }
 
     /**
+     * Check if rule matches against request path and scheme.
+     *
      * @param RedirectRule $rule
-     * @param string $url
+     * @param string $requestPath
+     * @param string $scheme
      * @return RedirectRule|bool
      */
-    private function matchesRule(RedirectRule $rule, $url)
+    private function matchesRule(RedirectRule $rule, $requestPath, $scheme)
     {
-        if (!$this->matchesPeriod($rule)) {
+        if (!$this->matchesScheme($rule, $scheme)
+            || !$this->matchesPeriod($rule)
+        ) {
             return false;
         }
 
         // Perform exact match if applicable
         if ($rule->isExactMatchType()) {
-            return $this->matchExact($rule, $url);
+            return $this->matchExact($rule, $requestPath);
         }
 
         // Perform placeholders match if applicable
         if ($rule->isPlaceholdersMatchType()) {
-            return $this->matchPlaceholders($rule, $url);
+            return $this->matchPlaceholders($rule, $requestPath);
         }
 
         return false;
@@ -409,6 +430,20 @@ class RedirectManager
     }
 
     /**
+     * @param RedirectRule $rule
+     * @param string $scheme
+     * @return bool
+     */
+    private function matchesScheme(RedirectRule $rule, $scheme)
+    {
+        if ($rule->getFromScheme() === Redirect::SCHEME_AUTO) {
+            return true;
+        }
+
+        return $rule->getFromScheme() === $scheme;
+    }
+
+    /**
      * Find replacement value for placeholder.
      *
      * @param RedirectRule $rule
@@ -443,7 +478,11 @@ class RedirectManager
             /** @var Reader $reader */
             $reader = Reader::createFromPath($this->redirectRulesPath);
 
-            foreach ($reader as $row) {
+            // WARNING: this is deprecated method in league/csv:8.0, when league/csv is upgraded to version 9 we should
+            // follow the instructions on this page: http://csv.thephpleague.com/upgrading/9.0/
+            $results = $reader->fetchAssoc(0);
+
+            foreach ($results as $row) {
                 $rule = new RedirectRule($row);
 
                 if ($this->matchesPeriod($rule)) {

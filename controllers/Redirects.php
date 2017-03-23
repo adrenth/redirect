@@ -198,6 +198,7 @@ class Redirects extends Controller
             $host->getField('to_url')->hidden = true;
             $host->getField('static_page')->hidden = true;
             $host->getField('cms_page')->hidden = true;
+            $host->getField('to_scheme')->hidden = true;
             return;
         }
 
@@ -232,12 +233,14 @@ class Redirects extends Controller
 
         try {
             $rule = RedirectRule::createWithModel($redirect);
+
             $manager = RedirectManager::createWithRule($rule);
 
-            $testDate = new Carbon(Request::get('test_date', date('Y-m-d')));
+            $testDate = Carbon::createFromFormat('Y-m-d', Request::get('test_date', date('Y-m-d')));
             $manager->setMatchDate($testDate);
 
-            $match = $manager->match($inputPath);
+            // TODO: Allow user to pass the scheme.
+            $match = $manager->match($inputPath, Request::getScheme());
         } catch (Exception $e) {
             throw new ApplicationException($e->getMessage());
         }

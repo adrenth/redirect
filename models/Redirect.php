@@ -9,6 +9,7 @@ use Illuminate\Support\Fluent;
 use Illuminate\Validation\Validator;
 use October\Rain\Database\Builder;
 use October\Rain\Database\Model;
+use October\Rain\Database\Relations\HasMany;
 use October\Rain\Database\Traits\Sortable;
 use October\Rain\Database\Traits\Validation;
 
@@ -36,6 +37,11 @@ class Redirect extends Model
     const TARGET_TYPE_CMS_PAGE = 'cms_page';
     const TARGET_TYPE_STATIC_PAGE = 'static_page';
     const TARGET_TYPE_NONE = 'none';
+
+    // Scheme options
+    const SCHEME_HTTP = 'http';
+    const SCHEME_HTTPS = 'https';
+    const SCHEME_AUTO = 'auto';
 
     /** @var array */
     public static $types = [
@@ -77,7 +83,9 @@ class Redirect extends Model
      */
     public $rules = [
         'from_url' => 'required',
+        'from_scheme' => 'in:http,https,auto',
         'to_url' => 'different:from_url|required_if:target_type,path_or_url',
+        'to_scheme' => 'in:http,https,auto',
         'cms_page' => 'required_if:target_type,cms_page',
         'static_page' => 'required_if:target_type,static_page',
         'match_type' => 'required|in:exact,placeholders',
@@ -111,7 +119,9 @@ class Redirect extends Model
      */
     public $attributeNames = [
         'to_url' => 'adrenth.redirect::lang.redirect.to_url',
+        'to_scheme' => 'adrenth.redirect::lang.redirect.to_scheme',
         'from_url' => 'adrenth.redirect::lang.redirect.from_url',
+        'from_scheme' => 'adrenth.redirect::lang.redirect.to_scheme',
         'match_type' => 'adrenth.redirect::lang.redirect.match_type',
         'target_type' => 'adrenth.redirect::lang.redirect.target_type',
         'cms_page' => 'adrenth.redirect::lang.redirect.target_type_cms_page',
@@ -217,7 +227,7 @@ class Redirect extends Model
     }
 
     /**
-     * @return \October\Rain\Database\Relations\HasMany
+     * @return HasMany
      */
     public function clients()
     {
@@ -369,6 +379,7 @@ class Redirect extends Model
                 $this->setAttribute('to_url', null);
                 $this->setAttribute('cms_page', null);
                 $this->setAttribute('static_page', null);
+                $this->setAttribute('to_scheme', self::SCHEME_AUTO);
                 break;
             case Redirect::TARGET_TYPE_PATH_URL:
                 $this->setAttribute('cms_page', null);

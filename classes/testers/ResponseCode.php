@@ -7,6 +7,7 @@ use Adrenth\Redirect\Classes\TesterBase;
 use Adrenth\Redirect\Classes\TesterResult;
 use Adrenth\Redirect\Models\Redirect;
 use Backend;
+use Request;
 
 /**
  * Class ResponseCode
@@ -53,7 +54,8 @@ class ResponseCode extends TesterBase
             return new TesterResult(false, $e->getMessage());
         }
 
-        $match = $manager->match($this->testPath);
+        // TODO: Add scheme
+        $match = $manager->match($this->testPath, Request::getScheme());
 
         if ($match && $match->getStatusCode() !== $statusCode) {
             $message = sprintf(

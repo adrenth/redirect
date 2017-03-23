@@ -41,9 +41,14 @@ class TestLab extends Controller
         $this->loadRedirects();
     }
 
+    /**
+     * /index
+     *
+     * @return void
+     */
     public function index()
     {
-        $this->pageTitle = trans('adrenth.redirect::lang.title.test_lab');
+        $this->pageTitle = 'adrenth.redirect::lang.title.test_lab';
 
         $this->addCss('/plugins/adrenth/redirect/assets/css/test-lab.css', 'Adrenth.Redirect');
         $this->addJs('/plugins/adrenth/redirect/assets/javascript/test-lab.js', 'Adrenth.Redirect');
@@ -51,6 +56,11 @@ class TestLab extends Controller
         $this->vars['redirectCount'] = $this->getRedirectCount();
     }
 
+    /**
+     * Load redirects
+     *
+     * @return void
+     */
     private function loadRedirects()
     {
         /** @var Collection $redirects */
@@ -79,6 +89,9 @@ class TestLab extends Controller
 
     // @codingStandardsIgnoreStart
 
+    /**
+     * @return string
+     */
     public function index_onTest()
     {
         $offset = (int) Input::get('offset');
@@ -90,7 +103,7 @@ class TestLab extends Controller
         }
 
         try {
-            $partial = $this->makePartial(
+            $partial = (string) $this->makePartial(
                 'tester_result', [
                     'redirect' => $redirect,
                     'testPath' => $this->getTestPath($redirect),
@@ -98,7 +111,7 @@ class TestLab extends Controller
                 ]
             );
         } catch (Exception $e) {
-            $partial = $this->makePartial(
+            $partial = (string) $this->makePartial(
                 'tester_failed',
                 [
                     'redirect' => $redirect,

@@ -3,6 +3,7 @@
 namespace Adrenth\Redirect\Classes;
 
 use Adrenth\Redirect\Models\Redirect;
+use Exception;
 use Illuminate\Database\Eloquent\Collection;
 use League\Csv\Writer;
 use Log;
@@ -39,26 +40,31 @@ class PublishManager
             unlink($this->redirectsFile);
         }
 
+        $columns = [
+            'id',
+            'match_type',
+            'target_type',
+            'from_scheme',
+            'from_url',
+            'to_scheme',
+            'to_url',
+            'cms_page',
+            'static_page',
+            'status_code',
+            'requirements',
+            'from_date',
+            'to_date',
+        ];
+
         /** @var Collection $redirects */
         $redirects = Redirect::query()
             ->where('is_enabled', '=', 1)
             ->orderBy('sort_order')
-            ->get([
-                'id',
-                'match_type',
-                'target_type',
-                'from_url',
-                'to_url',
-                'cms_page',
-                'static_page',
-                'status_code',
-                'requirements',
-                'from_date',
-                'to_date',
-            ]);
+            ->get($columns);
 
         try {
             $writer = Writer::createFromPath($this->redirectsFile, 'w+');
+            $writer->insertOne($columns);
 
             foreach ($redirects->toArray() as $row) {
                 if (array_key_exists('requirements', $row)) {
@@ -67,7 +73,7 @@ class PublishManager
 
                 $writer->insertOne($row);
             }
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             Log::critical($e);
         }
 

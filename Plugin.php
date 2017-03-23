@@ -2,6 +2,7 @@
 
 namespace Adrenth\Redirect;
 
+use Adrenth\Redirect\Classes\Exceptions\InvalidScheme;
 use Adrenth\Redirect\Classes\Exceptions\RulesPathNotReadable;
 use Adrenth\Redirect\Classes\PageHandler;
 use Adrenth\Redirect\Classes\PublishManager;
@@ -82,7 +83,11 @@ class Plugin extends PluginBase
 
         $requestUri = str_replace(Request::getBasePath(), '', Request::getRequestUri());
 
-        $rule = $manager->match($requestUri);
+        try {
+            $rule = $manager->match($requestUri, Request::getScheme());
+        } catch (InvalidScheme $e) {
+            $rule = false;
+        }
 
         if ($rule) {
             $manager->redirectWithRule($rule, $requestUri);

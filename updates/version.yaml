@@ -78,3 +78,6 @@
     - Add Redirect settings (see Settings > Misc > Redirect) and minor fixes
     - 330_01_AddDefaultSettings.php
 3.4.0: UI Improvements and bugfixes
+3.5.0:
+    - Add scheme matching HTTP <-> HTTPS (advanced)
+    - 350_01_AddFromToSchemeToRedirectsTable.php
