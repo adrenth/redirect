@@ -483,6 +483,4 @@ class RedirectManagerTest extends PluginTestCase
         // These should be equal
         self::assertEquals($expectedTargetUrl, $actualTargetUrl);
     }
-
-    // TODO: Add unit tests for scheme redirection.
 }

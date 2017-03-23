@@ -63,29 +63,6 @@ fields:
         dependsOn:
             - target_type
             - status_code
-    from_scheme:
-        label: adrenth.redirect::lang.redirect.from_scheme
-        comment: adrenth.redirect::lang.redirect.from_scheme_comment
-        commentHtml: true
-        type: balloon-selector
-        span: left
-        default: auto
-        options:
-            http: http
-            https: https
-            auto: adrenth.redirect::lang.redirect.scheme_auto
-    to_scheme:
-        label: adrenth.redirect::lang.redirect.to_scheme
-        comment: adrenth.redirect::lang.redirect.to_scheme_comment
-        commentHtml: true
-        type: balloon-selector
-        span: right
-        default: auto
-        options:
-            http: http
-            https: https
-            auto: adrenth.redirect::lang.redirect.scheme_auto
-        dependsOn: status_code
 
 tabs:
     defaultTab: adrenth.redirect::lang.tab.tab_general
@@ -209,3 +186,31 @@ tabs:
                 action: show
                 field: match_type
                 condition: value[placeholders]
+        #
+        # Advanced
+        #
+        from_scheme:
+            tab: adrenth.redirect::lang.tab.tab_advanced
+            label: adrenth.redirect::lang.redirect.from_scheme
+            comment: adrenth.redirect::lang.redirect.from_scheme_comment
+            commentHtml: true
+            type: balloon-selector
+            span: left
+            default: auto
+            options:
+                http: http
+                https: https
+                auto: adrenth.redirect::lang.redirect.scheme_auto
+        to_scheme:
+            tab: adrenth.redirect::lang.tab.tab_advanced
+            label: adrenth.redirect::lang.redirect.to_scheme
+            comment: adrenth.redirect::lang.redirect.to_scheme_comment
+            commentHtml: true
+            type: balloon-selector
+            span: right
+            default: auto
+            options:
+                http: http
+                https: https
+                auto: adrenth.redirect::lang.redirect.scheme_auto
+            dependsOn: status_code

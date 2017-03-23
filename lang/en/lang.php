@@ -155,6 +155,7 @@ return [
         'tab_test' => 'Test',
         'tab_scheduling' => 'Scheduling',
         'tab_test_lab' => 'TestLab',
+        'tab_advanced' => 'Advanced',
     ],
     'flash' => [
         'success_created_redirects' => 'Successfully created :count redirects', // since 2.0.3
