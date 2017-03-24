@@ -15,21 +15,40 @@ return [
         'menu_label' => 'Ompekningar',
         'menu_description' => 'Hantera ompekningar',
     ],
+    'settings' => [
+        'menu_label' => 'Redirects', // TODO
+        'menu_description' => 'Manage settings for Redirects.', // TODO
+        'logging_enabled_label' => 'Log redirect events', // TODO
+        'logging_enabled_comment' => 'Store redirect events in the database.', // TODO
+        'statistics_enabled_label' => 'Gather statistics', // TODO
+        'statistics_enabled_comment' => 'Gather statistics of redirected requests to get more insight.', // TODO
+        'test_lab_enabled_label' => 'TestLab (beta)', // TODO
+        'test_lab_enabled_comment' => 'TestLab allows you to mass test your redirects.', // TODO
+    ],
     'redirect' => [
         'redirect' => 'Ompekning',
         'from_url' => 'Anropsadress',
         'from_url_placeholder' => '/source/path',
         'from_url_comment' => 'Anropsadressen att matcha',
+        'from_scheme' => 'Source scheme', // TODO
+        'from_scheme_comment' => 'Force match on scheme. If HTTP is selected <u>http://domain.com/path</u> will '
+            . 'match and <u>https://domain.com/path</u> does not match.', // TODO
         'to_url' => 'Måladress',
         'to_url_placeholder' => '/absolute/path, relative/path eller http://target.url',
         'to_url_comment' => 'Måladressen eller url:en att ompeka till',
         'to_url_required_if' => 'Måladressen är obligatorisk',
+        'to_scheme' => 'Target scheme', // TODO
+        'to_scheme_comment' => 'Target scheme will be forced to HTTP or HTTPS '
+            . 'or choose AUTOMATIC to use the default scheme of the website.', // TODO
+        'scheme_auto' => 'Automatic', // TODO
+        'input_path_placeholder' => '/input/path', // TODO
         'cms_page_required_if' => 'Ange en CMS-adress att ompeka till',
         'static_page_required_if' => 'Ange en Sidor-sida att ompeka till',
         'match_type' => 'Matcha typ',
         'exact' => 'Exakt',
         'placeholders' => 'Platshållare',
         'target_type' => 'Måltyp',
+        'target_type_none' => 'Not applicable', // TODO
         'target_type_path_or_url' => 'Mål eller url',
         'target_type_cms_page' => 'CMS-sida',
         'target_type_static_page' => 'Sidor-sida',
@@ -50,6 +69,7 @@ return [
         'not_found' => '404 - Ofunnen',
         'gone' => '410 - Gone', // TODO
         'enabled' => 'Aktiv',
+        'none' => 'none', // TODO
         'enabled_comment' => 'Slå på för att aktivera ompekningen',
         'priority' => 'Prioritet',
         'hits' => 'Träffar',
@@ -108,6 +128,7 @@ return [
         'edit_category' => 'Ändra kategori',
         'view_redirect_log' => 'View redirect log', // TODO
         'statistics' => 'Statistics', // TODO
+        'test_lab' => 'TestLab (beta)', // TODO
     ],
     'buttons' => [
         'add' => 'Skapa',
@@ -131,6 +152,8 @@ return [
         'tab_requirements' => 'Krav',
         'tab_test' => 'Test',
         'tab_scheduling' => 'Schemalägg',
+        'tab_test_lab' => 'TestLab', // TODO
+        'tab_advanced' => 'Advanced', // TODO
     ],
     'flash' => [
         'success_created_redirects' => 'Skapade :count ompekningar',

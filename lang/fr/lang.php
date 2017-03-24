@@ -15,21 +15,40 @@ return [
         'menu_label' => 'Redirects',
         'menu_description' => 'Gestion des redirections',
     ],
+    'settings' => [
+        'menu_label' => 'Redirects', // TODO
+        'menu_description' => 'Manage settings for Redirects.', // TODO
+        'logging_enabled_label' => 'Log redirect events', // TODO
+        'logging_enabled_comment' => 'Store redirect events in the database.', // TODO
+        'statistics_enabled_label' => 'Gather statistics', // TODO
+        'statistics_enabled_comment' => 'Gather statistics of redirected requests to get more insight.', // TODO
+        'test_lab_enabled_label' => 'TestLab (beta)', // TODO
+        'test_lab_enabled_comment' => 'TestLab allows you to mass test your redirects.', // TODO
+    ],
     'redirect' => [
         'redirect' => 'Redirect',
         'from_url' => 'Chemin source',
         'from_url_placeholder' => '/source/path',
         'from_url_comment' => 'Le chemin source à trouver',
+        'from_scheme' => 'Source scheme', // TODO
+        'from_scheme_comment' => 'Force match on scheme. If HTTP is selected <u>http://domain.com/path</u> will '
+            . 'match and <u>https://domain.com/path</u> does not match.', // TODO
         'to_url' => 'Chemin cible ou URL',
         'to_url_placeholder' => '/chemin/cible or http://cible.url',
         'to_url_comment' => 'Le chemin cible ou l\'url vers laquelle rediriger.',
         'to_url_required_if' => 'Le chemin cible ou l\'url est requis',
+        'to_scheme' => 'Target scheme', // TODO
+        'to_scheme_comment' => 'Target scheme will be forced to HTTP or HTTPS '
+            . 'or choose AUTOMATIC to use the default scheme of the website.', // TODO
+        'scheme_auto' => 'Automatic', // TODO
+        'input_path_placeholder' => '/input/path', // TODO
         'cms_page_required_if' => 'Veuillez spécifier une CMS Page de destination',
         'static_page_required_if' => 'Veuillez spécifier une Static Page de destination',
         'match_type' => 'Type de correspondance',
         'exact' => 'Exacte',
         'placeholders' => 'Placeholders',
         'target_type' => 'Type de cible',
+        'target_type_none' => 'Not applicable', // TODO
         'target_type_path_or_url' => 'Chemin ou URL',
         'target_type_cms_page' => 'CMS Page',
         'target_type_static_page' => 'Static Page',
@@ -53,6 +72,7 @@ return [
         'not_found' => '404 - Page non trouvée',
         'gone' => '410 - Gone', // TODO
         'enabled' => 'Activée',
+        'none' => 'none', // TODO
         'enabled_comment' => 'Actionnez ce switch pour activer la redirection.',
         'priority' => 'Priorité',
         'hits' => 'Hits',
@@ -112,6 +132,7 @@ return [
         'edit_category' => 'Edit category', // TODO
         'view_redirect_log' => 'View redirect log', // TODO
         'statistics' => 'Statistics', // TODO
+        'test_lab' => 'TestLab (beta)', // TODO
     ],
     'buttons' => [
         'add' => 'Add', // TODO
@@ -135,6 +156,8 @@ return [
         'tab_requirements' => 'Conditions',
         'tab_test' => 'Test',
         'tab_scheduling' => 'Planification',
+        'tab_test_lab' => 'TestLab', // TODO
+        'tab_advanced' => 'Advanced', // TODO
     ],
     'flash' => [
         'success_created_redirects' => 'Successfully created :count redirects', // TODO

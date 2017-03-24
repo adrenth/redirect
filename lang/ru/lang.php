@@ -15,21 +15,40 @@ return [
         'menu_label' => 'Редиректы',
         'menu_description' => 'Управление редиректами',
     ],
+    'settings' => [
+        'menu_label' => 'Redirects', // TODO
+        'menu_description' => 'Manage settings for Redirects.', // TODO
+        'logging_enabled_label' => 'Log redirect events', // TODO
+        'logging_enabled_comment' => 'Store redirect events in the database.', // TODO
+        'statistics_enabled_label' => 'Gather statistics', // TODO
+        'statistics_enabled_comment' => 'Gather statistics of redirected requests to get more insight.', // TODO
+        'test_lab_enabled_label' => 'TestLab (beta)', // TODO
+        'test_lab_enabled_comment' => 'TestLab allows you to mass test your redirects.', // TODO
+    ],
     'redirect' => [
         'redirect' => 'Редиректы',
         'from_url' => 'Исходный путь',
         'from_url_placeholder' => '/source/path',
         'from_url_comment' => 'Исходный путь относительно корня сайта.',
+        'from_scheme' => 'Source scheme', // TODO
+        'from_scheme_comment' => 'Force match on scheme. If HTTP is selected <u>http://domain.com/path</u> will '
+            . 'match and <u>https://domain.com/path</u> does not match.', // TODO
         'to_url' => 'Путь редиректа или URL',
         'to_url_placeholder' => '/absolute/path, relative/path или http://target.url',
         'to_url_comment' => 'Абсолютный путь, относительный путь или URL для перенаправления.',
         'to_url_required_if' => 'Исходный путь или URL обязателен для заполнения',
+        'to_scheme' => 'Target scheme', // TODO
+        'to_scheme_comment' => 'Target scheme will be forced to HTTP or HTTPS '
+            . 'or choose AUTOMATIC to use the default scheme of the website.', // TODO
+        'scheme_auto' => 'Automatic', // TODO
+        'input_path_placeholder' => '/input/path', // TODO
         'cms_page_required_if' => 'Пожалуйста, выберите страницу CMS для перенаправления',
         'static_page_required_if' => 'Пожалуйста, пропишите статическую страницу для перенаправления',
         'match_type' => 'Тип соответствия',
         'exact' => 'Точный',
         'placeholders' => 'По меткам',
         'target_type' => 'Тип цели редиректа',
+        'target_type_none' => 'Not applicable', // TODO
         'target_type_path_or_url' => 'Путь или URL',
         'target_type_cms_page' => 'Страница CMS',
         'target_type_static_page' => 'Статическая страница',
@@ -50,6 +69,7 @@ return [
         'not_found' => '404 - не найдено',
         'gone' => '410 - удалено',
         'enabled' => 'Включено',
+        'none' => 'none', // TODO
         'enabled_comment' => 'Сдвиньте переключатель для включения этого редиректа.',
         'priority' => 'Приоритет',
         'hits' => 'Переходы',
@@ -107,6 +127,7 @@ return [
         'edit_category' => 'Редактировать категорию',
         'view_redirect_log' => 'Смотреть лог редиректов',
         'statistics' => 'Статистика',
+        'test_lab' => 'TestLab (beta)', // TODO
     ],
     'buttons' => [
         'add' => 'Добавить',
@@ -130,6 +151,8 @@ return [
         'tab_requirements' => 'Параметры меток',
         'tab_test' => 'Проверка',
         'tab_scheduling' => 'Расписание',
+        'tab_test_lab' => 'TestLab', // TODO
+        'tab_advanced' => 'Advanced', // TODO
     ],
     'flash' => [
         'success_created_redirects' => 'Успешно создано :count редирект(ов)',
