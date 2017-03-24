@@ -2,11 +2,11 @@
 
 namespace Adrenth\Redirect\Classes\Testers;
 
+use Adrenth\Redirect\Classes\Exceptions\InvalidScheme;
 use Adrenth\Redirect\Classes\Exceptions\RulesPathNotReadable;
 use Adrenth\Redirect\Classes\TesterBase;
 use Adrenth\Redirect\Classes\TesterResult;
 use Adrenth\Redirect\Models\Redirect;
-use Backend;
 use Request;
 
 /**
@@ -25,6 +25,7 @@ class ResponseCode extends TesterBase
 {
     /**
      * {@inheritdoc}
+     * @throws InvalidScheme
      */
     protected function test()
     {
@@ -41,7 +42,7 @@ class ResponseCode extends TesterBase
         }
 
         if ($error !== null) {
-            return new TesterResult(false, 'Could not execute request.', 0);
+            return new TesterResult(false, trans('adrenth.redirect::lang.test_lab.result_request_failed'), 0);
         }
 
         $statusCode = (int) curl_getinfo($curlHandle, CURLINFO_HTTP_CODE);
@@ -58,21 +59,16 @@ class ResponseCode extends TesterBase
         $match = $manager->match($this->testPath, Request::getScheme());
 
         if ($match && $match->getStatusCode() !== $statusCode) {
-            $message = sprintf(
-                'Matched <a href="%s" target="_blank">redirect</a>, '
-                    . 'but response HTTP code did not match! Expected %d but received %s.',
-                Backend::url('adrenth/redirect/redirects/update/' . $match->getId()),
-                $match->getStatusCode(),
-                $statusCode
-            );
+            $message = trans('adrenth.redirect::lang.test_lab.matched_not_http_code', [
+                'expected' => $match->getStatusCode(),
+                'received' => $statusCode
+            ]);
 
             return new TesterResult(false, $message);
         } elseif ($match && $match->getStatusCode() === $statusCode) {
-            $message = sprintf(
-                'Matched <a href="%s" target="_blank">redirect</a>, response HTTP code %d.',
-                Backend::url('adrenth/redirect/redirects/update/' . $match->getId()),
-                $statusCode
-            );
+            $message = trans('adrenth.redirect::lang.test_lab.matched_http_code', [
+                'code' => $statusCode,
+            ]);
 
             return new TesterResult(true, $message);
         }
@@ -81,14 +77,15 @@ class ResponseCode extends TesterBase
         if (!array_key_exists($statusCode, Redirect::$statusCodes)) {
             return new TesterResult(
                 false,
-                'Response HTTP code should be one of: '
+                trans('adrenth.redirect::lang.test_lab.response_http_code_should_be')
+                . ' '
                 . implode(', ', array_keys(Redirect::$statusCodes))
             );
         }
 
         return new TesterResult(
             true,
-            'Response HTTP code ' . $statusCode
+            trans('adrenth.redirect::lang.test_lab.response_http_code') . ': ' . $statusCode
         );
     }
 }

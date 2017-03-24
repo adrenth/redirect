@@ -15,8 +15,8 @@
                  style="width:0">
             </div>
         </div>
-        <p id="progress" data-initial="Press the 'Start tests' button to begin.">
-            Press the 'Start tests' button to begin.
+        <p id="progress" data-initial="<?= e(trans('adrenth.redirect::lang.test_lab.start_tests_description')) ?>">
+            <?= e(trans('adrenth.redirect::lang.test_lab.start_tests_description')) ?>
         </p>
     </div>
     <div class="col-md-3 col-sm-4" id="testButtonWrapper">
@@ -33,8 +33,7 @@
                     aria-hidden="true">&times;
             </button>
             <div class="content">
-                <p>No redirects have been marked with TestLab enabled. Please enable the option 'Include in
-                    TestLab' when <a href="<?= Backend::url('adrenth/redirect/redirects') ?>">editing</a> a redirect.</p>
+                <p><?= e(trans('adrenth.redirect::lang.test_lab.no_redirects')) ?></p>
             </div>
         </div>
     </div>

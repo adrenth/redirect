@@ -28,7 +28,7 @@ class RedirectFinalDestination extends TesterBase
         $error = null;
 
         if (curl_exec($curlHandle) === false) {
-            $error = 'Could not determine final destination URL.';
+            $error = trans('adrenth.redirect::lang.test_lab.not_determinate_destination_url');
         }
 
         $finalDestination = curl_getinfo($curlHandle, CURLINFO_REDIRECT_URL);
@@ -37,10 +37,12 @@ class RedirectFinalDestination extends TesterBase
         curl_close($curlHandle);
 
         if (empty($finalDestination) && $statusCode > 400) {
-            $message = $error === null ? 'No final destination URL.' : $error;
+            $message = $error === null ? trans('adrenth.redirect::lang.test_lab.no_destination_url') : $error;
         } else {
             $finalDestination = sprintf('<a href="%s" target="_blank">%s</a>', $finalDestination, $finalDestination);
-            $message = $error === null ? "Final destination is $finalDestination." : $error;
+            $message = $error === null
+                ? trans('adrenth.redirect::lang.test_lab.final_destination_is', ['destination' => $finalDestination])
+                : $error;
         }
 
         return new TesterResult($error === null, $message);

@@ -16,6 +16,9 @@ use October\Rain\Database\Collection;
  */
 class Statistics extends Controller
 {
+    /**
+     * {@inheritdoc}
+     */
     public function __construct()
     {
         parent::__construct();

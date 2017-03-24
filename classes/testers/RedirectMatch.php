@@ -2,10 +2,10 @@
 
 namespace Adrenth\Redirect\Classes\Testers;
 
+use Adrenth\Redirect\Classes\Exceptions\InvalidScheme;
 use Adrenth\Redirect\Classes\Exceptions\RulesPathNotReadable;
 use Adrenth\Redirect\Classes\TesterBase;
 use Adrenth\Redirect\Classes\TesterResult;
-use Adrenth\Redirect\Models\Redirect;
 use Backend;
 use Request;
 
@@ -18,6 +18,7 @@ class RedirectMatch extends TesterBase
 {
     /**
      * {@inheritdoc}
+     * @throws InvalidScheme
      */
     protected function test()
     {
@@ -31,12 +32,14 @@ class RedirectMatch extends TesterBase
         $match = $manager->match($this->testPath, Request::getScheme());
 
         if ($match === false) {
-            return new TesterResult(false, 'Did not match any redirect.');
+            return new TesterResult(false, trans('adrenth.redirect::lang.test_lab.not_match_redirect'));
         }
 
         $message = sprintf(
-            'Matched <a href="%s" target="_blank">redirect</a>.',
-            Backend::url('adrenth/redirect/redirects/update/' . $match->getId())
+            '%s <a href="%s" target="_blank">%s</a>.',
+            trans('adrenth.redirect::lang.test_lab.matched'),
+            Backend::url('adrenth/redirect/redirects/update/' . $match->getId()),
+            trans('adrenth.redirect::lang.test_lab.redirect')
         );
 
         return new TesterResult(true, $message);

@@ -117,6 +117,60 @@ return [
         'no_match' => 'Ingen matchning hittades!',
         'match_success_label' => 'Vi har en matchning!',
     ],
+    'test_lab' => [
+        'section_test_lab_comment' => 'TestLab allows you to mass test your redirects.', // TODO
+        'test_lab_label' => 'Include in TestLab', // TODO
+        'test_lab_enable' => 'Flick this switch to allow testing this redirect in the TestLab.', // TODO
+        'test_lab_path_label' => 'Test Path', // TODO
+        'test_lab_path_comment' => 'This path will be used when performing tests. '
+            . 'Replace placeholders with real values.', // TODO
+        'start_tests' => 'Start Tests', // TODO
+        'start_tests_description' => 'Press the \'Start tests\' button to begin.', // TODO
+        'edit' => 'Edit', // TODO
+        'exclude' => 'Exclude', // TODO
+        'exclude_confirm' => 'Are you sure want to exclude this redirect from TestLab?', // TODO
+        'exclude_indicator' => 'Excluding redirect from TestLab', // TODO
+        're_run' => 'Re-run', // TODO
+        're_run_indicator' => 'Running tests, please wait...', // TODO
+        'loop' => 'Loop', // TODO
+        'match' => 'Match', // TODO
+        'response_http_code' => 'Response HTTP code', // TODO
+        'response_http_code_should_be' => 'Response HTTP code should be one of:', // TODO
+        'redirect_count' => 'Redirect count', // TODO
+        'final_destination' => 'Final Destination', // TODO
+        'no_redirects' => 'No redirects have been marked with TestLab enabled. '
+            . 'Please enable the option \'Include in TestLab\' when editing a redirect.', // TODO
+        'test_error' => 'An error occurred when testing this redirect.', // TODO
+        'flash_test_executed' => 'Test has been executed.', // TODO
+        'flash_redirect_excluded' => 'Redirect has been excluded from TestLab and will not show up on next test run.', // TODO
+        'result_request_failed' => 'Could not execute request.', // TODO
+        'redirects_followed' => 'Number of redirects followed: :count (limited to :limit)', // TODO
+        'not_determinate_destination_url' => 'Could not determine final destination URL.', // TODO
+        'no_destination_url' => 'No final destination URL.', // TODO
+        'final_destination_is' => 'Final destination is: :destination', // TODO
+        'possible_loop' => 'Possible redirect loop!', // TODO
+        'no_loop' => 'No redirect loop detected.', // TODO
+        'not_match_redirect' => 'Did not match any redirect.', // TODO
+        'matched' => 'Matched', // TODO
+        'redirect' => 'redirect', // TODO
+        'matched_not_http_code' => 'Matched redirect, but response HTTP code did not match! '
+            . 'Expected :expected but received :received.', // TODO
+        'matched_http_code' => 'Matched redirect, response HTTP code :code.', // TODO
+    ],
+    'statistics' => [
+        'hits_per_day' => 'Redirect hits per day', // TODO
+        'click_on_chart' => 'Click on the chart to enable zooming and dragging.', // TODO
+        'requests_redirected' => 'Requests redirected', // TODO
+        'all_time' => 'all time', // TODO
+        'active_redirects' => 'Active redirects', // TODO
+        'redirects_this_month' => 'Redirects this month', // TODO
+        'previous_month' => 'previous month', // TODO
+        'latest_redirected_requests' => 'Latest redirected request', // TODO
+        'redirects_per_month' => 'Redirects per month', // TODO
+        'no_data' => 'No data', // TODO
+        'top_crawlers_this_month' => 'Top :top crawlers this month', // TODO
+        'top_redirects_this_month' => 'Top :top redirects this month', // TODO
+    ],
     'title' => [
         'import' => 'Importera',
         'export' => 'Exportera',
