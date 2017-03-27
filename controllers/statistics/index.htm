@@ -1,9 +1,9 @@
 <div class="row">
     <div class="col-md-12">
         <div class="report-widget redirect-hits-per-day">
-            <h3>Redirect hits per day</h3>
+            <h3><?= e(trans('adrenth.redirect::lang.statistics.hits_per_day')) ?></h3>
             <div id="visualization"></div>
-            <p class="help-block"><em>Click on the chart to enable zooming and dragging.</em></p>
+            <p class="help-block"><em><?= e(trans('adrenth.redirect::lang.statistics.click_on_chart')) ?></em></p>
         </div>
     </div>
 </div>
@@ -25,22 +25,22 @@
                     </ul>
                 </div>
                 <div class="scoreboard-item title-value">
-                    <h4>Requests redirected</h4>
+                    <h4><?= e(trans('adrenth.redirect::lang.statistics.requests_redirected')) ?></h4>
                     <p><?= number_format($totalRedirectsServed, 0, '', '.') ?></p>
-                    <p class="description">all time</p>
+                    <p class="description"><?= e(trans('adrenth.redirect::lang.statistics.all_time')) ?></p>
                 </div>
                 <div class="scoreboard-item title-value">
-                    <h4>Active redirects</h4>
+                    <h4><?= e(trans('adrenth.redirect::lang.statistics.active_redirects')) ?></h4>
                     <p><?= number_format($totalActiveRedirects, 0, '', '.') ?></p>
                 </div>
                 <div class="scoreboard-item title-value">
-                    <h4>Redirects this month</h4>
+                    <h4><?= e(trans('adrenth.redirect::lang.statistics.redirects_this_month')) ?></h4>
                     <p><?= number_format($totalThisMonth, 0, '', '.') ?></p>
-                    <p class="description ">previous month: <?= number_format($totalLastMonth, 0, '', '.') ?></p>
+                    <p class="description "><?= e(trans('adrenth.redirect::lang.statistics.previous_month')) ?>: <?= number_format($totalLastMonth, 0, '', '.') ?></p>
                 </div>
                 <?php if ($latestClient): ?>
                 <div class="scoreboard-item title-value">
-                    <h4>Latest redirected request</h4>
+                    <h4><?= e(trans('adrenth.redirect::lang.statistics.latest_redirected_requests')) ?></h4>
                     <p class="<?= $latestClient->crawler ? 'oc-icon-google' : 'oc-icon-user' ?>"><?= $latestClient->redirect->from_url ?></p>
                     <p class="description"><?= $latestClient->timestamp ?></p>
                 </div>
@@ -67,13 +67,13 @@
                     </ul>
                 </div>
             <?php else: ?>
-                <p class="help-block"><i class="oc-icon-meh-o"></i> No data</p>
+                <p class="help-block"><i class="oc-icon-meh-o"></i> <?= e(trans('adrenth.redirect::lang.statistics.no_data')) ?></p>
             <?php endif; ?>
         </div>
     </div>
     <div class="col-md-4">
         <div class="report-widget general">
-            <h3>Top 10 crawlers this month</h3>
+            <h3><?= e(trans('adrenth.redirect::lang.statistics.top_crawlers_this_month', ['top' => 10])) ?></h3>
             <?php if ($topTenCrawlersThisMonth): ?>
                 <div class="control-status-list">
                     <ul>
@@ -86,13 +86,13 @@
                     </ul>
                 </div>
             <?php else: ?>
-                <p class="help-block"><i class="oc-icon-meh-o"></i> No data</p>
+                <p class="help-block"><i class="oc-icon-meh-o"></i> <?= e(trans('adrenth.redirect::lang.statistics.no_data')) ?></p>
             <?php endif; ?>
         </div>
     </div>
     <div class="col-md-4">
         <div class="report-widget general">
-            <h3>Top 10 redirects this month</h3>
+            <h3><?= e(trans('adrenth.redirect::lang.statistics.top_redirects_this_month', ['top' => 10])) ?></h3>
             <?php if ($topTenRedirectsThisMonth): ?>
                 <div class="control-status-list">
                     <ul>
@@ -109,7 +109,7 @@
                     </ul>
                 </div>
             <?php else: ?>
-                <p class="help-block"><i class="oc-icon-meh-o"></i> No data</p>
+                <p class="help-block"><i class="oc-icon-meh-o"></i> <?= e(trans('adrenth.redirect::lang.statistics.no_data')) ?></p>
             <?php endif; ?>
         </div>
     </div>

@@ -16,6 +16,9 @@ use October\Rain\Database\Collection;
  */
 class Statistics extends Controller
 {
+    /**
+     * {@inheritdoc}
+     */
     public function __construct()
     {
         parent::__construct();
@@ -187,7 +190,7 @@ class Statistics extends Controller
             ->join('adrenth_redirect_redirects AS r', 'r.id', '=', 'redirect_id')
             ->whereMonth('timestamp', '=', date('m'))
             ->whereYear('timestamp', '=', date('Y'))
-            ->groupBy('redirect_id')
+            ->groupBy('redirect_id', 'r.from_url')
             ->orderByRaw('hits DESC')
             ->limit(10)
             ->get()

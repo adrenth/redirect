@@ -132,7 +132,7 @@ class TestLab extends Controller
         /** @var Redirect $redirect */
         $redirect = Redirect::findOrFail(post('id'));
 
-        Flash::success('Test has been executed.');
+        Flash::success(trans('adrenth.redirect::lang.test_lab.flash_test_executed'));
 
         return [
             '#testerResult' . $redirect->getKey() => $this->makePartial(
@@ -152,7 +152,7 @@ class TestLab extends Controller
         $redirect = Redirect::findOrFail(post('id'));
         $redirect->update(['test_lab' => false]);
 
-        Flash::success('Redirect has been excluded from TestLab and will not show up on next test run.');
+        Flash::success(trans('adrenth.redirect::lang.test_lab.flash_redirect_excluded'));
 
         return [
             '#testButtonWrapper' => $this->makePartial(

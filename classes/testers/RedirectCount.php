@@ -28,7 +28,7 @@ class RedirectCount extends TesterBase
         }
 
         if ($error !== null) {
-            return new TesterResult(false, 'Could not execute request.', 0);
+            return new TesterResult(false, trans('adrenth.redirect::lang.test_lab.result_request_failed'), 0);
         }
 
         $statusCode = (int) curl_getinfo($curlHandle, CURLINFO_HTTP_CODE);
@@ -38,7 +38,7 @@ class RedirectCount extends TesterBase
 
         return new TesterResult(
             $redirectCount === 1 || $redirectCount === 0 && $statusCode > 400,
-            'Number of redirects followed: ' . $redirectCount . ' (limited to 10).'
+            trans('adrenth.redirect::lang.test_lab.redirects_followed', ['count' => $redirectCount, 'limit' => 10])
         );
     }
 }

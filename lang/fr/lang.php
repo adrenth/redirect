@@ -15,21 +15,40 @@ return [
         'menu_label' => 'Redirects',
         'menu_description' => 'Gestion des redirections',
     ],
+    'settings' => [
+        'menu_label' => 'Redirects', // TODO
+        'menu_description' => 'Manage settings for Redirects.', // TODO
+        'logging_enabled_label' => 'Log redirect events', // TODO
+        'logging_enabled_comment' => 'Store redirect events in the database.', // TODO
+        'statistics_enabled_label' => 'Gather statistics', // TODO
+        'statistics_enabled_comment' => 'Gather statistics of redirected requests to get more insight.', // TODO
+        'test_lab_enabled_label' => 'TestLab (beta)', // TODO
+        'test_lab_enabled_comment' => 'TestLab allows you to mass test your redirects.', // TODO
+    ],
     'redirect' => [
         'redirect' => 'Redirect',
         'from_url' => 'Chemin source',
         'from_url_placeholder' => '/source/path',
         'from_url_comment' => 'Le chemin source à trouver',
+        'from_scheme' => 'Source scheme', // TODO
+        'from_scheme_comment' => 'Force match on scheme. If HTTP is selected <u>http://domain.com/path</u> will '
+            . 'match and <u>https://domain.com/path</u> does not match.', // TODO
         'to_url' => 'Chemin cible ou URL',
         'to_url_placeholder' => '/chemin/cible or http://cible.url',
         'to_url_comment' => 'Le chemin cible ou l\'url vers laquelle rediriger.',
         'to_url_required_if' => 'Le chemin cible ou l\'url est requis',
+        'to_scheme' => 'Target scheme', // TODO
+        'to_scheme_comment' => 'Target scheme will be forced to HTTP or HTTPS '
+            . 'or choose AUTOMATIC to use the default scheme of the website.', // TODO
+        'scheme_auto' => 'Automatic', // TODO
+        'input_path_placeholder' => '/input/path', // TODO
         'cms_page_required_if' => 'Veuillez spécifier une CMS Page de destination',
         'static_page_required_if' => 'Veuillez spécifier une Static Page de destination',
         'match_type' => 'Type de correspondance',
         'exact' => 'Exacte',
         'placeholders' => 'Placeholders',
         'target_type' => 'Type de cible',
+        'target_type_none' => 'Not applicable', // TODO
         'target_type_path_or_url' => 'Chemin ou URL',
         'target_type_cms_page' => 'CMS Page',
         'target_type_static_page' => 'Static Page',
@@ -53,6 +72,7 @@ return [
         'not_found' => '404 - Page non trouvée',
         'gone' => '410 - Gone', // TODO
         'enabled' => 'Activée',
+        'none' => 'none', // TODO
         'enabled_comment' => 'Actionnez ce switch pour activer la redirection.',
         'priority' => 'Priorité',
         'hits' => 'Hits',
@@ -101,6 +121,60 @@ return [
         'no_match' => 'Pas de correspondance trouvée',
         'match_success_label' => 'Nous avons une correspondance',
     ],
+    'test_lab' => [
+        'section_test_lab_comment' => 'TestLab allows you to mass test your redirects.', // TODO
+        'test_lab_label' => 'Include in TestLab', // TODO
+        'test_lab_enable' => 'Flick this switch to allow testing this redirect in the TestLab.', // TODO
+        'test_lab_path_label' => 'Test Path', // TODO
+        'test_lab_path_comment' => 'This path will be used when performing tests. '
+            . 'Replace placeholders with real values.', // TODO
+        'start_tests' => 'Start Tests', // TODO
+        'start_tests_description' => 'Press the \'Start tests\' button to begin.', // TODO
+        'edit' => 'Edit', // TODO
+        'exclude' => 'Exclude', // TODO
+        'exclude_confirm' => 'Are you sure want to exclude this redirect from TestLab?', // TODO
+        'exclude_indicator' => 'Excluding redirect from TestLab', // TODO
+        're_run' => 'Re-run', // TODO
+        're_run_indicator' => 'Running tests, please wait...', // TODO
+        'loop' => 'Loop', // TODO
+        'match' => 'Match', // TODO
+        'response_http_code' => 'Response HTTP code', // TODO
+        'response_http_code_should_be' => 'Response HTTP code should be one of:', // TODO
+        'redirect_count' => 'Redirect count', // TODO
+        'final_destination' => 'Final Destination', // TODO
+        'no_redirects' => 'No redirects have been marked with TestLab enabled. '
+            . 'Please enable the option \'Include in TestLab\' when editing a redirect.', // TODO
+        'test_error' => 'An error occurred when testing this redirect.', // TODO
+        'flash_test_executed' => 'Test has been executed.', // TODO
+        'flash_redirect_excluded' => 'Redirect has been excluded from TestLab and will not show up on next test run.', // TODO
+        'result_request_failed' => 'Could not execute request.', // TODO
+        'redirects_followed' => 'Number of redirects followed: :count (limited to :limit)', // TODO
+        'not_determinate_destination_url' => 'Could not determine final destination URL.', // TODO
+        'no_destination_url' => 'No final destination URL.', // TODO
+        'final_destination_is' => 'Final destination is: :destination', // TODO
+        'possible_loop' => 'Possible redirect loop!', // TODO
+        'no_loop' => 'No redirect loop detected.', // TODO
+        'not_match_redirect' => 'Did not match any redirect.', // TODO
+        'matched' => 'Matched', // TODO
+        'redirect' => 'redirect', // TODO
+        'matched_not_http_code' => 'Matched redirect, but response HTTP code did not match! '
+            . 'Expected :expected but received :received.', // TODO
+        'matched_http_code' => 'Matched redirect, response HTTP code :code.', // TODO
+    ],
+    'statistics' => [
+        'hits_per_day' => 'Redirect hits per day', // TODO
+        'click_on_chart' => 'Click on the chart to enable zooming and dragging.', // TODO
+        'requests_redirected' => 'Requests redirected', // TODO
+        'all_time' => 'all time', // TODO
+        'active_redirects' => 'Active redirects', // TODO
+        'redirects_this_month' => 'Redirects this month', // TODO
+        'previous_month' => 'previous month', // TODO
+        'latest_redirected_requests' => 'Latest redirected request', // TODO
+        'redirects_per_month' => 'Redirects per month', // TODO
+        'no_data' => 'No data', // TODO
+        'top_crawlers_this_month' => 'Top :top crawlers this month', // TODO
+        'top_redirects_this_month' => 'Top :top redirects this month', // TODO
+    ],
     'title' => [
         'import' => 'Import',
         'export' => 'Export',
@@ -112,6 +186,7 @@ return [
         'edit_category' => 'Edit category', // TODO
         'view_redirect_log' => 'View redirect log', // TODO
         'statistics' => 'Statistics', // TODO
+        'test_lab' => 'TestLab (beta)', // TODO
     ],
     'buttons' => [
         'add' => 'Add', // TODO
@@ -135,6 +210,8 @@ return [
         'tab_requirements' => 'Conditions',
         'tab_test' => 'Test',
         'tab_scheduling' => 'Planification',
+        'tab_test_lab' => 'TestLab', // TODO
+        'tab_advanced' => 'Advanced', // TODO
     ],
     'flash' => [
         'success_created_redirects' => 'Successfully created :count redirects', // TODO

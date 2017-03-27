@@ -7,22 +7,22 @@
             <div class="toolbar">
                 <a class="btn btn-outline-default btn-xs toolbar-item"
                    href="<?= Backend::url('adrenth/redirect/redirects/update/' . $redirect->id) ?>">
-                    <i class="oc-icon-pencil"></i>Edit
+                    <i class="oc-icon-pencil"></i><?= e(trans('adrenth.redirect::lang.test_lab.edit')) ?>
                 </a>
                 <a class="btn btn-outline-danger btn-xs toolbar-item"
                    data-request="onExclude"
                    data-request-data="id: <?= $redirect->id ?>"
-                   data-request-confirm="Are you sure want to exclude this redirect from TestLab?"
-                   data-load-indicator="Excluding redirect from TestLab"
+                   data-request-confirm="<?= e(trans('adrenth.redirect::lang.test_lab.exclude_confirm')) ?>"
+                   data-load-indicator="<?= e(trans('adrenth.redirect::lang.test_lab.exclude_indicator')) ?>"
                    href="javascript:;">
-                    <i class="oc-icon-ban"></i>Exclude
+                    <i class="oc-icon-ban"></i><?= e(trans('adrenth.redirect::lang.test_lab.exclude')) ?>
                 </a>
                 <a class="btn btn-outline-success btn-xs toolbar-item"
                    data-request="onReRun"
                    data-request-data="id: <?= $redirect->id ?>"
-                   data-load-indicator="Running tests, please wait..."
+                   data-load-indicator="<?= e(trans('adrenth.redirect::lang.test_lab.re_run_indicator')) ?>"
                    href="javascript:;">
-                    <i class="oc-icon-refresh"></i>Re-run
+                    <i class="oc-icon-refresh"></i><?= e(trans('adrenth.redirect::lang.test_lab.re_run')) ?>
                 </a>
             </div>
         </div>

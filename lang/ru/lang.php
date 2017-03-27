@@ -15,21 +15,40 @@ return [
         'menu_label' => 'Редиректы',
         'menu_description' => 'Управление редиректами',
     ],
+    'settings' => [
+        'menu_label' => 'Redirects', // TODO
+        'menu_description' => 'Manage settings for Redirects.', // TODO
+        'logging_enabled_label' => 'Log redirect events', // TODO
+        'logging_enabled_comment' => 'Store redirect events in the database.', // TODO
+        'statistics_enabled_label' => 'Gather statistics', // TODO
+        'statistics_enabled_comment' => 'Gather statistics of redirected requests to get more insight.', // TODO
+        'test_lab_enabled_label' => 'TestLab (beta)', // TODO
+        'test_lab_enabled_comment' => 'TestLab allows you to mass test your redirects.', // TODO
+    ],
     'redirect' => [
         'redirect' => 'Редиректы',
         'from_url' => 'Исходный путь',
         'from_url_placeholder' => '/source/path',
         'from_url_comment' => 'Исходный путь относительно корня сайта.',
+        'from_scheme' => 'Source scheme', // TODO
+        'from_scheme_comment' => 'Force match on scheme. If HTTP is selected <u>http://domain.com/path</u> will '
+            . 'match and <u>https://domain.com/path</u> does not match.', // TODO
         'to_url' => 'Путь редиректа или URL',
         'to_url_placeholder' => '/absolute/path, relative/path или http://target.url',
         'to_url_comment' => 'Абсолютный путь, относительный путь или URL для перенаправления.',
         'to_url_required_if' => 'Исходный путь или URL обязателен для заполнения',
+        'to_scheme' => 'Target scheme', // TODO
+        'to_scheme_comment' => 'Target scheme will be forced to HTTP or HTTPS '
+            . 'or choose AUTOMATIC to use the default scheme of the website.', // TODO
+        'scheme_auto' => 'Automatic', // TODO
+        'input_path_placeholder' => '/input/path', // TODO
         'cms_page_required_if' => 'Пожалуйста, выберите страницу CMS для перенаправления',
         'static_page_required_if' => 'Пожалуйста, пропишите статическую страницу для перенаправления',
         'match_type' => 'Тип соответствия',
         'exact' => 'Точный',
         'placeholders' => 'По меткам',
         'target_type' => 'Тип цели редиректа',
+        'target_type_none' => 'Not applicable', // TODO
         'target_type_path_or_url' => 'Путь или URL',
         'target_type_cms_page' => 'Страница CMS',
         'target_type_static_page' => 'Статическая страница',
@@ -50,6 +69,7 @@ return [
         'not_found' => '404 - не найдено',
         'gone' => '410 - удалено',
         'enabled' => 'Включено',
+        'none' => 'none', // TODO
         'enabled_comment' => 'Сдвиньте переключатель для включения этого редиректа.',
         'priority' => 'Приоритет',
         'hits' => 'Переходы',
@@ -96,6 +116,60 @@ return [
         'no_match' => 'Совпадений не найдено!',
         'match_success_label' => 'Есть совпадение!',
     ],
+    'test_lab' => [
+        'section_test_lab_comment' => 'TestLab allows you to mass test your redirects.', // TODO
+        'test_lab_label' => 'Include in TestLab', // TODO
+        'test_lab_enable' => 'Flick this switch to allow testing this redirect in the TestLab.', // TODO
+        'test_lab_path_label' => 'Test Path', // TODO
+        'test_lab_path_comment' => 'This path will be used when performing tests. '
+            . 'Replace placeholders with real values.', // TODO
+        'start_tests' => 'Start Tests', // TODO
+        'start_tests_description' => 'Press the \'Start tests\' button to begin.', // TODO
+        'edit' => 'Edit', // TODO
+        'exclude' => 'Exclude', // TODO
+        'exclude_confirm' => 'Are you sure want to exclude this redirect from TestLab?', // TODO
+        'exclude_indicator' => 'Excluding redirect from TestLab', // TODO
+        're_run' => 'Re-run', // TODO
+        're_run_indicator' => 'Running tests, please wait...', // TODO
+        'loop' => 'Loop', // TODO
+        'match' => 'Match', // TODO
+        'response_http_code' => 'Response HTTP code', // TODO
+        'response_http_code_should_be' => 'Response HTTP code should be one of:', // TODO
+        'redirect_count' => 'Redirect count', // TODO
+        'final_destination' => 'Final Destination', // TODO
+        'no_redirects' => 'No redirects have been marked with TestLab enabled. '
+            . 'Please enable the option \'Include in TestLab\' when editing a redirect.', // TODO
+        'test_error' => 'An error occurred when testing this redirect.', // TODO
+        'flash_test_executed' => 'Test has been executed.', // TODO
+        'flash_redirect_excluded' => 'Redirect has been excluded from TestLab and will not show up on next test run.', // TODO
+        'result_request_failed' => 'Could not execute request.', // TODO
+        'redirects_followed' => 'Number of redirects followed: :count (limited to :limit)', // TODO
+        'not_determinate_destination_url' => 'Could not determine final destination URL.', // TODO
+        'no_destination_url' => 'No final destination URL.', // TODO
+        'final_destination_is' => 'Final destination is: :destination', // TODO
+        'possible_loop' => 'Possible redirect loop!', // TODO
+        'no_loop' => 'No redirect loop detected.', // TODO
+        'not_match_redirect' => 'Did not match any redirect.', // TODO
+        'matched' => 'Matched', // TODO
+        'redirect' => 'redirect', // TODO
+        'matched_not_http_code' => 'Matched redirect, but response HTTP code did not match! '
+            . 'Expected :expected but received :received.', // TODO
+        'matched_http_code' => 'Matched redirect, response HTTP code :code.', // TODO
+    ],
+    'statistics' => [
+        'hits_per_day' => 'Redirect hits per day', // TODO
+        'click_on_chart' => 'Click on the chart to enable zooming and dragging.', // TODO
+        'requests_redirected' => 'Requests redirected', // TODO
+        'all_time' => 'all time', // TODO
+        'active_redirects' => 'Active redirects', // TODO
+        'redirects_this_month' => 'Redirects this month', // TODO
+        'previous_month' => 'previous month', // TODO
+        'latest_redirected_requests' => 'Latest redirected request', // TODO
+        'redirects_per_month' => 'Redirects per month', // TODO
+        'no_data' => 'No data', // TODO
+        'top_crawlers_this_month' => 'Top :top crawlers this month', // TODO
+        'top_redirects_this_month' => 'Top :top redirects this month', // TODO
+    ],
     'title' => [
         'import' => 'Импорт',
         'export' => 'Экспорт',
@@ -107,6 +181,7 @@ return [
         'edit_category' => 'Редактировать категорию',
         'view_redirect_log' => 'Смотреть лог редиректов',
         'statistics' => 'Статистика',
+        'test_lab' => 'TestLab (beta)', // TODO
     ],
     'buttons' => [
         'add' => 'Добавить',
@@ -130,6 +205,8 @@ return [
         'tab_requirements' => 'Параметры меток',
         'tab_test' => 'Проверка',
         'tab_scheduling' => 'Расписание',
+        'tab_test_lab' => 'TestLab', // TODO
+        'tab_advanced' => 'Advanced', // TODO
     ],
     'flash' => [
         'success_created_redirects' => 'Успешно создано :count редирект(ов)',

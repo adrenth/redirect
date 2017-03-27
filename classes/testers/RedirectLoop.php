@@ -27,12 +27,12 @@ class RedirectLoop extends TesterBase
 
         if (curl_exec($curlHandle) === false
             && curl_errno($curlHandle) === CURLE_TOO_MANY_REDIRECTS) {
-            $error = 'Possible redirect loop!';
+            $error = trans('adrenth.redirect::lang.test_lab.possible_loop');
         }
 
         curl_close($curlHandle);
 
-        $message = $error === null ? 'No redirect loop detected.' : $error;
+        $message = $error === null ? trans('adrenth.redirect::lang.test_lab.no_loop') : $error;
 
         return new TesterResult($error === null, $message);
     }

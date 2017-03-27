@@ -169,17 +169,17 @@ tabs:
         section_test_lab:
             tab: adrenth.redirect::lang.tab.tab_test_lab
             type: section
-            commentAbove: 'TestLab allows you to mass test your redirects.'
+            commentAbove: adrenth.redirect::lang.test_lab.section_test_lab_comment
         test_lab:
             tab: adrenth.redirect::lang.tab.tab_test_lab
-            label: 'Include in TestLab'
-            comment: 'Flick this switch to allow testing this redirect in the TestLab.'
+            label: adrenth.redirect::lang.test_lab.test_lab_label
+            comment: adrenth.redirect::lang.test_lab.test_lab_enable
             type: switch
             span: left
         test_lab_path:
             tab: adrenth.redirect::lang.tab.tab_test_lab
-            label: 'Test Path'
-            comment: 'This path will be used when performing tests. Replace placeholders with real values.'
+            label: adrenth.redirect::lang.test_lab.test_lab_path_label
+            comment: adrenth.redirect::lang.test_lab.test_lab_path_comment
             type: text
             span: left
             trigger:
