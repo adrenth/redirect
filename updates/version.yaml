@@ -82,3 +82,4 @@
     - Add scheme matching HTTP <-> HTTPS (advanced)
     - 350_01_AddFromToSchemeToRedirectsTable.php
 3.5.1: Fix MySQL query issue on Statistics dashboard (sql_mode=ONLY_FULL_GROUP_BY)
+3.5.2: Add Dutch (nl) translation (dank je Arnoud van Susteren)
