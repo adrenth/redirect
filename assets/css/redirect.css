@@ -14,3 +14,6 @@
     color: #da5700;
 }
 
+tr.special td {
+    font-style: italic;
+}

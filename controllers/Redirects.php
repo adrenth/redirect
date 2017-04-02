@@ -224,6 +224,19 @@ class Redirects extends Controller
     }
 
     /**
+     * Returns a CSS class name for a list row (<tr class="...">).
+     *
+     * @param Redirect $record The populated model used for the column
+     * @return string CSS class name
+     */
+    public function listInjectRowClass(Redirect $record)
+    {
+        if (!$record->isActiveOnDate(Carbon::now())) {
+            return 'special';
+        }
+    }
+
+    /**
      * Test Input Path
      *
      * @throws ApplicationException
