@@ -108,6 +108,10 @@ class Redirects extends Controller
             return RedirectFacade::back();
         }
 
+        if (!$redirect->isActiveOnDate(Carbon::now())) {
+            $this->vars['warningMessage'] = Lang::get('adrenth.redirect::lang.scheduling.not_active_warning');
+        }
+
         parent::update($recordId, $context);
     }
 

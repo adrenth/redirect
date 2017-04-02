@@ -91,6 +91,7 @@ return [
         'date' => 'Date',
         'truncate_confirm' => 'Are you sure you want to delete ALL records?',
         'truncating' => 'Deleting...',
+        'warning' => 'Warning',
     ],
     'list' => [
         'no_records' => 'There are no redirects in this view.',
@@ -104,6 +105,7 @@ return [
         'to_date_comment' => 'The date until this redirect is active. Can be omitted.',
         'scheduling_comment' => 'Here you can provide a period on which this redirect will be available. '
             . 'All sorts of date combinations are possible.',
+        'not_active_warning' => 'Redirect is not available anymore, please check \'Scheduling\' tab.',
     ],
     'test' => [
         'test_comment' => 'Please test your redirect before saving the redirect.',
