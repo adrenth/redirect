@@ -25,6 +25,7 @@ use Lang;
 use Redirect as RedirectFacade;
 use Request;
 use System\Models\RequestLog;
+use SystemException;
 
 /** @noinspection ClassOverridesFieldOfSuperClassInspection */
 
@@ -157,6 +158,7 @@ class Redirects extends Controller
      *
      * @param Form $host
      * @param array $fields
+     * @return void
      */
     public function formExtendFields(Form $host, array $fields = [])
     {
@@ -225,6 +227,7 @@ class Redirects extends Controller
      * Test Input Path
      *
      * @throws ApplicationException
+     * @return array
      */
     public function onTest()
     {
@@ -239,8 +242,7 @@ class Redirects extends Controller
             $testDate = Carbon::createFromFormat('Y-m-d', Request::get('test_date', date('Y-m-d')));
             $manager->setMatchDate($testDate);
 
-            // TODO: Allow user to pass the scheme.
-            $match = $manager->match($inputPath, Request::getScheme());
+            $match = $manager->match($inputPath, Request::get('test_scheme', Request::getScheme()));
         } catch (Exception $e) {
             throw new ApplicationException($e->getMessage());
         }
@@ -257,7 +259,7 @@ class Redirects extends Controller
      * Triggers Request Log dialog
      *
      * @return string
-     * @throws \SystemException
+     * @throws SystemException
      */
     public function onOpenRequestLog()
     {

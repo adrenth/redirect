@@ -41,7 +41,6 @@ return [
         'to_scheme_comment' => 'Target scheme will be forced to HTTP or HTTPS '
             . 'or choose AUTOMATIC to use the default scheme of the website.',
         'scheme_auto' => 'Automatic',
-        'input_path_placeholder' => '/input/path',
         'cms_page_required_if' => 'Please provide a CMS Page to redirect to',
         'static_page_required_if' => 'Please provide a Static Page to redirect to',
         'match_type' => 'Match Type',
@@ -111,6 +110,7 @@ return [
         'input_path' => 'Input Path',
         'input_path_comment' => 'The input path to test. E.g. /old-blog/category/123',
         'input_path_placeholder' => '/input/path',
+        'input_scheme' => 'Input scheme',
         'test_date' => 'Test Date',
         'test_date_comment' => 'If you scheduled this redirect, you can test this redirect on a certain date.',
         'testing' => 'Testing...',

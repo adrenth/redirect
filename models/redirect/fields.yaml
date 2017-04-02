@@ -126,7 +126,6 @@ tabs:
                         comment: adrenth.redirect::lang.redirect.replacement_comment
                         span: left
                         required: false
-
         #
         # Test
         #

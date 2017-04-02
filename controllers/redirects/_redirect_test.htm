@@ -1,14 +1,31 @@
 <div class="form-group span-left">
-    <label class="control-label">
-        <?= trans('adrenth.redirect::lang.test.input_path') ?>
-    </label>
-    <input type="text"
-           id="inputPath"
-           class="form-control"
-           name="Redirect[test_url]"
-           value="<?= e($formModel->getAttribute('test_url')) ?>"
-           placeholder="<?= e(trans('adrenth.redirect::lang.test.input_path_placeholder')) ?>">
-    <p class="help-block"><?= trans('adrenth.redirect::lang.test.input_path_comment') ?></p>
+    <div class="row">
+        <div class="col-md-4">
+            <label class="control-label">
+                <?= trans('adrenth.redirect::lang.test.input_scheme') ?>
+            </label>
+            <?php $defaultScheme = \Request::getScheme() ?>
+            <div data-control="balloon-selector" class="control-balloon-selector">
+                <ul>
+                    <li data-value="http"<?= $defaultScheme === 'http' ? 'class="active"' : '' ?>>http</li>
+                    <li data-value="https"<?= $defaultScheme === 'https' ? 'class="active"' : '' ?>>https</li>
+                </ul>
+                <input type="hidden" name="test_scheme" value="<?= $defaultScheme ?>">
+            </div>
+        </div>
+        <div class="col-md-8">
+            <label class="control-label">
+                <?= trans('adrenth.redirect::lang.test.input_path') ?>
+            </label>
+            <input type="text"
+                   id="inputPath"
+                   class="form-control"
+                   name="Redirect[test_url]"
+                   value="<?= e($formModel->getAttribute('test_url')) ?>"
+                   placeholder="<?= e(trans('adrenth.redirect::lang.test.input_path_placeholder')) ?>">
+            <p class="help-block"><?= trans('adrenth.redirect::lang.test.input_path_comment') ?></p>
+        </div>
+    </div>
 </div>
 <div class="form-group span-right" id="testResult">
     <?= $this->makePartial('redirect_test_result') ?>
