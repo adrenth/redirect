@@ -64,7 +64,7 @@ class OptionHelper
         /** @var \RainLab\Pages\Classes\Page $page */
         foreach ($pages as $page) {
             if (array_key_exists('title', $page->viewBag)) {
-                $options[$page->getFileName()] = $page->viewBag['title'];
+                $options[$page->getBaseFileName()] = $page->viewBag['title'];
             }
         }
 

@@ -25,6 +25,7 @@ use Lang;
 use Redirect as RedirectFacade;
 use Request;
 use System\Models\RequestLog;
+use SystemException;
 
 /** @noinspection ClassOverridesFieldOfSuperClassInspection */
 
@@ -107,6 +108,10 @@ class Redirects extends Controller
             return RedirectFacade::back();
         }
 
+        if (!$redirect->isActiveOnDate(Carbon::now())) {
+            $this->vars['warningMessage'] = Lang::get('adrenth.redirect::lang.scheduling.not_active_warning');
+        }
+
         parent::update($recordId, $context);
     }
 
@@ -157,6 +162,7 @@ class Redirects extends Controller
      *
      * @param Form $host
      * @param array $fields
+     * @return void
      */
     public function formExtendFields(Form $host, array $fields = [])
     {
@@ -222,9 +228,23 @@ class Redirects extends Controller
     }
 
     /**
+     * Returns a CSS class name for a list row (<tr class="...">).
+     *
+     * @param Redirect $record The populated model used for the column
+     * @return string CSS class name
+     */
+    public function listInjectRowClass(Redirect $record)
+    {
+        if (!$record->isActiveOnDate(Carbon::now())) {
+            return 'special';
+        }
+    }
+
+    /**
      * Test Input Path
      *
      * @throws ApplicationException
+     * @return array
      */
     public function onTest()
     {
@@ -239,8 +259,7 @@ class Redirects extends Controller
             $testDate = Carbon::createFromFormat('Y-m-d', Request::get('test_date', date('Y-m-d')));
             $manager->setMatchDate($testDate);
 
-            // TODO: Allow user to pass the scheme.
-            $match = $manager->match($inputPath, Request::getScheme());
+            $match = $manager->match($inputPath, Request::get('test_scheme', Request::getScheme()));
         } catch (Exception $e) {
             throw new ApplicationException($e->getMessage());
         }
@@ -257,7 +276,7 @@ class Redirects extends Controller
      * Triggers Request Log dialog
      *
      * @return string
-     * @throws \SystemException
+     * @throws SystemException
      */
     public function onOpenRequestLog()
     {

@@ -41,7 +41,6 @@ return [
         'to_scheme_comment' => 'Target scheme will be forced to HTTP or HTTPS '
             . 'or choose AUTOMATIC to use the default scheme of the website.',
         'scheme_auto' => 'Automatic',
-        'input_path_placeholder' => '/input/path',
         'cms_page_required_if' => 'Please provide a CMS Page to redirect to',
         'static_page_required_if' => 'Please provide a Static Page to redirect to',
         'match_type' => 'Match Type',
@@ -92,6 +91,7 @@ return [
         'date' => 'Date',
         'truncate_confirm' => 'Are you sure you want to delete ALL records?',
         'truncating' => 'Deleting...',
+        'warning' => 'Warning',
     ],
     'list' => [
         'no_records' => 'There are no redirects in this view.',
@@ -105,12 +105,14 @@ return [
         'to_date_comment' => 'The date until this redirect is active. Can be omitted.',
         'scheduling_comment' => 'Here you can provide a period on which this redirect will be available. '
             . 'All sorts of date combinations are possible.',
+        'not_active_warning' => 'Redirect is not available anymore, please check \'Scheduling\' tab.',
     ],
     'test' => [
         'test_comment' => 'Please test your redirect before saving the redirect.',
         'input_path' => 'Input Path',
         'input_path_comment' => 'The input path to test. E.g. /old-blog/category/123',
         'input_path_placeholder' => '/input/path',
+        'input_scheme' => 'Input scheme',
         'test_date' => 'Test Date',
         'test_date_comment' => 'If you scheduled this redirect, you can test this redirect on a certain date.',
         'testing' => 'Testing...',

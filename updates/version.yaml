@@ -86,3 +86,4 @@
 3.5.3:
     - Fix CSV reader issues after updating to 3.5.0
     - 353_01_PublishRedirectsToPreventCsvReaderIssues.php
+3.5.4: Small fixes and UI improvements
