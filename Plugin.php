@@ -174,15 +174,6 @@ class Plugin extends PluginBase
                             'adrenth.redirect.access_redirects',
                         ],
                     ],
-                    'reorder' => [
-                        'label' => 'adrenth.redirect::lang.buttons.reorder_redirects',
-                        'url' => Backend::url('adrenth/redirect/redirects/reorder'),
-                        'icon' => 'icon-sort-amount-asc',
-                        'order' => 40,
-                        'permissions' => [
-                            'adrenth.redirect.access_redirects',
-                        ],
-                    ],
                     'categories' => [
                         'label' => 'adrenth.redirect::lang.buttons.categories',
                         'url' => Backend::url('adrenth/redirect/categories'),
