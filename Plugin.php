@@ -10,6 +10,7 @@ use Adrenth\Redirect\Classes\RedirectManager;
 use Adrenth\Redirect\Classes\StaticPageHandler;
 use Adrenth\Redirect\Models\Redirect;
 use Adrenth\Redirect\Models\Settings;
+use Adrenth\Redirect\ReportWidgets\CreateRedirect;
 use App;
 use Backend;
 use Cms\Classes\Page;
@@ -262,6 +263,19 @@ class Plugin extends PluginBase
                     'adrenth.redirect.access_redirects',
                 ],
             ]
+        ];
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function registerReportWidgets()
+    {
+        return [
+            CreateRedirect::class => [
+                'label' => 'adrenth.redirect::lang.buttons.create_redirect',
+                'context' => 'dashboard'
+            ],
         ];
     }
 
