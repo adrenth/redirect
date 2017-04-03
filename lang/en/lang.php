@@ -193,6 +193,7 @@ return [
         'from_request_log' => 'From Request log', // since 2.0.3
         'new_redirect' => 'New redirect', // changed since 2.0.3
         'create_redirects' => 'Create redirects', // since 2.0.3
+        'create_redirect' => 'Create redirect',
         'delete' => 'Delete',
         'enable' => 'Enable',
         'disable' => 'Disable',
