@@ -88,3 +88,4 @@
     - 353_01_PublishRedirectsToPreventCsvReaderIssues.php
 3.5.4: Small fixes and UI improvements
 3.6.0: Add a quick Create Redirect widget for Dashboard
+3.7.0: Improve Import and Export of Redirects (also fixes several reported issues)
