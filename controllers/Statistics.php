@@ -41,7 +41,7 @@ class Statistics extends Controller
         $this->vars = [
             'redirectHitsPerMonth' => $helper->getRedirectHitsPerMonth(),
             'topTenCrawlersThisMonth' => $helper->getTopTenCrawlersThisMonth(),
-            'topTenRedirectsThisMonth' => $helper->getTopTenRedirectsThisMonth(),
+            'topTenRedirectsThisMonth' => $helper->getTopRedirectsThisMonth(),
             'totalActiveRedirects' => $helper->getTotalActiveRedirects(),
             'activeRedirects' => $helper->getActiveRedirects(),
             'totalRedirectsServed' => $helper->getTotalRedirectsServed(),

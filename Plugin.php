@@ -11,6 +11,7 @@ use Adrenth\Redirect\Classes\StaticPageHandler;
 use Adrenth\Redirect\Models\Redirect;
 use Adrenth\Redirect\Models\Settings;
 use Adrenth\Redirect\ReportWidgets\CreateRedirect;
+use Adrenth\Redirect\ReportWidgets\TopTenRedirects;
 use App;
 use Backend;
 use Cms\Classes\Page;
@@ -276,6 +277,10 @@ class Plugin extends PluginBase
                 'label' => 'adrenth.redirect::lang.buttons.create_redirect',
                 'context' => 'dashboard'
             ],
+            TopTenRedirects::class => [
+                'label' => trans('adrenth.redirect::lang.statistics.top_redirects_this_month', ['top' => 10]),
+                'context' => 'dashboard',
+            ]
         ];
     }
 

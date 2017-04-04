@@ -144,9 +144,10 @@ class StatisticsHelper
     }
 
     /**
+     * @param int $limit
      * @return array
      */
-    public function getTopTenRedirectsThisMonth()
+    public function getTopRedirectsThisMonth($limit = 10)
     {
         /** @noinspection PhpMethodParametersCountMismatchInspection */
         return (array) Client::selectRaw('COUNT(redirect_id) AS hits')
@@ -156,7 +157,7 @@ class StatisticsHelper
             ->whereYear('timestamp', '=', date('Y'))
             ->groupBy('redirect_id', 'r.from_url')
             ->orderByRaw('hits DESC')
-            ->limit(10)
+            ->limit($limit)
             ->get()
             ->toArray();
     }
