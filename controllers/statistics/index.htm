@@ -58,8 +58,9 @@
             <?php if ($redirectHitsPerMonth): ?>
                 <div class="control-status-list">
                     <ul>
-                        <?php foreach ($redirectHitsPerMonth as $record): ?>
+                        <?php foreach ($redirectHitsPerMonth as $key => $record): ?>
                         <li>
+                            <span class="status-icon info"><?= $key + 1 ?></span>
                             <span class="status-text"><?= date('F', mktime(0, 0, 0, $record['month'])) ?> <?= $record['year'] ?></span>
                             <span class="status-label"><?= number_format($record['hits'], 0, null, '.') ?></span>
                         </li>
@@ -77,8 +78,9 @@
             <?php if ($topTenCrawlersThisMonth): ?>
                 <div class="control-status-list">
                     <ul>
-                        <?php foreach ($topTenCrawlersThisMonth as $record): ?>
+                        <?php foreach ($topTenCrawlersThisMonth as $key => $record): ?>
                         <li>
+                            <span class="status-icon info"><?= $key + 1 ?></span>
                             <span class="status-text"><?= $record['crawler'] ?></span>
                             <span class="status-label"><?= number_format($record['hits'], 0, null, '.') ?></span>
                         </li>
@@ -96,8 +98,9 @@
             <?php if ($topTenRedirectsThisMonth): ?>
                 <div class="control-status-list">
                     <ul>
-                        <?php foreach ($topTenRedirectsThisMonth as $record): ?>
+                        <?php foreach ($topTenRedirectsThisMonth as $key => $record): ?>
                         <li>
+                            <span class="status-icon info"><?= $key + 1 ?></span>
                             <span class="status-text">
                                 <a href="<?= Backend::url('adrenth/redirect/redirects/update/' . $record['redirect_id']) ?>">
                                     <?= $record['from_url'] ?>

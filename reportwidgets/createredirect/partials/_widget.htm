@@ -3,7 +3,7 @@
     <?= Form::open() ?>
         <?= $formWidget->render() ?>
         <button type="submit"
-                data-request="onSubmit"
+                data-request="<?= $this->getEventHandler('onSubmit') ?>"
                 class="btn btn-primary">
             <?= e(trans('adrenth.redirect::lang.buttons.create_redirect')) ?>
         </button>
