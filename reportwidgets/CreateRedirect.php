@@ -3,6 +3,7 @@
 namespace Adrenth\Redirect\ReportWidgets;
 
 use Adrenth\Redirect\Models\Redirect;
+use Backend\Classes\Controller;
 use Redirect as RedirectFacade;
 use Backend;
 use Backend\Classes\ReportWidgetBase;
@@ -18,6 +19,16 @@ use Illuminate\Http\RedirectResponse;
  */
 class CreateRedirect extends ReportWidgetBase
 {
+    /**
+     * {@inheritdoc}
+     */
+    public function __construct(Controller $controller, array $properties = [])
+    {
+        $this->alias = 'redirectCreateRedirect';
+
+        parent::__construct($controller, $properties);
+    }
+
     /**
      * {@inheritdoc}
      */
