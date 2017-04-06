@@ -93,4 +93,16 @@
             data-stripe-load-indicator>
         <?= e(trans('adrenth.redirect::lang.buttons.reset_statistics')) ?>
     </button>
+    <?php if (Adrenth\Redirect\Classes\CacheManager::cachingEnabledAndSupported()): ?>
+    <button class="btn btn-default oc-icon-eraser"
+            data-request="onClearCache"
+            data-request-success="$('#checkBoxTriggeredButtons button').prop('disabled', true)"
+            data-stripe-load-indicator>
+        <?= e(trans('adrenth.redirect::lang.buttons.clear_cache')) ?>
+    </button>
+    <?php elseif (Adrenth\Redirect\Classes\CacheManager::cachingEnabledButNotSupported()): ?>
+    <button class="btn btn-default oc-icon-eraser"
+            disabled="disabled">
+        <?= e(trans('adrenth.redirect::lang.buttons.clear_cache')) ?>
+    <?php endif; ?>
 </div>

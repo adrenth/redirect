@@ -2,6 +2,7 @@
 
 namespace Adrenth\Redirect;
 
+use Adrenth\Redirect\Classes\CacheManager;
 use Adrenth\Redirect\Classes\Exceptions\InvalidScheme;
 use Adrenth\Redirect\Classes\Exceptions\RulesPathNotReadable;
 use Adrenth\Redirect\Classes\PageHandler;
@@ -14,6 +15,7 @@ use Adrenth\Redirect\ReportWidgets\CreateRedirect;
 use Adrenth\Redirect\ReportWidgets\TopTenRedirects;
 use App;
 use Backend;
+use BadMethodCallException;
 use Cms\Classes\Page;
 use Event;
 use Exception;
@@ -66,6 +68,7 @@ class Plugin extends PluginBase
      * Boot stuff for Frontend
      *
      * @return void
+     * @throws BadMethodCallException If cache tags are not supported.
      */
     public function bootFrontend()
     {
@@ -91,7 +94,11 @@ class Plugin extends PluginBase
         $requestUri = str_replace(Request::getBasePath(), '', Request::getRequestUri());
 
         try {
-            $rule = $manager->match($requestUri, Request::getScheme());
+            if (CacheManager::cachingEnabledAndSupported()) {
+                $rule = $manager->matchCached($requestUri, Request::getScheme());
+            } else {
+                $rule = $manager->match($requestUri, Request::getScheme());
+            }
         } catch (InvalidScheme $e) {
             $rule = false;
         }
@@ -136,6 +143,10 @@ class Plugin extends PluginBase
         }
 
         Event::listen('redirects.changed', function () {
+            if (Settings::isCachingEnabled()) {
+                RedirectManager::clearCache();
+            }
+
             PublishManager::instance()->publish();
         });
     }

@@ -2,6 +2,7 @@
 
 namespace Adrenth\Redirect\Controllers;
 
+use Adrenth\Redirect\Classes\CacheManager;
 use Adrenth\Redirect\Classes\PublishManager;
 use Adrenth\Redirect\Classes\RedirectManager;
 use Adrenth\Redirect\Classes\RedirectRule;
@@ -16,6 +17,7 @@ use Backend\Classes\Controller;
 use Backend\Classes\FormField;
 use Backend\Widgets\Form;
 use BackendMenu;
+use BadMethodCallException;
 use Carbon\Carbon;
 use Event;
 use Exception;
@@ -89,6 +91,20 @@ class Redirects extends Controller
     }
 
     /**
+     * Index Controller action
+     *
+     * @return void
+     */
+    public function index()
+    {
+        parent::index();
+
+        if (CacheManager::cachingEnabledButNotSupported()) {
+            $this->vars['warningMessage'] = Lang::get('adrenth.redirect::lang.redirect.cache_warning');
+        }
+    }
+
+    /**
      * Edit Controller action
      *
      * @param int $recordId The model primary key to update.
@@ -145,6 +161,16 @@ class Redirects extends Controller
         Redirect::whereIn('id', $this->getCheckedIds())->update(['is_enabled' => 0]);
         Event::fire('redirects.changed');
         return $this->listRefresh();
+    }
+
+    /**
+     * @return array
+     * @throws BadMethodCallException
+     */
+    public function index_onClearCache()
+    {
+        CacheManager::instance()->flush();
+        Flash::success(Lang::get('adrenth.redirect::lang.flash.cache_cleared_success'));
     }
 
     // @codingStandardsIgnoreEnd

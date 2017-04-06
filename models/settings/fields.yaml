@@ -6,16 +6,25 @@ fields:
     logging_enabled:
         label: adrenth.redirect::lang.settings.logging_enabled_label
         comment: adrenth.redirect::lang.settings.logging_enabled_comment
+        span: left
         type: switch
         default: true
     statistics_enabled:
         label: adrenth.redirect::lang.settings.statistics_enabled_label
         comment: adrenth.redirect::lang.settings.statistics_enabled_comment
+        span: left
         type: switch
         default: true
     test_lab_enabled:
         label: adrenth.redirect::lang.settings.test_lab_enabled_label
         comment: adrenth.redirect::lang.settings.test_lab_enabled_comment
+        span: left
         type: switch
         default: true
+    caching_enabled:
+        label: adrenth.redirect::lang.settings.caching_enabled_label
+        comment: adrenth.redirect::lang.settings.caching_enabled_comment
+        span: left
+        type: switch
+        default: false
 
