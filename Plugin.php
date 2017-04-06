@@ -69,6 +69,11 @@ class Plugin extends PluginBase
      */
     public function bootFrontend()
     {
+        // Only handle specific request methods
+        if (!in_array(Request::method(), ['GET', 'POST', 'HEAD'], true)) {
+            return;
+        }
+
         try {
             $manager = RedirectManager::createWithDefaultRulesPath();
         } catch (RulesPathNotReadable $e) {
