@@ -160,6 +160,7 @@ return [
         'matched_not_http_code' => 'Matched redirect, but response HTTP code did not match! '
             . 'Expected :expected but received :received.',
         'matched_http_code' => 'Matched redirect, response HTTP code :code.',
+        'executing_tests' => 'Executing tests...',
     ],
     'statistics' => [
         'hits_per_day' => 'Redirect hits per day',
@@ -205,6 +206,7 @@ return [
         'reset_statistics' => 'Reset statistics',
         'logs' => 'Redirect log',
         'empty_redirect_log' => 'Empty redirect log',
+        'stop' => 'Stop',
     ],
     'tab' => [
         'tab_general' => 'General',

@@ -43,5 +43,10 @@
 <?= Form::close() ?>
 
 <div id="loader" class="popup-backdrop fade in hidden">
-    <div class="modal-content popup-loading-indicator"></div>
+    <div class="modal-content popup-loading-indicator">
+        <div><?= e(trans('adrenth.redirect::lang.test_lab.executing_tests')) ?></div>
+        <button class="btn btn-danger" onclick="testerStop()">
+            <?= e(trans('adrenth.redirect::lang.buttons.stop')) ?>
+        </button>
+    </div>
 </div>
