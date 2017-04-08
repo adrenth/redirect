@@ -1,12 +1,16 @@
 # Adrenth.Redirect
 
+## First anniversary!
+
+**You can get 50% discount ($7,49) if you use the Coupon code `1YEAR`. This coupon code is valid until 25th of April 2017.**
+
 ## The #1 Redirect plugin for October CMS ([Editors' choice](http://octobercms.com/plugins/featured))
 
-This is the best Redirect-plugin for October CMS. With this plugin installed you can manage redirects directly from October CMS' beautiful interface. Many webmasters and SEO specialists use redirects to optimize their website for search engines. This plugin allows you to manage such redirects with a nice and user-friendly interface.
+This is the best Redirect-plugin for October CMS. With this plugin installed you can manage redirects directly from October CMS' beautiful interface. Many webmasters and SEO specialists use redirects to optimise their website for search engines. This plugin allows you to manage such redirects with a nice and user-friendly interface.
 
 ## What does this plugin offer?
 
-This plugin adds a 'Redirects' section to the main menu of October CMS. This plugin is trying to match your redirect very efficiently and fast before your website is rendered.
+This plugin adds a 'Redirects' section to the main menu of October CMS. This plugin has a unique and fast matching algorithm to match your redirects before your website is being rendered.
 
 ## Features
 
@@ -30,6 +34,7 @@ This plugin adds a 'Redirects' section to the main menu of October CMS. This plu
 * Multilingual ***(Need help translating! Contact me at adrenth@gmail.com)***
 * Supports MySQL, SQLite and PostgreSQL
 * HTTP status codes 301, 302, 303, 404, 410
+* Caching
 
 ## Currently in development
 
@@ -47,9 +52,14 @@ With the Redirect TestLab you will be able to mass test (a selection) of redirec
 
 You will be able to check all your redirects at once and check if there is any error in your configuration.
 
+** Redirect Statistics **
+
+The Statistics dashboard will be improved over time to get more insight in all your redirect traffic.
+
+![Imgur](https://i.imgur.com/nb5m7bs.png)
+
 ## Upcoming features
 
-* Extended redirect statistics
 * Improved performance
 * New UI
 
@@ -158,17 +168,29 @@ Result: /blog/news/general
 * PostgreSQL
 * SQLite
 
-## More information
+## Caching
 
-This plugin makes advantage of the `symfony/routing` package. So if you need more info on how to make requirements for your redirection URLs, please go to: [](https://symfony.com/doc/current/components/routing/introduction.html#usage)
+If your website has a lot of redirects it is recommended to enable redirect caching. You can enable redirect caching in the settings panel of this plugin.
+ 
+Only cache drivers which support tagged cache are supported. So driver `file` and `database` are not supported. Hence the fact that database and file caching do not increase performance. So it is recommended to use an in-memory caching solution like `memcached` or `redis`.
+
+### How caching works
+
+If caching is enabled (and supported) every request which is handled by this plugin will be cached. It will be stored with tag `Adrenth.Redirect`.
+
+When you modify a redirect all redirect cache will be invalidated automatically. It is also possible to manually clear the cache using the 'Clear cache' button in the Backend.
+
+## Placeholders
+
+This plugin makes advantage of the `symfony/routing` package. So if you need more info on how to make placeholder requirements for your redirection URLs, please go to: https://symfony.com/doc/current/components/routing/introduction.html#usage
 
 ## Contribution
 
-You can contact me when you like to contribute to this plugin. I'm still looking for people who want to translate this plugin.
+If you like this plugin translated to your language, please contribute. The repository for the language files can be found here: https://github.com/adrenth/redirect-lang
 
 ## Questions? Need help?
 
-If you have any question about how to use this plugin, please don't hesitate to contact me. I'm happy to help you.
+If you have any question about how to use this plugin, please don't hesitate to contact me. I'm happy to help you. You can also visit the support forum and drop your questions/issues there.
 
 Kind regards,
 
