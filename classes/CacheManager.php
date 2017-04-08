@@ -58,6 +58,9 @@ class CacheManager
     /**
      * Generate proper cache key.
      *
+     * Most caching backend have no limits on key lengths.
+     * But to be sure I chose to MD5 hash the cache key.
+     *
      * @param string $requestPath
      * @param string $scheme
      * @return string
