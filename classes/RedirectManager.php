@@ -8,7 +8,6 @@ use Adrenth\Redirect\Models\Client;
 use Adrenth\Redirect\Models\Redirect;
 use Adrenth\Redirect\Models\RedirectLog;
 use BadMethodCallException;
-use Cache;
 use Carbon\Carbon;
 use Cms;
 use Cms\Classes\Controller;
