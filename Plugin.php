@@ -77,6 +77,7 @@ class Plugin extends PluginBase
             return;
         }
 
+        // Create the redirect manager if redirect rules are readable.
         try {
             $manager = RedirectManager::createWithDefaultRulesPath();
         } catch (RulesPathNotReadable $e) {
@@ -142,9 +143,10 @@ class Plugin extends PluginBase
             });
         }
 
+        // When one or more redirects have been changed.
         Event::listen('redirects.changed', function () {
             if (Settings::isCachingEnabled()) {
-                RedirectManager::clearCache();
+                CacheManager::instance()->flush();
             }
 
             PublishManager::instance()->publish();
