@@ -1,12 +1,16 @@
 # Adrenth.Redirect
 
+## First anniversary!
+
+**You can get 50% discount ($7,49) if you use the Coupon code `1YEAR`. This coupon code is valid until 25th of April 2017.**
+
 ## The #1 Redirect plugin for October CMS ([Editors' choice](http://octobercms.com/plugins/featured))
 
-This is the best Redirect-plugin for October CMS. With this plugin installed you can manage redirects directly from October CMS' beautiful interface. Many webmasters and SEO specialists use redirects to optimize their website for search engines. This plugin allows you to manage such redirects with a nice and user-friendly interface.
+This is the best Redirect-plugin for October CMS. With this plugin installed you can manage redirects directly from October CMS' beautiful interface. Many webmasters and SEO specialists use redirects to optimise their website for search engines. This plugin allows you to manage such redirects with a nice and user-friendly interface.
 
 ## What does this plugin offer?
 
-This plugin adds a 'Redirects' section to the main menu of October CMS. This plugin is trying to match your redirect very efficiently and fast before your website is rendered.
+This plugin adds a 'Redirects' section to the main menu of October CMS. This plugin has a unique and fast matching algorithm to match your redirects before your website is being rendered.
 
 ## Features
 
@@ -30,6 +34,7 @@ This plugin adds a 'Redirects' section to the main menu of October CMS. This plu
 * Multilingual ***(Need help translating! Contact me at adrenth@gmail.com)***
 * Supports MySQL, SQLite and PostgreSQL
 * HTTP status codes 301, 302, 303, 404, 410
+* Caching
 
 ## Currently in development
 
@@ -47,110 +52,11 @@ With the Redirect TestLab you will be able to mass test (a selection) of redirec
 
 You will be able to check all your redirects at once and check if there is any error in your configuration.
 
-## Upcoming features
+** Redirect Statistics **
 
-* Extended redirect statistics
-* Improved performance
-* New UI
+The Statistics dashboard will be improved over time to get more insight in all your redirect traffic.
 
-## Redirection
-
-It is important for SEO create redirects of non-existent pages on your website. This plugin allows you to manage such redirects with a nice and user friendly user interface.
-
-## Redirect types
-
-This plugins ships with two types of redirects:
-
-* **Exact**; performs an exact match on the Source path.
-* **Placeholders**; matches placeholders like {id} or {category} (like the defined routes in Symfony or Laravel framework).
-
-## Redirect target types
-
-This plugin allows you to redirect to the following types:
-
-* An internal path
-* An internal CMS Page
-* An external URL
-
-## Placeholders
-
-A placeholder is a dynamic piece in a URL surrounded with curly braces. 
-For example:
-
-````
-/my-blog/{category}/{id}
-````
-
-A placeholder can be replaced by a matched value:
-
-````
-/my-blog/hobbies/123
-````
-
-Any placeholder can be attached to a **requirement**. A **requirement** consists of a `placeholder`, `requirement` and an optional `replacement` value.
-
-Example:
-
-````
-Request path:
-/blog.php?category=mouse&id=1337
-
-Redirect Rule: Source path
-/blog.php?category={category}&id={id}
-
-Redirect Rule: Target path
-/blog/{category}/{id}
-
-Result:
-/blog/mouse/1337
-````
-
-* The requirement for `{category}` would be: `[a-zA-Z]` or could be more specific like `(dog|cat|mouse)`.
-* The requirement for `{id}` would be: `[0-9]+`.
-
-**Replacement value**
-
-A requirement can also contain a replacement value. Provide this replacement value if you need to rewrite a certain placeholder to a static value.
-
-Example:
-
-The requirement for `{category}` is `(dog|cat|mouse)`, with replacement value `animals`.
-
-````
-Request path:
-/blog.php?category=mouse&id=1337
-
-Redirect Rule: Source path 
-/blog.php?category={category}&id={id}
-
-Redirect Rule: Target path
-/blog/{category}/{id}
-
-Result:
-/blog/animals/1337
-````
-
-![](https://i.imgur.com/928z7pI.png)
-
-Result in TestLab:
-
-![](https://i.imgur.com/BswnUAo.png)
-
-## Redirect Target
-
-As of version 1.1.0 you can select a CMS Page as a Redirect target. Placeholders are supported. Let's asume there is a page 'Blog' with the following URL: `/blog/:category/:subcategory`. 
-
-It is possible to create a Redirect with placeholders that has this CMS Page as a target:
-
-````
-Redirect with:
-Source: `/blog.php?cat={category}&subcat={subcategory}`
-Placeholders: {category}, {subcategory}
-Target: CMS Page `Blog`
-
-Request path: /blog.php?cat=news&subcat=general
-Result: /blog/news/general
-````
+![Imgur](https://i.imgur.com/nb5m7bs.png)
 
 ## Supported database platforms
 
@@ -158,17 +64,56 @@ Result: /blog/news/general
 * PostgreSQL
 * SQLite
 
-## More information
+## Supported HTTP status codes
 
-This plugin makes advantage of the `symfony/routing` package. So if you need more info on how to make requirements for your redirection URLs, please go to: [](https://symfony.com/doc/current/components/routing/introduction.html#usage)
+* HTTP/1.1 301 Moved Permanently
+* HTTP/1.1 302 Found
+* HTTP/1.1 303 See Other
+* HTTP/1.1 404 Not Found
+* HTTP/1.1 410 Gone
+
+## Supported HTTP request methods
+
+* `GET`
+* `POST`
+* `HEAD`
+
+## Performance
+
+All redirects are stored in the database and will be automatically "published" to a file which the internal redirect mechanism uses to determine if a certain request needs to be redirected. This is way faster than querying a database.
+
+This plugin is designed to be fast and should have no negative effect on the performance of your website.
+
+To gain maximum performance with this plugin:
+
+* Use PHP7 (really you should), this increases the performance with 200%
+* Enable redirect caching using a "in-memory" caching method (see Caching).
+* Maintain your redirects frequently to keep the number of redirects as low as possible.
+* Try to use placeholders to keep your number of redirect low (less redirects is better performance).
+
+## Caching
+
+If your website has a lot of redirects it is recommended to enable redirect caching. You can enable redirect caching in the settings panel of this plugin.
+ 
+Only cache drivers which support tagged cache are supported. So driver `file` and `database` are not supported. Hence the fact that database and file caching do not really increase performance. So it is recommended to use an in-memory caching solution like `memcached` or `redis`.
+
+### How caching works
+
+If caching is enabled (and supported) every request which is handled by this plugin will be cached. It will be stored with tag `Adrenth.Redirect`.
+
+When you modify a redirect all redirect cache will be invalidated automatically. It is also possible to manually clear the cache using the 'Clear cache' button in the Backend.
+
+## Placeholders
+
+This plugin makes advantage of the `symfony/routing` package. So if you need more info on how to make placeholder requirements for your redirection URLs, please go to: https://symfony.com/doc/current/components/routing/introduction.html#usage
 
 ## Contribution
 
-You can contact me when you like to contribute to this plugin. I'm still looking for people who want to translate this plugin.
+If you like this plugin translated to your language, please contribute. The repository for the language files can be found here: https://github.com/adrenth/redirect-lang
 
 ## Questions? Need help?
 
-If you have any question about how to use this plugin, please don't hesitate to contact me. I'm happy to help you.
+If you have any question about how to use this plugin, please don't hesitate to contact me. I'm happy to help you. You can also visit the support forum and drop your questions/issues there.
 
 Kind regards,
 

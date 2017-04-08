@@ -1,4 +1,12 @@
+var testerShouldStop = false;
+
 function testerExecute(offset, total, button) {
+    if (testerShouldStop) {
+        testerDone();
+        testerShouldStop = false;
+        return;
+    }
+
     $.request('onTest', {
         data: {
             offset: offset
@@ -49,6 +57,10 @@ function testerStart(button) {
         loader.addClass('loading');
 
     testerExecute(0, $('#redirectCount').val(), button);
+}
+
+function testerStop() {
+    testerShouldStop = true;
 }
 
 function updateStatusBar(total, offset) {
