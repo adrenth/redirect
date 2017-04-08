@@ -7,6 +7,7 @@ use Adrenth\Redirect\Classes\Exceptions\RulesPathNotReadable;
 use Adrenth\Redirect\Models\Client;
 use Adrenth\Redirect\Models\Redirect;
 use Adrenth\Redirect\Models\RedirectLog;
+use BadMethodCallException;
 use Carbon\Carbon;
 use Cms;
 use Cms\Classes\Controller;
@@ -170,6 +171,29 @@ class RedirectManager
         }
 
         return false;
+    }
+
+    /**
+     * Find a match based on given URL (uses caching).
+     *
+     * @param string $requestPath
+     * @param string $scheme 'http' or 'https'
+     * @return RedirectRule|false|mixed
+     * @throws InvalidScheme
+     * @throws BadMethodCallException
+     */
+    public function matchCached($requestPath, $scheme)
+    {
+        $cacheManager = CacheManager::instance();
+        $cacheKey = $cacheManager->cacheKey($requestPath, $scheme);
+
+        if ($cacheManager->has($cacheKey)) {
+            return $cacheManager->get($cacheKey);
+        }
+
+        $matchedRule = $this->match($requestPath, $scheme);
+
+        return $cacheManager->putMatch($cacheKey, $matchedRule);
     }
 
     /**

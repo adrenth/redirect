@@ -55,4 +55,13 @@ class Settings extends Model
         /** @noinspection DynamicInvocationViaScopeResolutionInspection */
         return (bool) self::get('test_lab_enabled', true);
     }
+
+    /**
+     * @return bool
+     */
+    public static function isCachingEnabled()
+    {
+        /** @noinspection DynamicInvocationViaScopeResolutionInspection */
+        return (bool) self::get('caching_enabled', false);
+    }
 }

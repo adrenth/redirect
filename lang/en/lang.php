@@ -24,6 +24,10 @@ return [
         'statistics_enabled_comment' => 'Gather statistics of redirected requests to get more insight.',
         'test_lab_enabled_label' => 'TestLab (beta)',
         'test_lab_enabled_comment' => 'TestLab allows you to mass test your redirects.',
+        'caching_enabled_label' => 'Caching of redirects (advanced)',
+        'caching_enabled_comment' => 'Improves the redirect engine when having a lot of redirects. '
+            . 'CAUTION: Cache driver `file` and `database` are NOT supported. '
+            . 'Recommended driver is `memcached` or a similar "in-memory" caching driver.',
     ],
     'redirect' => [
         'redirect' => 'Redirect',
@@ -92,6 +96,8 @@ return [
         'truncate_confirm' => 'Are you sure you want to delete ALL records?',
         'truncating' => 'Deleting...',
         'warning' => 'Warning',
+        'cache_warning' => 'You have enabled caching but your caching driver is not supported. '
+            . 'Redirects will not be cached.',
     ],
     'list' => [
         'no_records' => 'There are no redirects in this view.',
@@ -206,6 +212,7 @@ return [
         'reset_statistics' => 'Reset statistics',
         'logs' => 'Redirect log',
         'empty_redirect_log' => 'Empty redirect log',
+        'clear_cache' => 'Clear cache',
         'stop' => 'Stop',
     ],
     'tab' => [
@@ -221,6 +228,7 @@ return [
         'static_page_redirect_not_supported' => 'This redirect cannot be modified. Plugin RainLab.Pages is required.',
         'truncate_success' => 'Successfully deleted all records',
         'delete_selected_success' => 'Successfully deleted selected records',
+        'cache_cleared_success' => 'Successfully cleared redirect cache',
     ],
     'import_export' => [
         'match_type' => 'Match Type [match_type] (Allowed values: exact, placeholders)',
