@@ -254,5 +254,5 @@ return [
         'last_used_at' => 'Last Used At [last_used_at] (YYYY-MM-DD HH:MM:SS or empty)',
         'created_at' => 'Created At [created_at] (YYYY-MM-DD HH:MM:SS or empty)',
         'updated_at' => 'Updated At [updated_at] (YYYY-MM-DD HH:MM:SS or empty)',
-    ]
+    ],
 ];

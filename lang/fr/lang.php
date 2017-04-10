@@ -24,6 +24,10 @@ return [
         'statistics_enabled_comment' => 'Enregistrer des statistiques des redirections pour faire des analyses',
         'test_lab_enabled_label' => 'TestLab (beta)',
         'test_lab_enabled_comment' => 'TestLab vous permet de tester en masse vos redirections.',
+        'caching_enabled_label' => 'Caching of redirects (advanced)', // TODO
+        'caching_enabled_comment' => 'Improves the redirect engine when having a lot of redirects. ' // TODO
+            . 'CAUTION: Cache driver `file` and `database` are NOT supported. '
+            . 'Recommended driver is `memcached` or a similar "in-memory" caching driver.',
     ],
     'redirect' => [
         'redirect' => 'Redirect',
@@ -41,7 +45,6 @@ return [
         'to_scheme_comment' => 'Le protocole de destination est forcé à HTTP ou HTTPS '
             . 'ou choisissez AUTOMATIQUE pour utiliser le protocole par défault du site.',
         'scheme_auto' => 'Automatique',
-        'input_path_placeholder' => '/input/path',
         'cms_page_required_if' => 'Veuillez spécifier une CMS Page de destination',
         'static_page_required_if' => 'Veuillez spécifier une Static Page de destination',
         'match_type' => 'Type de correspondance',
@@ -93,6 +96,9 @@ return [
         'date' => 'Date',
         'truncate_confirm' => 'Voulez-vous effacer tous les enregistrements?',
         'truncating' => 'Effacement...',
+        'warning' => 'Warning', // TODO
+        'cache_warning' => 'You have enabled caching but your caching driver is not supported. ' // TODO
+            . 'Redirects will not be cached.',
     ],
     'list' => [
         'no_records' => 'Il n\'y a pas de redirections dans cette vue.',
@@ -106,6 +112,7 @@ return [
         'to_date_comment' => 'La date d\'expiration de cette redirection. Optionnel',
         'scheduling_comment' => 'Ici vous pouvez spécifier la période durant laquelle la redirection sera disponible. '
             . 'Toutes sortes de combinaisons de dates sont possibles.',
+        'not_active_warning' => 'Redirect is not available anymore, please check \'Scheduling\' tab.', // TODO
     ],
     'test' => [
         'test_comment' => 'S\'il vous plaît, testez votre redirection avant de l\'enregistrer.',
@@ -160,6 +167,7 @@ return [
         'matched_not_http_code' => 'La redirection correspond, mais pas le code HTTP! '
             . 'Attendu :expected. Reçu :received.',
         'matched_http_code' => 'Redirection trouvée, code de response HTTP :code.',
+        'executing_tests' => 'Executing tests...', // TODO
     ],
     'statistics' => [
         'hits_per_day' => 'Redirections par jour',
@@ -204,6 +212,8 @@ return [
         'reset_statistics' => 'Réinitialisation des statistiques',
         'logs' => 'Log de redirection',
         'empty_redirect_log' => 'Vider le log de redirection',
+        'clear_cache' => 'Clear cache', // TODO
+        'stop' => 'Stop', // TODO
     ],
     'tab' => [
         'tab_general' => 'Général',
@@ -218,5 +228,31 @@ return [
         'static_page_redirect_not_supported' => 'Cette redirection ne peut pas être modifiée. Plugin RainLab.Pages est nécessaire.',
         'truncate_success' => 'Toute les redirections ont été supprimées',
         'delete_selected_success' => 'Les redirections selectionnée ont été supprimées',
+        'cache_cleared_success' => 'Successfully cleared redirect cache', // TODO
+    ],
+    'import_export' => [ // TODO
+        'match_type' => 'Match Type [match_type] (Allowed values: exact, placeholders)',
+        'category_id' => 'Category [category_id]',
+        'target_type' => 'Target Type [target_type] (Allowed values: path_or_url, cms_page, static_page, none)',
+        'from_url' => 'Source path [from_url]',
+        'from_scheme' => 'Source scheme [from_scheme] (Allowed values: http, https, auto [default])',
+        'to_url' => 'Target path [to_url]',
+        'to_scheme' => 'Target scheme [to_scheme] (Allowed values: http, https, auto [default])',
+        'test_url' => 'Test URL [test_url]',
+        'cms_page' => 'CMS Page [cms_page] (Filename without .htm extension)',
+        'static_page' => 'Static Page [static_page] (Filename without .htm extension)',
+        'requirements' => 'Placeholder requirements [requirements]',
+        'status_code' => 'HTTP status code [status_code] (Possible values: 301, 302, 303, 404, 410)',
+        'hits' => 'Redirect Hits [hits]',
+        'from_date' => 'Scheduled date from [from_date] (YYYY-MM-DD or empty)',
+        'to_date' => 'Scheduled date to [to_date] (YYYY-MM-DD or empty)',
+        'sort_order' => 'Priority [sort_order]',
+        'is_enabled' => 'Enabled [is_enabled] (1 = enable redirect, 0 = disable redirect [default])',
+        'test_lab' => 'Test Lab [test_lab] (1 = enable Test Lab, 0 = disable TestLab [default])',
+        'test_lab_path' => 'Test Lab path [test_lab_path] (required if match_type = placeholders)',
+        'system' => 'System [system] (1 = system generated redirect, 0 = user generated redirect [default])',
+        'last_used_at' => 'Last Used At [last_used_at] (YYYY-MM-DD HH:MM:SS or empty)',
+        'created_at' => 'Created At [created_at] (YYYY-MM-DD HH:MM:SS or empty)',
+        'updated_at' => 'Updated At [updated_at] (YYYY-MM-DD HH:MM:SS or empty)',
     ],
 ];

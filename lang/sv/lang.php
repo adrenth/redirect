@@ -24,6 +24,10 @@ return [
         'statistics_enabled_comment' => 'Gather statistics of redirected requests to get more insight.', // TODO
         'test_lab_enabled_label' => 'TestLab (beta)', // TODO
         'test_lab_enabled_comment' => 'TestLab allows you to mass test your redirects.', // TODO
+        'caching_enabled_label' => 'Caching of redirects (advanced)', // TODO
+        'caching_enabled_comment' => 'Improves the redirect engine when having a lot of redirects. ' // TODO
+            . 'CAUTION: Cache driver `file` and `database` are NOT supported. '
+            . 'Recommended driver is `memcached` or a similar "in-memory" caching driver.',
     ],
     'redirect' => [
         'redirect' => 'Ompekning',
@@ -41,7 +45,6 @@ return [
         'to_scheme_comment' => 'Target scheme will be forced to HTTP or HTTPS '
             . 'or choose AUTOMATIC to use the default scheme of the website.', // TODO
         'scheme_auto' => 'Automatic', // TODO
-        'input_path_placeholder' => '/input/path', // TODO
         'cms_page_required_if' => 'Ange en CMS-adress att ompeka till',
         'static_page_required_if' => 'Ange en Sidor-sida att ompeka till',
         'match_type' => 'Matcha typ',
@@ -90,7 +93,9 @@ return [
         'date' => 'Date', // TODO
         'truncate_confirm' => 'Are you sure you want to delete ALL records?', // TODO
         'truncating' => 'Deleting...', // TODO
-
+        'warning' => 'Warning', // TODO
+        'cache_warning' => 'You have enabled caching but your caching driver is not supported. ' // TODO
+            . 'Redirects will not be cached.',
     ],
     'list' => [
         'no_records' => 'Det finns inga ompekningar i denna vy',
@@ -103,12 +108,14 @@ return [
         'to_date' => 'Aktiv tills',
         'to_date_comment' => 'Det datum då demma ompekning blir inaktiv. Kan lämas tomt',
         'scheduling_comment' => 'Här kan du ange ett tidsspann då denna ompekning ska vara aktiv. Alla typer av datumkombinationer är möjliga',
+        'not_active_warning' => 'Redirect is not available anymore, please check \'Scheduling\' tab.', // TODO
     ],
     'test' => [
         'test_comment' => 'Var god testa din ompekning innan du sparar den',
         'input_path' => 'Ange sökväg',
         'input_path_comment' => 'Sökvägen du vill testa. Ex. /old-blog/category/123',
         'input_path_placeholder' => '/input/path',
+        'input_scheme' => 'Input scheme', // TODO
         'test_date' => 'Testdatum',
         'test_date_comment' => 'Om du har schemalagt denna ompekning kan du testa det här',
         'testing' => 'Testar...',
@@ -156,6 +163,7 @@ return [
         'matched_not_http_code' => 'Matched redirect, but response HTTP code did not match! '
             . 'Expected :expected but received :received.', // TODO
         'matched_http_code' => 'Matched redirect, response HTTP code :code.', // TODO
+        'executing_tests' => 'Executing tests...', // TODO
     ],
     'statistics' => [
         'hits_per_day' => 'Redirect hits per day', // TODO
@@ -200,6 +208,8 @@ return [
         'reset_statistics' => 'Återställ statistik',
         'logs' => 'Redirect log', // TODO
         'empty_redirect_log' => 'Empty redirect log', // TODO
+        'clear_cache' => 'Clear cache', // TODO
+        'stop' => 'Stop', // TODO
     ],
     'tab' => [
         'tab_general' => 'Allmänt',
@@ -214,5 +224,31 @@ return [
         'static_page_redirect_not_supported' => 'This redirect cannot be modified. Plugin RainLab.Pages is required.', // TODO
         'truncate_success' => 'Successfully deleted all records', // TODO
         'delete_selected_success' => 'Successfully deleted selected records', // TODO
+        'cache_cleared_success' => 'Successfully cleared redirect cache', // TODO
+    ],
+    'import_export' => [ // TODO
+        'match_type' => 'Match Type [match_type] (Allowed values: exact, placeholders)',
+        'category_id' => 'Category [category_id]',
+        'target_type' => 'Target Type [target_type] (Allowed values: path_or_url, cms_page, static_page, none)',
+        'from_url' => 'Source path [from_url]',
+        'from_scheme' => 'Source scheme [from_scheme] (Allowed values: http, https, auto [default])',
+        'to_url' => 'Target path [to_url]',
+        'to_scheme' => 'Target scheme [to_scheme] (Allowed values: http, https, auto [default])',
+        'test_url' => 'Test URL [test_url]',
+        'cms_page' => 'CMS Page [cms_page] (Filename without .htm extension)',
+        'static_page' => 'Static Page [static_page] (Filename without .htm extension)',
+        'requirements' => 'Placeholder requirements [requirements]',
+        'status_code' => 'HTTP status code [status_code] (Possible values: 301, 302, 303, 404, 410)',
+        'hits' => 'Redirect Hits [hits]',
+        'from_date' => 'Scheduled date from [from_date] (YYYY-MM-DD or empty)',
+        'to_date' => 'Scheduled date to [to_date] (YYYY-MM-DD or empty)',
+        'sort_order' => 'Priority [sort_order]',
+        'is_enabled' => 'Enabled [is_enabled] (1 = enable redirect, 0 = disable redirect [default])',
+        'test_lab' => 'Test Lab [test_lab] (1 = enable Test Lab, 0 = disable TestLab [default])',
+        'test_lab_path' => 'Test Lab path [test_lab_path] (required if match_type = placeholders)',
+        'system' => 'System [system] (1 = system generated redirect, 0 = user generated redirect [default])',
+        'last_used_at' => 'Last Used At [last_used_at] (YYYY-MM-DD HH:MM:SS or empty)',
+        'created_at' => 'Created At [created_at] (YYYY-MM-DD HH:MM:SS or empty)',
+        'updated_at' => 'Updated At [updated_at] (YYYY-MM-DD HH:MM:SS or empty)',
     ],
 ];
