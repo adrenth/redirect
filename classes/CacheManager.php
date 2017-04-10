@@ -38,6 +38,8 @@ class CacheManager
     }
 
     /**
+     * Get item from cache storage.
+     *
      * @param string $cacheKey
      * @return mixed
      */
@@ -47,6 +49,8 @@ class CacheManager
     }
 
     /**
+     * Checks if items resists in cache storage.
+     *
      * @param string $cacheKey
      * @return bool
      */

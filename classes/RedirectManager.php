@@ -72,6 +72,8 @@ class RedirectManager
     }
 
     /**
+     * Creates an instance of the RedirectManager with the default rules path.
+     *
      * @return RedirectManager
      * @throws RulesPathNotReadable
      */
@@ -87,6 +89,8 @@ class RedirectManager
     }
 
     /**
+     * Create an instance of the RedirectManager with a specific rules path.
+     *
      * @param $redirectRulesPath
      * @return RedirectManager
      */
@@ -98,6 +102,8 @@ class RedirectManager
     }
 
     /**
+     * Create an instance of the RedirectManager with a redirect rule.
+     *
      * @param RedirectRule $rule
      * @return RedirectManager
      */
@@ -109,6 +115,8 @@ class RedirectManager
     }
 
     /**
+     * Enable or disable logging.
+     *
      * @param bool $loggingEnabled
      * @return RedirectManager
      */
@@ -119,6 +127,8 @@ class RedirectManager
     }
 
     /**
+     * Enable or disable gathering of statistics.
+     *
      * @param bool $statisticsEnabled
      * @return RedirectManager
      */
@@ -558,6 +568,8 @@ class RedirectManager
     }
 
     /**
+     * Adds a log entry to the database.
+     *
      * @param RedirectRule $rule
      * @param $requestUri
      * @param $toUrl

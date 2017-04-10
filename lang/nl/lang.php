@@ -24,6 +24,10 @@ return [
         'statistics_enabled_comment' => 'Verzamel statistieken verwijzingsverzoeken om meer inzicht te krijgen.',
         'test_lab_enabled_label' => 'TestLab (beta)',
         'test_lab_enabled_comment' => 'TestLab maakt het mogelijk om op grote schaal verwijzingen te testen.',
+        'caching_enabled_label' => 'Caching van verwijzigen (geavanceerd)',
+        'caching_enabled_comment' => 'Verbetert het verwijzing mechanisme als er veel verwijzingen zijn. '
+            . 'LET OP: Cache driver `file` en `database` zijn NIET ondersteund. '
+            . 'Aanbevolen driver is `memcached` of een vergelijkbare "in-memory" caching driver.',
     ],
     'redirect' => [
         'redirect' => 'Verwijzing',
@@ -41,7 +45,6 @@ return [
         'to_scheme_comment' => 'Doel protocol zal geforceerd worden naar HTTP of HTTPS '
             . 'of kies Automatisch om het standaard protocol van de website te gebruiken.',
         'scheme_auto' => 'Automatisch',
-        'input_path_placeholder' => '/invoer/pad',
         'cms_page_required_if' => 'Voer een CMS Pagina om naar te verwijzen in',
         'static_page_required_if' => 'Voer een Statische Pagina om naar te verwijzen in',
         'match_type' => 'Type van overeenkomst',
@@ -92,6 +95,9 @@ return [
         'date' => 'Datum',
         'truncate_confirm' => 'Weet je het zeker dat je ALLE items wilt verwijderen?',
         'truncating' => 'Aan het verwijderen...',
+        'warning' => 'Waarschuwing',
+        'cache_warning' => 'Je hebt caching ingeschakeld maar de cache driver wordt niet ondersteund. '
+            . 'Verwijzingen zullen niet worden gecached.',
     ],
     'list' => [
         'no_records' => 'Er zijn geen verwijzingen in dit beeld.',
@@ -105,12 +111,14 @@ return [
         'to_date_comment' => 'De datum tot wanneer deze verwijzing actief is mag weggelaten worden.',
         'scheduling_comment' => 'Hier kan een periode ingegeven worden wanneer de verwijzing beschikbaar is. '
             . 'Alle combinatie data zijn mogelijk.',
+        'not_active_warning' => 'Redirect is not available anymore, please check \'Scheduling\' tab.',
     ],
     'test' => [
         'test_comment' => 'Test uw verwijzing voordat u deze opslaat.',
         'input_path' => 'Invoer Pad',
         'input_path_comment' => 'Het invoerpad om te testen. Bijvoorbeeld  /oude-blog/category/123',
         'input_path_placeholder' => '/invoer/pad',
+        'input_scheme' => 'Invoer schema',
         'test_date' => 'Test Datum',
         'test_date_comment' => 'Wanneer deze verwijzing ingepland wordt kan deze op een bepaalde datum gestest worden.',
         'testing' => 'Aan het testen...',
@@ -158,6 +166,7 @@ return [
         'matched_not_http_code' => 'Verwijzing komt overeen maar de HTTP response code komt niet overeen! '
             . 'Verwachte :expected maar ontving :received.',
         'matched_http_code' => 'Overeenkomstige verwijzing, response HTTP code :code.',
+        'executing_tests' => 'Uitvoeren tests...',
     ],
     'statistics' => [
         'hits_per_day' => 'Verwijzings treffers per dag',
@@ -189,8 +198,9 @@ return [
     'buttons' => [
         'add' => 'Toevoegen', // since 2.0.3
         'from_request_log' => 'Van Aanvraag log', // since 2.0.3
-        'new_redirect' => 'Nieuwe redirect', // changed since 2.0.3
-        'create_redirects' => 'Maak redirects', // since 2.0.3
+        'new_redirect' => 'Nieuwe verwijzing', // changed since 2.0.3
+        'create_redirects' => 'Maak verwijzingen', // since 2.0.3
+        'create_redirect' => 'Maak verwijzing',
         'delete' => 'Verwijderen',
         'enable' => 'Aan',
         'disable' => 'Uit',
@@ -202,6 +212,8 @@ return [
         'reset_statistics' => 'Herstel statistieken',
         'logs' => 'Redirect log',
         'empty_redirect_log' => 'Leeg redirect log',
+        'clear_cache' => 'Leeg cache',
+        'stop' => 'Stop',
     ],
     'tab' => [
         'tab_general' => 'Algemeen',
@@ -216,5 +228,31 @@ return [
         'static_page_redirect_not_supported' => 'Deze redirect kan niet bewerkt worden. RainLab.Pages Plugin is vereist.',
         'truncate_success' => 'Alle items zijn succesvol verwijderd.',
         'delete_selected_success' => 'De geselecteerde items zijn succesvol verwijderd.',
+        'cache_cleared_success' => 'Cache met verwijzingen succesvol geleegd.',
+    ],
+    'import_export' => [ // TODO
+        'match_type' => 'Match Type [match_type] (Allowed values: exact, placeholders)',
+        'category_id' => 'Category [category_id]',
+        'target_type' => 'Target Type [target_type] (Allowed values: path_or_url, cms_page, static_page, none)',
+        'from_url' => 'Source path [from_url]',
+        'from_scheme' => 'Source scheme [from_scheme] (Allowed values: http, https, auto [default])',
+        'to_url' => 'Target path [to_url]',
+        'to_scheme' => 'Target scheme [to_scheme] (Allowed values: http, https, auto [default])',
+        'test_url' => 'Test URL [test_url]',
+        'cms_page' => 'CMS Page [cms_page] (Filename without .htm extension)',
+        'static_page' => 'Static Page [static_page] (Filename without .htm extension)',
+        'requirements' => 'Placeholder requirements [requirements]',
+        'status_code' => 'HTTP status code [status_code] (Possible values: 301, 302, 303, 404, 410)',
+        'hits' => 'Redirect Hits [hits]',
+        'from_date' => 'Scheduled date from [from_date] (YYYY-MM-DD or empty)',
+        'to_date' => 'Scheduled date to [to_date] (YYYY-MM-DD or empty)',
+        'sort_order' => 'Priority [sort_order]',
+        'is_enabled' => 'Enabled [is_enabled] (1 = enable redirect, 0 = disable redirect [default])',
+        'test_lab' => 'Test Lab [test_lab] (1 = enable Test Lab, 0 = disable TestLab [default])',
+        'test_lab_path' => 'Test Lab path [test_lab_path] (required if match_type = placeholders)',
+        'system' => 'System [system] (1 = system generated redirect, 0 = user generated redirect [default])',
+        'last_used_at' => 'Last Used At [last_used_at] (YYYY-MM-DD HH:MM:SS or empty)',
+        'created_at' => 'Created At [created_at] (YYYY-MM-DD HH:MM:SS or empty)',
+        'updated_at' => 'Updated At [updated_at] (YYYY-MM-DD HH:MM:SS or empty)',
     ],
 ];

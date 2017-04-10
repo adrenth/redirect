@@ -16,6 +16,8 @@ use System\Classes\PluginManager;
 class OptionHelper
 {
     /**
+     * Returns available target type options based on given status code.
+     *
      * @param int $statusCode
      * @return array
      */
@@ -35,7 +37,7 @@ class OptionHelper
     }
 
     /**
-     * Get all CMS pages as an option array
+     * Get all CMS pages as an option array.
      *
      * @return array
      */
@@ -45,7 +47,7 @@ class OptionHelper
     }
 
     /**
-     * Get all Static Pages as an option array
+     * Get all Static Pages as an option array.
      *
      * @return array
      */
@@ -72,6 +74,8 @@ class OptionHelper
     }
 
     /**
+     * Get all categories as an option array.
+     *
      * @return array
      */
     public static function getCategoryOptions()

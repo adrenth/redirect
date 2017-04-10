@@ -3,6 +3,7 @@
 namespace Adrenth\Redirect\Models;
 
 use Backend\Models\ExportModel;
+use Eloquent;
 
 /** @noinspection LongInheritanceChainInspection */
 
@@ -10,6 +11,7 @@ use Backend\Models\ExportModel;
  * Class RedirectExport
  *
  * @package Adrenth\Redirect\Models
+ * @mixin Eloquent
  */
 class RedirectExport extends ExportModel
 {
