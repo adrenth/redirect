@@ -13,10 +13,18 @@ use System\Behaviors\SettingsModel;
  */
 class Settings extends Model
 {
-    /** @var string */
+    /**
+     * The settings code which to save the settings under.
+     *
+     * @var string
+     */
     public $settingsCode = 'adrenth_redirect_settings';
 
-    /** @var string */
+    /**
+     * Form fields definition file.
+     *
+     * @var string
+     */
     public $settingsFields = 'fields.yaml';
 
     /**
@@ -30,6 +38,8 @@ class Settings extends Model
     }
 
     /**
+     * Whether logging is enabled.
+     *
      * @return bool
      */
     public static function isLoggingEnabled()
@@ -39,6 +49,8 @@ class Settings extends Model
     }
 
     /**
+     * Whether gathering of statistics are enabled.
+     *
      * @return bool
      */
     public static function isStatisticsEnabled()
@@ -48,6 +60,8 @@ class Settings extends Model
     }
 
     /**
+     * Whether the Test Lab functionality is enabled.
+     *
      * @return bool
      */
     public static function isTestLabEnabled()
@@ -57,6 +71,8 @@ class Settings extends Model
     }
 
     /**
+     * Whether redirect caching is enabled.
+     *
      * @return bool
      */
     public static function isCachingEnabled()

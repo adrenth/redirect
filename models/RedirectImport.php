@@ -3,6 +3,7 @@
 namespace Adrenth\Redirect\Models;
 
 use Backend\Models\ImportModel;
+use Eloquent;
 use Event;
 use Exception;
 
@@ -12,6 +13,7 @@ use Exception;
  * Class RedirectImport
  *
  * @package Adrenth\Redirect\Models
+ * @mixin Eloquent
  */
 class RedirectImport extends ImportModel
 {

@@ -30,7 +30,7 @@ class PublishManager
     }
 
     /**
-     * Publish applicable redirects
+     * Publish applicable redirects.
      *
      * @return int Number of published redirects
      */
