@@ -3,7 +3,7 @@
 # ===================================
 
 # Reorder Title
-title: adrenth.redirect::lang.redirect.reorder_redirects
+title: adrenth.redirect::lang.buttons.reorder_redirects
 
 # Attribute name
 nameFrom: from_url

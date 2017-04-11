@@ -17,3 +17,7 @@
 tr.special td {
     font-style: italic;
 }
+
+div.actions .btn {
+    text-align: center;
+}

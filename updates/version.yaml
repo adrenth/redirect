@@ -93,3 +93,4 @@
 3.8.0: Add Top 10 Redirects widget for Dashboard
 3.9.0: Add redirect caching (enable in Plugin settings section)
 3.9.1: Minor code and documentation changes
+3.10.0: Add Bulk actions (delete / enable / disable all redirects)

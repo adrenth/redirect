@@ -98,6 +98,7 @@ return [
         'warning' => 'Warning',
         'cache_warning' => 'You have enabled caching but your caching driver is not supported. '
             . 'Redirects will not be cached.',
+        'general_confirm' => 'Are you sure you want to do this?',
     ],
     'list' => [
         'no_records' => 'There are no redirects in this view.',
@@ -214,6 +215,9 @@ return [
         'empty_redirect_log' => 'Empty redirect log',
         'clear_cache' => 'Clear cache',
         'stop' => 'Stop',
+        'reset_all' => 'Reset statistics for all redirects',
+        'all_redirects' => 'all redirects',
+        'bulk_actions' => 'Bulk actions',
     ],
     'tab' => [
         'tab_general' => 'General',
@@ -229,6 +233,10 @@ return [
         'truncate_success' => 'Successfully deleted all records',
         'delete_selected_success' => 'Successfully deleted selected records',
         'cache_cleared_success' => 'Successfully cleared redirect cache',
+        'statistics_reset_success' => 'All statistics have been successfully reset',
+        'enabled_all_redirects_success' => 'All redirects have been successfully enabled',
+        'disabled_all_redirects_success' => 'All redirects have been successfully disabled',
+        'deleted_all_redirects_success' => 'All redirects have been successfully deleted',
     ],
     'import_export' => [
         'match_type' => 'Match Type [match_type] (Allowed values: exact, placeholders)',
