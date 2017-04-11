@@ -6,6 +6,7 @@ use Adrenth\Redirect\Classes\CacheManager;
 use Adrenth\Redirect\Classes\PublishManager;
 use Adrenth\Redirect\Classes\RedirectManager;
 use Adrenth\Redirect\Classes\RedirectRule;
+use Adrenth\Redirect\Models\Client;
 use Adrenth\Redirect\Models\Redirect;
 use Adrenth\Redirect\Models\Settings;
 use ApplicationException;
@@ -165,12 +166,81 @@ class Redirects extends Controller
 
     /**
      * @return array
+     */
+    public function index_onResetStatistics()
+    {
+        $checkedIds = $this->getCheckedIds();
+
+        foreach ($checkedIds as $checkedId) {
+            /** @var Redirect $redirect */
+            $redirect = Redirect::find($checkedId);
+            $redirect->update(['hits' => 0]);
+            $redirect->clients()->delete();
+        }
+
+        return $this->listRefresh();
+    }
+
+    /**
+     * @return array
      * @throws BadMethodCallException
      */
     public function index_onClearCache()
     {
         CacheManager::instance()->flush();
         Flash::success(Lang::get('adrenth.redirect::lang.flash.cache_cleared_success'));
+    }
+
+    /**
+     * @return string
+     */
+    public function index_onLoadActions()
+    {
+        return (string) $this->makePartial('popup_actions', [], true);
+    }
+
+    /**
+     * @return array
+     */
+    public function index_onResetAllStatistics()
+    {
+        Redirect::query()->update(['hits' => 0]);
+        Client::query()->delete();
+        Flash::success(Lang::get('adrenth.redirect::lang.flash.statistics_reset_success'));
+        return $this->listRefresh();
+    }
+
+    /**
+     * @return array
+     */
+    public function index_onEnableAllRedirects()
+    {
+        Redirect::query()->update(['is_enabled' => 1]);
+        Flash::success(Lang::get('adrenth.redirect::lang.flash.enabled_all_redirects_success'));
+        Event::fire('redirects.changed');
+        return $this->listRefresh();
+    }
+
+    /**
+     * @return array
+     */
+    public function index_onDisableAllRedirects()
+    {
+        Redirect::query()->update(['is_enabled' => 0]);
+        Flash::success(Lang::get('adrenth.redirect::lang.flash.disabled_all_redirects_success'));
+        Event::fire('redirects.changed');
+        return $this->listRefresh();
+    }
+
+    /**
+     * @return array
+     */
+    public function index_onDeleteAllRedirects()
+    {
+        Redirect::query()->delete();
+        Flash::success(Lang::get('adrenth.redirect::lang.flash.deleted_all_redirects_success'));
+        Event::fire('redirects.changed');
+        return $this->listRefresh();
     }
 
     // @codingStandardsIgnoreEnd
@@ -357,23 +427,6 @@ class Redirects extends Controller
                     'count' => $redirectsCreated,
                 ]
             ));
-        }
-
-        return $this->listRefresh();
-    }
-
-    /**
-     * @return array
-     */
-    public function onResetStatistics()
-    {
-        $checkedIds = $this->getCheckedIds();
-
-        foreach ($checkedIds as $checkedId) {
-            /** @var Redirect $redirect */
-            $redirect = Redirect::find($checkedId);
-            $redirect->update(['hits' => 0]);
-            $redirect->clients()->delete();
         }
 
         return $this->listRefresh();
