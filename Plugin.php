@@ -145,7 +145,7 @@ class Plugin extends PluginBase
 
         // When one or more redirects have been changed.
         Event::listen('redirects.changed', function () {
-            if (Settings::isCachingEnabled()) {
+            if (CacheManager::cachingEnabledAndSupported()) {
                 CacheManager::instance()->flush();
             }
 
