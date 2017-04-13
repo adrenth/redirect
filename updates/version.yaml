@@ -94,3 +94,5 @@
 3.9.0: Add redirect caching (enable in Plugin settings section)
 3.9.1: Minor code and documentation changes
 3.10.0: Add Bulk actions (delete / enable / disable all redirects)
+3.10.1: Fix issue when creating redirect with unsupported cache driver
+3.10.2: Fix issues related to unvalidated imported redirects

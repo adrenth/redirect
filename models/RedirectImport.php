@@ -23,14 +23,13 @@ class RedirectImport extends ImportModel
     public $table = 'adrenth_redirect_redirects';
 
     /**
-     * Validation rules
+     * Basic validation rules.
+     * More (conditional) rules will be applied when importing.
      *
      * @var array
      */
     public $rules = [
-        'to_scheme' => 'in:http,https,auto',
         'from_url' => 'required',
-        'from_scheme' => 'in:http,https,auto',
         'match_type' => 'required|in:exact,placeholders',
         'target_type' => 'required|in:path_or_url,cms_page,static_page,none',
         'status_code' => 'required|in:301,302,303,404,410',
@@ -54,7 +53,7 @@ class RedirectImport extends ImportModel
      */
     public function importData($results, $sessionKey = null)
     {
-        foreach ($results as $row => $data) {
+        foreach ((array) $results as $row => $data) {
             try {
                 $source = Redirect::make();
 
@@ -70,7 +69,7 @@ class RedirectImport extends ImportModel
                     $source->setAttribute($attribute, $value);
                 }
 
-                $source->forceSave();
+                $source->save();
 
                 $this->logCreated();
             } catch (Exception $e) {
