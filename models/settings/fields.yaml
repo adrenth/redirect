@@ -28,3 +28,7 @@ fields:
         type: switch
         default: false
 
+    support_partial:
+        span: full
+        type: partial
+        path: $/adrenth/redirect/models/settings/_support_field.htm
