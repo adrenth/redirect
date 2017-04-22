@@ -2,8 +2,6 @@
 
 ## First anniversary!
 
-**You can get 50% discount ($7,49) if you use the Coupon code `1YEAR`. This coupon code is valid until 25th of April 2017.**
-
 ## The #1 Redirect plugin for October CMS ([Editors' choice](http://octobercms.com/plugins/featured))
 
 This is the best Redirect-plugin for October CMS. With this plugin installed you can manage redirects directly from October CMS' beautiful interface. Many webmasters and SEO specialists use redirects to optimise their website for search engines. This plugin allows you to manage such redirects with a nice and user-friendly interface.
@@ -11,6 +9,8 @@ This is the best Redirect-plugin for October CMS. With this plugin installed you
 ## What does this plugin offer?
 
 This plugin adds a 'Redirects' section to the main menu of October CMS. This plugin has a unique and fast matching algorithm to match your redirects before your website is being rendered.
+
+!![560x315](//www.youtube.com/embed/R1s7yEEKrgA)
 
 ## Features
 
@@ -95,7 +95,7 @@ To gain maximum performance with this plugin:
 
 If your website has a lot of redirects it is recommended to enable redirect caching. You can enable redirect caching in the settings panel of this plugin.
  
-Only cache drivers which support tagged cache are supported. So driver `file` and `database` are not supported. Hence the fact that database and file caching do not really increase performance. So it is recommended to use an in-memory caching solution like `memcached` or `redis`.
+Only cache drivers which support tagged cache are supported. So driver `file` and `database` are not supported. For this plugin database and file caching do not increase performance, but can actually have a negative influence on performance. So it is recommended to use an in-memory caching solution like `memcached` or `redis`.
 
 ### How caching works
 
@@ -118,6 +118,12 @@ If you have any question about how to use this plugin, please don't hesitate to 
 Kind regards,
 
 Alwin Drenth -- *Author of the Redirect plugin*
+
+---
+
+If you 💙 this quality plugin as much as I do, please **rate my plugin**, [contribute](https://github.com/adrenth/redirect-lang) or consider a [PayPal donation](https://www.paypal.me/adrenth) to support this plugin and my other quality October CMS plugins.
+
+---
 
 ## Other plugins by [Alwin Drenth](http://octobercms.com/author/Adrenth)
 
