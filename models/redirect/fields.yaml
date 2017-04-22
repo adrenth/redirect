@@ -75,12 +75,11 @@ tabs:
             span: left
             nameFrom: name
             type: relation
-
         sort_order:
             label: adrenth.redirect::lang.redirect.priority
             type: text
             span: right
-
+            context: update
         is_enabled:
             label: adrenth.redirect::lang.redirect.enabled
             comment: adrenth.redirect::lang.redirect.enabled_comment
