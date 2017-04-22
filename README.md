@@ -1,7 +1,5 @@
 # Adrenth.Redirect
 
-## First anniversary!
-
 ## The #1 Redirect plugin for October CMS ([Editors' choice](http://octobercms.com/plugins/featured))
 
 This is the best Redirect-plugin for October CMS. With this plugin installed you can manage redirects directly from October CMS' beautiful interface. Many webmasters and SEO specialists use redirects to optimise their website for search engines. This plugin allows you to manage such redirects with a nice and user-friendly interface.
