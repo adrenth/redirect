@@ -92,7 +92,7 @@ class Redirects extends Controller
     }
 
     /**
-     * Index Controller action
+     * Index Controller action.
      *
      * @return void
      */
@@ -106,7 +106,7 @@ class Redirects extends Controller
     }
 
     /**
-     * Edit Controller action
+     * Edit Controller action.
      *
      * @param int $recordId The model primary key to update.
      * @param string $context Explicitly define a form context.
@@ -135,6 +135,8 @@ class Redirects extends Controller
     // @codingStandardsIgnoreStart
 
     /**
+     * Delete selected redirects.
+     *
      * @return array
      */
     public function index_onDelete()
@@ -145,6 +147,8 @@ class Redirects extends Controller
     }
 
     /**
+     * Enable selected redirects.
+     *
      * @return array
      */
     public function index_onEnable()
@@ -155,6 +159,8 @@ class Redirects extends Controller
     }
 
     /**
+     * Disable selected redirects.
+     *
      * @return array
      */
     public function index_onDisable()
@@ -165,6 +171,8 @@ class Redirects extends Controller
     }
 
     /**
+     * Reset all statistics for selected redirects.
+     *
      * @return array
      */
     public function index_onResetStatistics()
@@ -182,6 +190,8 @@ class Redirects extends Controller
     }
 
     /**
+     * Clears redirect cache.
+     *
      * @return array
      * @throws BadMethodCallException
      */
@@ -192,6 +202,8 @@ class Redirects extends Controller
     }
 
     /**
+     * Renders actions partial.
+     *
      * @return string
      */
     public function index_onLoadActions()
@@ -200,6 +212,8 @@ class Redirects extends Controller
     }
 
     /**
+     * Resets all statistics.
+     *
      * @return array
      */
     public function index_onResetAllStatistics()
@@ -211,6 +225,8 @@ class Redirects extends Controller
     }
 
     /**
+     * Enables all redirects.
+     *
      * @return array
      */
     public function index_onEnableAllRedirects()
@@ -222,6 +238,8 @@ class Redirects extends Controller
     }
 
     /**
+     * Disables all redirects.
+     *
      * @return array
      */
     public function index_onDisableAllRedirects()
@@ -233,6 +251,8 @@ class Redirects extends Controller
     }
 
     /**
+     * Deletes all redirects.
+     *
      * @return array
      */
     public function index_onDeleteAllRedirects()
@@ -246,6 +266,8 @@ class Redirects extends Controller
     // @codingStandardsIgnoreEnd
 
     /**
+     * Renders status code information partial.
+     *
      * @return string
      */
     public function onShowStatusCodeInfo()
@@ -290,7 +312,7 @@ class Redirects extends Controller
      *
      * @param Form $host The hosting form widget
      * @param array $fields Current form fields
-     * @return array
+     * @return void
      */
     public function formExtendRefreshFields(Form $host, $fields)
     {
@@ -339,7 +361,7 @@ class Redirects extends Controller
     }
 
     /**
-     * Test Input Path
+     * Test Input Path.
      *
      * @throws ApplicationException
      * @return array
@@ -371,7 +393,7 @@ class Redirects extends Controller
     }
 
     /**
-     * Triggers Request Log dialog
+     * Triggers Request Log dialog.
      *
      * @return string
      * @throws SystemException
@@ -383,7 +405,7 @@ class Redirects extends Controller
     }
 
     /**
-     * Create Redirects from Request Log items
+     * Create Redirects from Request Log items.
      *
      * @return array
      */
@@ -433,6 +455,8 @@ class Redirects extends Controller
     }
 
     /**
+     * Check checked ID's from POST request.
+     *
      * @return array
      */
     private function getCheckedIds()

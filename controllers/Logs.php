@@ -6,6 +6,7 @@ use Adrenth\Redirect\Models\RedirectLog;
 use Backend\Behaviors\ListController;
 use Backend\Classes\Controller;
 use BackendMenu;
+use Exception;
 use Flash;
 use Lang;
 
@@ -78,7 +79,12 @@ class Logs extends Controller
                 if (!$record = RedirectLog::find($recordId)) {
                     continue;
                 }
-                $record->delete();
+
+                try {
+                    $record->delete();
+                } catch (Exception $e) {
+                    // Silence is golden...
+                }
             }
 
             Flash::success(Lang::get('adrenth.redirect::lang.flash.delete_selected_success'));
