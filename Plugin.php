@@ -171,15 +171,11 @@ class Plugin extends PluginBase
      */
     public function registerNavigation()
     {
-        $defaultBackendUrl = Backend::url(
-            'adrenth/redirect/' . (Settings::isStatisticsEnabled() ? 'statistics' : 'redirects')
-        );
-
         $navigation = [
             'redirect' => [
                 'label' => 'adrenth.redirect::lang.navigation.menu_label',
                 'icon' => 'icon-link',
-                'url' => $defaultBackendUrl,
+                'url' => Backend::url('adrenth/redirect/redirects'),
                 'order' => 50,
                 'permissions' => [
                     'adrenth.redirect.access_redirects',
@@ -189,7 +185,7 @@ class Plugin extends PluginBase
                         'icon' => 'icon-link',
                         'label' => 'adrenth.redirect::lang.navigation.menu_label',
                         'url' => Backend::url('adrenth/redirect/redirects'),
-                        'order' => 20,
+                        'order' => 0,
                         'permissions' => [
                             'adrenth.redirect.access_redirects',
                         ],
