@@ -221,6 +221,15 @@ class Plugin extends PluginBase
                             'adrenth.redirect.access_redirects',
                         ],
                     ],
+                    'settings' => [
+                        'label' => 'adrenth.redirect::lang.buttons.settings',
+                        'url' => Backend::url('system/settings/update/adrenth/redirect/config'),
+                        'icon' => 'icon-cogs',
+                        'order' => 90,
+                        'permissions' => [
+                            'adrenth.redirect.access_redirects',
+                        ],
+                    ],
                 ],
             ],
         ];
