@@ -57,7 +57,7 @@ class TestLab extends Controller
     }
 
     /**
-     * Load redirects
+     * Load redirects.
      *
      * @return void
      */

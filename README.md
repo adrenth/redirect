@@ -119,7 +119,7 @@ Alwin Drenth -- *Author of the Redirect plugin*
 
 ---
 
-If you 💙 this quality plugin as much as I do, please **rate my plugin**, [contribute](https://github.com/adrenth/redirect-lang) or consider a [PayPal donation](https://www.paypal.me/adrenth) to support this plugin and my other quality October CMS plugins.
+If you love this quality plugin as much as I do, please **rate my plugin**, [contribute](https://github.com/adrenth/redirect-lang) or consider a [PayPal donation](https://www.paypal.me/adrenth) to support this plugin and my other quality October CMS plugins.
 
 ---
 

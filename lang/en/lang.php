@@ -208,6 +208,7 @@ return [
         'reorder_redirects' => 'Reorder',
         'export' => 'Export',
         'import' => 'Import',
+        'settings' => 'Settings',
         'categories' => 'Categories',
         'new_category' => 'New category',
         'reset_statistics' => 'Reset statistics',
