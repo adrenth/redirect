@@ -97,3 +97,6 @@
 3.10.1: Fix issue when creating redirect with unsupported cache driver
 3.10.2: Fix issues related to unvalidated imported redirects
 3.10.3: Minor improvements to settings screen and plugin documentation
+3.11.0:
+    - Performance improvements to statistics Dashboard
+    - 3110_01_AddMonthYearIndexToClientsTable.php

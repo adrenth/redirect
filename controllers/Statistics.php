@@ -13,6 +13,9 @@ use Backend\Classes\Controller;
  */
 class Statistics extends Controller
 {
+    /** @var StatisticsHelper */
+    private $helper;
+
     /**
      * {@inheritdoc}
      */
@@ -29,6 +32,8 @@ class Statistics extends Controller
 
         $this->addCss('https://cdnjs.cloudflare.com/ajax/libs/vis/4.18.1/vis.min.css');
         $this->addCss('/plugins/adrenth/redirect/assets/css/statistics.css');
+
+        $this->helper = new StatisticsHelper();
     }
 
     /**
@@ -36,19 +41,6 @@ class Statistics extends Controller
      */
     public function index()
     {
-        $helper = new StatisticsHelper();
-
-        $this->vars = [
-            'redirectHitsPerMonth' => $helper->getRedirectHitsPerMonth(),
-            'topTenCrawlersThisMonth' => $helper->getTopTenCrawlersThisMonth(),
-            'topTenRedirectsThisMonth' => $helper->getTopRedirectsThisMonth(),
-            'totalActiveRedirects' => $helper->getTotalActiveRedirects(),
-            'activeRedirects' => $helper->getActiveRedirects(),
-            'totalRedirectsServed' => $helper->getTotalRedirectsServed(),
-            'totalThisMonth' => $helper->getTotalThisMonth(),
-            'totalLastMonth' => $helper->getTotalLastMonth(),
-            'latestClient' => $helper->getLatestClient(),
-        ];
     }
 
     // @codingStandardsIgnoreStart
@@ -58,9 +50,7 @@ class Statistics extends Controller
      */
     public function index_onRedirectHitsPerDay()
     {
-        $helper = new StatisticsHelper();
-
-        $crawlerHits = $helper->getRedirectHitsPerDay(true);
+        $crawlerHits = $this->helper->getRedirectHitsPerDay(true);
 
         $data = [];
 
@@ -72,7 +62,7 @@ class Statistics extends Controller
             ];
         }
 
-        $notCrawlerHits = $helper->getRedirectHitsPerDay(false);
+        $notCrawlerHits = $this->helper->getRedirectHitsPerDay(false);
 
         foreach ($notCrawlerHits as $hit) {
             $data[] = [
@@ -84,6 +74,60 @@ class Statistics extends Controller
 
 
         return json_encode($data);
+    }
+
+    /**
+     * @return array
+     */
+    public function index_onLoadTopRedirectsThisMonth()
+    {
+        return [
+            '#topRedirectsThisMonth' => $this->makePartial('top-redirects-this-month', [
+                'topTenRedirectsThisMonth' => $this->helper->getTopRedirectsThisMonth(),
+            ]),
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    public function index_onLoadTopCrawlersThisMonth()
+    {
+        return [
+            '#topCrawlersThisMonth' => $this->makePartial('top-crawlers-this-month', [
+                'topTenCrawlersThisMonth' => $this->helper->getTopTenCrawlersThisMonth(),
+            ]),
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    public function index_onLoadRedirectHitsPerMonth()
+    {
+        return [
+            '#redirectHitsPerMonth' => $this->makePartial('redirect-hits-per-month', [
+                'redirectHitsPerMonth' => $this->helper->getRedirectHitsPerMonth(),
+            ]),
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    public function index_onLoadScoreBoard()
+    {
+        return [
+            '#scoreBoard' => $this->makePartial('score-board', [
+                'redirectHitsPerMonth' => $this->helper->getRedirectHitsPerMonth(),
+                'totalActiveRedirects' => $this->helper->getTotalActiveRedirects(),
+                'activeRedirects' => $this->helper->getActiveRedirects(),
+                'totalRedirectsServed' => $this->helper->getTotalRedirectsServed(),
+                'totalThisMonth' => $this->helper->getTotalThisMonth(),
+                'totalLastMonth' => $this->helper->getTotalLastMonth(),
+                'latestClient' => $this->helper->getLatestClient(),
+            ]),
+        ];
     }
 
     // @codingStandardsIgnoreEnd

@@ -10,110 +10,30 @@
 
 <div class="row">
     <div class="col-md-12">
-        <div class="report-widget">
-        <div class="scoreboard">
-            <div data-control="toolbar">
-                <div class="scoreboard-item control-chart"
-                     data-control="chart-pie"
-                     data-center-text="<?= number_format($totalActiveRedirects, 0, '', '.') ?>"
-                     data-size="120">
-                    <ul>
-                        <?php foreach ($activeRedirects as $group => $activeRedirect): ?>
-                        <li><?= trans('adrenth.redirect::lang.redirect.' . \Adrenth\Redirect\Models\Redirect::$statusCodes[$group]) ?>
-                            <span><?= count($activeRedirect) ?></span></li>
-                        <?php endforeach; ?>
-                    </ul>
-                </div>
-                <div class="scoreboard-item title-value">
-                    <h4><?= e(trans('adrenth.redirect::lang.statistics.requests_redirected')) ?></h4>
-                    <p><?= number_format($totalRedirectsServed, 0, '', '.') ?></p>
-                    <p class="description"><?= e(trans('adrenth.redirect::lang.statistics.all_time')) ?></p>
-                </div>
-                <div class="scoreboard-item title-value">
-                    <h4><?= e(trans('adrenth.redirect::lang.statistics.active_redirects')) ?></h4>
-                    <p><?= number_format($totalActiveRedirects, 0, '', '.') ?></p>
-                </div>
-                <div class="scoreboard-item title-value">
-                    <h4><?= e(trans('adrenth.redirect::lang.statistics.redirects_this_month')) ?></h4>
-                    <p><?= number_format($totalThisMonth, 0, '', '.') ?></p>
-                    <p class="description "><?= e(trans('adrenth.redirect::lang.statistics.previous_month')) ?>: <?= number_format($totalLastMonth, 0, '', '.') ?></p>
-                </div>
-                <?php if ($latestClient): ?>
-                <div class="scoreboard-item title-value">
-                    <h4><?= e(trans('adrenth.redirect::lang.statistics.latest_redirected_requests')) ?></h4>
-                    <p class="<?= $latestClient->crawler ? 'oc-icon-google' : 'oc-icon-user' ?>"><?= $latestClient->redirect->from_url ?></p>
-                    <p class="description"><?= $latestClient->timestamp ?></p>
-                </div>
-                <?php endif; ?>
-            </div>
-        </div>
+        <div class="report-widget" id="scoreBoard">
+            <?= $this->makePartial('loading-indicator') ?>
+            <script>$.request('onLoadScoreBoard')</script>
         </div>
     </div>
 </div>
 
 <div class="row">
     <div class="col-md-4">
-        <div class="report-widget general">
-            <h3>Redirects per month</h3>
-            <?php if ($redirectHitsPerMonth): ?>
-                <div class="control-status-list">
-                    <ul>
-                        <?php foreach ($redirectHitsPerMonth as $key => $record): ?>
-                        <li>
-                            <span class="status-icon info"><?= $key + 1 ?></span>
-                            <span class="status-text"><?= date('F', mktime(0, 0, 0, $record['month'])) ?> <?= $record['year'] ?></span>
-                            <span class="status-label"><?= number_format($record['hits'], 0, null, '.') ?></span>
-                        </li>
-                        <?php endforeach; ?>
-                    </ul>
-                </div>
-            <?php else: ?>
-                <p class="help-block"><i class="oc-icon-meh-o"></i> <?= e(trans('adrenth.redirect::lang.statistics.no_data')) ?></p>
-            <?php endif; ?>
+        <div class="report-widget general" id="redirectHitsPerMonth">
+            <?= $this->makePartial('loading-indicator') ?>
+            <script>$.request('onLoadRedirectHitsPerMonth')</script>
         </div>
     </div>
     <div class="col-md-4">
-        <div class="report-widget general">
-            <h3><?= e(trans('adrenth.redirect::lang.statistics.top_crawlers_this_month', ['top' => 10])) ?></h3>
-            <?php if ($topTenCrawlersThisMonth): ?>
-                <div class="control-status-list">
-                    <ul>
-                        <?php foreach ($topTenCrawlersThisMonth as $key => $record): ?>
-                        <li>
-                            <span class="status-icon info"><?= $key + 1 ?></span>
-                            <span class="status-text"><?= $record['crawler'] ?></span>
-                            <span class="status-label"><?= number_format($record['hits'], 0, null, '.') ?></span>
-                        </li>
-                        <?php endforeach; ?>
-                    </ul>
-                </div>
-            <?php else: ?>
-                <p class="help-block"><i class="oc-icon-meh-o"></i> <?= e(trans('adrenth.redirect::lang.statistics.no_data')) ?></p>
-            <?php endif; ?>
+        <div class="report-widget general" id="topCrawlersThisMonth">
+            <?= $this->makePartial('loading-indicator') ?>
+            <script>$.request('onLoadTopCrawlersThisMonth')</script>
         </div>
     </div>
     <div class="col-md-4">
-        <div class="report-widget general">
-            <h3><?= e(trans('adrenth.redirect::lang.statistics.top_redirects_this_month', ['top' => 10])) ?></h3>
-            <?php if ($topTenRedirectsThisMonth): ?>
-                <div class="control-status-list">
-                    <ul>
-                        <?php foreach ($topTenRedirectsThisMonth as $key => $record): ?>
-                        <li>
-                            <span class="status-icon info"><?= $key + 1 ?></span>
-                            <span class="status-text">
-                                <a href="<?= Backend::url('adrenth/redirect/redirects/update/' . $record['redirect_id']) ?>">
-                                    <?= $record['from_url'] ?>
-                                </a>
-                            </span>
-                            <span class="status-label"><?= number_format($record['hits'], 0, null, '.') ?></span>
-                        </li>
-                        <?php endforeach; ?>
-                    </ul>
-                </div>
-            <?php else: ?>
-                <p class="help-block"><i class="oc-icon-meh-o"></i> <?= e(trans('adrenth.redirect::lang.statistics.no_data')) ?></p>
-            <?php endif; ?>
+        <div class="report-widget general" id="topRedirectsThisMonth">
+            <?= $this->makePartial('loading-indicator') ?>
+            <script>$.request('onLoadTopRedirectsThisMonth')</script>
         </div>
     </div>
 </div>
