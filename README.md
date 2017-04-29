@@ -34,28 +34,6 @@ This plugin adds a 'Redirects' section to the main menu of October CMS. This plu
 * HTTP status codes 301, 302, 303, 404, 410
 * Caching
 
-## Currently in development
-
-**Redirect TestLab**
-
-![Imgur](http://i.imgur.com/5ZxHKWV.png)
-
-With the Redirect TestLab you will be able to mass test (a selection) of redirect with several testers. Currently the following testers are finished:
-
-* A redirect loop tester (if any of your redirects will result in a loop)
-* A redirect count tester (counts the times your a request will be redirected until it reaches its destination)
-* A response code tester (tests if the returned response code is ok)
-* A redirect match tester (tests if your redirect will match the redirect you have configured).
-* Final destination URL tester (determines the final destination URL).
-
-You will be able to check all your redirects at once and check if there is any error in your configuration.
-
-** Redirect Statistics **
-
-The Statistics dashboard will be improved over time to get more insight in all your redirect traffic.
-
-![Imgur](https://i.imgur.com/nb5m7bs.png)
-
 ## Supported database platforms
 
 * MySQL
