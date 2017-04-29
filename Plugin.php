@@ -178,15 +178,16 @@ class Plugin extends PluginBase
         $navigation = [
             'redirect' => [
                 'label' => 'adrenth.redirect::lang.navigation.menu_label',
+                'iconSvg' => '/plugins/adrenth/redirect/assets/images/redirect-icon.svg',
                 'icon' => 'icon-link',
                 'url' => $defaultBackendUrl,
-                'order' => 50,
+                'order' => 201,
                 'permissions' => [
                     'adrenth.redirect.access_redirects',
                 ],
                 'sideMenu' => [
                     'redirects' => [
-                        'icon' => 'icon-link',
+                        'icon' => 'icon-list',
                         'label' => 'adrenth.redirect::lang.navigation.menu_label',
                         'url' => Backend::url('adrenth/redirect/redirects'),
                         'order' => 20,
