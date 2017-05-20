@@ -49,6 +49,15 @@ class CacheManager
     }
 
     /**
+     * @param $cacheKey
+     * @return bool
+     */
+    public function forget($cacheKey)
+    {
+        return $this->cache->forget($cacheKey);
+    }
+
+    /**
      * Checks if items resists in cache storage.
      *
      * @param string $cacheKey

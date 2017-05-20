@@ -19,6 +19,7 @@ use BadMethodCallException;
 use Cms\Classes\Page;
 use Event;
 use Exception;
+use Log;
 use Request;
 use System\Classes\PluginBase;
 
@@ -102,6 +103,9 @@ class Plugin extends PluginBase
             }
         } catch (InvalidScheme $e) {
             $rule = false;
+        } catch (Exception $e) {
+            Log::error("Could not perform redirect for $requestUri: " . $e->getMessage());
+            return;
         }
 
         if ($rule) {
