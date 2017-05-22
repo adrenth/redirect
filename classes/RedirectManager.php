@@ -198,7 +198,17 @@ class RedirectManager
         $cacheKey = $cacheManager->cacheKey($requestPath, $scheme);
 
         if ($cacheManager->has($cacheKey)) {
-            return $cacheManager->get($cacheKey);
+            $cachedItem = $cacheManager->get($cacheKey);
+
+            // Verify the data from cache. In some cases a cache driver can not unserialize
+            // (due to invalid php configuration) the cached data which causes this function to return invalid data.
+            //
+            // E.g. memcache:
+            // - Memcached::get(): could not unserialize value, no igbinary support in ...
+            // - Memcached::get(): could not unserialize value, no msgpack support in ...
+            if ($cachedItem === false || $cachedItem instanceof RedirectRule) {
+                return $cachedItem;
+            }
         }
 
         $matchedRule = $this->match($requestPath, $scheme);

@@ -1,46 +1,18 @@
-<style type="text/css">
-    .dropdown {
-        float: left;
-    }
-    .toolbar {
-        float: left;
-        width: 75%;
-    }
-</style>
-
-<div class="dropdown" style="float:left">
-    <a href="#"
-       data-toggle="dropdown"
-       class="btn btn-primary oc-icon-plus">
-        <?= e(trans('adrenth.redirect::lang.buttons.add')) ?>
-    </a>
-    <ul class="dropdown-menu"
-        role="menu"
-        data-dropdown-title="<?= e(trans('adrenth.redirect::lang.buttons.add')) ?>">
-        <li role="presentation">
-            <a role="menuitem"
-               tabindex="-1"
-               href="<?= Backend::url('adrenth/redirect/redirects/create') ?>"
-               class="oc-icon-plus">
-                <?= e(trans('adrenth.redirect::lang.buttons.new_redirect')) ?>
-            </a>
-        </li>
-        <li role="presentation">
-            <a role="menuitem"
-               tabindex="-1"
-               href="#"
-               class="oc-icon-copy"
-               data-control="popup"
-               data-size="giant"
-               data-handler="onOpenRequestLog"
-               data-stripe-load-indicator>
-                <?= e(trans('adrenth.redirect::lang.buttons.from_request_log')) ?>
-            </a>
-        </li>
-    </ul>
-</div>
-
 <div class="toolbar" data-control="toolbar">
+    <a href="<?= Backend::url('adrenth/redirect/redirects/create') ?>"
+       class="btn btn-primary oc-icon-plus">
+        <?= e(trans('adrenth.redirect::lang.buttons.new_redirect')) ?>
+    </a>
+
+    <a href="#"
+       class="btn btn-default oc-icon-plus"
+       data-control="popup"
+       data-size="giant"
+       data-handler="onOpenRequestLog"
+       data-stripe-load-indicator>
+        <?= e(trans('adrenth.redirect::lang.buttons.from_request_log')) ?>
+    </a>
+
     <a class="btn btn-default oc-icon-sort-amount-asc"
        href="<?= Backend::url('adrenth/redirect/redirects/reorder') ?>">
         <?= e(trans('adrenth.redirect::lang.buttons.reorder_redirects')) ?>
@@ -48,7 +20,7 @@
 
     <div class="btn-group" id="checkBoxTriggeredButtons">
         <button class="btn btn-default oc-icon-trash-o"
-                disabled="disabled"
+                disabled=""
                 onclick="$(this).data('request-data', { checked: $('.control-list').listWidget('getChecked') })"
                 data-request="onDelete"
                 data-request-confirm="<?= e(trans('adrenth.redirect::lang.redirect.delete_confirm')) ?>"
@@ -60,7 +32,7 @@
             <?= e(trans('adrenth.redirect::lang.buttons.delete')) ?>
         </button>
         <button class="btn btn-default oc-icon-check-square-o"
-                disabled="disabled"
+                disabled=""
                 onclick="$(this).data('request-data', { checked: $('.control-list').listWidget('getChecked') })"
                 data-request="onEnable"
                 data-trigger-action="enable"
@@ -71,7 +43,7 @@
             <?= e(trans('adrenth.redirect::lang.buttons.enable')) ?>
         </button>
         <button class="btn btn-default oc-icon-square-o"
-                disabled="disabled"
+                disabled=""
                 onclick="$(this).data('request-data', { checked: $('.control-list').listWidget('getChecked') })"
                 data-request="onDisable"
                 data-trigger-action="enable"
@@ -83,7 +55,7 @@
         </button>
     </div>
     <button class="btn btn-default oc-icon-undo"
-            disabled="disabled"
+            disabled=""
             onclick="$(this).data('request-data', { checked: $('.control-list').listWidget('getChecked') })"
             data-request="onResetStatistics"
             data-trigger-action="enable"

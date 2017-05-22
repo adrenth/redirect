@@ -179,7 +179,7 @@ return [
         'previous_month' => 'previous month',
         'latest_redirected_requests' => 'Latest redirected request',
         'redirects_per_month' => 'Redirects per month',
-        'no_data' => 'No data',
+        'no_data' => 'No data yet',
         'top_crawlers_this_month' => 'Top :top crawlers this month',
         'top_redirects_this_month' => 'Top :top redirects this month',
     ],

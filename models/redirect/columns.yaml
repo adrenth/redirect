@@ -3,11 +3,6 @@
 # ===================================
 
 columns:
-    system:
-        label: adrenth.redirect::lang.redirect.type
-        width: 16px
-        type: redirect_system
-        sortable: false
     from_url:
         label: adrenth.redirect::lang.redirect.from_url
         type: redirect_from_url
@@ -34,3 +29,9 @@ columns:
     is_enabled:
         label: adrenth.redirect::lang.redirect.enabled
         type: redirect_switch_color
+    system:
+        label: adrenth.redirect::lang.redirect.type
+        width: 16px
+        type: redirect_system
+        sortable: false
+        invisible: true
