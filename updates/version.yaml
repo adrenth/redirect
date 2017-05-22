@@ -101,3 +101,4 @@
     - Performance improvements to statistics Dashboard
     - 3110_01_AddMonthYearIndexToClientsTable.php
 3.12.0: Add new plugin icon for main navigation
+3.13.0: Minor UI improvements and bugfixes
