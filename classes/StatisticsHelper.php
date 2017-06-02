@@ -1,4 +1,16 @@
 <?php
+/**
+ * OctoberCMS plugin: Adrenth.Redirect
+ *
+ * Copyright (c) Alwin Drenth 2017.
+ *
+ * Licensing information:
+ * https://octobercms.com/help/license/regular
+ * https://octobercms.com/help/license/extended
+ * https://octobercms.com/help/license/faqs
+ */
+
+declare(strict_types=1);
 
 namespace Adrenth\Redirect\Classes;
 
@@ -17,7 +29,7 @@ class StatisticsHelper
     /**
      * @return int
      */
-    public function getTotalRedirectsServed()
+    public function getTotalRedirectsServed(): int
     {
         return Client::count();
     }
@@ -25,7 +37,7 @@ class StatisticsHelper
     /**
      * @return Client|null
      */
-    public function getLatestClient()
+    public function getLatestClient(): ?Client
     {
         return Client::orderBy('timestamp', 'desc')->limit(1)->first();
     }
@@ -33,7 +45,7 @@ class StatisticsHelper
     /**
      * @return int
      */
-    public function getTotalThisMonth()
+    public function getTotalThisMonth(): int
     {
         return Client::where('month', '=', date('m'))
             ->where('year', '=', date('Y'))
@@ -43,7 +55,7 @@ class StatisticsHelper
     /**
      * @return int
      */
-    public function getTotalLastMonth()
+    public function getTotalLastMonth(): int
     {
         $lastMonth = Carbon::today();
         $lastMonth->subMonthNoOverflow();
@@ -56,7 +68,7 @@ class StatisticsHelper
     /**
      * @return array
      */
-    public function getActiveRedirects()
+    public function getActiveRedirects(): array
     {
         $groupedRedirects = [];
 
@@ -78,7 +90,7 @@ class StatisticsHelper
     /**
      * @return int
      */
-    public function getTotalActiveRedirects()
+    public function getTotalActiveRedirects(): int
     {
         return Redirect::enabled()
             ->get()
@@ -92,7 +104,7 @@ class StatisticsHelper
      * @param bool $crawler
      * @return array
      */
-    public function getRedirectHitsPerDay($crawler = false)
+    public function getRedirectHitsPerDay($crawler = false): array
     {
         /** @noinspection PhpMethodParametersCountMismatchInspection */
         $result = Client::selectRaw('COUNT(id) AS hits')
@@ -114,7 +126,7 @@ class StatisticsHelper
     /**
      * @return array
      */
-    public function getRedirectHitsPerMonth()
+    public function getRedirectHitsPerMonth(): array
     {
         /** @noinspection PhpMethodParametersCountMismatchInspection */
         return (array) Client::selectRaw('COUNT(id) AS hits')
@@ -129,7 +141,7 @@ class StatisticsHelper
     /**
      * @return array
      */
-    public function getTopTenCrawlersThisMonth()
+    public function getTopTenCrawlersThisMonth(): array
     {
         return (array) Client::selectRaw('COUNT(id) AS hits')
             ->addSelect('crawler')
@@ -147,7 +159,7 @@ class StatisticsHelper
      * @param int $limit
      * @return array
      */
-    public function getTopRedirectsThisMonth($limit = 10)
+    public function getTopRedirectsThisMonth($limit = 10): array
     {
         /** @noinspection PhpMethodParametersCountMismatchInspection */
         return (array) Client::selectRaw('COUNT(redirect_id) AS hits')

@@ -1,4 +1,16 @@
 <?php
+/**
+ * OctoberCMS plugin: Adrenth.Redirect
+ *
+ * Copyright (c) Alwin Drenth 2017.
+ *
+ * Licensing information:
+ * https://octobercms.com/help/license/regular
+ * https://octobercms.com/help/license/extended
+ * https://octobercms.com/help/license/faqs
+ */
+
+declare(strict_types=1);
 
 namespace Adrenth\Redirect\Classes;
 
@@ -95,7 +107,7 @@ class RedirectRule
      * @return RedirectRule
      * @throws InvalidArgumentException
      */
-    public static function createWithModel(Redirect $model)
+    public static function createWithModel(Redirect $model): RedirectRule
     {
         $attributes = $model->getAttributes();
         $attributes['requirements'] = json_encode($model->getAttribute('requirements'));
@@ -106,7 +118,7 @@ class RedirectRule
     /**
      * @return int
      */
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
@@ -114,7 +126,7 @@ class RedirectRule
     /**
      * @return string
      */
-    public function getMatchType()
+    public function getMatchType(): string
     {
         return $this->matchType;
     }
@@ -122,7 +134,7 @@ class RedirectRule
     /**
      * @return string
      */
-    public function getTargetType()
+    public function getTargetType(): string
     {
         return $this->targetType;
     }
@@ -130,7 +142,7 @@ class RedirectRule
     /**
      * @return string
      */
-    public function getFromUrl()
+    public function getFromUrl(): string
     {
         return $this->fromUrl;
     }
@@ -138,7 +150,7 @@ class RedirectRule
     /**
      * @return string
      */
-    public function getFromScheme()
+    public function getFromScheme(): string
     {
         return $this->fromScheme;
     }
@@ -146,7 +158,7 @@ class RedirectRule
     /**
      * @return string
      */
-    public function getToUrl()
+    public function getToUrl(): string
     {
         return $this->toUrl;
     }
@@ -154,7 +166,7 @@ class RedirectRule
     /**
      * @return string
      */
-    public function getToScheme()
+    public function getToScheme(): string
     {
         return $this->toScheme;
     }
@@ -162,7 +174,7 @@ class RedirectRule
     /**
      * @return string
      */
-    public function getCmsPage()
+    public function getCmsPage(): string
     {
         return $this->cmsPage;
     }
@@ -170,7 +182,7 @@ class RedirectRule
     /**
      * @return string
      */
-    public function getStaticPage()
+    public function getStaticPage(): string
     {
         return $this->staticPage;
     }
@@ -178,7 +190,7 @@ class RedirectRule
     /**
      * @return int
      */
-    public function getStatusCode()
+    public function getStatusCode(): int
     {
         return (int) $this->statusCode;
     }
@@ -186,7 +198,7 @@ class RedirectRule
     /**
      * @return array
      */
-    public function getRequirements()
+    public function getRequirements(): array
     {
         return (array) $this->requirements;
     }
@@ -194,7 +206,7 @@ class RedirectRule
     /**
      * @return Carbon|null
      */
-    public function getFromDate()
+    public function getFromDate(): ?Carbon
     {
         return $this->fromDate;
     }
@@ -202,7 +214,7 @@ class RedirectRule
     /**
      * @return Carbon|null
      */
-    public function getToDate()
+    public function getToDate(): ?Carbon
     {
         return $this->toDate;
     }
@@ -210,7 +222,7 @@ class RedirectRule
     /**
      * @return bool
      */
-    public function isExactMatchType()
+    public function isExactMatchType(): bool
     {
         return $this->matchType === Redirect::TYPE_EXACT;
     }
@@ -218,7 +230,7 @@ class RedirectRule
     /**
      * @return bool
      */
-    public function isPlaceholdersMatchType()
+    public function isPlaceholdersMatchType(): bool
     {
         return $this->matchType === Redirect::TYPE_PLACEHOLDERS;
     }
@@ -226,16 +238,16 @@ class RedirectRule
     /**
      * @return array
      */
-    public function getPlaceholderMatches()
+    public function getPlaceholderMatches(): array
     {
         return (array) $this->placeholderMatches;
     }
 
     /**
      * @param array $placeholderMatches
-     * @return $this
+     * @return RedirectRule
      */
-    public function setPlaceholderMatches(array $placeholderMatches = [])
+    public function setPlaceholderMatches(array $placeholderMatches = []): RedirectRule
     {
         $this->placeholderMatches = $placeholderMatches;
         return $this;

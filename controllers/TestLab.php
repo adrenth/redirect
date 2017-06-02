@@ -1,4 +1,16 @@
 <?php
+/**
+ * OctoberCMS plugin: Adrenth.Redirect
+ *
+ * Copyright (c) Alwin Drenth 2017.
+ *
+ * Licensing information:
+ * https://octobercms.com/help/license/regular
+ * https://octobercms.com/help/license/extended
+ * https://octobercms.com/help/license/faqs
+ */
+
+declare(strict_types=1);
 
 namespace Adrenth\Redirect\Controllers;
 
@@ -20,6 +32,7 @@ use October\Rain\Database\Collection;
 /**
  * Class Test
  *
+ * @property string bodyClass
  * @package Adrenth\Redirect\Controllers
  */
 class TestLab extends Controller
@@ -46,7 +59,7 @@ class TestLab extends Controller
      *
      * @return void
      */
-    public function index()
+    public function index(): void
     {
         $this->pageTitle = 'adrenth.redirect::lang.title.test_lab';
 
@@ -61,7 +74,7 @@ class TestLab extends Controller
      *
      * @return void
      */
-    private function loadRedirects()
+    private function loadRedirects(): void
     {
         /** @var Collection $redirects */
         $this->redirects = array_values(Redirect::enabled()
@@ -78,7 +91,7 @@ class TestLab extends Controller
      * @param int $offset
      * @return Redirect|null
      */
-    private function offsetGetRedirect($offset)
+    private function offsetGetRedirect($offset): ?Redirect
     {
         if (array_key_exists($offset, $this->redirects)) {
             return $this->redirects[$offset];
@@ -92,7 +105,7 @@ class TestLab extends Controller
     /**
      * @return string
      */
-    public function index_onTest()
+    public function index_onTest(): string
     {
         $offset = (int) Input::get('offset');
 
@@ -127,7 +140,7 @@ class TestLab extends Controller
      * @return array
      * @throws ModelNotFoundException
      */
-    public function index_onReRun()
+    public function index_onReRun(): array
     {
         /** @var Redirect $redirect */
         $redirect = Redirect::findOrFail(post('id'));
@@ -146,7 +159,7 @@ class TestLab extends Controller
      * @return array
      * @throws ModelNotFoundException
      */
-    public function index_onExclude()
+    public function index_onExclude(): array
     {
         /** @var Redirect $redirect */
         $redirect = Redirect::findOrFail(post('id'));
@@ -170,7 +183,7 @@ class TestLab extends Controller
      * @param Redirect $redirect
      * @return string
      */
-    public function getTestPath(Redirect $redirect)
+    public function getTestPath(Redirect $redirect): string
     {
         $testPath = '/';
 
@@ -187,7 +200,7 @@ class TestLab extends Controller
      * @param Redirect $redirect
      * @return array
      */
-    public function getTestResults(Redirect $redirect)
+    public function getTestResults(Redirect $redirect): array
     {
         $testPath = $this->getTestPath($redirect);
 
@@ -203,7 +216,7 @@ class TestLab extends Controller
     /**
      * @return int
      */
-    private function getRedirectCount()
+    private function getRedirectCount(): int
     {
         return count($this->redirects);
     }

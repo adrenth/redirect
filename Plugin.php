@@ -1,4 +1,16 @@
 <?php
+/**
+ * OctoberCMS plugin: Adrenth.Redirect
+ *
+ * Copyright (c) Alwin Drenth 2017.
+ *
+ * Licensing information:
+ * https://octobercms.com/help/license/regular
+ * https://octobercms.com/help/license/extended
+ * https://octobercms.com/help/license/faqs
+ */
+
+declare(strict_types=1);
 
 namespace Adrenth\Redirect;
 
@@ -33,7 +45,7 @@ class Plugin extends PluginBase
     /**
      * {@inheritdoc}
      */
-    public function pluginDetails()
+    public function pluginDetails(): array
     {
         return [
             'name' => 'adrenth.redirect::lang.plugin.name',
@@ -71,7 +83,7 @@ class Plugin extends PluginBase
      * @return void
      * @throws BadMethodCallException If cache tags are not supported.
      */
-    public function bootFrontend()
+    public function bootFrontend(): void
     {
         // Only handle specific request methods
         if (!in_array(Request::method(), ['GET', 'POST', 'HEAD'], true)) {
@@ -119,7 +131,7 @@ class Plugin extends PluginBase
      * @return void
      * @throws Exception
      */
-    public function bootBackend()
+    public function bootBackend(): void
     {
         Page::extend(function (Page $page) {
             $handler = new PageHandler($page);
@@ -160,7 +172,7 @@ class Plugin extends PluginBase
     /**
      * {@inheritdoc}
      */
-    public function registerPermissions()
+    public function registerPermissions(): array
     {
         return [
             'adrenth.redirect.access_redirects' => [
@@ -173,7 +185,7 @@ class Plugin extends PluginBase
     /**
      * {@inheritdoc}
      */
-    public function registerNavigation()
+    public function registerNavigation(): array
     {
         $defaultBackendUrl = Backend::url(
             'adrenth/redirect/' . (Settings::isStatisticsEnabled() ? 'statistics' : 'redirects')
@@ -282,7 +294,7 @@ class Plugin extends PluginBase
     /**
      * {@inheritdoc}
      */
-    public function registerSettings()
+    public function registerSettings(): array
     {
         /** @noinspection ClassConstantCanBeUsedInspection */
         return [
@@ -302,7 +314,7 @@ class Plugin extends PluginBase
     /**
      * {@inheritdoc}
      */
-    public function registerReportWidgets()
+    public function registerReportWidgets(): array
     {
         return [
             CreateRedirect::class => [
@@ -319,7 +331,7 @@ class Plugin extends PluginBase
     /**
      * {@inheritdoc}
      */
-    public function registerListColumnTypes()
+    public function registerListColumnTypes(): array
     {
         return [
             'redirect_switch_color' => function ($value) {

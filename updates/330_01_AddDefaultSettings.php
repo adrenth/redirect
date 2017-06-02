@@ -1,9 +1,23 @@
 <?php
+/**
+ * OctoberCMS plugin: Adrenth.Redirect
+ *
+ * Copyright (c) Alwin Drenth 2017.
+ *
+ * Licensing information:
+ * https://octobercms.com/help/license/regular
+ * https://octobercms.com/help/license/extended
+ * https://octobercms.com/help/license/faqs
+ */
+
+declare(strict_types=1);
 
 namespace Adrenth\Redirect\Updates;
 
 use Adrenth\Redirect\Models\Settings;
 use October\Rain\Database\Updates\Migration;
+
+/** @noinspection AutoloadingIssuesInspection */
 
 /**
  * Class AddTestLabPathToRedirectsTable
@@ -12,7 +26,7 @@ use October\Rain\Database\Updates\Migration;
  */
 class AddDefaultSettings extends Migration
 {
-    public function up()
+    public function up(): void
     {
         /** @noinspection PhpDynamicAsStaticMethodCallInspection */
         $settings = Settings::instance();
@@ -22,7 +36,7 @@ class AddDefaultSettings extends Migration
         $settings->save();
     }
 
-    public function down()
+    public function down(): void
     {
         /** @noinspection PhpDynamicAsStaticMethodCallInspection */
         $settings = Settings::instance();

@@ -1,4 +1,16 @@
 <?php
+/**
+ * OctoberCMS plugin: Adrenth.Redirect
+ *
+ * Copyright (c) Alwin Drenth 2017.
+ *
+ * Licensing information:
+ * https://octobercms.com/help/license/regular
+ * https://octobercms.com/help/license/extended
+ * https://octobercms.com/help/license/faqs
+ */
+
+declare(strict_types=1);
 
 namespace Adrenth\Redirect\Classes;
 
@@ -32,7 +44,7 @@ class TesterResult
     /**
      * @return bool
      */
-    public function isPassed()
+    public function isPassed(): bool
     {
         return $this->passed;
     }
@@ -40,7 +52,7 @@ class TesterResult
     /**
      * @return string
      */
-    public function getMessage()
+    public function getMessage(): string
     {
         return $this->message;
     }
@@ -49,7 +61,7 @@ class TesterResult
      * @param int $duration
      * @return TesterResult
      */
-    public function setDuration($duration)
+    public function setDuration($duration): TesterResult
     {
         $this->duration = (int) $duration;
         return $this;
@@ -58,7 +70,7 @@ class TesterResult
     /**
      * @return int
      */
-    public function getDuration()
+    public function getDuration(): int
     {
         return $this->duration;
     }
@@ -66,7 +78,7 @@ class TesterResult
     /**
      * @return string
      */
-    public function getStatusCssClass()
+    public function getStatusCssClass(): string
     {
         return $this->passed ? 'passed' : 'failed';
     }

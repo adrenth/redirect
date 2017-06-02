@@ -1,4 +1,16 @@
 <?php
+/**
+ * OctoberCMS plugin: Adrenth.Redirect
+ *
+ * Copyright (c) Alwin Drenth 2017.
+ *
+ * Licensing information:
+ * https://octobercms.com/help/license/regular
+ * https://octobercms.com/help/license/extended
+ * https://octobercms.com/help/license/faqs
+ */
+
+declare(strict_types=1);
 
 namespace Adrenth\Redirect\Classes;
 
@@ -24,7 +36,7 @@ class PublishManager
     /**
      * {@inheritdoc}
      */
-    protected function init()
+    protected function init(): void
     {
         $this->redirectsFile = storage_path('app/redirects.csv');
     }
@@ -34,7 +46,7 @@ class PublishManager
      *
      * @return int Number of published redirects
      */
-    public function publish()
+    public function publish(): int
     {
         if (file_exists($this->redirectsFile)) {
             unlink($this->redirectsFile);

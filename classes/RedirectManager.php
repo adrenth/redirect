@@ -1,4 +1,16 @@
 <?php
+/**
+ * OctoberCMS plugin: Adrenth.Redirect
+ *
+ * Copyright (c) Alwin Drenth 2017.
+ *
+ * Licensing information:
+ * https://octobercms.com/help/license/regular
+ * https://octobercms.com/help/license/extended
+ * https://octobercms.com/help/license/faqs
+ */
+
+declare(strict_types=1);
 
 namespace Adrenth\Redirect\Classes;
 
@@ -77,7 +89,7 @@ class RedirectManager
      * @return RedirectManager
      * @throws RulesPathNotReadable
      */
-    public static function createWithDefaultRulesPath()
+    public static function createWithDefaultRulesPath(): RedirectManager
     {
         $rulesPath = storage_path('app/redirects.csv');
 
@@ -94,7 +106,7 @@ class RedirectManager
      * @param $redirectRulesPath
      * @return RedirectManager
      */
-    public static function createWithRulesPath($redirectRulesPath)
+    public static function createWithRulesPath($redirectRulesPath): RedirectManager
     {
         $instance = new self();
         $instance->redirectRulesPath = $redirectRulesPath;
@@ -107,7 +119,7 @@ class RedirectManager
      * @param RedirectRule $rule
      * @return RedirectManager
      */
-    public static function createWithRule(RedirectRule $rule)
+    public static function createWithRule(RedirectRule $rule): RedirectManager
     {
         $instance = new self();
         $instance->redirectRules[] = $rule;
@@ -120,7 +132,7 @@ class RedirectManager
      * @param bool $loggingEnabled
      * @return RedirectManager
      */
-    public function setLoggingEnabled($loggingEnabled)
+    public function setLoggingEnabled($loggingEnabled): RedirectManager
     {
         $this->loggingEnabled = (bool) $loggingEnabled;
         return $this;
@@ -132,7 +144,7 @@ class RedirectManager
      * @param bool $statisticsEnabled
      * @return RedirectManager
      */
-    public function setStatisticsEnabled($statisticsEnabled)
+    public function setStatisticsEnabled($statisticsEnabled): RedirectManager
     {
         $this->statisticsEnabled = (bool) $statisticsEnabled;
         return $this;
@@ -140,9 +152,9 @@ class RedirectManager
 
     /**
      * @param string $basePath
-     * @return $this
+     * @return RedirectManager
      */
-    public function setBasePath($basePath)
+    public function setBasePath($basePath): RedirectManager
     {
         $this->basePath = rtrim($basePath, '/');
         return $this;
@@ -151,7 +163,7 @@ class RedirectManager
     /**
      * @return string
      */
-    public function getBasePath()
+    public function getBasePath(): string
     {
         return $this->basePath;
     }
@@ -223,7 +235,7 @@ class RedirectManager
      * @param string $requestUri
      * @return void
      */
-    public function redirectWithRule(RedirectRule $rule, $requestUri)
+    public function redirectWithRule(RedirectRule $rule, $requestUri): void
     {
         $this->updateStatistics($rule->getId());
 
@@ -298,7 +310,7 @@ class RedirectManager
      * @param RedirectRule $rule
      * @return string
      */
-    private function redirectToPathOrUrl(RedirectRule $rule)
+    private function redirectToPathOrUrl(RedirectRule $rule): string
     {
         if ($rule->isExactMatchType()) {
             return $rule->getToUrl();
@@ -317,7 +329,7 @@ class RedirectManager
      * @param RedirectRule $rule
      * @return string
      */
-    private function redirectToCmsPage(RedirectRule $rule)
+    private function redirectToCmsPage(RedirectRule $rule): string
     {
         $controller = new Controller(Theme::getActiveTheme());
 
@@ -349,9 +361,9 @@ class RedirectManager
      * Change the match date; can be used to perform tests.
      *
      * @param Carbon $matchDate
-     * @return $this
+     * @return RedirectManager
      */
-    public function setMatchDate(Carbon $matchDate)
+    public function setMatchDate(Carbon $matchDate): RedirectManager
     {
         $this->matchDate = $matchDate;
         return $this;
@@ -450,7 +462,7 @@ class RedirectManager
      * @param RedirectRule $rule
      * @return bool
      */
-    private function matchesPeriod(RedirectRule $rule)
+    private function matchesPeriod(RedirectRule $rule): bool
     {
         if ($rule->getFromDate() instanceof Carbon
             && $rule->getToDate() instanceof Carbon
@@ -478,7 +490,7 @@ class RedirectManager
      * @param string $scheme
      * @return bool
      */
-    private function matchesScheme(RedirectRule $rule, $scheme)
+    private function matchesScheme(RedirectRule $rule, $scheme): bool
     {
         if ($rule->getFromScheme() === Redirect::SCHEME_AUTO) {
             return true;
@@ -494,7 +506,7 @@ class RedirectManager
      * @param string $placeholder
      * @return string|null
      */
-    private function findReplacementForPlaceholder(RedirectRule $rule, $placeholder)
+    private function findReplacementForPlaceholder(RedirectRule $rule, $placeholder): ?string
     {
         foreach ($rule->getRequirements() as $requirement) {
             if ($requirement['placeholder'] === $placeholder && !empty($requirement['replacement'])) {
@@ -510,7 +522,7 @@ class RedirectManager
      *
      * @return void
      */
-    private function loadRedirectRules()
+    private function loadRedirectRules(): void
     {
         if ($this->redirectRules !== null) {
             return;
@@ -545,7 +557,7 @@ class RedirectManager
      *
      * @param int $redirectId
      */
-    private function updateStatistics($redirectId)
+    private function updateStatistics($redirectId): void
     {
         if (!$this->statisticsEnabled) {
             return;
@@ -585,7 +597,7 @@ class RedirectManager
      * @param $toUrl
      * @return void
      */
-    private function addLogEntry(RedirectRule $rule, $requestUri, $toUrl)
+    private function addLogEntry(RedirectRule $rule, $requestUri, $toUrl): void
     {
         if (!$this->loggingEnabled) {
             return;

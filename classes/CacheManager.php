@@ -1,4 +1,16 @@
 <?php
+/**
+ * OctoberCMS plugin: Adrenth.Redirect
+ *
+ * Copyright (c) Alwin Drenth 2017.
+ *
+ * Licensing information:
+ * https://octobercms.com/help/license/regular
+ * https://octobercms.com/help/license/extended
+ * https://octobercms.com/help/license/faqs
+ */
+
+declare(strict_types=1);
 
 namespace Adrenth\Redirect\Classes;
 
@@ -31,7 +43,7 @@ class CacheManager
      * {@inheritdoc}
      * @throws BadMethodCallException
      */
-    protected function init()
+    protected function init(): void
     {
         $this->cache = Cache::tags([static::CACHE_TAG]);
     }
@@ -51,7 +63,7 @@ class CacheManager
      * @param $cacheKey
      * @return bool
      */
-    public function forget($cacheKey)
+    public function forget($cacheKey): bool
     {
         return $this->cache->forget($cacheKey);
     }
@@ -62,7 +74,7 @@ class CacheManager
      * @param string $cacheKey
      * @return bool
      */
-    public function has($cacheKey)
+    public function has($cacheKey): bool
     {
         return $this->cache->has($cacheKey);
     }
@@ -77,7 +89,7 @@ class CacheManager
      * @param string $scheme
      * @return string
      */
-    public function cacheKey($requestPath, $scheme)
+    public function cacheKey($requestPath, $scheme): string
     {
         return md5($requestPath, $scheme);
     }
@@ -88,7 +100,7 @@ class CacheManager
      * @return void
      * @throws BadMethodCallException
      */
-    public function flush()
+    public function flush(): void
     {
         $this->cache->flush();
     }
@@ -124,7 +136,7 @@ class CacheManager
      *
      * @return bool
      */
-    public static function cachingEnabledAndSupported()
+    public static function cachingEnabledAndSupported(): bool
     {
         if (!Settings::isCachingEnabled()) {
             return false;
@@ -144,7 +156,7 @@ class CacheManager
      *
      * @return bool
      */
-    public static function cachingEnabledButNotSupported()
+    public static function cachingEnabledButNotSupported(): bool
     {
         if (!Settings::isCachingEnabled()) {
             return false;
