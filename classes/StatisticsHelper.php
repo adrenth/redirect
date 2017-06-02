@@ -155,7 +155,7 @@ class StatisticsHelper
             ->join('adrenth_redirect_redirects AS r', 'r.id', '=', 'redirect_id')
             ->where('month', '=', (int) date('n'))
             ->where('year', '=', (int) date('Y'))
-            ->groupBy('redirect_id')
+            ->groupBy('redirect_id', 'r.from_url')
             ->orderByRaw('hits DESC')
             ->limit($limit)
             ->get()
