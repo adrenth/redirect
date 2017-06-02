@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Adrenth\Redirect\Classes;
 
 use Adrenth\Redirect\Models\Settings;

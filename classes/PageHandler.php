@@ -102,7 +102,7 @@ class PageHandler
     }
 
     /**
-     * @return array
+     * @return string
      */
     protected function getNewUrl()
     {
@@ -112,7 +112,7 @@ class PageHandler
             return $dirty['url'];
         }
 
-        return $this->page->getOriginal('url');
+        return (string) $this->page->getOriginal('url');
     }
 
     /**
