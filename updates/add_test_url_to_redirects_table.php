@@ -13,18 +13,18 @@ use Schema;
  */
 class AddTestUrlToRedirectsTable extends Migration
 {
-    const TABLE = 'adrenth_redirect_redirects';
-
     public function up()
     {
-        Schema::table(self::TABLE, function (Blueprint $table) {
-            $table->mediumText('test_url')->nullable()->after('to_url');
+        Schema::table('adrenth_redirect_redirects', function (Blueprint $table) {
+            $table->mediumText('test_url')
+                ->nullable()
+                ->after('to_url');
         });
     }
 
     public function down()
     {
-        Schema::table(self::TABLE, function (Blueprint $table) {
+        Schema::table('adrenth_redirect_redirects', function (Blueprint $table) {
             $table->dropColumn('test_url');
         });
     }

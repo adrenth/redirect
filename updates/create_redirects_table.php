@@ -13,28 +13,35 @@ use Schema;
  */
 class CreateRedirectsTable extends Migration
 {
-    const TABLE = 'adrenth_redirect_redirects';
-
     public function up()
     {
-        Schema::create(self::TABLE, function (Blueprint $table) {
+        Schema::create('adrenth_redirect_redirects', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->string('match_type', '12');
             $table->string('from_url');
             $table->string('to_url');
-            $table->json('requirements')->nullable();
+            $table->json('requirements')
+                ->nullable();
             $table->char('status_code', 3);
-            $table->integer('hits')->default(0)->unsigned();
-            $table->integer('sort_order')->default(0)->unsigned()->index();
-            $table->boolean('is_enabled')->default(false)->index();
-            $table->boolean('is_published')->default(false);
+            $table->integer('hits')
+                ->default(0)
+                ->unsigned();
+            $table->integer('sort_order')
+                ->default(0)
+                ->unsigned()
+                ->index();
+            $table->boolean('is_enabled')
+                ->default(false)
+                ->index();
+            $table->boolean('is_published')
+                ->default(false);
             $table->timestamps();
         });
     }
 
     public function down()
     {
-        Schema::dropIfExists(self::TABLE);
+        Schema::dropIfExists('adrenth_redirect_redirects');
     }
 }

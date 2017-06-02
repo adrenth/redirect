@@ -14,23 +14,25 @@ use Schema;
  */
 class ChangeTypeUrlColumnsRedirectsTable extends Migration
 {
-    const TABLE = 'adrenth_redirect_redirects';
-
     public function up()
     {
-        DB::getDoctrineSchemaManager()->getDatabasePlatform()->registerDoctrineTypeMapping('json', 'text');
-        Schema::table(self::TABLE, function (Blueprint $table) {
-            $table->mediumText('to_url')->change();
-            $table->mediumText('from_url')->change();
-            $table->string('match_type', 12)->change();
+        Schema::table('adrenth_redirect_redirects', function (Blueprint $table) {
+            $table->mediumText('to_url')
+                ->change();
+            $table->mediumText('from_url')
+                ->change();
+            $table->string('match_type', 12)
+                ->change();
         });
     }
 
     public function down()
     {
-        Schema::table(self::TABLE, function (Blueprint $table) {
-            $table->string('to_url')->change();
-            $table->string('from_url')->change();
+        Schema::table('adrenth_redirect_redirects', function (Blueprint $table) {
+            $table->string('to_url')
+                ->change();
+            $table->string('from_url')
+                ->change();
         });
     }
 }

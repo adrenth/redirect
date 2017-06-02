@@ -17,11 +17,11 @@ class AddFromToSchemeToRedirectsTable extends Migration
     public function up()
     {
         Schema::table('adrenth_redirect_redirects', function (Blueprint $table) {
-            $table->char('from_scheme', 5)
+            $table->string('from_scheme', 5)
                 ->default(Redirect::SCHEME_AUTO)
                 ->after('target_type');
 
-            $table->char('to_scheme', 5)
+            $table->string('to_scheme', 5)
                 ->default(Redirect::SCHEME_AUTO)
                 ->after('from_url');
         });

@@ -16,7 +16,9 @@ class AddCategoryIdToRedirectsTable extends Migration
     public function up()
     {
         Schema::table('adrenth_redirect_redirects', function (Blueprint $table) {
-            $table->unsignedInteger('category_id')->after('id')->nullable();
+            $table->unsignedInteger('category_id')
+                ->after('id')
+                ->nullable();
 
             $table->foreign('category_id')
                 ->references('id')

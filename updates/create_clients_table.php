@@ -19,11 +19,13 @@ class CreateClientsTable extends Migration
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->unsignedInteger('redirect_id');
-            $table->timestamp('timestamp')->nullable();
+            $table->timestamp('timestamp')
+                ->nullable();
             $table->unsignedTinyInteger('day');
             $table->unsignedTinyInteger('month');
             $table->unsignedSmallInteger('year');
-            $table->string('crawler')->nullable();
+            $table->string('crawler')
+                ->nullable();
 
             $table->index(['redirect_id', 'day', 'month', 'year'], 'redirect_dmy');
             $table->index(['redirect_id', 'month', 'year'], 'redirect_my');

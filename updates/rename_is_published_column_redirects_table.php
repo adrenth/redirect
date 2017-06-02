@@ -13,18 +13,16 @@ use Schema;
  */
 class RenameIsPublishedColumnRedirectsTable extends Migration
 {
-    const TABLE = 'adrenth_redirect_redirects';
-
     public function up()
     {
-        Schema::table(self::TABLE, function (Blueprint $table) {
+        Schema::table('adrenth_redirect_redirects', function (Blueprint $table) {
             $table->renameColumn('is_published', 'publish_status');
         });
     }
 
     public function down()
     {
-        Schema::table(self::TABLE, function (Blueprint $table) {
+        Schema::table('adrenth_redirect_redirects', function (Blueprint $table) {
             $table->renameColumn('publish_status', 'is_published');
         });
     }

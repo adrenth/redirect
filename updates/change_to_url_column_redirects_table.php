@@ -2,6 +2,7 @@
 
 namespace Adrenth\Redirect\Updates;
 
+use DB;
 use Illuminate\Database\Schema\Blueprint;
 use October\Rain\Database\Updates\Migration;
 use Schema;
@@ -13,19 +14,27 @@ use Schema;
  */
 class ChangeToUrlToUrlColumnRedirectsTable extends Migration
 {
-    const TABLE = 'adrenth_redirect_redirects';
-
     public function up()
     {
-        Schema::table(self::TABLE, function (Blueprint $table) {
-            $table->mediumText('to_url')->nullable()->change();
+        Schema::table('adrenth_redirect_redirects', function (Blueprint $table) {
+            $table->mediumText('to_url')
+                ->nullable()
+                ->change();
         });
     }
 
     public function down()
     {
-        Schema::table(self::TABLE, function (Blueprint $table) {
-            $table->mediumText('to_url')->change();
+        // Fixes exception when refreshing plugin on PostgreSQL:
+        // Doctrine\DBAL\DBALException: Unknown database type json requested,
+        // Doctrine\DBAL\Platforms\PostgreSqlPlatform may not support it.
+        DB::getDoctrineSchemaManager()
+            ->getDatabasePlatform()
+            ->registerDoctrineTypeMapping('json', 'text');
+
+        Schema::table('adrenth_redirect_redirects', function (Blueprint $table) {
+            $table->mediumText('to_url')
+                ->change();
         });
     }
 }

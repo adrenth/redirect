@@ -26,7 +26,7 @@ $(document).ready(function () {
                 legend: true,
                 orientation: 'top',
                 graphHeight: '230px',
-                clickToUse: true,
+                clickToUse: true
             };
 
             new vis.Graph2d(container, items, groups, options);
