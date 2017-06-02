@@ -13,19 +13,21 @@ use Schema;
  */
 class AddDateFieldsToRedirectsTable extends Migration
 {
-    const TABLE = 'adrenth_redirect_redirects';
-
     public function up()
     {
-        Schema::table(self::TABLE, function (Blueprint $table) {
-            $table->date('from_date')->nullable()->after('hits');
-            $table->date('to_date')->nullable()->after('from_date');
+        Schema::table('adrenth_redirect_redirects', function (Blueprint $table) {
+            $table->date('from_date')
+                ->nullable()
+                ->after('hits');
+            $table->date('to_date')
+                ->nullable()
+                ->after('from_date');
         });
     }
 
     public function down()
     {
-        Schema::table(self::TABLE, function (Blueprint $table) {
+        Schema::table('adrenth_redirect_redirects', function (Blueprint $table) {
             $table->dropColumn(['from_date', 'to_date']);
         });
     }

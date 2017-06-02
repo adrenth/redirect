@@ -13,19 +13,18 @@ use Schema;
  */
 class RemovePublishStatusColumnRedirectsTable extends Migration
 {
-    const TABLE = 'adrenth_redirect_redirects';
-
     public function up()
     {
-        Schema::table(self::TABLE, function (Blueprint $table) {
+        Schema::table('adrenth_redirect_redirects', function (Blueprint $table) {
             $table->dropColumn('publish_status');
         });
     }
 
     public function down()
     {
-        Schema::table(self::TABLE, function (Blueprint $table) {
-            $table->boolean('publish_status')->default(false);
+        Schema::table('adrenth_redirect_redirects', function (Blueprint $table) {
+            $table->boolean('publish_status')
+                ->default(false);
         });
     }
 }
