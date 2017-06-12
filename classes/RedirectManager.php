@@ -103,10 +103,10 @@ class RedirectManager
     /**
      * Create an instance of the RedirectManager with a specific rules path.
      *
-     * @param $redirectRulesPath
+     * @param string $redirectRulesPath
      * @return RedirectManager
      */
-    public static function createWithRulesPath($redirectRulesPath): RedirectManager
+    public static function createWithRulesPath(string $redirectRulesPath): RedirectManager
     {
         $instance = new self();
         $instance->redirectRulesPath = $redirectRulesPath;
@@ -132,9 +132,9 @@ class RedirectManager
      * @param bool $loggingEnabled
      * @return RedirectManager
      */
-    public function setLoggingEnabled($loggingEnabled): RedirectManager
+    public function setLoggingEnabled(bool $loggingEnabled): RedirectManager
     {
-        $this->loggingEnabled = (bool) $loggingEnabled;
+        $this->loggingEnabled = $loggingEnabled;
         return $this;
     }
 
@@ -144,9 +144,9 @@ class RedirectManager
      * @param bool $statisticsEnabled
      * @return RedirectManager
      */
-    public function setStatisticsEnabled($statisticsEnabled): RedirectManager
+    public function setStatisticsEnabled(bool $statisticsEnabled): RedirectManager
     {
-        $this->statisticsEnabled = (bool) $statisticsEnabled;
+        $this->statisticsEnabled = $statisticsEnabled;
         return $this;
     }
 
@@ -154,7 +154,7 @@ class RedirectManager
      * @param string $basePath
      * @return RedirectManager
      */
-    public function setBasePath($basePath): RedirectManager
+    public function setBasePath(string $basePath): RedirectManager
     {
         $this->basePath = rtrim($basePath, '/');
         return $this;
@@ -176,7 +176,7 @@ class RedirectManager
      * @return RedirectRule|false
      * @throws InvalidScheme
      */
-    public function match($requestPath, $scheme)
+    public function match(string $requestPath, string $scheme)
     {
         if ($scheme !== Redirect::SCHEME_HTTP && $scheme !== Redirect::SCHEME_HTTPS) {
             throw InvalidScheme::withScheme($scheme);
@@ -204,7 +204,7 @@ class RedirectManager
      * @throws InvalidScheme
      * @throws BadMethodCallException
      */
-    public function matchCached($requestPath, $scheme)
+    public function matchCached(string $requestPath, string $scheme)
     {
         $cacheManager = CacheManager::instance();
         $cacheKey = $cacheManager->cacheKey($requestPath, $scheme);
@@ -235,7 +235,7 @@ class RedirectManager
      * @param string $requestUri
      * @return void
      */
-    public function redirectWithRule(RedirectRule $rule, $requestUri): void
+    public function redirectWithRule(RedirectRule $rule, string $requestUri): void
     {
         $this->updateStatistics($rule->getId());
 
@@ -377,7 +377,7 @@ class RedirectManager
      * @param string $scheme
      * @return RedirectRule|bool
      */
-    private function matchesRule(RedirectRule $rule, $requestPath, $scheme)
+    private function matchesRule(RedirectRule $rule, string $requestPath, string $scheme)
     {
         if (!$this->matchesScheme($rule, $scheme)
             || !$this->matchesPeriod($rule)
@@ -405,7 +405,7 @@ class RedirectManager
      * @param string $url
      * @return RedirectRule|bool
      */
-    private function matchExact(RedirectRule $rule, $url)
+    private function matchExact(RedirectRule $rule, string $url)
     {
         return $url === $rule->getFromUrl() ? $rule : false;
     }
@@ -417,7 +417,7 @@ class RedirectManager
      * @param string $url
      * @return RedirectRule|bool
      */
-    private function matchPlaceholders(RedirectRule $rule, $url)
+    private function matchPlaceholders(RedirectRule $rule, string $url)
     {
         $route = new Route($rule->getFromUrl());
 
@@ -444,7 +444,7 @@ class RedirectManager
             foreach ($items as $key => $value) {
                 $placeholder = '{' . $key . '}';
                 $replacement = $this->findReplacementForPlaceholder($rule, $placeholder);
-                $items[$placeholder] = $replacement === null ? $value : $replacement;
+                $items[$placeholder] = $replacement ?? $value;
                 unset($items[$key]);
             }
 
@@ -490,7 +490,7 @@ class RedirectManager
      * @param string $scheme
      * @return bool
      */
-    private function matchesScheme(RedirectRule $rule, $scheme): bool
+    private function matchesScheme(RedirectRule $rule, string $scheme): bool
     {
         if ($rule->getFromScheme() === Redirect::SCHEME_AUTO) {
             return true;
@@ -506,7 +506,7 @@ class RedirectManager
      * @param string $placeholder
      * @return string|null
      */
-    private function findReplacementForPlaceholder(RedirectRule $rule, $placeholder): ?string
+    private function findReplacementForPlaceholder(RedirectRule $rule, string $placeholder): ?string
     {
         foreach ($rule->getRequirements() as $requirement) {
             if ($requirement['placeholder'] === $placeholder && !empty($requirement['replacement'])) {
@@ -557,7 +557,7 @@ class RedirectManager
      *
      * @param int $redirectId
      */
-    private function updateStatistics($redirectId): void
+    private function updateStatistics(int $redirectId): void
     {
         if (!$this->statisticsEnabled) {
             return;
@@ -572,6 +572,7 @@ class RedirectManager
 
         $now = Carbon::now();
 
+        /** @noinspection PhpUndefinedClassInspection */
         $redirect->update([
             'hits' => DB::raw('hits + 1'),
             'last_used_at' => $now,
@@ -593,11 +594,11 @@ class RedirectManager
      * Adds a log entry to the database.
      *
      * @param RedirectRule $rule
-     * @param $requestUri
-     * @param $toUrl
+     * @param string $requestUri
+     * @param string $toUrl
      * @return void
      */
-    private function addLogEntry(RedirectRule $rule, $requestUri, $toUrl): void
+    private function addLogEntry(RedirectRule $rule, string $requestUri, string $toUrl): void
     {
         if (!$this->loggingEnabled) {
             return;
