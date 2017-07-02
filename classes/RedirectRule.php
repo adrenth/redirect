@@ -120,7 +120,7 @@ class RedirectRule
      */
     public function getId(): int
     {
-        return $this->id;
+        return (int) $this->id;
     }
 
     /**
@@ -128,7 +128,7 @@ class RedirectRule
      */
     public function getMatchType(): string
     {
-        return $this->matchType;
+        return (string) $this->matchType;
     }
 
     /**
@@ -136,7 +136,7 @@ class RedirectRule
      */
     public function getTargetType(): string
     {
-        return $this->targetType;
+        return (string) $this->targetType;
     }
 
     /**
@@ -144,7 +144,7 @@ class RedirectRule
      */
     public function getFromUrl(): string
     {
-        return $this->fromUrl;
+        return (string) $this->fromUrl;
     }
 
     /**
@@ -152,7 +152,7 @@ class RedirectRule
      */
     public function getFromScheme(): string
     {
-        return $this->fromScheme;
+        return (string) $this->fromScheme;
     }
 
     /**
@@ -160,7 +160,7 @@ class RedirectRule
      */
     public function getToUrl(): string
     {
-        return $this->toUrl;
+        return (string) $this->toUrl;
     }
 
     /**
@@ -168,7 +168,7 @@ class RedirectRule
      */
     public function getToScheme(): string
     {
-        return $this->toScheme;
+        return (string) $this->toScheme;
     }
 
     /**
@@ -176,7 +176,7 @@ class RedirectRule
      */
     public function getCmsPage(): string
     {
-        return $this->cmsPage;
+        return (string) $this->cmsPage;
     }
 
     /**
@@ -184,7 +184,7 @@ class RedirectRule
      */
     public function getStaticPage(): string
     {
-        return $this->staticPage;
+        return (string) $this->staticPage;
     }
 
     /**
