@@ -79,7 +79,7 @@ class CacheManager
      */
     public function cacheKey($requestPath, $scheme)
     {
-        return md5($requestPath, $scheme);
+        return md5($requestPath . $scheme);
     }
 
     /**
