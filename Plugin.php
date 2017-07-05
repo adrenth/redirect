@@ -304,16 +304,19 @@ class Plugin extends PluginBase
      */
     public function registerReportWidgets()
     {
-        return [
-            CreateRedirect::class => [
-                'label' => 'adrenth.redirect::lang.buttons.create_redirect',
-                'context' => 'dashboard'
-            ],
-            TopTenRedirects::class => [
+        $reportWidgets[CreateRedirect::class] = [
+            'label' => 'adrenth.redirect::lang.buttons.create_redirect',
+            'context' => 'dashboard'
+        ];
+
+        if (Settings::isStatisticsEnabled()) {
+            $reportWidgets[TopTenRedirects::class] = [
                 'label' => trans('adrenth.redirect::lang.statistics.top_redirects_this_month', ['top' => 10]),
                 'context' => 'dashboard',
-            ]
-        ];
+            ];
+        }
+
+        return $reportWidgets;
     }
 
     /**
