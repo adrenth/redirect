@@ -3,11 +3,9 @@
 namespace Adrenth\Redirect;
 
 use Adrenth\Redirect\Classes\CacheManager;
-use Adrenth\Redirect\Classes\Exceptions\InvalidScheme;
-use Adrenth\Redirect\Classes\Exceptions\RulesPathNotReadable;
 use Adrenth\Redirect\Classes\PageHandler;
 use Adrenth\Redirect\Classes\PublishManager;
-use Adrenth\Redirect\Classes\RedirectManager;
+use Adrenth\Redirect\Classes\RedirectMiddleware;
 use Adrenth\Redirect\Classes\StaticPageHandler;
 use Adrenth\Redirect\Models\Redirect;
 use Adrenth\Redirect\Models\Settings;
@@ -15,12 +13,10 @@ use Adrenth\Redirect\ReportWidgets\CreateRedirect;
 use Adrenth\Redirect\ReportWidgets\TopTenRedirects;
 use App;
 use Backend;
-use BadMethodCallException;
 use Cms\Classes\Page;
 use Event;
 use Exception;
-use Log;
-use Request;
+use Illuminate\Contracts\Http\Kernel;
 use System\Classes\PluginBase;
 
 /**
@@ -50,67 +46,16 @@ class Plugin extends PluginBase
      */
     public function boot()
     {
-        if (App::runningInBackend()
-            && !App::runningInConsole()
-            && !App::runningUnitTests()
-        ) {
-            $this->bootBackend();
-        }
-
-        if (!App::runningInBackend()
-            && !App::runningUnitTests()
-            && !App::runningInConsole()
-        ) {
-            $this->bootFrontend();
-        }
-    }
-
-    /**
-     * Boot stuff for Frontend
-     *
-     * @return void
-     * @throws BadMethodCallException If cache tags are not supported.
-     */
-    public function bootFrontend()
-    {
-        // Only handle specific request methods
-        if (!in_array(Request::method(), ['GET', 'POST', 'HEAD'], true)) {
+        if (App::runningInConsole() || App::runningUnitTests()) {
             return;
         }
 
-        // Create the redirect manager if redirect rules are readable.
-        try {
-            $manager = RedirectManager::createWithDefaultRulesPath();
-        } catch (RulesPathNotReadable $e) {
+        if (!App::runningInBackend()) {
+            $this->app[Kernel::class]->prependMiddleware(RedirectMiddleware::class);
             return;
         }
 
-        $manager->setLoggingEnabled(Settings::isLoggingEnabled())
-            ->setStatisticsEnabled(Settings::isStatisticsEnabled());
-
-        if (Request::header('X-Adrenth-Redirect') === 'Tester') {
-            $manager->setStatisticsEnabled(false)
-                ->setLoggingEnabled(false);
-        }
-
-        $requestUri = str_replace(Request::getBasePath(), '', Request::getRequestUri());
-
-        try {
-            if (CacheManager::cachingEnabledAndSupported()) {
-                $rule = $manager->matchCached($requestUri, Request::getScheme());
-            } else {
-                $rule = $manager->match($requestUri, Request::getScheme());
-            }
-        } catch (InvalidScheme $e) {
-            $rule = false;
-        } catch (Exception $e) {
-            Log::error("Could not perform redirect for $requestUri: " . $e->getMessage());
-            return;
-        }
-
-        if ($rule) {
-            $manager->redirectWithRule($rule, $requestUri);
-        }
+        $this->bootBackend();
     }
 
     /**
@@ -304,16 +249,19 @@ class Plugin extends PluginBase
      */
     public function registerReportWidgets()
     {
-        return [
-            CreateRedirect::class => [
-                'label' => 'adrenth.redirect::lang.buttons.create_redirect',
-                'context' => 'dashboard'
-            ],
-            TopTenRedirects::class => [
+        $reportWidgets[CreateRedirect::class] = [
+            'label' => 'adrenth.redirect::lang.buttons.create_redirect',
+            'context' => 'dashboard'
+        ];
+
+        if (Settings::isStatisticsEnabled()) {
+            $reportWidgets[TopTenRedirects::class] = [
                 'label' => trans('adrenth.redirect::lang.statistics.top_redirects_this_month', ['top' => 10]),
                 'context' => 'dashboard',
-            ]
-        ];
+            ];
+        }
+
+        return $reportWidgets;
     }
 
     /**
