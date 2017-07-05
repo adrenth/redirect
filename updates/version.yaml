@@ -104,3 +104,4 @@
 3.13.0: Minor UI improvements and bugfixes
 3.14.0: Fix PosgreSQL compatibility issues and minor code improvements
 3.14.1: Fix issue with cache key (if caching is enabled)
+3.15.0: Improve code and redirect handling logic
