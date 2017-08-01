@@ -31,14 +31,4 @@ class Category extends Model
      * {@inheritdoc}
      */
     public $table = 'adrenth_redirect_categories';
-
-    /**
-     * {@inheritdoc}
-     */
-    protected $guarded = ['*'];
-
-    /**
-     * {@inheritdoc}
-     */
-    protected $fillable = [];
 }
