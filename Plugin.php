@@ -1,4 +1,16 @@
 <?php
+/**
+ * OctoberCMS plugin: Adrenth.Redirect
+ *
+ * Copyright (c) Alwin Drenth 2017.
+ *
+ * Licensing information:
+ * https://octobercms.com/help/license/regular
+ * https://octobercms.com/help/license/extended
+ * https://octobercms.com/help/license/faqs
+ */
+
+declare(strict_types=1);
 
 namespace Adrenth\Redirect;
 
@@ -29,7 +41,7 @@ class Plugin extends PluginBase
     /**
      * {@inheritdoc}
      */
-    public function pluginDetails()
+    public function pluginDetails(): array
     {
         return [
             'name' => 'adrenth.redirect::lang.plugin.name',
@@ -64,7 +76,7 @@ class Plugin extends PluginBase
      * @return void
      * @throws Exception
      */
-    public function bootBackend()
+    public function bootBackend()//: void
     {
         Page::extend(function (Page $page) {
             $handler = new PageHandler($page);
@@ -105,7 +117,7 @@ class Plugin extends PluginBase
     /**
      * {@inheritdoc}
      */
-    public function registerPermissions()
+    public function registerPermissions(): array
     {
         return [
             'adrenth.redirect.access_redirects' => [
@@ -118,7 +130,7 @@ class Plugin extends PluginBase
     /**
      * {@inheritdoc}
      */
-    public function registerNavigation()
+    public function registerNavigation(): array
     {
         $defaultBackendUrl = Backend::url(
             'adrenth/redirect/' . (Settings::isStatisticsEnabled() ? 'statistics' : 'redirects')
@@ -227,7 +239,7 @@ class Plugin extends PluginBase
     /**
      * {@inheritdoc}
      */
-    public function registerSettings()
+    public function registerSettings(): array
     {
         /** @noinspection ClassConstantCanBeUsedInspection */
         return [
@@ -247,7 +259,7 @@ class Plugin extends PluginBase
     /**
      * {@inheritdoc}
      */
-    public function registerReportWidgets()
+    public function registerReportWidgets(): array
     {
         $reportWidgets[CreateRedirect::class] = [
             'label' => 'adrenth.redirect::lang.buttons.create_redirect',
@@ -267,7 +279,7 @@ class Plugin extends PluginBase
     /**
      * {@inheritdoc}
      */
-    public function registerListColumnTypes()
+    public function registerListColumnTypes(): array
     {
         return [
             'redirect_switch_color' => function ($value) {

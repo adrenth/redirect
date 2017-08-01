@@ -1,4 +1,16 @@
 <?php
+/**
+ * OctoberCMS plugin: Adrenth.Redirect
+ *
+ * Copyright (c) Alwin Drenth 2017.
+ *
+ * Licensing information:
+ * https://octobercms.com/help/license/regular
+ * https://octobercms.com/help/license/extended
+ * https://octobercms.com/help/license/faqs
+ */
+
+declare(strict_types=1);
 
 namespace Adrenth\Redirect\Models;
 
@@ -19,14 +31,4 @@ class Category extends Model
      * {@inheritdoc}
      */
     public $table = 'adrenth_redirect_categories';
-
-    /**
-     * {@inheritdoc}
-     */
-    protected $guarded = ['*'];
-
-    /**
-     * {@inheritdoc}
-     */
-    protected $fillable = [];
 }

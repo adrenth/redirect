@@ -1,4 +1,16 @@
 <?php
+/**
+ * OctoberCMS plugin: Adrenth.Redirect
+ *
+ * Copyright (c) Alwin Drenth 2017.
+ *
+ * Licensing information:
+ * https://octobercms.com/help/license/regular
+ * https://octobercms.com/help/license/extended
+ * https://octobercms.com/help/license/faqs
+ */
+
+declare(strict_types=1);
 
 namespace Adrenth\Redirect\Controllers;
 
@@ -35,6 +47,7 @@ use SystemException;
 /**
  * Class Redirects
  *
+ * @property array requiredPermissions
  * @package Adrenth\Redirect\Controllers
  * @mixin FormController
  * @mixin ListController
@@ -96,7 +109,7 @@ class Redirects extends Controller
      *
      * @return void
      */
-    public function index()
+    public function index()//: void
     {
         parent::index();
 
@@ -139,7 +152,7 @@ class Redirects extends Controller
      *
      * @return array
      */
-    public function index_onDelete()
+    public function index_onDelete(): array
     {
         Redirect::destroy($this->getCheckedIds());
         Event::fire('redirects.changed');
@@ -151,7 +164,7 @@ class Redirects extends Controller
      *
      * @return array
      */
-    public function index_onEnable()
+    public function index_onEnable(): array
     {
         Redirect::whereIn('id', $this->getCheckedIds())->update(['is_enabled' => 1]);
         Event::fire('redirects.changed');
@@ -163,7 +176,7 @@ class Redirects extends Controller
      *
      * @return array
      */
-    public function index_onDisable()
+    public function index_onDisable(): array
     {
         Redirect::whereIn('id', $this->getCheckedIds())->update(['is_enabled' => 0]);
         Event::fire('redirects.changed');
@@ -175,7 +188,7 @@ class Redirects extends Controller
      *
      * @return array
      */
-    public function index_onResetStatistics()
+    public function index_onResetStatistics(): array
     {
         $checkedIds = $this->getCheckedIds();
 
@@ -192,10 +205,9 @@ class Redirects extends Controller
     /**
      * Clears redirect cache.
      *
-     * @return array
      * @throws BadMethodCallException
      */
-    public function index_onClearCache()
+    public function index_onClearCache()//: void
     {
         CacheManager::instance()->flush();
         Flash::success(Lang::get('adrenth.redirect::lang.flash.cache_cleared_success'));
@@ -206,7 +218,7 @@ class Redirects extends Controller
      *
      * @return string
      */
-    public function index_onLoadActions()
+    public function index_onLoadActions(): string
     {
         return (string) $this->makePartial('popup_actions', [], true);
     }
@@ -216,7 +228,7 @@ class Redirects extends Controller
      *
      * @return array
      */
-    public function index_onResetAllStatistics()
+    public function index_onResetAllStatistics(): array
     {
         Redirect::query()->update(['hits' => 0]);
         Client::query()->delete();
@@ -229,7 +241,7 @@ class Redirects extends Controller
      *
      * @return array
      */
-    public function index_onEnableAllRedirects()
+    public function index_onEnableAllRedirects(): array
     {
         Redirect::query()->update(['is_enabled' => 1]);
         Flash::success(Lang::get('adrenth.redirect::lang.flash.enabled_all_redirects_success'));
@@ -242,7 +254,7 @@ class Redirects extends Controller
      *
      * @return array
      */
-    public function index_onDisableAllRedirects()
+    public function index_onDisableAllRedirects(): array
     {
         Redirect::query()->update(['is_enabled' => 0]);
         Flash::success(Lang::get('adrenth.redirect::lang.flash.disabled_all_redirects_success'));
@@ -255,7 +267,7 @@ class Redirects extends Controller
      *
      * @return array
      */
-    public function index_onDeleteAllRedirects()
+    public function index_onDeleteAllRedirects(): array
     {
         Redirect::query()->delete();
         Flash::success(Lang::get('adrenth.redirect::lang.flash.deleted_all_redirects_success'));
@@ -270,7 +282,7 @@ class Redirects extends Controller
      *
      * @return string
      */
-    public function onShowStatusCodeInfo()
+    public function onShowStatusCodeInfo(): string
     {
         return (string) $this->makePartial('status_code_info', [], false);
     }
@@ -282,7 +294,7 @@ class Redirects extends Controller
      * @param array $fields
      * @return void
      */
-    public function formExtendFields(Form $host, array $fields = [])
+    public function formExtendFields(Form $host, array $fields = [])//: void
     {
         $disableFields = [
             'from_url',
@@ -314,7 +326,7 @@ class Redirects extends Controller
      * @param array $fields Current form fields
      * @return void
      */
-    public function formExtendRefreshFields(Form $host, $fields)
+    public function formExtendRefreshFields(Form $host, $fields)//: void
     {
         if ($fields['status_code']->value
             && $fields['status_code']->value[0] === '4'
@@ -351,13 +363,15 @@ class Redirects extends Controller
      * @param mixed $record The populated model used for the column
      * @return string CSS class name
      */
-    public function listInjectRowClass($record)
+    public function listInjectRowClass($record): string
     {
         if ($record instanceof Redirect
             && !$record->isActiveOnDate(Carbon::now())
         ) {
             return 'special';
         }
+
+        return '';
     }
 
     /**
@@ -366,7 +380,7 @@ class Redirects extends Controller
      * @throws ApplicationException
      * @return array
      */
-    public function onTest()
+    public function onTest(): array
     {
         $inputPath = Request::get('inputPath');
         $redirect = new Redirect(Request::get('Redirect'));
@@ -398,7 +412,7 @@ class Redirects extends Controller
      * @return string
      * @throws SystemException
      */
-    public function onOpenRequestLog()
+    public function onOpenRequestLog(): string
     {
         $this->makeLists();
         return $this->makePartial('request-log/modal');
@@ -409,7 +423,7 @@ class Redirects extends Controller
      *
      * @return array
      */
-    public function onCreateRedirectFromRequestLogItems()
+    public function onCreateRedirectFromRequestLogItems(): array
     {
         $checkedIds = $this->getCheckedIds();
         $redirectsCreated = 0;
@@ -459,7 +473,7 @@ class Redirects extends Controller
      *
      * @return array
      */
-    private function getCheckedIds()
+    private function getCheckedIds(): array
     {
         if (($checkedIds = post('checked'))
             && is_array($checkedIds)
@@ -475,7 +489,7 @@ class Redirects extends Controller
      * @param string $url
      * @return string
      */
-    private function parseRequestLogItemUrl($url)
+    private function parseRequestLogItemUrl($url): string
     {
         $path = parse_url($url, PHP_URL_PATH);
 
@@ -495,22 +509,26 @@ class Redirects extends Controller
         return $path;
     }
 
+    /** @noinspection PhpUnusedParameterInspection */
+
     /**
      * Called after the creation or updating form is saved.
      *
      * @param Model
      */
-    public function formAfterSave($model)
+    public function formAfterSave($model)//: void
     {
         Event::fire('redirects.changed');
     }
+
+    /** @noinspection PhpUnusedParameterInspection */
 
     /**
      * Called after the form model is deleted.
      *
      * @param Model
      */
-    public function formAfterDelete($model)
+    public function formAfterDelete($model)//: void
     {
         Event::fire('redirects.changed');
     }
