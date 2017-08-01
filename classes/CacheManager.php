@@ -43,7 +43,7 @@ class CacheManager
      * {@inheritdoc}
      * @throws BadMethodCallException
      */
-    protected function init(): void
+    protected function init()//: void
     {
         $this->cache = Cache::tags([static::CACHE_TAG]);
     }
@@ -100,7 +100,7 @@ class CacheManager
      * @return void
      * @throws BadMethodCallException
      */
-    public function flush(): void
+    public function flush()//: void
     {
         $this->cache->flush();
     }

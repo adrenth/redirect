@@ -28,7 +28,7 @@ use Schema;
  */
 class CreateCategoriesTable extends Migration
 {
-    public function up(): void
+    public function up()//: void
     {
         Schema::create('adrenth_redirect_categories', function (Blueprint $table) {
             $table->engine = 'InnoDB';
@@ -40,7 +40,7 @@ class CreateCategoriesTable extends Migration
         Category::create(['name' => 'General']);
     }
 
-    public function down(): void
+    public function down()//: void
     {
         Schema::dropIfExists('adrenth_redirect_categories');
     }

@@ -27,14 +27,14 @@ use Schema;
  */
 class AddMonthYearIndexToClientsTable extends Migration
 {
-    public function up(): void
+    public function up()//: void
     {
         Schema::table('adrenth_redirect_clients', function (Blueprint $table) {
             $table->index(['month', 'year'], 'month_year');
         });
     }
 
-    public function down(): void
+    public function down()//: void
     {
         Schema::table('adrenth_redirect_clients', function (Blueprint $table) {
             $table->dropIndex('month_year');

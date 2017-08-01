@@ -27,7 +27,7 @@ use Schema;
  */
 class CreateClientsTable extends Migration
 {
-    public function up(): void
+    public function up()//: void
     {
         Schema::create('adrenth_redirect_clients', function (Blueprint $table) {
             $table->engine = 'InnoDB';
@@ -51,7 +51,7 @@ class CreateClientsTable extends Migration
         });
     }
 
-    public function down(): void
+    public function down()//: void
     {
         Schema::table('adrenth_redirect_clients', function (Blueprint $table) {
             $table->dropForeign('redirect_client');

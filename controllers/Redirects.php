@@ -109,7 +109,7 @@ class Redirects extends Controller
      *
      * @return void
      */
-    public function index(): void
+    public function index()//: void
     {
         parent::index();
 
@@ -207,7 +207,7 @@ class Redirects extends Controller
      *
      * @throws BadMethodCallException
      */
-    public function index_onClearCache(): void
+    public function index_onClearCache()//: void
     {
         CacheManager::instance()->flush();
         Flash::success(Lang::get('adrenth.redirect::lang.flash.cache_cleared_success'));
@@ -294,7 +294,7 @@ class Redirects extends Controller
      * @param array $fields
      * @return void
      */
-    public function formExtendFields(Form $host, array $fields = []): void
+    public function formExtendFields(Form $host, array $fields = [])//: void
     {
         $disableFields = [
             'from_url',
@@ -326,7 +326,7 @@ class Redirects extends Controller
      * @param array $fields Current form fields
      * @return void
      */
-    public function formExtendRefreshFields(Form $host, $fields): void
+    public function formExtendRefreshFields(Form $host, $fields)//: void
     {
         if ($fields['status_code']->value
             && $fields['status_code']->value[0] === '4'
@@ -516,7 +516,7 @@ class Redirects extends Controller
      *
      * @param Model
      */
-    public function formAfterSave($model): void
+    public function formAfterSave($model)//: void
     {
         Event::fire('redirects.changed');
     }
@@ -528,7 +528,7 @@ class Redirects extends Controller
      *
      * @param Model
      */
-    public function formAfterDelete($model): void
+    public function formAfterDelete($model)//: void
     {
         Event::fire('redirects.changed');
     }

@@ -102,7 +102,7 @@ abstract class TesterBase implements Tester
      * @param resource $curlHandle
      * @return void
      */
-    protected function setDefaultCurlOptions($curlHandle): void
+    protected function setDefaultCurlOptions($curlHandle)//: void
     {
         curl_setopt($curlHandle, CURLOPT_MAXREDIRS, self::MAX_REDIRECTS);
         curl_setopt($curlHandle, CURLOPT_CONNECTTIMEOUT, self::CONNECTION_TIMEOUT);

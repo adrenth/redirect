@@ -27,7 +27,7 @@ use Schema;
  */
 class ChangeTypeUrlColumnsRedirectsTable extends Migration
 {
-    public function up(): void
+    public function up()//: void
     {
         Schema::table('adrenth_redirect_redirects', function (Blueprint $table) {
             $table->mediumText('to_url')
@@ -39,7 +39,7 @@ class ChangeTypeUrlColumnsRedirectsTable extends Migration
         });
     }
 
-    public function down(): void
+    public function down()//: void
     {
         Schema::table('adrenth_redirect_redirects', function (Blueprint $table) {
             $table->string('to_url')

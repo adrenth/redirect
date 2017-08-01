@@ -27,7 +27,7 @@ use Schema;
  */
 class AddCategoryIdToRedirectsTable extends Migration
 {
-    public function up(): void
+    public function up()//: void
     {
         Schema::table('adrenth_redirect_redirects', function (Blueprint $table) {
             $table->unsignedInteger('category_id')
@@ -41,7 +41,7 @@ class AddCategoryIdToRedirectsTable extends Migration
         });
     }
 
-    public function down(): void
+    public function down()//: void
     {
         Schema::table('adrenth_redirect_redirects', function (Blueprint $table) {
             $table->dropForeign('adrenth_redirect_redirects_category_id_foreign');

@@ -28,7 +28,7 @@ use Schema;
  */
 class ChangeToUrlToUrlColumnRedirectsTable extends Migration
 {
-    public function up(): void
+    public function up()//: void
     {
         Schema::table('adrenth_redirect_redirects', function (Blueprint $table) {
             $table->mediumText('to_url')
@@ -37,7 +37,7 @@ class ChangeToUrlToUrlColumnRedirectsTable extends Migration
         });
     }
 
-    public function down(): void
+    public function down()//: void
     {
         // Fixes exception when refreshing plugin on PostgreSQL:
         // Doctrine\DBAL\DBALException: Unknown database type json requested,

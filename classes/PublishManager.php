@@ -36,7 +36,7 @@ class PublishManager
     /**
      * {@inheritdoc}
      */
-    protected function init(): void
+    protected function init()//: void
     {
         $this->redirectsFile = storage_path('app/redirects.csv');
     }

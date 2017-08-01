@@ -28,7 +28,7 @@ use Schema;
  */
 class AddFromToSchemeToRedirectsTable extends Migration
 {
-    public function up(): void
+    public function up()//: void
     {
         Schema::table('adrenth_redirect_redirects', function (Blueprint $table) {
             $table->string('from_scheme', 5)
@@ -41,7 +41,7 @@ class AddFromToSchemeToRedirectsTable extends Migration
         });
     }
 
-    public function down(): void
+    public function down()//: void
     {
         Schema::table('adrenth_redirect_redirects', function (Blueprint $table) {
             $table->dropColumn(['from_scheme', 'to_scheme']);

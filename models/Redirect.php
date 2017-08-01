@@ -41,19 +41,19 @@ class Redirect extends Model
     }
 
     // Types
-    public const TYPE_EXACT = 'exact';
-    public const TYPE_PLACEHOLDERS = 'placeholders';
+    const TYPE_EXACT = 'exact';
+    const TYPE_PLACEHOLDERS = 'placeholders';
 
     // Target Types
-    public const TARGET_TYPE_PATH_URL = 'path_or_url';
-    public const TARGET_TYPE_CMS_PAGE = 'cms_page';
-    public const TARGET_TYPE_STATIC_PAGE = 'static_page';
-    public const TARGET_TYPE_NONE = 'none';
+    const TARGET_TYPE_PATH_URL = 'path_or_url';
+    const TARGET_TYPE_CMS_PAGE = 'cms_page';
+    const TARGET_TYPE_STATIC_PAGE = 'static_page';
+    const TARGET_TYPE_NONE = 'none';
 
     // Scheme options
-    public const SCHEME_HTTP = 'http';
-    public const SCHEME_HTTPS = 'https';
-    public const SCHEME_AUTO = 'auto';
+    const SCHEME_HTTP = 'http';
+    const SCHEME_HTTPS = 'https';
+    const SCHEME_AUTO = 'auto';
 
     /** @var array */
     public static $types = [
@@ -251,7 +251,7 @@ class Redirect extends Model
      *
      * @param string $value
      */
-    public function setFromUrlAttribute($value): void
+    public function setFromUrlAttribute($value)//: void
     {
         $this->attributes['from_url'] = urldecode($value);
     }
@@ -261,7 +261,7 @@ class Redirect extends Model
      *
      * @param mixed $value
      */
-    public function setSortOrderAttribute($value): void
+    public function setSortOrderAttribute($value)//: void
     {
         $this->attributes['sort_order'] = (int) $value;
     }
@@ -272,7 +272,7 @@ class Redirect extends Model
      * @param mixed $value
      * @return Carbon|null
      */
-    public function getFromDateAttribute($value): ?Carbon
+    public function getFromDateAttribute($value)//: ?Carbon
     {
         if ($value === '' || $value === null) {
             return null;
@@ -287,7 +287,7 @@ class Redirect extends Model
      * @param mixed $value
      * @return Carbon|null
      */
-    public function getToDateAttribute($value): ?Carbon
+    public function getToDateAttribute($value)//: ?Carbon
     {
         if ($value === '' || $value === null) {
             return null;
@@ -384,7 +384,7 @@ class Redirect extends Model
      *
      * @return void
      */
-    public function beforeSave(): void
+    public function beforeSave()//: void
     {
         switch ($this->getAttribute('target_type')) {
             case Redirect::TARGET_TYPE_NONE:

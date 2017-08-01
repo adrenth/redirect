@@ -25,13 +25,13 @@ use October\Rain\Database\Updates\Migration;
  */
 class Publish extends Migration
 {
-    public function up(): void
+    public function up()//: void
     {
         // See commit: 249c783fe73c602549f4e9d69789844341b9b5b2 (1.1.0)
         // This migration was removed, but fails when uninstalling plugin
     }
 
-    public function down(): void
+    public function down()//: void
     {
         // See commit: 249c783fe73c602549f4e9d69789844341b9b5b2 (1.1.0)
         // This migration was removed, but fails when uninstalling plugin

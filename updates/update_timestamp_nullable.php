@@ -27,13 +27,13 @@ use October\Rain\Database\Updates\Migration;
 class UpdateTimestampsNullable extends Migration
 {
 
-    public function up(): void
+    public function up()//: void
     {
         DbDongle::disableStrictMode();
         DbDongle::convertTimestamps('adrenth_redirect_redirects', ['created_at', 'updated_at']);
     }
 
-    public function down(): void
+    public function down()//: void
     {
         // ...
     }

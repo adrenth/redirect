@@ -63,7 +63,7 @@ class RedirectImport extends ImportModel
     /**
      * {@inheritdoc}
      */
-    public function importData($results, $sessionKey = null): void
+    public function importData($results, $sessionKey = null)//: void
     {
         foreach ((array) $results as $row => $data) {
             try {

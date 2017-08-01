@@ -52,7 +52,7 @@ class Statistics extends Controller
     /**
      * @return void
      */
-    public function index(): void
+    public function index()//: void
     {
     }
 

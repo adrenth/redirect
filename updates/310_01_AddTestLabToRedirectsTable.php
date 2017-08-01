@@ -27,7 +27,7 @@ use Schema;
  */
 class AddTestLabToRedirectsTable extends Migration
 {
-    public function up(): void
+    public function up()//: void
     {
         Schema::table('adrenth_redirect_redirects', function (Blueprint $table) {
             $table->boolean('test_lab')
@@ -36,7 +36,7 @@ class AddTestLabToRedirectsTable extends Migration
         });
     }
 
-    public function down(): void
+    public function down()//: void
     {
         Schema::table('adrenth_redirect_redirects', function (Blueprint $table) {
             $table->dropColumn('test_lab');

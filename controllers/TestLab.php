@@ -59,7 +59,7 @@ class TestLab extends Controller
      *
      * @return void
      */
-    public function index(): void
+    public function index()//: void
     {
         $this->pageTitle = 'adrenth.redirect::lang.title.test_lab';
 
@@ -74,7 +74,7 @@ class TestLab extends Controller
      *
      * @return void
      */
-    private function loadRedirects(): void
+    private function loadRedirects()//: void
     {
         /** @var Collection $redirects */
         $this->redirects = array_values(Redirect::enabled()
@@ -91,7 +91,7 @@ class TestLab extends Controller
      * @param int $offset
      * @return Redirect|null
      */
-    private function offsetGetRedirect($offset): ?Redirect
+    private function offsetGetRedirect($offset)//: ?Redirect
     {
         if (array_key_exists($offset, $this->redirects)) {
             return $this->redirects[$offset];

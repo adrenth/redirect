@@ -27,7 +27,7 @@ use Schema;
  */
 class CreateRedirectLogsTable extends Migration
 {
-    public function up(): void
+    public function up()//: void
     {
         Schema::create('adrenth_redirect_redirect_logs', function (Blueprint $table) {
             $table->engine = 'InnoDB';
@@ -51,7 +51,7 @@ class CreateRedirectLogsTable extends Migration
         });
     }
 
-    public function down(): void
+    public function down()//: void
     {
         Schema::table('adrenth_redirect_redirect_logs', function (Blueprint $table) {
             $table->dropForeign('redirect_log');

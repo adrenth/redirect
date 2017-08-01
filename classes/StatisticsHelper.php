@@ -37,7 +37,7 @@ class StatisticsHelper
     /**
      * @return Client|null
      */
-    public function getLatestClient(): ?Client
+    public function getLatestClient()//: ?Client
     {
         return Client::orderBy('timestamp', 'desc')->limit(1)->first();
     }

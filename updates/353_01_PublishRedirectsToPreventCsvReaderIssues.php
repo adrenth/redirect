@@ -27,7 +27,7 @@ use October\Rain\Database\Updates\Migration;
  */
 class PublishRedirectsToPreventCsvReaderIssues extends Migration
 {
-    public function up(): void
+    public function up()//: void
     {
         try {
             PublishManager::instance()->publish();
@@ -36,7 +36,7 @@ class PublishRedirectsToPreventCsvReaderIssues extends Migration
         }
     }
 
-    public function down(): void
+    public function down()//: void
     {
     }
 }

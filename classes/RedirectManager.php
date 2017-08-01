@@ -235,7 +235,7 @@ class RedirectManager
      * @param string $requestUri
      * @return void
      */
-    public function redirectWithRule(RedirectRule $rule, string $requestUri): void
+    public function redirectWithRule(RedirectRule $rule, string $requestUri)//: void
     {
         $this->updateStatistics($rule->getId());
 
@@ -506,7 +506,7 @@ class RedirectManager
      * @param string $placeholder
      * @return string|null
      */
-    private function findReplacementForPlaceholder(RedirectRule $rule, string $placeholder): ?string
+    private function findReplacementForPlaceholder(RedirectRule $rule, string $placeholder)//: ?string
     {
         foreach ($rule->getRequirements() as $requirement) {
             if ($requirement['placeholder'] === $placeholder && !empty($requirement['replacement'])) {
@@ -522,7 +522,7 @@ class RedirectManager
      *
      * @return void
      */
-    private function loadRedirectRules(): void
+    private function loadRedirectRules()//: void
     {
         if ($this->redirectRules !== null) {
             return;
@@ -557,7 +557,7 @@ class RedirectManager
      *
      * @param int $redirectId
      */
-    private function updateStatistics(int $redirectId): void
+    private function updateStatistics(int $redirectId)//: void
     {
         if (!$this->statisticsEnabled) {
             return;
@@ -598,7 +598,7 @@ class RedirectManager
      * @param string $toUrl
      * @return void
      */
-    private function addLogEntry(RedirectRule $rule, string $requestUri, string $toUrl): void
+    private function addLogEntry(RedirectRule $rule, string $requestUri, string $toUrl)//: void
     {
         if (!$this->loggingEnabled) {
             return;

@@ -76,7 +76,7 @@ class Plugin extends PluginBase
      * @return void
      * @throws Exception
      */
-    public function bootBackend(): void
+    public function bootBackend()//: void
     {
         Page::extend(function (Page $page) {
             $handler = new PageHandler($page);

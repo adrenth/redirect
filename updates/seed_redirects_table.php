@@ -28,7 +28,7 @@ class SeedRedirectsTable extends Seeder
     /**
      * {@inheritdoc}
      */
-    public function run(): void
+    public function run()//: void
     {
     }
 }

@@ -27,7 +27,7 @@ use Schema;
  */
 class CreateRedirectImportsTable extends Migration
 {
-    public function up(): void
+    public function up()//: void
     {
         Schema::create('adrenth_redirect_redirect_imports', function (Blueprint $table) {
             $table->engine = 'InnoDB';
@@ -36,7 +36,7 @@ class CreateRedirectImportsTable extends Migration
         });
     }
 
-    public function down(): void
+    public function down()//: void
     {
         Schema::dropIfExists('adrenth_redirect_redirect_imports');
     }

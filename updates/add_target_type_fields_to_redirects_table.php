@@ -27,7 +27,7 @@ use Schema;
  */
 class AddTargetTypeColumnsToRedirectsTable extends Migration
 {
-    public function up(): void
+    public function up()//: void
     {
         Schema::table('adrenth_redirect_redirects', function (Blueprint $table) {
             $table->string('target_type', 12)
@@ -42,7 +42,7 @@ class AddTargetTypeColumnsToRedirectsTable extends Migration
         });
     }
 
-    public function down(): void
+    public function down()//: void
     {
         Schema::table('adrenth_redirect_redirects', function (Blueprint $table) {
             $table->dropColumn(['cms_page', 'static_page']);

@@ -206,7 +206,7 @@ class RedirectRule
     /**
      * @return Carbon|null
      */
-    public function getFromDate(): ?Carbon
+    public function getFromDate()//: ?Carbon
     {
         return $this->fromDate;
     }
@@ -214,7 +214,7 @@ class RedirectRule
     /**
      * @return Carbon|null
      */
-    public function getToDate(): ?Carbon
+    public function getToDate()//: ?Carbon
     {
         return $this->toDate;
     }
