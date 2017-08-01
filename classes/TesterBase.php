@@ -116,7 +116,7 @@ abstract class TesterBase implements Tester
         /** @noinspection CurlSslServerSpoofingInspection */
         curl_setopt($curlHandle, CURLOPT_SSL_VERIFYPEER, false);
 
-        if (PHP_MAJOR_VERSION === 7) {
+        if (PHP_MAJOR_VERSION === 7 && defined('CURLOPT_SSL_VERIFYSTATUS')) {
             curl_setopt($curlHandle, CURLOPT_SSL_VERIFYSTATUS, false);
         }
 
