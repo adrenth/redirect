@@ -81,25 +81,29 @@ class RedirectRule
             }
         }
 
-        if (empty($this->fromDate)) {
-            $this->fromDate = null;
-        } else {
+        try {
             $this->fromDate = Carbon::createFromFormat(
                 'Y-m-d H:i:s',
                 substr($this->fromDate, 0, 10) . ' 00:00:00'
             );
+        } catch (InvalidArgumentException $e) {
+            $this->fromDate = null;
         }
 
-        if (empty($this->toDate)) {
-            $this->toDate = null;
-        } else {
+        try {
             $this->toDate = Carbon::createFromFormat(
                 'Y-m-d H:i:s',
                 substr($this->toDate, 0, 10) . ' 00:00:00'
             );
+        } catch (InvalidArgumentException $e) {
+            $this->toDate = null;
         }
 
-        $this->requirements = json_decode($this->requirements, true);
+        $this->requirements = json_decode((string) $this->requirements, true);
+
+        if (JSON_ERROR_NONE !== json_last_error()) {
+            $this->requirements = [];
+        }
     }
 
     /**
