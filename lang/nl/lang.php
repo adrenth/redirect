@@ -110,6 +110,7 @@ return [
         'warning' => 'Waarschuwing',
         'cache_warning' => 'Je hebt caching ingeschakeld maar de cache driver wordt niet ondersteund. '
             . 'Redirects zullen niet worden gecached.',
+        'general_confirm' => 'Weet je het zeker?',
     ],
     'list' => [
         'no_records' => 'Er zijn geen redirects in dit beeld.',
@@ -214,11 +215,12 @@ return [
         'create_redirects' => 'Maak redirects', // since 2.0.3
         'create_redirect' => 'Maak redirect',
         'delete' => 'Verwijderen',
-        'enable' => 'Aan',
-        'disable' => 'Uit',
+        'enable' => 'Inschakelen',
+        'disable' => 'Uitschakelen',
         'reorder_redirects' => 'Herschikken',
         'export' => 'Uitvoer',
         'import' => 'Invoer',
+        'settings' => 'Instellingen',
         'categories' => 'Categorieën',
         'new_category' => 'Nieuwe category',
         'reset_statistics' => 'Herstel statistieken',
@@ -226,6 +228,9 @@ return [
         'empty_redirect_log' => 'Leeg redirect log',
         'clear_cache' => 'Leeg cache',
         'stop' => 'Stop',
+        'reset_all' => 'Alle statistische informatie wissen',
+        'all_redirects' => 'van alle redirects',
+        'bulk_actions' => 'Bulk acties',
     ],
     'tab' => [
         'tab_general' => 'Algemeen',
@@ -241,6 +246,10 @@ return [
         'truncate_success' => 'Alle items zijn succesvol verwijderd.',
         'delete_selected_success' => 'De geselecteerde items zijn succesvol verwijderd.',
         'cache_cleared_success' => 'Cache met redirects succesvol geleegd.',
+        'statistics_reset_success' => 'Alle statistische informatie is gewist',
+        'enabled_all_redirects_success' => 'Alle redirects zijn ingeschakeld',
+        'disabled_all_redirects_success' => 'All redirects zijn uitgeschakeld',
+        'deleted_all_redirects_success' => 'All redirects zijn verwijderd',
     ],
     'import_export' => [ // TODO
         'match_type' => 'Match Type [match_type] (Allowed values: exact, placeholders)',
