@@ -97,7 +97,7 @@ class RedirectManager
             throw RulesPathNotReadable::withPath($rulesPath);
         }
 
-        return RedirectManager::createWithRulesPath($rulesPath);
+        return self::createWithRulesPath($rulesPath);
     }
 
     /**

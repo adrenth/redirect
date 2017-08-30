@@ -57,7 +57,10 @@ class Settings extends Model
      */
     public static function isLoggingEnabled(): bool
     {
+        // Please properly document your API/code OctoberCMS!
         /** @noinspection DynamicInvocationViaScopeResolutionInspection */
+        /** @noinspection PhpDynamicAsStaticMethodCallInspection */
+        /** @noinspection PhpMethodParametersCountMismatchInspection */
         return (bool) self::get('logging_enabled', true);
     }
 
@@ -68,7 +71,10 @@ class Settings extends Model
      */
     public static function isStatisticsEnabled(): bool
     {
+        // Please properly document your API/code OctoberCMS!
         /** @noinspection DynamicInvocationViaScopeResolutionInspection */
+        /** @noinspection PhpDynamicAsStaticMethodCallInspection */
+        /** @noinspection PhpMethodParametersCountMismatchInspection */
         return (bool) self::get('statistics_enabled', true);
     }
 
@@ -79,7 +85,10 @@ class Settings extends Model
      */
     public static function isTestLabEnabled(): bool
     {
+        // Please properly document your API/code OctoberCMS!
         /** @noinspection DynamicInvocationViaScopeResolutionInspection */
+        /** @noinspection PhpDynamicAsStaticMethodCallInspection */
+        /** @noinspection PhpMethodParametersCountMismatchInspection */
         return (bool) self::get('test_lab_enabled', true);
     }
 
@@ -90,7 +99,10 @@ class Settings extends Model
      */
     public static function isCachingEnabled(): bool
     {
+        // Please properly document your API/code OctoberCMS!
         /** @noinspection DynamicInvocationViaScopeResolutionInspection */
+        /** @noinspection PhpDynamicAsStaticMethodCallInspection */
+        /** @noinspection PhpMethodParametersCountMismatchInspection */
         return (bool) self::get('caching_enabled', false);
     }
 }

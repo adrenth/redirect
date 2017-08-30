@@ -28,7 +28,7 @@ use Backend;
 use Cms\Classes\Page;
 use Event;
 use Exception;
-use Illuminate\Contracts\Http\Kernel;
+use October\Rain\Foundation\Http\Kernel;
 use System\Classes\PluginBase;
 
 /**
@@ -48,7 +48,7 @@ class Plugin extends PluginBase
             'description' => 'adrenth.redirect::lang.plugin.description',
             'author' => 'Alwin Drenth',
             'icon' => 'icon-link',
-            'homepage' => 'http://octobercms.com/plugin/adrenth-redirect',
+            'homepage' => 'https://octobercms.com/plugin/adrenth-redirect',
         ];
     }
 
@@ -63,7 +63,9 @@ class Plugin extends PluginBase
         }
 
         if (!App::runningInBackend()) {
-            $this->app[Kernel::class]->prependMiddleware(RedirectMiddleware::class);
+            /** @var Kernel $kernel */
+            $kernel = $this->app[Kernel::class];
+            $kernel->prependMiddleware(RedirectMiddleware::class);
             return;
         }
 
