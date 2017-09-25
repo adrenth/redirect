@@ -28,8 +28,8 @@ use Backend;
 use Cms\Classes\Page;
 use Event;
 use Exception;
-use October\Rain\Foundation\Http\Kernel;
 use System\Classes\PluginBase;
+use Illuminate\Contracts\Http\Kernel;
 
 /**
  * Class Plugin
