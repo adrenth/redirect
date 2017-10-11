@@ -214,6 +214,7 @@ return [
         'new_redirect' => 'Nieuwe redirect', // changed since 2.0.3
         'create_redirects' => 'Maak redirects', // since 2.0.3
         'create_redirect' => 'Maak redirect',
+        'create_and_new' => 'Maken en nieuw',
         'delete' => 'Verwijderen',
         'enable' => 'Inschakelen',
         'disable' => 'Uitschakelen',

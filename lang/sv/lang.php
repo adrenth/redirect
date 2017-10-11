@@ -209,6 +209,7 @@ return [
         'from_request_log' => 'Från anropslogg',
         'new_redirect' => 'Ny ompekning',
         'create_redirects' => 'Skapa ompekning',
+        'create_and_new' => 'Create and new', // TODO
         'delete' => 'Radera',
         'enable' => 'Aktivera',
         'disable' => 'Inaktivera',

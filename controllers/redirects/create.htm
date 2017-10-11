@@ -18,6 +18,15 @@
                 <button
                     type="submit"
                     data-request="onSave"
+                    data-request-data="new:1"
+                    data-hotkey="ctrl+shift+s, cmd+shift+s"
+                    data-load-indicator="<?= e(trans('backend::lang.form.saving')) ?>"
+                    class="btn btn-primary">
+                    <?= e(trans('adrenth.redirect::lang.buttons.create_and_new')) ?>
+                </button>
+                <button
+                    type="submit"
+                    data-request="onSave"
                     data-hotkey="ctrl+s, cmd+s"
                     data-load-indicator="<?= e(trans('backend::lang.form.saving')) ?>"
                     class="btn btn-primary">

@@ -214,6 +214,7 @@ return [
         'new_redirect' => 'New redirect', // changed since 2.0.3
         'create_redirects' => 'Create redirects', // since 2.0.3
         'create_redirect' => 'Create redirect',
+        'create_and_new' => 'Create and new',
         'delete' => 'Delete',
         'enable' => 'Enable',
         'disable' => 'Disable',

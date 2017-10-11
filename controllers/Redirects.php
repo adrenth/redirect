@@ -22,6 +22,7 @@ use Adrenth\Redirect\Models\Client;
 use Adrenth\Redirect\Models\Redirect;
 use Adrenth\Redirect\Models\Settings;
 use ApplicationException;
+use Backend;
 use Backend\Behaviors\FormController;
 use Backend\Behaviors\ImportExportController;
 use Backend\Behaviors\ListController;
@@ -146,6 +147,21 @@ class Redirects extends Controller
     }
 
     // @codingStandardsIgnoreStart
+
+    /**
+     * @param string|null $context
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function create_onSave($context = null)
+    {
+        $redirect = parent::create_onSave($context);
+
+        if (post('new')) {
+            return Backend::redirect('adrenth/redirect/redirects/create');
+        }
+
+        return $redirect;
+    }
 
     /**
      * Delete selected redirects.

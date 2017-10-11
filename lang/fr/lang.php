@@ -213,6 +213,7 @@ return [
         'from_request_log' => 'A partir des logs',
         'new_redirect' => 'Ajouter',
         'create_redirects' => 'Créer redirection',
+        'create_and_new' => 'Create and new', // TODO
         'delete' => 'Supprimer',
         'enable' => 'Activer',
         'disable' => 'Désactiver',

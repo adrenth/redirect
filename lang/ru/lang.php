@@ -209,6 +209,7 @@ return [
         'from_request_log' => 'Из лога запросов',
         'new_redirect' => 'Новый редирект',
         'create_redirects' => 'Создание редиректов',
+        'create_and_new' => 'Create and new', // TODO
         'delete' => 'Удалить',
         'enable' => 'Включить',
         'disable' => 'Отключить',
