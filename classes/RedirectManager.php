@@ -256,6 +256,7 @@ class RedirectManager
         $this->addLogEntry($rule, $requestUri, $toUrl);
 
         header(self::$headers[$statusCode], true, $statusCode);
+        header('X-Redirect-By: Adrenth.Redirect');
         header('Location: ' . $toUrl, true, $statusCode);
 
         exit(0);
