@@ -1,4 +1,16 @@
 <?php
+/**
+ * OctoberCMS plugin: Adrenth.Redirect
+ *
+ * Copyright (c) Alwin Drenth 2017.
+ *
+ * Licensing information:
+ * https://octobercms.com/help/license/regular
+ * https://octobercms.com/help/license/extended
+ * https://octobercms.com/help/license/faqs
+ */
+
+declare(strict_types=1);
 
 namespace Adrenth\Redirect\Models;
 
@@ -171,7 +183,7 @@ class Redirect extends Model
         array $rules,
         array $customMessages = [],
         array $attributeNames = []
-    ) {
+    ): Validator {
         $validator = self::traitMakeValidator($data, $rules, $customMessages, $attributeNames);
 
         $validator->sometimes('to_url', 'required', function (Fluent $request) {
@@ -196,7 +208,7 @@ class Redirect extends Model
      * @param Builder $builder
      * @return Builder
      */
-    public function scopeEnabled(Builder $builder)
+    public function scopeEnabled(Builder $builder): Builder
     {
         return $builder->where('is_enabled', '=', true);
     }
@@ -205,7 +217,7 @@ class Redirect extends Model
      * @param Builder $builder
      * @return Builder
      */
-    public function scopeTestLabEnabled(Builder $builder)
+    public function scopeTestLabEnabled(Builder $builder): Builder
     {
         return $builder->where('test_lab', '=', true);
     }
@@ -213,7 +225,7 @@ class Redirect extends Model
     /**
      * @return bool
      */
-    public function isMatchTypeExact()
+    public function isMatchTypeExact(): bool
     {
         return $this->attributes['match_type'] === self::TYPE_EXACT;
     }
@@ -221,7 +233,7 @@ class Redirect extends Model
     /**
      * @return bool
      */
-    public function isMatchTypePlaceholders()
+    public function isMatchTypePlaceholders(): bool
     {
         return $this->attributes['match_type'] === self::TYPE_PLACEHOLDERS;
     }
@@ -229,7 +241,7 @@ class Redirect extends Model
     /**
      * @return HasMany
      */
-    public function clients()
+    public function clients(): HasMany
     {
         return $this->hasMany(Client::class);
     }
@@ -239,7 +251,7 @@ class Redirect extends Model
      *
      * @param string $value
      */
-    public function setFromUrlAttribute($value)
+    public function setFromUrlAttribute($value)//: void
     {
         $this->attributes['from_url'] = urldecode($value);
     }
@@ -249,7 +261,7 @@ class Redirect extends Model
      *
      * @param mixed $value
      */
-    public function setSortOrderAttribute($value)
+    public function setSortOrderAttribute($value)//: void
     {
         $this->attributes['sort_order'] = (int) $value;
     }
@@ -260,7 +272,7 @@ class Redirect extends Model
      * @param mixed $value
      * @return Carbon|null
      */
-    public function getFromDateAttribute($value)
+    public function getFromDateAttribute($value)//: ?Carbon
     {
         if ($value === '' || $value === null) {
             return null;
@@ -275,7 +287,7 @@ class Redirect extends Model
      * @param mixed $value
      * @return Carbon|null
      */
-    public function getToDateAttribute($value)
+    public function getToDateAttribute($value)//: ?Carbon
     {
         if ($value === '' || $value === null) {
             return null;
@@ -288,7 +300,7 @@ class Redirect extends Model
      * @see OptionHelper::getTargetTypeOptions()
      * @return array
      */
-    public function getTargetTypeOptions()
+    public function getTargetTypeOptions(): array
     {
         return OptionHelper::getTargetTypeOptions((int) $this->getAttribute('status_code'));
     }
@@ -297,7 +309,7 @@ class Redirect extends Model
      * @see OptionHelper::getCmsPageOptions()
      * @return array
      */
-    public function getCmsPageOptions()
+    public function getCmsPageOptions(): array
     {
         return OptionHelper::getCmsPageOptions();
     }
@@ -306,7 +318,7 @@ class Redirect extends Model
      * @see OptionHelper::getStaticPageOptions()
      * @return array
      */
-    public function getStaticPageOptions()
+    public function getStaticPageOptions(): array
     {
         return OptionHelper::getStaticPageOptions();
     }
@@ -315,7 +327,7 @@ class Redirect extends Model
      * @see OptionHelper::getCategoryOptions()
      * @return array
      */
-    public function getCategoryOptions()
+    public function getCategoryOptions(): array
     {
         return OptionHelper::getCategoryOptions();
     }
@@ -325,7 +337,7 @@ class Redirect extends Model
      *
      * @return array
      */
-    public function filterMatchTypeOptions()
+    public function filterMatchTypeOptions(): array
     {
         $options = [];
 
@@ -341,7 +353,7 @@ class Redirect extends Model
      *
      * @return array
      */
-    public function filterTargetTypeOptions()
+    public function filterTargetTypeOptions(): array
     {
         $options = [];
 
@@ -355,7 +367,7 @@ class Redirect extends Model
     /**
      * @return array
      */
-    public function filterStatusCodeOptions()
+    public function filterStatusCodeOptions(): array
     {
         $options = [];
 
@@ -372,7 +384,7 @@ class Redirect extends Model
      *
      * @return void
      */
-    public function beforeSave()
+    public function beforeSave()//: void
     {
         switch ($this->getAttribute('target_type')) {
             case Redirect::TARGET_TYPE_NONE:
@@ -402,7 +414,7 @@ class Redirect extends Model
      * @param Carbon $date
      * @return bool
      */
-    public function isActiveOnDate(Carbon $date)
+    public function isActiveOnDate(Carbon $date): bool
     {
         if ($this->getAttribute('from_date') instanceof Carbon
             && $this->getAttribute('to_date') instanceof Carbon

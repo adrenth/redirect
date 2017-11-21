@@ -1,4 +1,16 @@
 <?php
+/**
+ * OctoberCMS plugin: Adrenth.Redirect
+ *
+ * Copyright (c) Alwin Drenth 2017.
+ *
+ * Licensing information:
+ * https://octobercms.com/help/license/regular
+ * https://octobercms.com/help/license/extended
+ * https://octobercms.com/help/license/faqs
+ */
+
+declare(strict_types=1);
 
 return [
     'plugin' => [
@@ -197,6 +209,7 @@ return [
         'from_request_log' => 'Из лога запросов',
         'new_redirect' => 'Новый редирект',
         'create_redirects' => 'Создание редиректов',
+        'create_and_new' => 'Create and new', // TODO
         'delete' => 'Удалить',
         'enable' => 'Включить',
         'disable' => 'Отключить',

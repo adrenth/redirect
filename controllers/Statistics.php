@@ -1,4 +1,16 @@
 <?php
+/**
+ * OctoberCMS plugin: Adrenth.Redirect
+ *
+ * Copyright (c) Alwin Drenth 2017.
+ *
+ * Licensing information:
+ * https://octobercms.com/help/license/regular
+ * https://octobercms.com/help/license/extended
+ * https://octobercms.com/help/license/faqs
+ */
+
+declare(strict_types=1);
 
 namespace Adrenth\Redirect\Controllers;
 
@@ -9,6 +21,7 @@ use Backend\Classes\Controller;
 /**
  * Class Statistics
  *
+ * @property string pageTitle
  * @package Adrenth\Redirect\Controllers
  */
 class Statistics extends Controller
@@ -39,7 +52,7 @@ class Statistics extends Controller
     /**
      * @return void
      */
-    public function index()
+    public function index()//: void
     {
     }
 
@@ -48,7 +61,7 @@ class Statistics extends Controller
     /**
      * @return string
      */
-    public function index_onRedirectHitsPerDay()
+    public function index_onRedirectHitsPerDay(): string
     {
         $crawlerHits = $this->helper->getRedirectHitsPerDay(true);
 
@@ -79,7 +92,7 @@ class Statistics extends Controller
     /**
      * @return array
      */
-    public function index_onLoadTopRedirectsThisMonth()
+    public function index_onLoadTopRedirectsThisMonth(): array
     {
         return [
             '#topRedirectsThisMonth' => $this->makePartial('top-redirects-this-month', [
@@ -91,7 +104,7 @@ class Statistics extends Controller
     /**
      * @return array
      */
-    public function index_onLoadTopCrawlersThisMonth()
+    public function index_onLoadTopCrawlersThisMonth(): array
     {
         return [
             '#topCrawlersThisMonth' => $this->makePartial('top-crawlers-this-month', [
@@ -103,7 +116,7 @@ class Statistics extends Controller
     /**
      * @return array
      */
-    public function index_onLoadRedirectHitsPerMonth()
+    public function index_onLoadRedirectHitsPerMonth(): array
     {
         return [
             '#redirectHitsPerMonth' => $this->makePartial('redirect-hits-per-month', [
@@ -115,7 +128,7 @@ class Statistics extends Controller
     /**
      * @return array
      */
-    public function index_onLoadScoreBoard()
+    public function index_onLoadScoreBoard(): array
     {
         return [
             '#scoreBoard' => $this->makePartial('score-board', [

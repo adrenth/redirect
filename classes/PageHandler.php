@@ -1,10 +1,23 @@
 <?php
+/**
+ * OctoberCMS plugin: Adrenth.Redirect
+ *
+ * Copyright (c) Alwin Drenth 2017.
+ *
+ * Licensing information:
+ * https://octobercms.com/help/license/regular
+ * https://octobercms.com/help/license/extended
+ * https://octobercms.com/help/license/faqs
+ */
+
+declare(strict_types=1);
 
 namespace Adrenth\Redirect\Classes;
 
 use Adrenth\Redirect\Models\Redirect;
 use Cms\Classes\CmsCompoundObject;
 use Event;
+use Exception;
 
 /**
  * Class PageHandler
@@ -29,7 +42,7 @@ class PageHandler
      *
      * @return void
      */
-    public function onBeforeUpdate()
+    public function onBeforeUpdate()//: void
     {
         if ($this->page->getAttribute('is_hidden')) {
             return;
@@ -59,9 +72,9 @@ class PageHandler
      * Triggered after a Page has been deleted.
      *
      * @return void
-     * @throws \Exception
+     * @throws Exception
      */
-    public function onAfterDelete()
+    public function onAfterDelete()//: void
     {
         Redirect::where($this->getTargetType(), '=', $this->page->getBaseFileName())
             ->where('system', '=', 1)
@@ -80,7 +93,7 @@ class PageHandler
     /**
      * @return bool
      */
-    protected function hasUrlChanged()
+    protected function hasUrlChanged(): bool
     {
         return array_key_exists('url', $this->page->getDirty());
     }
@@ -88,23 +101,23 @@ class PageHandler
     /**
      * @return bool
      */
-    protected function newUrlContainsParams()
+    protected function newUrlContainsParams(): bool
     {
         return strpos($this->getNewUrl(), ':') !== false;
     }
 
     /**
-     * @return array
+     * @return string
      */
-    protected function getOriginalUrl()
+    protected function getOriginalUrl(): string
     {
-        return $this->page->getOriginal('url');
+        return (string) $this->page->getOriginal('url');
     }
 
     /**
      * @return string
      */
-    protected function getNewUrl()
+    protected function getNewUrl(): string
     {
         $dirty = $this->page->getDirty();
 
@@ -118,7 +131,7 @@ class PageHandler
     /**
      * @return string
      */
-    protected function getTargetType()
+    protected function getTargetType(): string
     {
         return Redirect::TARGET_TYPE_CMS_PAGE;
     }
@@ -128,7 +141,7 @@ class PageHandler
      *
      * @return void
      */
-    protected function createRedirect()
+    protected function createRedirect()//: void
     {
         Redirect::create([
             'match_type' => Redirect::TYPE_EXACT,

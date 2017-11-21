@@ -1,4 +1,16 @@
 <?php
+/**
+ * OctoberCMS plugin: Adrenth.Redirect
+ *
+ * Copyright (c) Alwin Drenth 2017.
+ *
+ * Licensing information:
+ * https://octobercms.com/help/license/regular
+ * https://octobercms.com/help/license/extended
+ * https://octobercms.com/help/license/faqs
+ */
+
+declare(strict_types=1);
 
 namespace Adrenth\Redirect\Classes;
 
@@ -46,7 +58,7 @@ abstract class TesterBase implements Tester
     /**
      * {@inheritdoc}
      */
-    final public function execute()
+    final public function execute(): TesterResult
     {
         $stopwatch = new Stopwatch();
 
@@ -64,7 +76,7 @@ abstract class TesterBase implements Tester
     /**
      * {@inheritdoc}
      */
-    public function getTestPath()
+    public function getTestPath(): string
     {
         return $this->testPath;
     }
@@ -72,7 +84,7 @@ abstract class TesterBase implements Tester
     /**
      * {@inheritdoc}
      */
-    public function getTestUrl()
+    public function getTestUrl(): string
     {
         return $this->testUrl;
     }
@@ -82,7 +94,7 @@ abstract class TesterBase implements Tester
      *
      * @return TesterResult
      */
-    abstract protected function test();
+    abstract protected function test(): TesterResult;
 
     /**
      * Set default cURL options.
@@ -90,7 +102,7 @@ abstract class TesterBase implements Tester
      * @param resource $curlHandle
      * @return void
      */
-    protected function setDefaultCurlOptions($curlHandle)
+    protected function setDefaultCurlOptions($curlHandle)//: void
     {
         curl_setopt($curlHandle, CURLOPT_MAXREDIRS, self::MAX_REDIRECTS);
         curl_setopt($curlHandle, CURLOPT_CONNECTTIMEOUT, self::CONNECTION_TIMEOUT);
@@ -104,7 +116,7 @@ abstract class TesterBase implements Tester
         /** @noinspection CurlSslServerSpoofingInspection */
         curl_setopt($curlHandle, CURLOPT_SSL_VERIFYPEER, false);
 
-        if (PHP_MAJOR_VERSION === 7) {
+        if (PHP_MAJOR_VERSION === 7 && defined('CURLOPT_SSL_VERIFYSTATUS')) {
             curl_setopt($curlHandle, CURLOPT_SSL_VERIFYSTATUS, false);
         }
 
@@ -119,7 +131,7 @@ abstract class TesterBase implements Tester
      * @return RedirectManager
      * @throws RulesPathNotReadable
      */
-    protected function getRedirectManager()
+    protected function getRedirectManager(): RedirectManager
     {
         $manager = RedirectManager::createWithDefaultRulesPath();
 

@@ -1,4 +1,16 @@
 <?php
+/**
+ * OctoberCMS plugin: Adrenth.Redirect
+ *
+ * Copyright (c) Alwin Drenth 2017.
+ *
+ * Licensing information:
+ * https://octobercms.com/help/license/regular
+ * https://octobercms.com/help/license/extended
+ * https://octobercms.com/help/license/faqs
+ */
+
+declare(strict_types=1);
 
 namespace Adrenth\Redirect\Classes;
 
@@ -69,25 +81,29 @@ class RedirectRule
             }
         }
 
-        if (empty($this->fromDate)) {
-            $this->fromDate = null;
-        } else {
+        try {
             $this->fromDate = Carbon::createFromFormat(
                 'Y-m-d H:i:s',
                 substr($this->fromDate, 0, 10) . ' 00:00:00'
             );
+        } catch (InvalidArgumentException $e) {
+            $this->fromDate = null;
         }
 
-        if (empty($this->toDate)) {
-            $this->toDate = null;
-        } else {
+        try {
             $this->toDate = Carbon::createFromFormat(
                 'Y-m-d H:i:s',
                 substr($this->toDate, 0, 10) . ' 00:00:00'
             );
+        } catch (InvalidArgumentException $e) {
+            $this->toDate = null;
         }
 
-        $this->requirements = json_decode($this->requirements, true);
+        $this->requirements = json_decode((string) $this->requirements, true);
+
+        if (JSON_ERROR_NONE !== json_last_error()) {
+            $this->requirements = [];
+        }
     }
 
     /**
@@ -95,7 +111,7 @@ class RedirectRule
      * @return RedirectRule
      * @throws InvalidArgumentException
      */
-    public static function createWithModel(Redirect $model)
+    public static function createWithModel(Redirect $model): RedirectRule
     {
         $attributes = $model->getAttributes();
         $attributes['requirements'] = json_encode($model->getAttribute('requirements'));
@@ -106,79 +122,79 @@ class RedirectRule
     /**
      * @return int
      */
-    public function getId()
+    public function getId(): int
     {
-        return $this->id;
+        return (int) $this->id;
     }
 
     /**
      * @return string
      */
-    public function getMatchType()
+    public function getMatchType(): string
     {
-        return $this->matchType;
+        return (string) $this->matchType;
     }
 
     /**
      * @return string
      */
-    public function getTargetType()
+    public function getTargetType(): string
     {
-        return $this->targetType;
+        return (string) $this->targetType;
     }
 
     /**
      * @return string
      */
-    public function getFromUrl()
+    public function getFromUrl(): string
     {
-        return $this->fromUrl;
+        return (string) $this->fromUrl;
     }
 
     /**
      * @return string
      */
-    public function getFromScheme()
+    public function getFromScheme(): string
     {
-        return $this->fromScheme;
+        return (string) $this->fromScheme;
     }
 
     /**
      * @return string
      */
-    public function getToUrl()
+    public function getToUrl(): string
     {
-        return $this->toUrl;
+        return (string) $this->toUrl;
     }
 
     /**
      * @return string
      */
-    public function getToScheme()
+    public function getToScheme(): string
     {
-        return $this->toScheme;
+        return (string) $this->toScheme;
     }
 
     /**
      * @return string
      */
-    public function getCmsPage()
+    public function getCmsPage(): string
     {
-        return $this->cmsPage;
+        return (string) $this->cmsPage;
     }
 
     /**
      * @return string
      */
-    public function getStaticPage()
+    public function getStaticPage(): string
     {
-        return $this->staticPage;
+        return (string) $this->staticPage;
     }
 
     /**
      * @return int
      */
-    public function getStatusCode()
+    public function getStatusCode(): int
     {
         return (int) $this->statusCode;
     }
@@ -186,7 +202,7 @@ class RedirectRule
     /**
      * @return array
      */
-    public function getRequirements()
+    public function getRequirements(): array
     {
         return (array) $this->requirements;
     }
@@ -194,7 +210,7 @@ class RedirectRule
     /**
      * @return Carbon|null
      */
-    public function getFromDate()
+    public function getFromDate()//: ?Carbon
     {
         return $this->fromDate;
     }
@@ -202,7 +218,7 @@ class RedirectRule
     /**
      * @return Carbon|null
      */
-    public function getToDate()
+    public function getToDate()//: ?Carbon
     {
         return $this->toDate;
     }
@@ -210,7 +226,7 @@ class RedirectRule
     /**
      * @return bool
      */
-    public function isExactMatchType()
+    public function isExactMatchType(): bool
     {
         return $this->matchType === Redirect::TYPE_EXACT;
     }
@@ -218,7 +234,7 @@ class RedirectRule
     /**
      * @return bool
      */
-    public function isPlaceholdersMatchType()
+    public function isPlaceholdersMatchType(): bool
     {
         return $this->matchType === Redirect::TYPE_PLACEHOLDERS;
     }
@@ -226,16 +242,16 @@ class RedirectRule
     /**
      * @return array
      */
-    public function getPlaceholderMatches()
+    public function getPlaceholderMatches(): array
     {
         return (array) $this->placeholderMatches;
     }
 
     /**
      * @param array $placeholderMatches
-     * @return $this
+     * @return RedirectRule
      */
-    public function setPlaceholderMatches(array $placeholderMatches = [])
+    public function setPlaceholderMatches(array $placeholderMatches = []): RedirectRule
     {
         $this->placeholderMatches = $placeholderMatches;
         return $this;

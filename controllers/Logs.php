@@ -1,4 +1,16 @@
 <?php
+/**
+ * OctoberCMS plugin: Adrenth.Redirect
+ *
+ * Copyright (c) Alwin Drenth 2017.
+ *
+ * Licensing information:
+ * https://octobercms.com/help/license/regular
+ * https://octobercms.com/help/license/extended
+ * https://octobercms.com/help/license/faqs
+ */
+
+declare(strict_types=1);
 
 namespace Adrenth\Redirect\Controllers;
 
@@ -47,7 +59,7 @@ class Logs extends Controller
      *
      * @return array
      */
-    public function index_onRefresh()
+    public function index_onRefresh(): array
     {
         return $this->listRefresh();
     }
@@ -57,7 +69,7 @@ class Logs extends Controller
      *
      * @return array
      */
-    public function index_onEmptyLog()
+    public function index_onEmptyLog(): array
     {
         RedirectLog::truncate();
         Flash::success(Lang::get('adrenth.redirect::lang.flash.truncate_success'));
@@ -69,7 +81,7 @@ class Logs extends Controller
      *
      * @return array
      */
-    public function index_onDelete()
+    public function index_onDelete(): array
     {
         if (($checkedIds = post('checked', []))
             && is_array($checkedIds)

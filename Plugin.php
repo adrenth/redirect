@@ -1,4 +1,16 @@
 <?php
+/**
+ * OctoberCMS plugin: Adrenth.Redirect
+ *
+ * Copyright (c) Alwin Drenth 2017.
+ *
+ * Licensing information:
+ * https://octobercms.com/help/license/regular
+ * https://octobercms.com/help/license/extended
+ * https://octobercms.com/help/license/faqs
+ */
+
+declare(strict_types=1);
 
 namespace Adrenth\Redirect;
 
@@ -16,8 +28,8 @@ use Backend;
 use Cms\Classes\Page;
 use Event;
 use Exception;
-use Illuminate\Contracts\Http\Kernel;
 use System\Classes\PluginBase;
+use Illuminate\Contracts\Http\Kernel;
 
 /**
  * Class Plugin
@@ -29,14 +41,14 @@ class Plugin extends PluginBase
     /**
      * {@inheritdoc}
      */
-    public function pluginDetails()
+    public function pluginDetails(): array
     {
         return [
             'name' => 'adrenth.redirect::lang.plugin.name',
             'description' => 'adrenth.redirect::lang.plugin.description',
             'author' => 'Alwin Drenth',
             'icon' => 'icon-link',
-            'homepage' => 'http://octobercms.com/plugin/adrenth-redirect',
+            'homepage' => 'https://octobercms.com/plugin/adrenth-redirect',
         ];
     }
 
@@ -51,7 +63,9 @@ class Plugin extends PluginBase
         }
 
         if (!App::runningInBackend()) {
-            $this->app[Kernel::class]->prependMiddleware(RedirectMiddleware::class);
+            /** @var Kernel $kernel */
+            $kernel = $this->app[Kernel::class];
+            $kernel->prependMiddleware(RedirectMiddleware::class);
             return;
         }
 
@@ -64,7 +78,7 @@ class Plugin extends PluginBase
      * @return void
      * @throws Exception
      */
-    public function bootBackend()
+    public function bootBackend()//: void
     {
         Page::extend(function (Page $page) {
             $handler = new PageHandler($page);
@@ -105,7 +119,7 @@ class Plugin extends PluginBase
     /**
      * {@inheritdoc}
      */
-    public function registerPermissions()
+    public function registerPermissions(): array
     {
         return [
             'adrenth.redirect.access_redirects' => [
@@ -118,7 +132,7 @@ class Plugin extends PluginBase
     /**
      * {@inheritdoc}
      */
-    public function registerNavigation()
+    public function registerNavigation(): array
     {
         $defaultBackendUrl = Backend::url(
             'adrenth/redirect/' . (Settings::isStatisticsEnabled() ? 'statistics' : 'redirects')
@@ -227,7 +241,7 @@ class Plugin extends PluginBase
     /**
      * {@inheritdoc}
      */
-    public function registerSettings()
+    public function registerSettings(): array
     {
         /** @noinspection ClassConstantCanBeUsedInspection */
         return [
@@ -247,7 +261,7 @@ class Plugin extends PluginBase
     /**
      * {@inheritdoc}
      */
-    public function registerReportWidgets()
+    public function registerReportWidgets(): array
     {
         $reportWidgets[CreateRedirect::class] = [
             'label' => 'adrenth.redirect::lang.buttons.create_redirect',
@@ -267,7 +281,7 @@ class Plugin extends PluginBase
     /**
      * {@inheritdoc}
      */
-    public function registerListColumnTypes()
+    public function registerListColumnTypes(): array
     {
         return [
             'redirect_switch_color' => function ($value) {

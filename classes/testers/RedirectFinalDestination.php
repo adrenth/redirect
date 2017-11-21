@@ -1,4 +1,16 @@
 <?php
+/**
+ * OctoberCMS plugin: Adrenth.Redirect
+ *
+ * Copyright (c) Alwin Drenth 2017.
+ *
+ * Licensing information:
+ * https://octobercms.com/help/license/regular
+ * https://octobercms.com/help/license/extended
+ * https://octobercms.com/help/license/faqs
+ */
+
+declare(strict_types=1);
 
 namespace Adrenth\Redirect\Classes\Testers;
 
@@ -17,7 +29,7 @@ class RedirectFinalDestination extends TesterBase
      *
      * @return TesterResult
      */
-    protected function test()
+    protected function test(): TesterResult
     {
         $curlHandle = curl_init($this->testUrl);
 
@@ -37,12 +49,10 @@ class RedirectFinalDestination extends TesterBase
         curl_close($curlHandle);
 
         if (empty($finalDestination) && $statusCode > 400) {
-            $message = $error === null ? trans('adrenth.redirect::lang.test_lab.no_destination_url') : $error;
+            $message = $error ?? trans('adrenth.redirect::lang.test_lab.no_destination_url');
         } else {
             $finalDestination = sprintf('<a href="%s" target="_blank">%s</a>', $finalDestination, $finalDestination);
-            $message = $error === null
-                ? trans('adrenth.redirect::lang.test_lab.final_destination_is', ['destination' => $finalDestination])
-                : $error;
+            $message = $error ?? trans('adrenth.redirect::lang.test_lab.final_destination_is', ['destination' => $finalDestination]);
         }
 
         return new TesterResult($error === null, $message);

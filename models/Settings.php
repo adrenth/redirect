@@ -1,4 +1,16 @@
 <?php
+/**
+ * OctoberCMS plugin: Adrenth.Redirect
+ *
+ * Copyright (c) Alwin Drenth 2017.
+ *
+ * Licensing information:
+ * https://octobercms.com/help/license/regular
+ * https://octobercms.com/help/license/extended
+ * https://octobercms.com/help/license/faqs
+ */
+
+declare(strict_types=1);
 
 namespace Adrenth\Redirect\Models;
 
@@ -8,6 +20,7 @@ use System\Behaviors\SettingsModel;
 /**
  * Class Settings
  *
+ * @property array implement
  * @package Adrenth\Redirect\Models
  * @mixin SettingsModel
  */
@@ -42,9 +55,12 @@ class Settings extends Model
      *
      * @return bool
      */
-    public static function isLoggingEnabled()
+    public static function isLoggingEnabled(): bool
     {
+        // Please properly document your API/code OctoberCMS!
         /** @noinspection DynamicInvocationViaScopeResolutionInspection */
+        /** @noinspection PhpDynamicAsStaticMethodCallInspection */
+        /** @noinspection PhpMethodParametersCountMismatchInspection */
         return (bool) self::get('logging_enabled', true);
     }
 
@@ -53,9 +69,12 @@ class Settings extends Model
      *
      * @return bool
      */
-    public static function isStatisticsEnabled()
+    public static function isStatisticsEnabled(): bool
     {
+        // Please properly document your API/code OctoberCMS!
         /** @noinspection DynamicInvocationViaScopeResolutionInspection */
+        /** @noinspection PhpDynamicAsStaticMethodCallInspection */
+        /** @noinspection PhpMethodParametersCountMismatchInspection */
         return (bool) self::get('statistics_enabled', true);
     }
 
@@ -64,9 +83,12 @@ class Settings extends Model
      *
      * @return bool
      */
-    public static function isTestLabEnabled()
+    public static function isTestLabEnabled(): bool
     {
+        // Please properly document your API/code OctoberCMS!
         /** @noinspection DynamicInvocationViaScopeResolutionInspection */
+        /** @noinspection PhpDynamicAsStaticMethodCallInspection */
+        /** @noinspection PhpMethodParametersCountMismatchInspection */
         return (bool) self::get('test_lab_enabled', true);
     }
 
@@ -75,9 +97,12 @@ class Settings extends Model
      *
      * @return bool
      */
-    public static function isCachingEnabled()
+    public static function isCachingEnabled(): bool
     {
+        // Please properly document your API/code OctoberCMS!
         /** @noinspection DynamicInvocationViaScopeResolutionInspection */
+        /** @noinspection PhpDynamicAsStaticMethodCallInspection */
+        /** @noinspection PhpMethodParametersCountMismatchInspection */
         return (bool) self::get('caching_enabled', false);
     }
 }

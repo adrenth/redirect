@@ -1,36 +1,48 @@
 <?php
+/**
+ * OctoberCMS plugin: Adrenth.Redirect
+ *
+ * Copyright (c) Alwin Drenth 2017.
+ *
+ * Licensing information:
+ * https://octobercms.com/help/license/regular
+ * https://octobercms.com/help/license/extended
+ * https://octobercms.com/help/license/faqs
+ */
+
+declare(strict_types=1);
 
 return [
     'plugin' => [
-        'name' => 'Verwijzingen',
-        'description' => 'Eenvoudig beheren van verwijzingen',
+        'name' => 'Redirects',
+        'description' => 'Eenvoudig beheren van redirects',
     ],
     'permission' => [
         'access_redirects' => [
-            'label' => 'Verwijzingen',
-            'tab' => 'Verwijzingen',
+            'label' => 'Redirects',
+            'tab' => 'Redirects',
         ],
     ],
     'navigation' => [
-        'menu_label' => 'Verwijzingen',
-        'menu_description' => 'Beheer verwijzingen',
+        'menu_label' => 'Redirects',
+        'menu_description' => 'Beheer redirects',
     ],
     'settings' => [
-        'menu_label' => 'Verwijzingen',
-        'menu_description' => 'Beheer instellingen voor Verwijzingen.',
-        'logging_enabled_label' => 'Log verwijzing gebeurtenissen',
-        'logging_enabled_comment' => 'Sla verwijzing gebeurtenissen op in de database.',
+        'menu_label' => 'Redirects',
+        'menu_description' => 'Beheer instellingen voor redirects.',
+        'logging_enabled_label' => 'Log redirect gebeurtenissen',
+        'logging_enabled_comment' => 'Sla redirect gebeurtenissen op in de database.',
         'statistics_enabled_label' => 'Verzamel statistieken',
-        'statistics_enabled_comment' => 'Verzamel statistieken verwijzingsverzoeken om meer inzicht te krijgen.',
+        'statistics_enabled_comment' => 'Verzamel statistieken redirectsverzoeken om meer inzicht te krijgen.',
         'test_lab_enabled_label' => 'TestLab (beta)',
-        'test_lab_enabled_comment' => 'TestLab maakt het mogelijk om op grote schaal verwijzingen te testen.',
+        'test_lab_enabled_comment' => 'TestLab maakt het mogelijk om op grote schaal redirects te testen.',
         'caching_enabled_label' => 'Caching van verwijzigen (geavanceerd)',
-        'caching_enabled_comment' => 'Verbetert het verwijzing mechanisme als er veel verwijzingen zijn. '
+        'caching_enabled_comment' => 'Verbetert het redirect mechanisme als er veel redirects zijn. '
             . 'LET OP: Cache driver `file` en `database` zijn NIET ondersteund. '
             . 'Aanbevolen driver is `memcached` of een vergelijkbare "in-memory" caching driver.',
     ],
     'redirect' => [
-        'redirect' => 'Verwijzing',
+        'redirect' => 'Redirect',
         'from_url' => 'Bronpad',
         'from_url_placeholder' => '/bron/pad',
         'from_url_comment' => 'Het bronpad welke overeenkomt.',
@@ -75,16 +87,16 @@ return [
         'gone' => '410 - Gone (Verwijderd)',
         'enabled' => 'Aangezet',
         'none' => 'geen',
-        'enabled_comment' => 'Schuif om deze verwijzing aan te zetten.',
+        'enabled_comment' => 'Schuif om deze redirect aan te zetten.',
         'priority' => 'Prioriteit',
         'hits' => 'Treffers',
-        'return_to_redirects' => 'Ga terug naar de verwijzingen lijst.',
+        'return_to_redirects' => 'Ga terug naar de redirects lijst.',
         'return_to_categories' => 'Ga terug naar de categorieën lijst',
         'delete_confirm' => 'Weet je het zeker?',
         'created_at' => 'Gemaakt op',
         'modified_at' => 'Bewerkt op',
-        'system_tip' => 'Een verwijzing gegenereerd door het systeem',
-        'user_tip' => 'Een door de gebruiker gegenereerde verwijzing',
+        'system_tip' => 'Een redirect gegenereerd door het systeem',
+        'user_tip' => 'Een door de gebruiker gegenereerde redirect',
         'type' => 'Type',
         'last_used_at' => 'Voor het laatste gebruikt op',
         'and_delete_log_item' => 'En verwijder geseletecteerd log items', // since 2.0.3,
@@ -97,30 +109,31 @@ return [
         'truncating' => 'Aan het verwijderen...',
         'warning' => 'Waarschuwing',
         'cache_warning' => 'Je hebt caching ingeschakeld maar de cache driver wordt niet ondersteund. '
-            . 'Verwijzingen zullen niet worden gecached.',
+            . 'Redirects zullen niet worden gecached.',
+        'general_confirm' => 'Weet je het zeker?',
     ],
     'list' => [
-        'no_records' => 'Er zijn geen verwijzingen in dit beeld.',
+        'no_records' => 'Er zijn geen redirects in dit beeld.',
         'switch_is_enabled' => 'Aangezet',
-        'switch_system' => 'Systeem verwijzingen',
+        'switch_system' => 'Systeem redirects',
     ],
     'scheduling' => [
         'from_date' => 'Beschikbaar Van',
-        'from_date_comment' => 'De datum wanneer deze verwijzing actief wordt mag weggelaten worden.',
+        'from_date_comment' => 'De datum wanneer deze redirect actief wordt mag weggelaten worden.',
         'to_date' => 'Beschikbaar Tot',
-        'to_date_comment' => 'De datum tot wanneer deze verwijzing actief is mag weggelaten worden.',
-        'scheduling_comment' => 'Hier kan een periode ingegeven worden wanneer de verwijzing beschikbaar is. '
+        'to_date_comment' => 'De datum tot wanneer deze redirect actief is mag weggelaten worden.',
+        'scheduling_comment' => 'Hier kan een periode ingegeven worden wanneer de redirect beschikbaar is. '
             . 'Alle combinatie data zijn mogelijk.',
         'not_active_warning' => 'Redirect is not available anymore, please check \'Scheduling\' tab.',
     ],
     'test' => [
-        'test_comment' => 'Test uw verwijzing voordat u deze opslaat.',
+        'test_comment' => 'Test uw redirect voordat u deze opslaat.',
         'input_path' => 'Invoer Pad',
         'input_path_comment' => 'Het invoerpad om te testen. Bijvoorbeeld  /oude-blog/category/123',
         'input_path_placeholder' => '/invoer/pad',
         'input_scheme' => 'Invoer schema',
         'test_date' => 'Test Datum',
-        'test_date_comment' => 'Wanneer deze verwijzing ingepland wordt kan deze op een bepaalde datum gestest worden.',
+        'test_date_comment' => 'Wanneer deze redirect ingepland wordt kan deze op een bepaalde datum gestest worden.',
         'testing' => 'Aan het testen...',
         'run_test' => 'Draai Test',
         'no_match_label' => 'Sorry, geen overeenkomst!',
@@ -128,9 +141,9 @@ return [
         'match_success_label' => 'We hebben een overeenkomst!',
     ],
     'test_lab' => [
-        'section_test_lab_comment' => 'Het TestLab maakt het mogelijk om verwijzingen op grote schaal te testen.',
+        'section_test_lab_comment' => 'Het TestLab maakt het mogelijk om redirects op grote schaal te testen.',
         'test_lab_label' => 'In het TestLab insluiten',
-        'test_lab_enable' => 'Schuif deze schakelaar om deze verwijzing in het TestLab te testen.',
+        'test_lab_enable' => 'Schuif deze schakelaar om deze redirect in het TestLab te testen.',
         'test_lab_path_label' => 'Test Pad',
         'test_lab_path_comment' => 'Dit pad zal gebruikt worden wanneer test worden uitgevoerd. '
             . 'Vervang placeholders met echt waardes.',
@@ -138,49 +151,49 @@ return [
         'start_tests_description' => 'Klik de \'Start Testen\' button om te beginnen.',
         'edit' => 'Bewerk',
         'exclude' => 'Sluit uit',
-        'exclude_confirm' => 'Weet u zeker dat u deze verwijzing wilt uitsluiten in het TestLab?',
-        'exclude_indicator' => 'Verwijzing uitsluiten in het TestLab',
+        'exclude_confirm' => 'Weet u zeker dat u deze redirect wilt uitsluiten in het TestLab?',
+        'exclude_indicator' => 'Redirect uitsluiten in het TestLab',
         're_run' => 'Opnieuw-uitvoeren',
         're_run_indicator' => 'Testen aan het uitvoeren, wacht uw even...',
         'loop' => 'Lus',
         'match' => 'Overeenkomst',
         'response_http_code' => 'Response HTTP code',
         'response_http_code_should_be' => 'Response HTTP code zou een van de volgende moeten zijn:',
-        'redirect_count' => 'Verwijzingsaantal',
+        'redirect_count' => 'Redirectsaantal',
         'final_destination' => 'Uiteindelijke bestemming',
-        'no_redirects' => 'Er zijn geen verwijzingen gemarkeerd met met TestLab aan.'
-            . 'Zet de optie \'Voeg aan TestLab toe\' aan wanneer een verwijzing bewerkt wordt.',
-        'test_error' => 'Er ontstond een probleem bij het testen van deze verwijzing.',
+        'no_redirects' => 'Er zijn geen redirects gemarkeerd met met TestLab aan.'
+            . 'Zet de optie \'Voeg aan TestLab toe\' aan wanneer een redirect bewerkt wordt.',
+        'test_error' => 'Er ontstond een probleem bij het testen van deze redirect.',
         'flash_test_executed' => 'De test is uitgevoerd.',
-        'flash_redirect_excluded' => 'De verwijzing is van het TestLab uitgesloten en zal niet verschijnen wanneer de volgende test uitgevoerd wordt.',
+        'flash_redirect_excluded' => 'De redirect is van het TestLab uitgesloten en zal niet verschijnen wanneer de volgende test uitgevoerd wordt.',
         'result_request_failed' => 'Kan de aanvraag niet uitvoeren..',
-        'redirects_followed' => 'Het aantal gevolgde verwijzingen: :count (gelimiteerd tot :limit)',
+        'redirects_followed' => 'Het aantal gevolgde redirects: :count (gelimiteerd tot :limit)',
         'not_determinate_destination_url' => 'Kan de finale bestemmings URL niet vaststellen..',
         'no_destination_url' => 'Geen finale bestemmings URL.',
         'final_destination_is' => 'Finale bestemming is: :destination',
-        'possible_loop' => 'Mogelijke verwijzings lus!',
-        'no_loop' => 'Geen verwijzingslus gedetecteerd.',
-        'not_match_redirect' => 'Komt niet overeen met enige verwijzing.',
+        'possible_loop' => 'Mogelijke redirects lus!',
+        'no_loop' => 'Geen redirectslus gedetecteerd.',
+        'not_match_redirect' => 'Komt niet overeen met enige redirect.',
         'matched' => 'Overeenkomstig',
         'redirect' => 'verwijs',
-        'matched_not_http_code' => 'Verwijzing komt overeen maar de HTTP response code komt niet overeen! '
+        'matched_not_http_code' => 'Redirect komt overeen maar de HTTP response code komt niet overeen! '
             . 'Verwachte :expected maar ontving :received.',
-        'matched_http_code' => 'Overeenkomstige verwijzing, response HTTP code :code.',
+        'matched_http_code' => 'Overeenkomstige redirect, response HTTP code :code.',
         'executing_tests' => 'Uitvoeren tests...',
     ],
     'statistics' => [
-        'hits_per_day' => 'Verwijzings treffers per dag',
+        'hits_per_day' => 'Redirects treffers per dag',
         'click_on_chart' => 'Klik op de grafiek om inzoomen en slepen aan te zetten.',
         'requests_redirected' => 'Aanvragen doorverwezen',
         'all_time' => 'vanaf het begin',
-        'active_redirects' => 'Actieve verwijzingen',
-        'redirects_this_month' => 'Verwijzingen deze maand',
+        'active_redirects' => 'Actieve redirects',
+        'redirects_this_month' => 'Redirects deze maand',
         'previous_month' => 'vorige maand',
         'latest_redirected_requests' => 'Laatst doorverwezen aanvraag',
-        'redirects_per_month' => 'Verwijzingen per maand',
+        'redirects_per_month' => 'Redirects per maand',
         'no_data' => 'Geen data',
         'top_crawlers_this_month' => 'Hoogste :top crawlers deze maand',
-        'top_redirects_this_month' => 'Hoogste :top verwijzingen deze maand',
+        'top_redirects_this_month' => 'Hoogste :top redirects deze maand',
     ],
     'title' => [
         'import' => 'Invoer',
@@ -198,15 +211,17 @@ return [
     'buttons' => [
         'add' => 'Toevoegen', // since 2.0.3
         'from_request_log' => 'Van Aanvraag log', // since 2.0.3
-        'new_redirect' => 'Nieuwe verwijzing', // changed since 2.0.3
-        'create_redirects' => 'Maak verwijzingen', // since 2.0.3
-        'create_redirect' => 'Maak verwijzing',
+        'new_redirect' => 'Nieuwe redirect', // changed since 2.0.3
+        'create_redirects' => 'Maak redirects', // since 2.0.3
+        'create_redirect' => 'Maak redirect',
+        'create_and_new' => 'Maken en nieuw',
         'delete' => 'Verwijderen',
-        'enable' => 'Aan',
-        'disable' => 'Uit',
+        'enable' => 'Inschakelen',
+        'disable' => 'Uitschakelen',
         'reorder_redirects' => 'Herschikken',
         'export' => 'Uitvoer',
         'import' => 'Invoer',
+        'settings' => 'Instellingen',
         'categories' => 'Categorieën',
         'new_category' => 'Nieuwe category',
         'reset_statistics' => 'Herstel statistieken',
@@ -214,6 +229,9 @@ return [
         'empty_redirect_log' => 'Leeg redirect log',
         'clear_cache' => 'Leeg cache',
         'stop' => 'Stop',
+        'reset_all' => 'Alle statistische informatie wissen',
+        'all_redirects' => 'van alle redirects',
+        'bulk_actions' => 'Bulk acties',
     ],
     'tab' => [
         'tab_general' => 'Algemeen',
@@ -228,7 +246,11 @@ return [
         'static_page_redirect_not_supported' => 'Deze redirect kan niet bewerkt worden. RainLab.Pages Plugin is vereist.',
         'truncate_success' => 'Alle items zijn succesvol verwijderd.',
         'delete_selected_success' => 'De geselecteerde items zijn succesvol verwijderd.',
-        'cache_cleared_success' => 'Cache met verwijzingen succesvol geleegd.',
+        'cache_cleared_success' => 'Cache met redirects succesvol geleegd.',
+        'statistics_reset_success' => 'Alle statistische informatie is gewist',
+        'enabled_all_redirects_success' => 'Alle redirects zijn ingeschakeld',
+        'disabled_all_redirects_success' => 'All redirects zijn uitgeschakeld',
+        'deleted_all_redirects_success' => 'All redirects zijn verwijderd',
     ],
     'import_export' => [ // TODO
         'match_type' => 'Match Type [match_type] (Allowed values: exact, placeholders)',

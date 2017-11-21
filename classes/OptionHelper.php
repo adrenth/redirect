@@ -1,4 +1,16 @@
 <?php
+/**
+ * OctoberCMS plugin: Adrenth.Redirect
+ *
+ * Copyright (c) Alwin Drenth 2017.
+ *
+ * Licensing information:
+ * https://octobercms.com/help/license/regular
+ * https://octobercms.com/help/license/extended
+ * https://octobercms.com/help/license/faqs
+ */
+
+declare(strict_types=1);
 
 namespace Adrenth\Redirect\Classes;
 
@@ -21,7 +33,7 @@ class OptionHelper
      * @param int $statusCode
      * @return array
      */
-    public static function getTargetTypeOptions($statusCode)
+    public static function getTargetTypeOptions($statusCode): array
     {
         if ($statusCode === 404 || $statusCode === 410) {
             return [
@@ -41,7 +53,7 @@ class OptionHelper
      *
      * @return array
      */
-    public static function getCmsPageOptions()
+    public static function getCmsPageOptions(): array
     {
         return ['' => '-- ' . trans('adrenth.redirect::lang.redirect.none') . ' --' ] + Page::getNameList();
     }
@@ -51,7 +63,7 @@ class OptionHelper
      *
      * @return array
      */
-    public static function getStaticPageOptions()
+    public static function getStaticPageOptions(): array
     {
         $options = ['' => '-- ' . trans('adrenth.redirect::lang.redirect.none') . ' --' ];
 
@@ -78,7 +90,7 @@ class OptionHelper
      *
      * @return array
      */
-    public static function getCategoryOptions()
+    public static function getCategoryOptions(): array
     {
         return (array) Category::all(['id', 'name'])->lists('name', 'key');
     }
