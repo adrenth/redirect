@@ -107,3 +107,4 @@
 3.15.0: Improve code and redirect handling logic
 3.16.0: Add X-Redirect-By header to identify redirects handled by this plugin
 4.0.0: !!! New major version optimized for PHP7 and OctoberCMS build 428+
+4.0.1: Fix issue to support older MySQL versions (thanks hauserj22885)

@@ -35,7 +35,7 @@ class CreateRedirectsTable extends Migration
             $table->string('match_type', '12');
             $table->string('from_url');
             $table->string('to_url');
-            $table->json('requirements')
+            $table->text('requirements')
                 ->nullable();
             $table->char('status_code', 3);
             $table->integer('hits')
