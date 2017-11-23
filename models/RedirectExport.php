@@ -37,6 +37,8 @@ class RedirectExport extends ExportModel
      */
     public function exportData($columns, $sessionKey = null): array
     {
-        return self::make()->get()->toArray();
+        return self::make()
+            ->get()
+            ->toArray();
     }
 }
