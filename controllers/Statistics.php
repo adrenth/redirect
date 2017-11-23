@@ -40,10 +40,10 @@ class Statistics extends Controller
 
         $this->pageTitle = 'adrenth.redirect::lang.title.statistics';
 
-        $this->addJs('https://cdnjs.cloudflare.com/ajax/libs/vis/4.18.1/vis.min.js');
+        $this->addJs('https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.min.js');
         $this->addJs('/plugins/adrenth/redirect/assets/javascript/statistics.js');
 
-        $this->addCss('https://cdnjs.cloudflare.com/ajax/libs/vis/4.18.1/vis.min.css');
+        $this->addCss('https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.min.css');
         $this->addCss('/plugins/adrenth/redirect/assets/css/statistics.css');
 
         $this->helper = new StatisticsHelper();
