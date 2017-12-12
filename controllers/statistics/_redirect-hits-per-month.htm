@@ -5,7 +5,7 @@
             <?php foreach ($redirectHitsPerMonth as $key => $record): ?>
             <li>
                 <span class="status-icon info"><?= $key + 1 ?></span>
-                <span class="status-text"><?= date('F', mktime(0, 0, 0, $record['month'])) ?> <?= $record['year'] ?></span>
+                <span class="status-text"><?= date('F', mktime(0, 0, 0, (int) $record['month'])) ?> <?= $record['year'] ?></span>
                 <span class="status-label"><?= number_format($record['hits'], 0, null, '.') ?></span>
             </li>
             <?php endforeach; ?>
