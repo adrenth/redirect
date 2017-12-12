@@ -17,6 +17,7 @@ namespace Adrenth\Redirect\Controllers;
 use Adrenth\Redirect\Classes\StatisticsHelper;
 use BackendMenu;
 use Backend\Classes\Controller;
+use SystemException;
 
 /**
  * Class Statistics
@@ -69,17 +70,17 @@ class Statistics extends Controller
 
         foreach ($crawlerHits as $hit) {
             $data[] = [
-                'x' => date('Y-m-d', mktime(0, 0, 0, $hit['month'], $hit['day'], $hit['year'])),
+                'x' => date('Y-m-d', mktime(0, 0, 0, (int) $hit['month'], (int) $hit['day'], (int) $hit['year'])),
                 'y' => (int) $hit['hits'],
                 'group' => 0
             ];
         }
 
-        $notCrawlerHits = $this->helper->getRedirectHitsPerDay(false);
+        $notCrawlerHits = $this->helper->getRedirectHitsPerDay();
 
         foreach ($notCrawlerHits as $hit) {
             $data[] = [
-                'x' => date('Y-m-d', mktime(0, 0, 0, $hit['month'], $hit['day'], $hit['year'])),
+                'x' => date('Y-m-d', mktime(0, 0, 0, (int) $hit['month'], (int) $hit['day'], (int) $hit['year'])),
                 'y' => (int) $hit['hits'],
                 'group' => 1
             ];
@@ -91,6 +92,7 @@ class Statistics extends Controller
 
     /**
      * @return array
+     * @throws SystemException
      */
     public function index_onLoadTopRedirectsThisMonth(): array
     {
@@ -103,6 +105,7 @@ class Statistics extends Controller
 
     /**
      * @return array
+     * @throws SystemException
      */
     public function index_onLoadTopCrawlersThisMonth(): array
     {
@@ -115,6 +118,7 @@ class Statistics extends Controller
 
     /**
      * @return array
+     * @throws SystemException
      */
     public function index_onLoadRedirectHitsPerMonth(): array
     {
@@ -127,6 +131,7 @@ class Statistics extends Controller
 
     /**
      * @return array
+     * @throws SystemException
      */
     public function index_onLoadScoreBoard(): array
     {
