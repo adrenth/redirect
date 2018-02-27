@@ -10,8 +10,6 @@ This is the best Redirect-plugin for October CMS. With this plugin installed you
 
 This plugin adds a 'Redirects' section to the main menu of October CMS. This plugin has a unique and fast matching algorithm to match your redirects before your website is being rendered.
 
-!![560x315](//www.youtube.com/embed/R1s7yEEKrgA)
-
 ## DEMO
 
 http://demo.alwindrenth.nl/backend
