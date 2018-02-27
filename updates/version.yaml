@@ -110,3 +110,4 @@
 4.0.1: Fix issue to support older MySQL versions (thanks hauserj22885)
 4.0.2: Improve Dutch (nl) translation and update vis.js dependency
 4.0.3: Fixes type error; mktime() expects parameter 4 to be integer, string given
+4.1.0: Update plugin license

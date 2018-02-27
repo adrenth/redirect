@@ -2,7 +2,7 @@
     "name": "adrenth/redirect",
     "description": "Advanced redirect plugin for October CMS",
     "type": "october-plugin",
-    "license": "proprietary",
+    "license": "MIT",
     "authors": [
         {
             "name": "Alwin Drenth",
