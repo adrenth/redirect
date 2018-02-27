@@ -4,7 +4,7 @@
 
 This is the best Redirect-plugin for October CMS. With this plugin installed you can manage redirects directly from October CMS' beautiful interface. Many webmasters and SEO specialists use redirects to optimise their website for search engines. This plugin allows you to manage such redirects with a nice and user-friendly interface.
 
-> **This plugin is fully compatible with OctoberCMS build 428+.** This is a new optimised version for PHP 7.0. PHP5 is not supported as of version 4.
+> **This plugin is fully compatible with OctoberCMS build 434+.** This is a new optimised version for PHP 7.0. PHP5 is not supported as of version 4.
 
 ## What does this plugin offer?
 
@@ -17,6 +17,7 @@ This plugin adds a 'Redirects' section to the main menu of October CMS. This plu
 http://demo.alwindrenth.nl/backend
 
 Username: `demo`
+
 
 Password: `demo`
 
@@ -95,7 +96,7 @@ This plugin makes advantage of the `symfony/routing` package. So if you need mor
 
 ## Contribution
 
-If you like this plugin translated to your language, please contribute. The repository for the language files can be found here: https://github.com/adrenth/redirect-lang
+Please feel free to [contribute](https://github.com/adrenth/redirect) to this awesome plugin. 
 
 ## Questions? Need help?
 
@@ -107,7 +108,7 @@ Alwin Drenth -- *Author of the Redirect plugin*
 
 ---
 
-> If you love this quality plugin as much as I do, please **rate my plugin**, [contribute](https://github.com/adrenth/redirect-lang) or consider a [PayPal donation](https://www.paypal.me/adrenth) to support this plugin and my other quality October CMS plugins.
+> If you love this quality plugin as much as I do, please [**rate my plugin**](http://octobercms.com/plugin/adrenth-redirect), or consider a donation to support this plugin and my other quality October CMS plugins. Donate to [PayPal](https://www.paypal.me/adrenth) or donate BitCoin to `1KowxskQEFLh7PUFeWxtPp1JMzH42bseaD`.
 
 ---
 
