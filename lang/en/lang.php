@@ -101,7 +101,7 @@ return [
         'none' => 'none',
         'enabled_comment' => 'Flick this switch to enable this redirect.',
         'priority' => 'Priority',
-        'hits' => 'Hits',
+        'hits' => '# Hits',
         'return_to_redirects' => 'Return to redirects list',
         'return_to_categories' => 'Return to categories list',
         'delete_confirm' => 'Are you sure?',
@@ -123,6 +123,7 @@ return [
         'cache_warning' => 'You have enabled caching but your caching driver is not supported. '
             . 'Redirects will not be cached.',
         'general_confirm' => 'Are you sure you want to do this?',
+        'sparkline_30d' => 'Hits (30d)',
     ],
     'list' => [
         'no_records' => 'There are no redirects in this view.',

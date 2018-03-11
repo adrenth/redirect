@@ -136,6 +136,28 @@ class StatisticsHelper
     }
 
     /**
+     * Gets the data for the 30d sparkline graph.
+     *
+     * @param int $redirectId
+     * @return array
+     */
+    public function getRedirectHitsSparkline(int $redirectId): array
+    {
+        $startDate = Carbon::now()->subMonth();
+
+        /** @noinspection PhpMethodParametersCountMismatchInspection */
+        $result = Client::selectRaw('COUNT(id) AS hits')
+            ->where('redirect_id', '=', $redirectId)
+            ->groupBy('day', 'month', 'year')
+            ->orderByRaw('year ASC, month ASC, day ASC')
+            ->where('timestamp', '>=', $startDate->toDateTimeString())
+            ->get(['hits'])
+            ->toArray();
+
+        return array_flatten($result);
+    }
+
+    /**
      * @return array
      */
     public function getRedirectHitsPerMonth(): array
