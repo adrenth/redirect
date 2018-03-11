@@ -27,8 +27,8 @@ declare(strict_types=1);
 namespace Adrenth\Redirect\Controllers;
 
 use Adrenth\Redirect\Classes\StatisticsHelper;
-use BackendMenu;
 use Backend\Classes\Controller;
+use BackendMenu;
 use SystemException;
 
 /**

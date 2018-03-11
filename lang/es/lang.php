@@ -123,6 +123,8 @@ return [
         'warning' => 'Warning', // TODO
         'cache_warning' => 'You have enabled caching but your caching driver is not supported. ' // TODO
             . 'Redirects will not be cached.',
+        'general_confirm' => 'Are you sure you want to do this?', // TODO
+        'sparkline_30d' => 'Hits (30d)', // TODO
     ],
     'list' => [
         'no_records' => 'No hay redirecciones en esta vista.',

@@ -123,6 +123,7 @@ return [
         'cache_warning' => 'Je hebt caching ingeschakeld maar de cache driver wordt niet ondersteund. '
             . 'Redirects zullen niet worden gecached.',
         'general_confirm' => 'Weet je het zeker?',
+        'sparkline_30d' => 'Treffers (30d)',
     ],
     'list' => [
         'no_records' => 'Er zijn geen redirects in dit beeld.',

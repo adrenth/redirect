@@ -24,6 +24,12 @@ columns:
     hits:
         label: adrenth.redirect::lang.redirect.hits
         type: number
+    sparkline:
+        label: adrenth.redirect::lang.redirect.sparkline_30d
+        sortable: false
+        searchable: false
+        cssClass: column-button
+        type: partial
     sort_order:
         label: adrenth.redirect::lang.redirect.priority
     is_enabled:

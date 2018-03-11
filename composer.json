@@ -11,6 +11,7 @@
     ],
     "require": {
         "jaybizzle/crawler-detect": "^1.2",
-        "symfony/stopwatch": "^3.2"
+        "symfony/stopwatch": "^3.2",
+        "davaxi/sparkline": "^1.1"
     }
 }

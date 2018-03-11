@@ -111,3 +111,6 @@
 4.0.2: Improve Dutch (nl) translation and update vis.js dependency
 4.0.3: Fixes type error; mktime() expects parameter 4 to be integer, string given
 4.1.0: Update plugin license
+4.2.0:
+    - Add statistics sparkline graphs to redirects list view
+    - 420_01_AddRedirectTimestampIndexToClientsTable.php
